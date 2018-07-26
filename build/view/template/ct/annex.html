@@ -1,0 +1,103 @@
+
+<app-head></app-head>
+<app-left-column class="disnone"></app-left-column>
+
+<!--附件（项目详情）-->
+<div class="pb55 pt65">
+    <div class="pl15 pr18 pt15 pb15">
+        <!--顶部关注-->
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+
+            <div class="c-csrbdt pt25 col-md-7 col-lg-7 col-sm-7 ">
+                <top-information listtop="{{listtop}}"></top-information>
+                <div class="mt18 j-BtnDiv clearfix">
+                    <attention list="{{list}}"></attention>
+                    <delete-project list="{{list}}"></delete-project>
+                </div>
+            </div>
+            <right-information listtop="{{listtop}}"></right-information>
+        </div>
+        <!--7个格子-->
+        <table class="table table-bordered bg3 mt15">
+            <tbody class="tc c0">
+            <tr class="h40  tc lh40 bgf c6" align="justify">
+                <td class=""><a href="#/itemDetails?projectid={{projectId}}"  title="总览" class="j-blur-a j-blur-as maincolor">&nbsp;&nbsp;&nbsp;总览&nbsp;&nbsp;&nbsp;</a>
+                </td>
+                <td class=""><a href="#/itemInformation?projectid={{projectId}}" title="基本信息"
+                                class="j-blur-a j-blur-as ">基本信息</a></td>
+                <td class=""><a href="#/projectProcessInformation?projectid={{projectId}}" title="流程进度信息" class="j-blur-a j-blur-as">流程进度信息</a></td>
+                <td class=""><a href="#/propertyInformation?projectid={{projectId}}" title="物业信息" class="j-blur-a j-blur-as">物业信息</a></td>
+                <td class=""><a href="#/projectcompensationRules?projectid={{projectId}}" title="拆迁补偿规则" class="j-blur-a j-blur-as ">拆迁补偿规则</a>
+                </td>
+                <td class=""><a href="#/financialsettlement?projectid={{projectId}}" title="财务结算项目设置" class="j-blur-a j-blur-as ">财务结算项目设置</a>
+                </td>
+                <td class=""><a href="#/projectcommissionrelease?projectid={{projectId}}" title="佣金发放规则" class="j-blur-a j-blur-as ">佣金发放规则</a></td>
+                <td class=""><a href="#/annex?projectid={{projectId}}"  title="附件" class="j-blur-a j-blur-as" style="color: #337ab7;">附件</a></td>
+                <td class=""><a href="#/projectupdaterecord?projectid={{projectId}}"  title="修改记录" class="j-blur-a j-blur-as">修改记录</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <!--下面主体-->
+        <div class="mt30 mb20 clearfix">
+            <h6 class="fs18 c3  fl">附件 共{{length?length:0}}个</h6>
+            <div class="right">
+                 <span class="btn btn-info fileinput-button radius5 ">
+                     <span>添加附件</span>
+                          <input ng-file-select="addannex($files)" type="file" multiple/>
+                     </span>
+            </div>
+        </div>
+        <div class="back-white c-bordere6 clearfix">
+            <div class="l-managetable ">
+                <table class="l-tablebox l-ruletab" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th>文件名</th>
+                        <th>文件大小</th>
+                        <th>上传时间</th>
+                        <th>上传人</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="data in data">
+                        <td><a href="{{hostname+data.fileUrl}}" target="_blank">{{data.fileName}}</a></td>
+                        <td ng-bind="data.fileSize"></td>
+                        <td ng-bind="data.createTime|date:'yyyy-MM-dd HH:MM:ss'"></td>
+                        <td ng-bind="data.realname"></td>
+                        <td class="l-tablelink">
+                            <a href="{{link}}" ng-click="downloadprojectfile(data.id)">下载</a>
+                            <!--<a href="">重新上传</a>-->
+                            <a ng-click="deletefifle(data.id)">删除</a>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <!--<input type="file" id="file" name="file"-->
+               <!--ng-model="picFile"-->
+               <!--accept="image/jpeg,image/png,image/jpg" ngf-select-->
+               <!--onchange="handleConFiles(this.files)">-->
+        <!--<button ng-click="uploadPic()">Submit</button>-->
+        <!--<form name="myForm" ng-controller="MyCtrl">-->
+            <!--<fieldset>-->
+                <!--<legend>Upload on form submit</legend>-->
+                <!--&lt;!&ndash;用户名: <input type="text" name="userName" ng-model="username" size="39" required>&ndash;&gt;-->
+                <!--&lt;!&ndash;<i ng-show="myForm.userName.$error.required">*required</i><br>&ndash;&gt;-->
+                <!--上传图片: <input type="file" ngf-select ng-model="picFile" name="file" ngf-accept="'image/*'" required>-->
+                <!--<i ng-show="myForm.file.$error.required">*必须上传图片</i>-->
+                <!--<br/>-->
+
+                <!--<button ng-disabled="!myForm.$valid" ng-click="uploadPic(picFile)">Submit</button>-->
+                <!--<img ngf-src="picFile" class="thumb">-->
+                <!--<span class="progress" ng-show="picFile.progress >= 0">-->
+                  <!--<div style="width:{{picFile.progress}}%" ng-bind="picFile.progress + '%'"></div>-->
+              <!--</span>-->
+                <!--<span ng-show="picFile.result">Upload Successful</span>-->
+            <!--</fieldset>-->
+            <!--<br/>-->
+        <!--</form>-->
+    </div>
+
+</div>
+<app-foot></app-foot>
+
+

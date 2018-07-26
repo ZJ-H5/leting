@@ -1,0 +1,183 @@
+<app-head></app-head>
+<div app-left></div>
+<div class="l-rightsider pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">{{projectname}}</a>
+            <a class=" left fs18 c6 mr35 pl5">全部物业</a>
+            <span class="c-csrbdtasp left fs14 c6 ml20 mt5">共{{total}}个</span>
+        </div>
+        <div class="c-csrbdb mt20 clearfix">
+            <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="#/propertyManagement?projectid={{projectId}}">按区域展示物业</a>
+
+            <attention list="{{list}}" class="mr20"></attention>
+            <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left ml20" href="javascript:;" ng-click="allotrole()">批量删除</a>
+            <!-- <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left ml20" href="javascript:;"
+               ng-click="gcShowWin(true)">转移</a> -->
+            <!-- <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="javascript:;"
+               ng-click="gcShowWin(false)">共享</a> -->
+            <div class="c-csrbdinp right clearfix">
+                <i class="c-iconfont mt8 ml10 left curpoi" ng-click="searchInput()"></i>
+                <input class="ml10 left" type="text" placeholder="请输入房产名称/权利人" ng-model="projectnameinput">
+            </div>
+        </div>
+        <div class="c-csrbdc mt20">
+            <p class="c-csrbdcpa pl30 fs16 c3">筛选</p>
+            <p class="fs14 c6 pl30 clearfix">
+                <span class="left">签约进度：</span>
+                <span class="left ml45 relative">
+                    <input class=" c-csrbdcinp c-htcbox c-allcheacked" type="checkbox" name="area" ng-click="selectedAll('area')" value="">全部
+                </span>
+                <span class="left ml45 relative" ng-repeat="index in nodeSign">
+                    <input class=" c-csrbdcinp c-htcbox c-allcheacked" type="checkbox" name="area" id="{{index.id}}" ng-click="doChange('area','areas')"
+                        value="">
+                    <span ng-bind="index.name"></span>
+                </span>
+            </p>
+            <p class="c-wygltp fs14 c6 pl30 clearfix">
+                <span class="left">区域：</span>
+                <span class="left ml45 relative">
+                    <input class=" c-csrbdcinp c-htcbox" type="radio" name="nodeIds" ng-model="nodeId" value=""  ng-checked="true" ng-click="radios(nodeId,1)"
+                    />全部
+                </span>
+                <span class="left ml45 relative" ng-repeat="item in porpertyConditions ">
+                    <input class="c-csrbdcinp c-htcbox" type="radio" name="nodeIds" value="nodeId" id="{{item.id}}" ng-model="nodeId" ng-click="radios(item.id,1)">{{item.category}}
+                </span>
+            </p>
+            <!--  -->
+            <!-- <p class="fs14 c6 pl30 clearfix bgf" ng-if="firstradio" >
+                <span class="left ml45 relative"  ng-repeat="i in firstradio">
+                    <input class="c-csrbdcinp c-htcbox" type="radio" name="firstradio" value="" ng-click="radios(i.id,2)">{{i.name}}
+                </span>
+            </p>
+            <p class="fs14 c6 pl30 clearfix c-wygltp" ng-if="seccendradio" >
+                <span class="left ml45 relative"  ng-repeat="i in seccendradio">
+                    <input class="c-csrbdcinp c-htcbox" type="radio" name="seccendradio" value="" ng-click="radios(i.id,3)">{{i.name}}
+                </span>
+            </p>
+            <p class="fs14 c6 pl30 clearfix bgf" ng-if="threeradio" >
+                <span class="left ml45 relative"  ng-repeat="i in threeradio">
+                    <input class="c-csrbdcinp c-htcbox" type="radio" name="threeradio" value="" ng-click="radios(i.id,4)">{{i.name}}
+                </span>
+            </p>
+            <p class="fs14 c6 pl30 clearfix c-wygltp" ng-if="fourradio" >
+                <span class="left ml45 relative"  ng-repeat="i in fourradio">
+                    <input class="c-csrbdcinp c-htcbox" type="radio" name="fourradio" value="" ng-click="radios(i.id,5)">{{i.name}}
+                </span>
+            </p>
+            <p class="fs14 c6 pl30 clearfix bgf" ng-if="fiveradio" >
+                <span class="left ml45 relative"  ng-repeat="i in fiveradio">
+                    <input class="c-csrbdcinp c-htcbox" type="radio" name="fiveradio" value="" ng-click="radios(i.id,6)">{{i.name}}
+                </span>
+            </p>
+            <p class="fs14 c6 pl30 clearfix c-wygltp" ng-if="sixradio" >
+                <span class="left ml45 relative"  ng-repeat="i in sixradio">
+                    <input class="c-csrbdcinp c-htcbox" type="radio" name="sixradio" value="" ng-click="radios(i.id,7)">{{i.name}}
+                </span>
+            </p> -->
+            <p class="fs14 c6 pl30 clearfix c-wygltp">
+                <span ng-if="firstradio.length>0?true:false">
+                    <select class="c-adfylisl mt5 select select3 mr20" style="width:160px" ng-options="indx.id as indx.name for indx in firstradio"
+                        ng-model="indx.id" ng-change="radios(indx.id,2)">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+
+                <span ng-if="seccendradio.length>0?true:false">
+                    <select class="c-adfylisl mt5 select select3 mr20" style="width:160px" ng-options="indx.id as indx.name for indx in seccendradio"
+                        ng-model="indx.id" ng-change="radios(indx.id,3)">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span ng-if="threeradio.length>0?true:false">
+                    <select class="c-adfylisl mt5 select select3 mr20" style="width:160px" ng-options="indx.id as indx.name for indx in threeradio"
+                        ng-model="indx.id" ng-change="radios(indx.id,4)">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+
+            </p>
+
+        </div>
+
+        <div class="l-managetable mt20" ng-if="datas.length>0?true:false">
+            <table class="l-tablebox h-tablebox fs13 " cellpadding="0" cellspacing="0" width="100%">
+                <tbody>
+                    <tr class="h50 born hbtntr hbtntrs l-tablebox h-tablebox">
+                        <th class="zjm-w6">
+                            <span class="h-xtszse relative">
+                                <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox" name="areas" ng-model="selectAll" ng-click="checkAll(selectAll)">
+                                <i class="c-htcboxin c-iconfont"></i>
+                            </span>
+                        </th>
+                        <th>区域</th>
+                        <th>房源地址</th>
+                        <th>权利人</th>
+                        <th>更新代表</th>
+                        <th>总建筑面积</th>
+                        <!--<th>住宅</th>-->
+                        <!--<th>擅改商业</th>-->
+                        <!--<th>临建</th>-->
+                        <!--<th>违建</th>-->
+                        <th>进展情况</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="item in datas">
+                    <td class="zjm-w6">
+                            <span class="h-xtszse relative">
+                                    <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox"  
+                                    name="areas" 
+                                    ng-model="item.status" 
+                                    ng-click="check(item.status,$index)" >
+                                    <i class="c-htcboxin c-iconfont"></i>
+                            </span>
+                        </td>
+                        <td>{{item.category}}</td>
+                        <td>
+                            <a href="#/propertyDetail?roomId={{item.id}}&projectid={{projectId}}" ng-click="applypact($index)">{{item.splitJointName||''}}{{item.code||''}}{{item.address||''}}</a>
+                        </td>
+                        <td>{{item.holderName||nos}}</td>
+                        <!-- <td>{{item.realname||nos}}</td> -->
+                        <td>
+                            <a ng-mouseenter="show = true;queryEventDesc(i.id,$index)" ng-mouseleave="show = false">{{item.realname||nos}}</a>
+                            <!--鼠标hover事件-->
+                            <div class="pos-abs bgf p5 fs12" ng-if="show"  style="border: 1px solid #337ab7; left:60%;z-index:9998;border-radius:10px; box-shadow:2px 2px 2px #ccc;">
+                                <span class="fl pl0 mr20 ml10">
+                                    <!-- <span ng-bind="EventDesc.realname||nos"></span>:  <span ng-bind="EventDesc.eventDesc||nos"></span> -->
+                                    <span ng-bind="item.soRealname||nos"></span>
+                                </span>
+                                <!-- <span class="fr pr8">
+                                     <span  ng-bind="EventDesc.startDate|date:'yyyy-MM-dd HH:mm'"></span>-<span ng-bind="i.endDate|date:'HH:mm'"></span>
+                                </span> -->
+                            </div>
+                        </td>
+                        <td>{{item.grossArea?(item.grossArea+'m²'):nos}}</td>
+                        <!--<td>{{item.houseArea?(item.houseArea+'m²'):nos}}</td>-->
+                        <!--<td>{{item.commerceArea?(item.commerceArea+'m²'):nos}}</td>-->
+                        <!--<td>{{item.interimArea?(item.interimArea+'m²'):nos}}</td>-->
+                        <!--<td>{{item.violateArea?(item.violateArea+'m²'):nos}}</td>-->
+                        <td>{{item.name||nos}}</td>
+                        <td class="l-tablelink">
+                            <a ng-click="dataFollowUp(item.id)">跟进</a>
+                            <a href="#/propertyDetail?roomId={{item.id}}&projectid={{projectId}}" ng-click="applypact($index)">查看</a>
+                            <a href="javascript:void(0);" ng-click="dopropertyDelete(item.id)">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="l-page fs12 tr pt20 pb30 lh30">
+            <div ui-pagination conf="conf"></div>
+        </div>
+        <div class="lh55 tc l-managetable mt20" ng-if="datas.length>0?false:true">
+            暂无物业数据
+        </div>
+    </div>
+
+
+    <!--添加跟进信息-->
+    <follow listtop="{{listtop}}" action="action" my-follow="myajax()" my-location="mylocation()"></follow>
+    <!--转移和共享-->
+    <transfer listtop="{{listtop}}" transferclick="transferclick"></transfer>
+</div>

@@ -1,0 +1,474 @@
+<app-head></app-head>
+<div app-left></div>
+<div class="l-rightsider pb55">
+    <div class="pl15 pr18 pt15 ha pb15">
+        <!--顶部关注-->
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <top-pact-information list="{{list}}" pacts="pacts"></top-pact-information>
+        </div>
+        <!--10个格子-->
+        <table class="table table-bordered bg3 mt15">
+            <tbody class="tc c0">
+                <tr class="h40  tc lh40 bgf c6" align="justify">
+                    <td class="">
+                        <a href="#/propertyDetail?roomId={{roomId}}&projectid={{projectId}}" title="总览" class=" j-blur-a j-blur-as ">&nbsp;&nbsp;&nbsp;总览&nbsp;&nbsp;&nbsp;</a>
+                    </td>
+                    <td class="">
+                        <a href="#/BasicInformationPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="基本信息" class=" j-blur-a j-blur-as">基本信息</a>
+                    </td>
+                    <td class="">
+                        <a href="#/surveyingInformation?roomId={{roomId}}&projectid={{projectId}}" title="测绘信息" class=" j-blur-a j-blur-as ">测绘信息</a>
+                    </td>
+                    <td class="">
+                        <a href="#/compensateProperty?roomId={{roomId}}&projectid={{projectId}}" title="补偿方案" class=" j-blur-a j-blur-as" style="color: #4ea4df;">补偿方案</a>
+                    </td>
+                    <td class="">
+                        <a href="#/PropertyManagementPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="业权人" class=" j-blur-a j-blur-as">业权人</a>
+                    </td>
+                    <td class="">
+                        <a href="#/checkingFalse?roomId={{roomId}}&projectid={{projectId}}" title="查违信息" class=" j-blur-a j-blur-as">查违信息</a>
+                    </td>
+                    <td class="">
+                        <a href="#/LostPropertyManagementPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="关联物业" class=" j-blur-a j-blur-as">关联物业</a>
+                    </td>
+                    <td class="">
+                        <a href="#/enclosure?roomId={{roomId}}&projectid={{projectId}}" title="附件" class=" j-blur-a j-blur-as">&nbsp;&nbsp;&nbsp;附件&nbsp;&nbsp;&nbsp;</a>
+                    </td>
+                    <td class="">
+                        <a href="#/amendantRecord?roomId={{roomId}}&projectid={{projectId}}" title="修改记录" class=" j-blur-a j-blur-as">修改记录</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--下面主体-->
+        <div class="clearfix">
+            <h6 class="fs16 c0 mt24 mb20 fl">拆赔方案</h6>
+            <span class="fr" ng-show="(pacts=='2'||!pacts)?true:false">
+                <a ng-show="topData.length<=0&&bottomData.length<=0" href="javascript:;" class="dis-inlBlo wa h30 mt18 bg4da3de brrad8 lh30 tc cf pl10 pr10 ml10"
+                    ng-click="addlis()">添加补偿方案</a>
+                <button ng-show="topData.length>0||bottomData.length>0" href="javascript:;" class="dis-inlBlo wa h30 mt18 bg4da3de brrad8 lh30 tc cf pl10 pr10 ml10"
+                    ng-click="update()" ng-bind="disableds===true?'编缉':'编缉'"></button>
+                <button ng-show="topData.length>0||bottomData.length>0" href="javascript:;" class="dis-inlBlo wa h30 mt18 bg4da3de brrad8 lh30 tc cf pl10 pr10 ml10"
+                    ng-click="Detail()">删除</button>
+                
+            </span>
+            <a ng-show="topData.length>0||bottomData.length>0" ng-href="{{print}}"  class="fr dis-inlBlo wa h30 mt18 bg4da3de brrad8 lh30 tc cf pl10 pr10 ml10"
+                >导出</a>
+
+
+        </div>
+
+
+        <div class="printhtml">
+            <table class="table table-bordered j-tablemar">
+                <tbody class="tc c0">
+                    <tr class="h40 va bge3f5ff">
+                        <td rowspan="{{topData.length+1}}" class="w170 bgcae9fa table-middle table-middles">
+                            主体建筑产权置换
+                        </td>
+                        <td class="" colspan="2">
+                            <b>置换类型</b>
+                        </td>
+                        <td class="">
+                            <b>置换面积（㎡）</b>
+                        </td>
+                        <td class="">
+                            <b>置换比例（%）</b>
+                        </td>
+                        <td class="">
+                            <b>还建面积（㎡）</b>
+                        </td>
+                        <td class="">
+                            <b>还建类型</b>
+                        </td>
+                        <td class="">
+                            <b>还建期数</b>
+                        </td>
+                    </tr>
+
+                    <tr class="h40 c6 bgf" ng-repeat="i in topData">
+                        <td ng-bind="i.programmeValue?i.programmeValue:no"></td>
+                        <td ng-bind="i.subtypeName?i.subtypeName:no"></td>
+
+                        <td ng-bind="i.area"></td>
+                        <td ng-bind="i.replacementRatio"></td>
+                        <td ng-bind="i.builtInArea"></td>
+
+                        <td ng-bind="i.builtType?i.builtType:no"></td>
+                        <td ng-bind="i.builtInPeriod?i.builtInPeriod:no">
+
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <table class="table table-bordered j-tablemartwo">
+                <tbody class="tc c0">
+                    <tr class="h40 va">
+                        <td rowspan="{{bottomData.length+3}}" class="w170 bgcae9fa h240 table-middle table-middles" scope="row">
+                            货币补偿
+                        </td>
+                        <td class="bge3f5ff" colspan="3">
+                            <b>补偿项目</b>
+                        </td>
+                        <td class="bge3f5ff">
+                            <b>补偿面积（㎡）</b>
+                        </td>
+                        <td class="bge3f5ff">
+                            <b>补偿标准（元）</b>
+                        </td>
+                        <td class="bge3f5ff">
+                            <b>补偿金额（元）</b>
+                        </td>
+                    </tr>
+                    <tr class="h40 c6 bgf" ng-repeat="i in bottomData">
+                        <td>
+                            <span ng-bind="i.programmeName?i.programmeName:no"></span>&nbsp;&nbsp;
+                            <!-- <span ng-bind="(i.status=='1' && i.isRestricted=='1')?'(限定)':''"></span> -->
+                            <span ng-bind="(i.status=='1' && i.isRestricted=='1')?'':''"></span>
+                        </td>
+                        <td ng-bind="i.programmeValue?i.programmeValue:no"></td>
+                        <td ng-bind="i.subtypeName?i.subtypeName:no"></td>
+                        <td>
+                            <span ng-bind="i.area"></span>
+                            <!-- <span ng-bind="i.disablessss===true?'(限定)':''"></span> -->
+                            <span ng-bind="i.disablessss===true?'':''"></span>
+                        </td>
+                        <td>
+                            <span ng-bind="i.compensatePrice"></span>
+                            <span ng-bind="i.priceMode=='0'?'(总价)':'(单价)'"></span>
+                        </td>
+                        <td ng-bind="i.compensationAmount"></td>
+                    </tr>
+
+
+                    <tr class="h40 c6 bgf">
+                        <td colspan="5">货币补偿合计</td>
+                        <td ng-bind="totalMoneyCompensate"></td>
+                    </tr>
+                    <tr class="h40 c6 bgf">
+                        <td colspan="5">每月过渡补偿合计</td>
+                        <td ng-bind="monthlyInterimCompensate"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--补偿方案-->
+
+        <!--编辑补偿方案选项-->
+        <div class="dialog addlis">
+            <div class="dialog-bg"></div>
+            <div class="dialog-cont w754 radius    hop-cont">
+                <div class="back-white">
+                    <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                        <em class="left fs18 c3">补偿方案</em>
+                        <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                    </h3>
+                    <span class="hop-bntap disblock pt30 pb50 tc">
+                        <a href="javascript:void(0)" ng-repeat="i in lists" class="hop-save disinblock w410 hoptap radius dialog-close mt20" ng-click="add(i.id,$index)"
+                            ng-bind="i.name"></a>
+                    </span>
+
+                </div>
+            </div>
+        </div>
+
+
+        <!--添加补偿信息-->
+        <div class="dialog addtext">
+            <div class="dialog-bg"></div>
+            <div class="dialog-cont radius    hop-cont">
+                <div class="back-white">
+                    <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                        <em class="left fs18 c3">添加补偿信息</em>
+                        <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                    </h3>
+                    <div class="pt20 pl30 pr30">
+
+                        <div style="height: 500px;overflow:auto;width: 1100px;overflow: scroll;">
+                            <table class="table table-bordered j-tablemar">
+                                <tbody class="tc c0">
+                                    <tr class="h40 va bge3f5ff">
+                                        <td rowspan="{{addtopData.length+1}}" class="w170 bgcae9fa table-middle table-middles">
+                                            主体建筑产权置换
+                                        </td>
+                                        <td class="" colspan="2">
+                                            <b>置换类型</b>
+                                        </td>
+                                        <td class="">
+                                            <b>置换面积（㎡）</b>
+                                        </td>
+                                        <td class="">
+                                            <b>置换比例（%）</b>
+                                        </td>
+                                        <td class="">
+                                            <b>还建面积（㎡）</b>
+                                        </td>
+                                        <td class="">
+                                            <b>还建类型</b>
+                                        </td>
+                                        <td class="">
+                                            <b>还建期数</b>
+                                        </td>
+                                    </tr>
+                                    <tr class="h40 c6 bgf" ng-repeat="i in addtopData">
+                                        <td ng-bind="i.programmeValue?i.programmeValue:no">擅改商业</td>
+                                        <td ng-bind="i.subtypeName?i.subtypeName:no">一楼</td>
+                                        <td class="aac5d8">
+                                            <input class="tc bn outMid aac5d8 c000" type="text" placeholder="请输入..." ng-disabled="i.disabled" ng-model="i.area" onkeyup="if( ! /^-?\d+\.?\d{0,2}$/.test(this.value)){this.value='';}"
+                                                ng-change="topngchanges(i.area,$index)">
+                                        </td>
+                                        <td ng-bind="i.replacementRatio?i.replacementRatio+'%':no"></td>
+                                        <td>
+                                            <input type="text" class="tc" readonly="readonly" ng-model="i.builtInArea" placeholder="自动计算..">
+                                        </td>
+                                        <td ng-bind="i.builtType?i.builtType:no">住宅</td>
+                                        <td class="aac5d8">
+                                            <select name="" class="aac5d8" ng-options="i.name as i.name for i in selectval" ng-model="i.builtInPeriod" ng-change="topSelect(i.builtInPeriod,$index)">
+                                                <option value="">请选择</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <table class="table table-bordered j-tablemartwo">
+                                <tbody class="tc c0">
+                                    <tr class="h40 va">
+                                        <td rowspan="{{addbottomData.length+3}}" class="w170 bgcae9fa h240 table-middle table-middles" scope="row">
+                                            货币补偿
+                                        </td>
+                                        <td class="bge3f5ff" colspan="3">
+                                            <b>补偿项目</b>
+                                        </td>
+                                        <td class="bge3f5ff">
+                                            <b>补偿面积（㎡）</b>
+                                        </td>
+                                        <td class="bge3f5ff">
+                                            <b>补偿价（元）</b>
+                                        </td>
+                                        <td class="bge3f5ff">
+                                            <b>补偿金额（元）</b>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="h40 c6 bgf" ng-repeat="i in addbottomData">
+                                        <td>
+                                            <span ng-bind="i.programmeName?i.programmeName:no"></span>&nbsp;&nbsp;
+                                            <!-- <span ng-bind="(i.status=='1' && i.isRestricted=='1')?'(限定)':''"></span> -->
+                                            <span ng-bind="(i.status=='1' && i.isRestricted=='1')?'':''"></span>
+                                        </td>
+                                        <td ng-bind="i.programmeValue?i.programmeValue:no"></td>
+                                        <td ng-bind="i.subtypeName?i.subtypeName:no"></td>
+                                        <td class="aac5d8">
+                                            <input class="tc bn outMid aac5d8 c000" type="text" placeholder="{{i.areaplaceholder}}" ng-disabled="i.disabled" ng-model="i.area"
+                                                onkeyup="if( ! /^-?\d+\.?\d{0,2}$/.test(this.value)){this.value='';}" ng-change="Middlengchanges(i.area,$index)">
+                                            <!-- <span ng-bind="(i.status=='1' && i.isRestricted=='1')?'(限定)':''"></span> -->
+                                            <span ng-bind="(i.status=='1' && i.isRestricted=='1')?'':''"></span>
+                                        </td>
+                                        <td>
+                                            <span ng-bind="i.compensatePrice?i.compensatePrice:0"></span>
+                                            <span ng-bind="i.priceMode=='0'?'(总)':'(单)'"></span>
+                                        </td>
+                                        <td>
+                                            <input class="tc bn outMid tc" type="text" placeholder="自动计算..." readonly="readonly" ng-model="i.compensationAmount">
+
+                                        </td>
+                                    </tr>
+
+                                    <tr class="h40 c6 bgf">
+                                        <td colspan="5">货币补偿合计</td>
+                                        <td>
+                                            <input class="tc bn outMid" type="text" placeholder="自动计算" readonly="readonly" ng-model="addTotalMoney">
+                                        </td>
+                                    </tr>
+                                    <tr class="h40 c6 bgf">
+                                        <td colspan="5">每月过渡补偿合计</td>
+                                        <td>
+                                            <input class="tc bn outMid" type="text" placeholder="自动计算" readonly="readonly" ng-model="addMonthMoney">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <span class="hop-bntap disblock pt30 pb55">
+                            <button class="hop-save disinblock w133 hoptap radius" ng-class="{'zjcursordisabled':updatesaveFlag===false}" ng-disabled="updatesaveFlag===false"
+                                ng-click="addPersonsave()">保存</button>
+                            <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--编缉调整拆赔方案-->
+        <div class="dialog update">
+            <div class="dialog-bg"></div>
+            <div class="dialog-cont radius hop-cont">
+                <div class="back-white">
+                    <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                        <em class="left fs18 c3">编缉补偿信息</em>
+                        <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                    </h3>
+                    <div class="pt20 pl30 pr30">
+
+                        <div style="height: 500px;overflow:auto;width: 1100px;overflow: scroll;">
+                            <table class="table table-bordered j-tablemar">
+                                <tbody class="tc c0">
+                                    <tr class="h40 va bge3f5ff">
+                                        <td rowspan="{{addtopData.length+1}}" class="w170 bgcae9fa table-middle table-middles">
+                                            主体建筑产权置换
+                                        </td>
+                                        <td class="" colspan="2">
+                                            <b>置换类型</b>
+                                        </td>
+                                        <td class="">
+                                            <b>置换面积（㎡）</b>
+                                        </td>
+                                        <td class="">
+                                            <b>置换比例（%）</b>
+                                        </td>
+                                        <td class="">
+                                            <b>还建面积（㎡）</b>
+                                        </td>
+                                        <td class="">
+                                            <b>还建类型</b>
+                                        </td>
+                                        <td class="">
+                                            <b>还建期数</b>
+                                        </td>
+                                    </tr>
+                                    <tr class="h40 c6 bgf" ng-repeat="i in addtopData">
+                                        <td ng-bind="i.programmeValue?i.programmeValue:no"></td>
+                                        <td ng-bind="i.subtypeName?i.subtypeName:no"></td>
+                                        <!--置换面积-->
+                                        <td class="aac5d8">
+                                            <input class="tc bn outMid aac5d8" type="text" placeholder="请输入..." ng-model="i.area" onkeyup="if( ! /^-?\d+\.?\d{0,2}$/.test(this.value)){this.value='';}"
+                                                ng-change="topngchanges(i.area,$index)">
+                                        </td>
+                                        <!--置换比例-->
+                                        <td class="aac5d8">
+                                            <input class="tc bn outMid aac5d8" type="text" placeholder="请输入..." ng-model="i.replacementRatio" onkeyup="if( ! /^-?\d+\.?\d{0,4}$/.test(this.value)){this.value='';}"
+                                                ng-change="updatetopngchanges(i.replacementRatio,$index,'update')">
+                                        </td>
+
+                                        <td>
+                                            <input type="text" class="tc" readonly="readonly" ng-model="i.builtInArea" placeholder="自动计算..">
+                                        </td>
+                                        <td ng-bind="i.builtType?i.builtType:no">住宅</td>
+                                        <td class="aac5d8">
+                                            <select class="aac5d8" ng-options="i.name as i.name for i in selectval" ng-model="i.builtInPeriod" ng-change="topSelect(i.builtInPeriod,$index)">
+                                                <option value="">请选择</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <table class="table table-bordered j-tablemartwo">
+                                <tbody class="tc c0">
+                                    <tr class="h40 va">
+                                        <td rowspan="{{addbottomData.length+3}}" class="w170 bgcae9fa h240 table-middle table-middles" scope="row">
+                                            货币补偿
+                                        </td>
+                                        <td class="bge3f5ff" colspan="3">
+                                            <b>补偿项目</b>
+                                        </td>
+                                        <td class="bge3f5ff">
+                                            <b>补偿面积（㎡）</b>
+                                        </td>
+                                        <td class="bge3f5ff">
+                                            <b>补偿价（元）</b>
+                                        </td>
+                                        <td class="bge3f5ff">
+                                            <b>补偿金额（元）</b>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="h40 c6 bgf" ng-repeat="i in addbottomData">
+                                        <td>
+                                            <span ng-bind="i.programmeName?i.programmeName:no"></span>&nbsp;&nbsp;
+                                            <!-- <span ng-bind="(i.status=='1' && i.isRestricted=='1')?'(限定)':''"></span> -->
+                                            <span ng-bind="(i.status=='1' && i.isRestricted=='1')?'':''"></span>
+                                        </td>
+                                        <td ng-bind="i.programmeValue?i.programmeValue:no"></td>
+                                        <td ng-bind="i.subtypeName?i.subtypeName:no"></td>
+                                        <td class="aac5d8">
+                                            <input class="tc bn outMid aac5d8" type="text" placeholder="{{i.areaplaceholder}}" ng-disabled="i.disabled" ng-model="i.area"
+                                                onkeyup="if( ! /^-?\d+\.?\d{0,2}$/.test(this.value)){this.value='';}" ng-change="Middlengchanges(i.area,$index,'update')">
+                                            <!-- <span ng-bind="i.senddisabled===true?'(限定)':''"></span> -->
+                                            <span ng-bind="i.senddisabled===true?'':''"></span>
+                                        </td>
+                                        <td class="aac5d8">
+                                            <input class="tc bn outMid aac5d8" type="text" placeholder="请输入..." ng-model="i.compensatePrice" onkeyup="if( ! /^-?\d+\.?\d{0,2}$/.test(this.value)){this.value='';}"
+                                                ng-change="updateMiddlengchanges(i.compensatePrice,$index,'update')">
+                                            <span ng-bind="i.priceMode=='0'?'(总)':'(单)'"></span>
+                                        </td>
+                                        <td>
+                                            <input class="tc bn outMid tc" type="text" onkeyup="if( ! /^-?\d+\.?\d{0,2}$/.test(this.value)){this.value='';}" placeholder="自动计算..." ng-change="updatecompensationAmount(i.compensationAmount,$index,'update')" ng-model="i.compensationAmount">
+                                        </td>
+                                    </tr>
+
+
+                                    <tr class="h40 c6 bgf">
+                                        <td colspan="5">货币补偿合计</td>
+                                        <td>
+                                            <input class="tc bn outMid" type="text" placeholder="自动计算" readonly="readonly" ng-model="addTotalMoney">
+                                        </td>
+                                    </tr>
+                                    <tr class="h40 c6 bgf">
+                                        <td colspan="5">每月过渡补偿合计</td>
+                                        <td>
+                                            <input class="tc bn outMid" type="text" placeholder="自动计算" readonly="readonly" ng-model="addMonthMoney">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+
+                        <span class="hop-bntap disblock pt30 pb55">
+                            <!-- <button class="hop-save disinblock w133 hoptap radius" ng-click="updatePersonalert()" ng-if="(disableds===true)?false:true">保存</button> -->
+                            <button class="hop-save disinblock w133 hoptap radius" ng-click="updatePersonalert()" >保存</button>
+                            <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 提示问题 -->
+        <!--编缉调整拆赔方案-->
+        <div class="dialog updateremarks">
+            <div class="dialog-bg"></div>
+            <div class="dialog-cont radius hop-cont" style="width:55%;">
+                <div class="back-white">
+                    <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                        <em class="left fs18 c3">编缉补偿信息原因</em>
+                        <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                    </h3>
+                    <div class="pt20 pl30 pr30">
+
+                        <textarea class=" p10 w100- bor h160" ng-model="remarks" maxlength="256">
+                            
+                        </textarea>
+                        <span class=" tr ">最多输入
+                            <span ng-bind="remarks.length||0"></span>/256个字符</span>
+
+                        <span class="hop-bntap disblock pt30 pb55 mt20">
+                            <button class="hop-save disinblock w133 hoptap radius" ng-click="updatePersonsave()" ng-class="{'zjcursordisabled':updatesaveFlag===false}"
+                                ng-disabled="updatesaveFlag===false">保存</button>
+                            <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" onclick="hopruletab('update')">取消</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>

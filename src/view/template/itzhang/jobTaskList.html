@@ -1,0 +1,276 @@
+<app-head></app-head>
+<app-left-Column class="disnone"></app-left-Column>
+<div class="pb55 pt55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">任务列表</a>
+        </div>
+        <div class="c-csrbdb mt20 clearfix">
+            <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" ng-click="regCreatetaskist()">创建任务</a>
+            <div class="c-csrbdinp right clearfix">
+                <i class="c-iconfont mt8 ml10 left" ng-click="search(theme)"></i>
+                <input class="ml10 left" type="text" placeholder="请输入物业地址" ng-model="theme">
+            </div>
+        </div>
+        <div class="c-csrbdc mt20">
+            <p class="c-csrbdcpa pl30 fs16 c3 clearfix">
+                <span class="left">筛选</span>
+                <a class="right maincolor mr30 c-spgltcl" href="javascript:void (0)" ng-click="pullUp()" ng-bind="PullUpText">收起</a>
+            </p>
+            <div class="c-spgltclshow" ng-if="PullUpShow">
+                <p class="fs14 c6 clearfix pl30">
+                    <span class="left c-spgltsp">任务节点：</span>
+                    <span class="left ml45">
+                        <input class=" c-csrbdcinp c-htcbox" type="radio" name="nodeId" ng-model="nodeId" value="" ng-click="radios(nodeId,3)">全部
+                    </span>
+                    <span class="left ml45" ng-repeat="i in initOrder">
+                        <input class="c-csrbdcinp c-htcbox" type="radio" name="nodeId" value="nodeId" ng-model="nodeId" ng-click="radios($index,1)">
+                        <span ng-bind="i.name"></span>
+                    </span>
+                </p>
+                <p class="c-wygltp fs14 c6 pl30 clearfix">
+                    <span class="left c-spgltsp">参与方式：</span>
+                    <span class="left ml45">
+                        <input class=" c-csrbdcinp c-htcbox" type="radio" name="type" value="" ng-model="type" ng-change="radios('',2)">全部
+                    </span>
+                    <span class="left ml45">
+                        <input class=" c-csrbdcinp c-htcbox" type="radio" name="type" value="1" ng-model="type" ng-change="radios(type,2)">我发布的
+                    </span>
+                    <span class="left ml45">
+                        <input class=" c-csrbdcinp c-htcbox" type="radio" name="type" value="2" ng-model="type" ng-change="radios(type,2)">我执行的
+                    </span>
+                </p>
+                <p class=" c6 pl30 pt5 pb5 clearfix">
+                    <span class="left c-spgltsp">时间：</span>
+                    <span class="left relative mt6 c-spgltspb pointer tc" style="width: 170px;">
+                                    <input type="text" class="childData1 h80-" placeholder="选择开始时间" ng-model="beginTime">
+                                    <i class="c-iconfont c-spgltspi parentData1" ng-click="alertData('childData1','parentData1',1)"></i>
+                                </span>
+                    <span class="left ml15 mr15">至</span>
+                    <span class="left relative mt6 c-spgltspb pointer tc" style="width: 170px;">
+                                    <input type="text" class="childData2 h80-" placeholder="选择结束时间" ng-model="endTime">
+                                    <i class="c-iconfont c-spgltspi parentData2" ng-click="alertData('childData2','parentData2')"></i>
+                                </span>
+                    <a class="left mr15 mt6 c-spgltaa tc" ng-class="{zjdatachoose:isActive}" ng-click="monthData(1)"  href="javascript:void (0)">近7天</a>
+                    <a class="left mt6 c-spgltaa tc" ng-class="{zjdatachoose:isActive2}" ng-click="monthData(2)"  href="javascript:void (0)">近1个月</a>
+                </p>
+            </div>
+
+
+        </div>
+
+
+
+        <div class="l-managetable mt20">
+            <div class="l-managetable c-bordere6">
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th>物业名称</th>
+                        <th>物业地址</th>
+                        <th>业权人</th>
+                        <th>事件节点</th>
+                        <th>任务时间</th>
+                        <th>事件说明</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="i in rows" class="pos-rel">
+                        <td><span ng-bind="i.splitJointName||''"></span><span ng-bind="i.code||''"></span></td>
+                        <td ng-bind="i.address||no"></td>
+                        <td ng-bind="i.ownerCount+'人'||no"></td>
+                        <td><span ng-bind="i.parentNodeName||no"></span> - <span ng-bind="i.childNodeName||no"></span></td>
+                        <td><span ng-bind="i.startDate|date:'yyyy-MM-dd HH:mm'"></span> - <span ng-bind="i.endDate|date:'HH:mm'"></span></td>
+                        <td>
+                            <a ng-mouseenter="show = true;queryEventDesc(i.id,$index)" ng-mouseleave="show = false">查看</a>
+                            <!--鼠标hover事件-->
+                            <div class="pos-abs bgf p5 fs12" ng-if="show"  style="border: 1px solid #337ab7; left:70%;z-index:9998;border-radius:10px; box-shadow:2px 2px 2px #ccc;">
+                                <span class="fl pl0 mr20 ml10">
+                                    <span ng-bind="EventDesc.realname||no"></span>:  <span ng-bind="EventDesc.eventDesc||no"></span>
+                                </span>
+                                <span class="fr pr8">
+                                     <span  ng-bind="EventDesc.startDate|date:'yyyy-MM-dd HH:mm'"></span>-<span ng-bind="i.endDate|date:'HH:mm'"></span>
+                                </span>
+                            </div>
+                        </td>
+                        <td class="l-tablelink" ng-if="i.status===1?true:false">
+                            <a href="javascript:void(0)" ng-click="dell(i.id,$index)">删除</a>
+                            <a href="javascript:void(0)" ng-click="regist($index)">重新指派</a>
+                        </td>
+                        <td class="l-tablelink" ng-if="i.status===1?false:true">
+                            <button href="javascript:void(0)" ng-click="takeIn(i.id,$index,i.isAccept)" ng-if="i.isAccept===2?false:true" ng-bind="i.isAccept===1?'已接受':'接收'"></button>
+                            <button href="javascript:void(0)"  ng-click="backs(i.id,$index,i.isAccept)" ng-if="i.isAccept===1?false:true" ng-bind="i.isAccept===2?'已退回':'退回'"></button>
+                        </td>
+
+                    </tr>
+
+                </table>
+                <div class="tc lh55 ng-scope" ng-if="rows.length>0?false:true">
+                    暂无数据
+                </div>
+            </div>
+            <div class="l-page fs12 tr pt20 pb30 lh30">
+                <div ui-pagination conf="conf"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!--新增-->
+<div class="dialog h-liebiaoone">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius    hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3" ng-bind="registFlag===2?'重新指派任务':'添加任务'"></em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt20 pl30 pr30">
+                <table width="100%" class="back-f5 lh50" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th class="pl30 maincolor">物业：</th>
+                        <td class="pos-rel">
+
+                            <input type="text" 
+                            ng-focus="addfocusproject(add.peopelproject)"
+                            ng-blur="addblurproject(add.peopelproject)" 
+                            ng-model="add.peopelproject"
+                            ng-change="addchangeproject(add.peopelproject)"
+                            class="l-input hl-input h-inputone border addJoinName" 
+                            placeholder="请选择项目名称" style="width: 160px;height: 30px;">
+
+                            <ul class="zj-moaddshijian" style="z-index:999;top: 40px;width: 160px;" ng-if="dimArrproject.length">
+                                    <li ng-repeat="i in dimArrproject">
+                                        <a class="bge3f5ff lh24 pt2 pl2 pb2 dis-inlBlo w100-"
+                                            ng-bind="i.projectName"
+                                           ng-click="alertliAddproject($index)">
+    
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- ng-disabled="registFlag===2?true:false" -->
+                                <!-- ng-if="projectuserId" -->
+                            <input 
+                                   ng-model="add.peopel"
+                                   
+                                   ng-focus="addfocus(add.peopel)"
+                                   ng-blur="addblur(add.peopel)"
+                                   placeholder="请选择名字"
+                                   ng-change="addchange(add.peopel)"
+                                   class="l-input hl-input h-inputone border addJoinName"
+                                   style="width: 160px;height: 30px;"/>
+
+                            <ul class="zj-moaddshijian" style="z-index:999;top: 40px;width: 170px;left:166px;" ng-if="dimArrFlag" >
+                                <li ng-repeat="i in dimArr">
+                                    <a class="bge3f5ff lh24 pt2 pl2 pb2 dis-inlBlo w100-"
+                                        ng-bind="i.splitJointName"
+                                       ng-click="alertliAdd($index)">
+
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <span class="cred " ng-if="addflag.peopel">*请选择物业</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">事件节点：</th>
+                        <td colspan="2" class="fl">
+                            <select class="select hop-select w265"
+                                    ng-disabled="registFlag===2?true:false"
+                                    ng-options="i.id as i.name for i in initOrder"
+                                    ng-model="add.parentOption"
+                                    ng-change="addoptions(add.parentOption)">
+                                <option value="">请选择</option>
+                            </select>
+
+                            <select class="select hop-select w265"
+                                    ng-disabled="registFlag===2?true:false"
+                                    ng-options="i.id as i.name for i in childInitOrder"
+                                    ng-model="add.childOption"
+                                    ng-if="childInitOrder.length>0"
+                                    ng-change="addoptionsChild(add.childOption)">
+                                <option value="">请选择</option>
+                            </select>
+                            <span class="cred" ng-if="addflag.select">*请选择事件节点</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">指派给：</th>
+                        <td class="pos-rel">
+                            <input  ng-model="add.person"
+                                    ng-focus="addfocus(add.person,2)"
+                                    ng-blur="addblur(add.person,2)"
+                                    placeholder="输入名字(限一人)"
+                                    ng-change="addchange(add.person,2)"
+                                    class="l-input h-inputone border addJoinName"
+                                    style="width: 160px;height: 30px;"/>
+
+                            <ul class="zj-moaddshijian" style="z-index: 999; top: 40px;width: 170px;" ng-if="personarrFlag">
+                                <li ng-repeat="i in personarr">
+                                    <a class="bge3f5ff lh24 pt2 pl2 pb2 dis-inlBlo w100-"
+                                       ng-bind="i.realname"
+                                       ng-click="alertliAdd($index,2)">
+                                    </a>
+                                </li>
+                            </ul>
+                            <span class="cred " ng-if="addflag.person">*请选择指派人</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">时间：</th>
+                        <td>
+                            <p class="clearfix">
+                                <span class="left relative mt6 h-spgltspb radius  pointer">
+                                    <input type="text" class="addchildData1 h80-" ng-model="add.date" placeholder="选择开始时间">
+                                    <i class="c-iconfont c-spgltspi addparentData1" ng-click="adddate('addchildData1','addparentData1')"></i>
+                                </span>
+                                    <span class="left">
+                                    <em class="h-mywhite ml100"></em>
+                                    <i >空余时间</i>
+                                </span>
+                                    <span class="left">
+                                    <em class="h-mywhiteone ml30"></em>
+                                    <i >已占用时间</i>
+                                </span>
+                                <span class="left">
+                                    <em class="zj-bggreen ml30"></em>
+                                    <i >可用时间</i>
+                                </span>
+                            </p>
+
+                            <table class="h-wdgzulhlc mt10 mb20 mr10 w100- ">
+                                <tr class="lh1">
+                                    <th ng-repeat="i in bodyDataArr"
+                                        class="tc bor1c co4da3de"
+                                        ng-click="datachoose($index)"
+                                        ng-class="{'zjyeloow':i.flagClass,'curpoi':!i.flagClass,'bgf':!i.flagClass,'bggreen':i.clickClass}"
+                                        ng-bind="i.name"></th>
+                                </tr>
+
+                            </table>
+                            </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">事件说明：</th>
+                        <td>
+                            <textarea type="text"
+                                      ng-model="add.things"
+                                      placeholder="请输入......"
+                                      ng-blur="addsBlur(add.things)"
+                                      class="l-input h-inputtwo radius mt10 mb10 border w800 "></textarea>
+                            <div class="cred " ng-if="addflag.things">*请输入事件说明</div>
+                        </td>
+
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius" ng-click="addsave(registIndex,registFlag)" ng-bind="registFlag===2?'重新发布':'发布'"></a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">关闭</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+

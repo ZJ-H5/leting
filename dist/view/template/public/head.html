@@ -1,0 +1,24 @@
+<div class="l-header pl30 " style="z-index: 8;">
+    <a href="" class="l-logo left mr50">
+        <img src="image/logo.png"  />
+    </a>
+    <div class="left navsildar col-sm-7 col-md-9 col-lg-9">
+        <ul class="l-nav   " >
+            <li ng-repeat="n in name" ng-class="{'cur':n.class}">
+                <a ng-click="locationTitleName(n.usename,$index)"  title="{{n.name}}">{{n.name}}</a>
+            </li>
+        </ul>
+    </div>
+    <span class="right mt9 mr10 relative l-userid">
+        <a class="l-username  ">
+            <img ng-src="{{photoUrl?(headImg+photoUrl):'image/tou.png'}}" />
+        </a>
+        <span class="l-exitbox">
+            <i class="iconfont"></i>
+            <ul>
+                <li><a >{{nickname}}</a></li>
+                <li><a ng-click="exit()">退出系统</a></li>
+            </ul>
+        </span>
+    </span>
+</div>

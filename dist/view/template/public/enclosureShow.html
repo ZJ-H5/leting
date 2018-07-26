@@ -1,0 +1,31 @@
+<div>
+    <h1 class="fs16 mt25">附件 <span class="ml5" ng-bind="total"></span>个</h1>
+
+    <div class="clearfix  back-white mt20" ng-repeat="i in list">
+        <div>
+            <h1 class="fs16 mt20 ml30" ng-bind="i.name"></h1>
+            <div class="l-managetable mt20">
+                <table class="l-tablebox h-tablebox fs13 " cellpadding="0" cellspacing="0" width="100%">
+                    <tr class="h50 born hbtntr hbtntrs l-tablebox h-tablebox w100-">
+                        <th style="width: 45%">文件名称</th>
+                        <th style="width: 25%">上传时间</th>
+                        <th style="width: 15%">上传人</th>
+                        <th style="width: 15%">操作</th>
+                    </tr>
+                    <tr class="h-white" ng-repeat="j in i.propertyAttachments">
+                        <td><a href="{{imgHost+j.propertyAttachmentUrl}}" target="_blank">{{j.propertyAttachmentName}}</a></td>
+                        <td><span ng-bind="j.createTime?(j.createTime | date:'yy/mm/dd'):no"></span></td>
+                        <td><span ng-bind="j.createUser?j.createUser:no"></span></td>
+                        <td class="l-tablelink">
+                            <a ng-href="{{link}}"  ng-click="DownSave(j.id,$index,$event)">下载</a>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

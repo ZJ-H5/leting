@@ -1,0 +1,28 @@
+<app-head></app-head>
+
+<div app-left></div>
+
+<!--main-->
+<div class="l-rightsider pb55">
+    <div class="pl15 pr18 pt15 pb15">
+        <!--顶部关注-->
+
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <top-pact-information list="{{list}}"></top-pact-information>
+        </div>
+
+        <ul class="c-chbul mt15 ml15 mr15  back-white clearfix">
+            <li class="left"><a class="tc disblock ahover zj-NavAColor"  ui-sref="builtDetails({projectid:projectId,roomId:roomId})">总览</a></li>
+            <li class="left"><a class="tc disblock ahover zj-NavAColor"  ui-sref="builtInformation({projectid:projectId,roomId:roomId})">还建信息</a></li>
+            <li class="left"><a class="tc disblock ahover zj-NavAColor" ui-sref="builtOwner({projectid:projectId,roomId:roomId})">业权人</a></li>
+            <li class="left"><a class="tc disblock ahover " ui-sref="builtCompensate({projectid:projectId,roomId:roomId})">补偿方案</a></li>
+            <li class="left"><a class="tc disblock ahover zj-NavAColor" ui-sref="builtAttachment({projectid:projectId,roomId:roomId})">物业附件</a></li>
+        </ul>
+
+        <compensate-show listtop="{{listtop}}"></compensate-show>
+
+    </div>
+
+</div>
+<!--main end-->
+

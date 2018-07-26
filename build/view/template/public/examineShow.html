@@ -1,0 +1,55 @@
+<div>
+    <ul class="lh32">
+        <li>基底面积 ：<span>{{surveyInfo.areaOfBase?surveyInfo.areaOfBase+'㎡':'无'}}</span></li>
+        <li>房屋总面积 ：<span>{{surveyInfo.grossArea?surveyInfo.grossArea+'㎡':'无'}}</span></li>
+        <li>层数 ：<span>{{surveyInfo.numberOfPlies?surveyInfo.numberOfPlies+'层':'无'}}</span></li>
+
+        <li>测绘报告编号 ：<span>{{surveyInfo.surveyCode?surveyInfo.surveyCode:'无'}}</span></li>
+        <li>测绘报告栋号 ：<span>{{surveyInfo.surveyBuilding?surveyInfo.surveyBuilding:'无'}}</span></li>
+        <li>房屋结构 ：<span>{{surveyInfo.buildingStructure?surveyInfo.buildingStructure:'无'}}</span></li>
+        <li>用途 ：<span>{{surveyInfo.housingPurposes?surveyInfo.housingPurposes:'无'}}</span></li>
+
+        <li><br></li>
+        <li ng-if="surveyInfo.areaOfBase1?true:false">基底面积 ：<span>{{surveyInfo.areaOfBase1?surveyInfo.areaOfBase1+'㎡':No}}</span></li>
+        <li ng-if="surveyInfo.grossArea1?true:false">房屋总面积 ：<span>{{surveyInfo.grossArea1?surveyInfo.grossArea1+'㎡':No}}</span></li>
+        <li ng-if="surveyInfo.numberOfPlies1?true:false">层数 ：<span>{{surveyInfo.numberOfPlies1?surveyInfo.numberOfPlies1+'层':No}}</span></li>
+        <li ng-if="surveyInfo.surveyCode1?true:false">测绘报告编号 ：<span>{{surveyInfo.surveyCode1?surveyInfo.surveyCode1:'无'}}</span></li>
+        <li ng-if="surveyInfo.surveyBuilding1?true:false">测绘报告栋号 ：<span>{{surveyInfo.surveyBuilding1?surveyInfo.surveyBuilding1:'无'}}</span></li>
+        <li ng-if="surveyInfo.buildingStructure1?true:false">房屋结构 ：<span>{{surveyInfo.buildingStructure1?surveyInfo.buildingStructure1:'无'}}</span></li>
+        <li ng-if="surveyInfo.housingPurposes1?true:false">用途 ：<span>{{surveyInfo.housingPurposes1?surveyInfo.housingPurposes1:'无'}}</span></li>
+        <li ><br></li>
+
+        <li ng-if="surveyInfo.areaOfBase2?true:false">基底面积 ：<span>{{surveyInfo.areaOfBase2?surveyInfo.areaOfBase2+'㎡':No}}</span></li>
+        <li ng-if="surveyInfo.grossArea2?true:false">房屋总面积 ：<span>{{surveyInfo.grossArea2?surveyInfo.grossArea2+'㎡':No}}</span></li>
+        <li ng-if="surveyInfo.numberOfPlies2?true:false">层数 ：<span>{{surveyInfo.numberOfPlies2?surveyInfo.numberOfPlies2+'层':No}}</span></li>
+        <li ng-if="surveyInfo.surveyCode2?true:false">测绘报告编号 ：<span>{{surveyInfo.surveyCode2?surveyInfo.surveyCode2:'无'}}</span></li>
+        <li ng-if="surveyInfo.surveyBuilding2?true:false">测绘报告栋号 ：<span>{{surveyInfo.surveyBuilding2?surveyInfo.surveyBuilding2:'无'}}</span></li>
+        <li ng-if="surveyInfo.buildingStructure2?true:false">房屋结构 ：<span>{{surveyInfo.buildingStructure2?surveyInfo.buildingStructure2:'无'}}</span></li>
+        <li ng-if="surveyInfo.housingPurposes2?true:false">用途 ：<span>{{surveyInfo.housingPurposes2?surveyInfo.housingPurposes2:'无'}}</span></li>
+        <li ng-repeat="singleList in singleList">
+            {{singleList.name}} ：<span>{{singleList.val}}</span>
+        </li>
+
+    </ul>
+    <div ng-repeat="s in surveyList">
+        <h6 class="c0 mt25">{{s.compensateName}}</h6>
+        <ul ng-repeat="b in s.subtype">
+            <li class="mt25">
+                <div class="row">
+                    <span class="col-md-3 col-lg-3 col-sm-4 w180">{{b.compensateName}} ：<span>{{b.typeName}}</span></span>
+                    <span class="col-md-3 col-lg-3 col-sm-4" ng-show="b.rent">现状租金 ：<span>{{b.rent}}</span></span>
+                    <span class="col-md-3 col-lg-3 col-sm-4" ng-show="b.status==3">测绘栋号 ：<span>{{b.surveyCode}}</span></span>
+                    <span class="col-md-3 col-lg-3 col-sm-4" ng-show="b.status==3">结构 ：
+                            <span>{{b.structure||'-'}}</span>
+                        </span>
+                        <span class="col-md-3 col-lg-3 col-sm-4" ng-show="b.status==3">用途 ：
+                                <span>{{b.purpose||'-'}}</span>
+                            </span>
+                    <span class="col-md-3 col-lg-3 col-sm-4" ng-show="b.area">面积 ：<span>{{b.area}}㎡</span></span>
+                    <span class="col-md-3 col-lg-3 col-sm-4" ng-show="b.rank">级别 ：<span>{{b.rank}}级</span></span>
+                </div>
+                <a ng-href="{{hostname+b.imgUrl}}" class="c4da3de j-top mt15 dis-inlBlo" ng-show="b.imgUrl" target="_blank">查看图片</a>
+            </li>
+        </ul>
+    </div>
+</div>

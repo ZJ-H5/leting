@@ -1,0 +1,547 @@
+<app-head></app-head>
+
+<div app-left></div>
+<div class="l-rightsider pb55">
+    <div class="pl15 pr18 pt15 ha pb15">
+        <!--顶部关注-->
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+                <top-pact-information list="{{list}}"></top-pact-information>
+        </div>
+        <!--10个格子-->
+        <table class="table table-bordered bg3 mt15">
+            <tbody class="tc c0">
+            <tr class="h40  tc lh40 bgf c6" align="justify">
+                <td class=""><a href="#/propertyDetail?roomId={{roomId}}&projectid={{projectId}}"  title="总览" class=" j-blur-a j-blur-as " >&nbsp;&nbsp;&nbsp;总览&nbsp;&nbsp;&nbsp;</a></td>
+                <td class=""><a href="#/BasicInformationPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="基本信息" class=" j-blur-a j-blur-as">基本信息</a></td>
+                <td class=""><a href="#/surveyingInformation?roomId={{roomId}}&projectid={{projectId}}" title="测绘信息" class=" j-blur-a j-blur-as ">测绘信息</a></td>
+                <td class=""><a href="#/compensateProperty?roomId={{roomId}}&projectid={{projectId}}" title="补偿方案" class=" j-blur-a j-blur-as">补偿方案</a></td>
+                <td class=""><a href="#/PropertyManagementPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="业权人" class=" j-blur-a j-blur-as">业权人</a></td>
+                <td class=""><a href="#/checkingFalse?roomId={{roomId}}&projectid={{projectId}}" title="查违信息" class=" j-blur-a j-blur-as">查违信息</a></td>
+                <td class=""><a href="#/LostPropertyManagementPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="关联物业" class=" j-blur-a j-blur-as">关联物业</a></td>
+                <td class=""><a href="#/enclosure?roomId={{roomId}}&projectid={{projectId}}" title="附件" class=" j-blur-a j-blur-as">&nbsp;&nbsp;&nbsp;附件&nbsp;&nbsp;&nbsp;</a></td>
+                <td class=""><a href="#/amendantRecord?roomId={{roomId}}&projectid={{projectId}}" title="修改记录" class=" j-blur-a j-blur-as" style="color: #4ea4df;">修改记录</a></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!--three-->
+        <div class="mt15 ml15 mr15  back-white  ">
+            <div class="clearfix border-bottom pl20 pr20">
+                <h3 ng-if="flag" class="l-managetlt  fs16 left">
+                    <i class="mr5"></i>
+                    <em>修改记录</em>
+                </h3>
+                <h3 ng-if="!flag" class="l-managetlt  fs16 left">
+                    <a href="javascript:;" ng-click="goback()">< 返回</a>
+                </h3>
+            </div>
+        </div>
+            <div class="bs-example mt40  ml35"  data-example-id="list-inline">
+                <div ng-show="flag">
+                    <div ng-if="rows.length>0?true:false">
+                            <table class="l-tablebox c-wytabbox fs13" cellpadding="0" cellspacing="0" width="100%">
+                                    <tbody>
+                                    <tr ng-repeat="data in rows">
+                                        <td class=" w170">{{data.createTime|date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                                        <td ng-if="data.isNot=='0'"><a href="javascript:;" ng-click="localtion($index)">{{data.userName}}</a> &nbsp;修改了 <span class="zjcoFF9900">{{data.typeval}}</span> 数据</td>
+                                        <td ng-if="data.isNot=='1'">{{data.userName}}&nbsp;修改了 <span class="zjcoFF9900">{{data.typeval}}</span> 数据</td>
+                                        <td ng-if="data.isNot=='0'"><a href="javascript:;" ng-click="localtion($index)">点击查看</a></td>
+                                        <td ng-if="data.isNot=='1'">已完成</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                    </div>
+
+                    <div ng-if="rows.length>0?false:true" class="tc">暂无数据</div>
+                    <div class="l-page fs12 tr pt20 pb30 lh30">
+                        <div ui-pagination conf="conf"></div>
+                    </div>
+                </div>
+                <div ng-show="!flag">
+                        <!--200-1300状态-->
+                    <div class="mt20 c-chbbr col-md-12 col-lg-12 col-sm-12" style="padding-left: 2px;">
+                            <div class=" h30 border-bottom "><span>{{userName||'用户名'}}</span> <span>{{(createTime|date : 'yyyy-MM-dd HH:mm:ss')||''}}</span>  的编辑记录</div>
+                            <!--佣金信息审批(查违)-->
+                            <div class="mt20" ng-class="{'zjcoFF9900':updateStatus==2}" ng-if="locationFrefFlag=='1400'?true:false">
+                                <div >
+                                    <div class="h-back mt10 clearfix h-backg ">
+                                        <img ng-show="transgressMap.photoUrl" ng-src="{{(hostname+transgressMap.photoUrl)||''}}"  alt="" class="fl mt30 ml30 viewer h-bradio">
+                                        <ul class="fl mt30 ml30 nav_group mb20">
+                                            <li ng-show="transgressMap.realname" class="mb10">{{transgressMap.realname}}————{{transgressMap.IssuingNode}}</li>
+                                            <li ng-show="transgressMap.createTime" class="mb10">{{transgressMap.createTime|date:'yyyy-MM-dd HH:mm'}}</li>
+                                            <li ng-show="transgressMap.depict" class="mb10">{{transgressMap.depict}}</li>
+                                            <li ng-show="attachmentList" ng-repeat="j in attachmentList" class="left ml5">
+                                                <a href="{{hostname+j.fileUrl}}" target="_blank" class=" mr20"> <img ng-src="{{(hostname+j.fileUrl)||''}}"  alt="{{j.fileName}}" class="btnimg pointer" width="140" height="140"  onclick="hopruletab('preefe2')"  ></a>  
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <!--全同模板审批-->
+                            <div class="mt20" ng-if="locationFrefFlag=='1200'?true:false">
+                                <!--<div ng-bind="ContractTemplates.content"></div>-->
+                                <!--富文本编辑器-->
+                                <!--<div class="c-jbxxrjd ml15 w100- h350 bor1c">-->
+                                    <!--<div class="maxheight">-->
+                                        <!--<div class="ueditor" ng-model="ContractTemplates.content" config="config2"></div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <div class="basic-look-text ml15 bor1c zj-disabledchoose" style="height:800px;width:960px;overflow:auto">
+        
+                                </div>
+                            </div>
+        
+                            <!--全同审批-->
+                            <div class="mt20" ng-show="locationFrefFlag=='1100'?true:false">
+                                <div ng-if="templateListTitle">合同模板</div>
+                                <ul class="mt20 clearfix">
+                                    <li class="mr15 fl" ng-repeat="t in templateList">
+                                        <a  ng-click="templateSubmit($index)" class="dis-inlBlo w146 h30 mt18 bg4da3de brrad8 lh30 tc cf" ng-if="t.disabled" ng-bind="t.templateName">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+        
+                            <!--收款人信息变更-->
+                            <div class="mt20" ng-class="{'zjcoFF9900':updateStatus==2}" ng-if="(locationFrefFlag=='900'||locationFrefFlag=='1000')?true:false">
+                                <p ng-if="payee.recievePerson?true:false" class="c-wygltp fs14 c6  clearfix mt15"><span class="left">收款人：</span><span ng-bind="payee.recievePerson||''"></span></p>
+                                <p ng-if="payee.recieveType?true:false" class="c-wygltp fs14 c6  clearfix mt15"><span class="left">收款方式：</span><span ng-bind="payee.recieveType||''"></span></p>
+                                <p ng-if="payee.guardian?true:false" class="c-wygltp fs14 c6  clearfix mt15"><span class="left">监护人姓名：</span><span ng-bind="payee.guardian||''"></span></p>
+                                <p ng-if="payee.relationShip?true:false" class="c-wygltp fs14 c6  clearfix mt15"><span class="left">关系：</span><span ng-bind="payee.relationShip||''"></span></p>
+                                <p ng-if="payee.relationPhone?true:false" class="c-wygltp fs14 c6  clearfix mt15"><span class="left">联系电话：</span><span ng-bind="payee.relationPhone||''"></span></p>
+                                <p ng-if="payee.address?true:false" class="c-wygltp fs14 c6  clearfix mt15"><span class="left">通讯地址：</span><span ng-bind="payee.address||''"></span></p>
+                                <p ng-if="payee.idCard?true:false" class="c-wygltp fs14 c6  clearfix mt15"><span class="left">身份证号码：</span><span ng-bind="payee.idCard||''"></span></p>
+                                <p ng-if="payee.informationBank?true:false" class="c-wygltp fs14 c6  clearfix mt15"><span class="left">付款银行：</span><span ng-bind="payee.informationBank||''"></span></p>
+                                <p ng-if="payee.bankNo?true:false" class="c-wygltp fs14 c6  clearfix mt15"><span class="left">银行账号：</span><span ng-bind="payee.bankNo||''"></span></p>
+                            </div>
+        
+                            <!--补偿方案-->
+                            <div class="mt20 " ng-if="locationFrefFlag=='800'?true:false">
+                                <table class="table mt20 table-bordered j-tablemar ">
+                                    <tbody class="tc c0">
+                                    <tr class="h40 va bge3f5ff">
+                                        <td rowspan="{{topData.length+1}}" class="w170 bgcae9fa table-middle table-middles">
+                                            主体建筑产权置换
+                                        </td>
+                                        <td class="" colspan="2"><b>置换类型</b></td>
+        
+                                        <td class="" ><b>置换面积（㎡）</b></td>
+                                        <td class="" ><b>置换比例</b></td>
+                                        <td class="" ><b>还建面积（㎡）</b> </td>
+                                        <td class="" ><b>还建类型</b></td>
+        
+                                        <td class="" ><b>还建期数</b></td>
+                                    </tr>
+        
+                                    <tr class="h40 c6 bgf" ng-repeat="i in topData">
+                                        <td ng-bind="i.programmeValue?i.programmeValue:nos"></td>
+                                        <td ng-bind="i.subtypeName?i.subtypeName:nos"></td>
+        
+                                        <td ng-class="{'zjcoFF9900':i.areaflag===true}" ng-bind="i.area?i.area:0"></td>
+                                        <td ng-class="{'zjcoFF9900':i.replacementRatioflag===true}" ng-bind="i.replacementRatio?i.replacementRatio:0"></td>
+                                        <td ng-class="{'zjcoFF9900':i.builtInAreaflag===true}" ng-bind="i.builtInArea?i.builtInArea:0"></td>
+        
+                                        <td ng-bind="i.builtType?i.builtType:nos"></td>
+        
+                                        <td ng-class="{'zjcoFF9900':i.builtInPeriodflag===true}" ng-bind="i.builtInPeriod?i.builtInPeriod+'期':nos">
+        
+                                        </td>
+                                    </tr>
+        
+                                    </tbody>
+                                </table>
+                                <table class="table table-bordered j-tablemartwo ">
+                                    <tbody class="tc c0">
+                                    <tr class="h40 va">
+                                        <td rowspan="{{bottomData.length+3}}" class="w170 bgcae9fa h240 table-middle table-middles" scope="row">
+                                            货币补偿
+                                        </td>
+                                        <td class="bge3f5ff" colspan="3"><b>补偿项目</b></td>
+        
+                                        <td class="bge3f5ff"><b>补偿面积（㎡）</b></td>
+                                        <td class="bge3f5ff" ><b>补偿单价（元）</b> </td>
+                                        <td class="bge3f5ff" ><b>补偿金额（元）</b></td>
+                                    </tr>
+                                    <tr class=" h40 c6 bgf" ng-repeat="i in bottomData">
+                                        <td ng-bind="i.programmeName?i.programmeName:nos"></td>
+                                        <td ng-bind="i.programmeValue?i.programmeValue:nos"></td>
+                                        <td ng-bind="i.subtypeName?i.subtypeName:nos"></td>
+        
+                                        <td ng-class="{'zjcoFF9900':i.areaflag===true}" ng-bind="i.area?i.area:0"></td>
+                                        <td ng-class="{'zjcoFF9900':i.compensatePriceflag===true}" ng-bind="i.compensatePrice?i.compensatePrice:0"></td>
+                                        <td ng-class="{'zjcoFF9900':i.compensationAmountflag===true}" ng-bind="i.compensationAmount?i.compensationAmount:0"></td>
+                                    </tr>
+                                    <tr class=" h40 c6 bgf">
+                                        <td colspan="5">货币补偿合计</td>
+                                        <td ng-class="{'zjcoFF9900':i.totalMoneyCompensateflag===true}" ng-bind="totalMoneyCompensate?totalMoneyCompensate:0"></td>
+                                    </tr>
+                                    <tr class="h40 c6 bgf">
+                                        <td colspan="5">每月过渡补偿合计</td>
+                                        <td ng-class="{'zjcoFF9900':i.monthlyInterimCompensateflag===true}" ng-bind="monthlyInterimCompensate?monthlyInterimCompensate:0"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="mt15" ng-class="{'zjcoFF9900':updateStatus==2}" ng-if="mapCompensate.remarks">
+                                    修改原因： <span ng-bind="mapCompensate.remarks"></span>
+                                </div>
+                            </div>
+        
+                            <!--财务结算设置-->
+                            <div class="mt20" ng-if="locationFrefFlag=='700'?true:false">
+                                
+        
+                                <!--修改财务结算项目-物业补偿类-->
+                                <div class="mt20" ng-class="{'zjcoFF9900':updateStatus==2}" ng-if="settlement.type===1?true:false">
+                                    <p class="lh28" ng-if="settlement.name?true:false">项目名称：<span ng-bind="settlement.name||''"></span></p>
+                                    <!-- content -->
+                                    <div class=" clearfix mt15">
+                                        <p class="lh28 fl" ng-if="content.length>0?true:false">关联补偿内容：
+                                        </p>
+                                        <div ng-repeat="i in content">
+                                            <span  class="fl" ng-bind="(i.compensateProjectName||'')+'—'+(i.typeName||'')"></span><br>
+                                        </div>
+                                    </div>
+                                    <!-- detail -->
+                                    <!--规则一-->
+                                    <div ng-repeat="new in detail" class="mt15">
+                                        <p class="fs14 c6  clearfix">
+                                            规则{{$index+1}}&nbsp;&nbsp;&nbsp;<span class="red">注：框架协议优先级最高，如未签署，则在签署后支付。</span>
+                                        </p>
+                                        <p  class="c-wygltp fs14 c6  clearfix mt15">
+                                            <span class="left ">框架协议：</span>
+                                            <span class="left" ng-bind="new.isProtocol===1?'需要签署后支付':'不需要签署，直接支付'"></span>
+                                        </p>
+                                        <p class="c-wygltp fs14 c6  clearfix mt15">
+                                                <span class="left">支付节点：</span>
+                                                <span ng-bind="(new.ruleIdOneName||'')+'—'+(new.ruleIdTwoName||'')"></span>
+                                                
+                                        </p>
+                                        <p class="mt15">完成后 <span ng-bind="new.ruleTwoData"></span>日前支付</p>
+                                        
+                                        <p  class="c-wygltp fs14 c6  clearfix mt15"><span class="left r">支付比例(%)：</span>占项目总金额的 <span ng-bind="new.scale||''"></span> </p>
+                                        <p  class="c-wygltp fs14 c6  clearfix mt15"><span class="left  ">支付依据：</span><span ng-bind="new.paymentBasis||''"></span></p>
+                                    </div>
+                                </div>
+        
+        
+                                <!--修改财务结算项目-延期支付类-->
+                                <div class="mt20" ng-class="{'zjcoFF9900':updateStatus==2}" ng-if="settlement.type===3?true:false">
+                                    <p class="lh28" ng-if="settlement.name?true:false">项目名称：<span ng-bind="settlement.name||''"></span></p>
+                                    <!-- content -->
+                                    <div class=" clearfix mt15">
+                                        <p class="lh28 fl" ng-if="content.length>0?true:false">关联补偿内容：
+                                        </p>
+                                        <div ng-repeat="i in content">
+                                            <span  class="fl" ng-bind="(i.compensateProjectName||'')+'—'+(i.typeName||'')"></span><br>
+                                        </div>
+                                    </div>
+                                    <!-- detail -->
+                                    <!--计算周期-->
+                                    <div  ng-repeat="new in detail"  class="mt15" >
+                                        <div class="c-spgltclshow  mr15 ">
+                                            <p class="c-wygltp fs14 c6 mt15 clearfix ">
+                                                <span class="left  ">计算周期：</span>
+                                                自  
+                                                <span ng-bind="(new.ruleIdOneName||'')+'—'+(new.ruleIdTwoName||'')"></span>
+                                                开始计算，到框架协议签署完成截止计算，并进行支付。
+                                            </p>
+                                            <p  class="c-wygltp fs14 c6 mt15 clearfix ">
+                                                <span class="left  ">支付方式：</span>
+                                                <span class="left" ng-bind="new.paymentMode===1?'按月计算':'按季度计算'"></span>
+                                            </p>
+        
+                                            <p  class="c-wygltp fs14 c6 mt15 clearfix "><span class="left ">支付金额：</span ><span  ng-bind="new.amount  "></span>元/㎡</p>
+                                            <p  class="c-wygltp fs14 c6 mt15 clearfix"><span class="left ">支付依据：</span><span  ng-bind="new.paymentBasis"></span></p>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                    <!--修改财务结算项目-安置补助类-->
+                                <div class="mt20" ng-class="{'zjcoFF9900':updateStatus==2}" ng-if="settlement.type==2?true:false">
+                                        <p class="lh28" ng-if="settlement.name?true:false">项目名称：<span ng-bind="settlement.name||''"></span></p>
+                                        <!-- content -->
+                                        <div class=" clearfix mt15">
+                                            <p class="lh28 fl" ng-if="content.length>0?true:false">关联补偿内容：
+                                            </p>
+                                            <div ng-repeat="i in content" class=" mt4">
+                                                <span  class="fl" ng-bind="(i.compensateProjectName||'')+'—'+(i.typeName||'')"></span><br>
+                                            </div>
+                                        </div>
+                                        <!-- detail -->
+                                        <!--计算周期-->
+                                        <div ng-repeat="new in detail" class="mt15">
+                                            <p  class="c-wygltp fs14 c6  clearfix mt15">
+                                                <span class="left">子类型：</span>
+                                                <span class="left" ng-bind="new.isProtocol===1?'安置补助':'其他补助'"></span>
+                                            </p>
+                                            <p class="c-wygltp fs14 c6  clearfix mt15">
+                                                    <span class="left ">支付节点：</span>
+                                                    <span ng-if="new.ruleIdOneName?true:false">自<span ng-bind="(new.ruleIdOneName||'')"></span>开始计算 </span>
+                                                    <span ng-if="new.ruleIdTwoName?true:false">到<span ng-bind="(new.ruleIdTwoName||'')"></span>截止计算，并完成支付 </span>
+                                            </p>
+                                            <p  class="c-wygltp fs14 c6 mt15 clearfix ">
+                                                    <span class="left  ">支付方式：</span>
+                                                    <span class="left" ng-bind="new.paymentMode===1?'按月计算':'按季度计算'"></span>
+                                                </p>
+                                            <p  class="c-wygltp fs14 c6  clearfix mt15"><span class="left">支付依据：</span><span ng-bind="new.paymentBasis||''"></span></p>
+                                        </div>
+                                    </div>
+                            </div>
+        
+                            <!--第三方测绘-->
+                            <div class="mt20 " ng-if="locationFrefFlag=='600'?true:false">
+                                <div ng-if="updateStatus==1" class="zjcoFF9900">
+                                    <ul class="lh32">
+                                        <li>基底面积 ：<span>{{updataBehindMap.areaOfBase?updataBehindMap.areaOfBase+'㎡':No}}</span></li>
+                                        <li>房屋总面积 ：<span>{{updataBehindMap.grossArea?updataBehindMap.grossArea+'㎡':No}}</span></li>
+                                        <li>层数 ：<span>{{updataBehindMap.numberOfPlies?updataBehindMap.numberOfPlies+'层':No}}</span></li>
+                                        <li><br></li>
+                                        <li ng-if="updataBehindMap.areaOfBase1?true:false">基底面积 ：<span>{{updataBehindMap.areaOfBase1?updataBehindMap.areaOfBase1+'㎡':No}}</span></li>
+                                        <li ng-if="updataBehindMap.grossArea1?true:false">房屋总面积 ：<span>{{updataBehindMap.grossArea1?updataBehindMap.grossArea1+'㎡':No}}</span></li>
+                                        <li ng-if="updataBehindMap.numberOfPlies1?true:false">层数 ：<span>{{updataBehindMap.numberOfPlies1?updataBehindMap.numberOfPlies1+'层':No}}</span></li>
+                                        <li ng-if="updataBehindMap.surveyCode1?true:false">测绘报告编号 ：<span>{{updataBehindMap.surveyCode1?updataBehindMap.surveyCode1:'无'}}</span></li>
+                                        <li ng-if="updataBehindMap.surveyBuilding1?true:false">测绘报告栋号 ：<span>{{updataBehindMap.surveyBuilding1?updataBehindMap.surveyBuilding1:'无'}}</span></li>
+                                        <li ng-if="updataBehindMap.buildingStructure1?true:false">房屋结构 ：<span>{{updataBehindMap.buildingStructure1?updataBehindMap.buildingStructure1:'无'}}</span></li>
+                                        <li ng-if="updataBehindMap.housingPurposes1?true:false">用途 ：<span>{{updataBehindMap.housingPurposes1?updataBehindMap.housingPurposes1:'无'}}</span></li>
+                                        <li ><br></li>
+        
+                                        <li ng-if="updataBehindMap.areaOfBase2?true:false">基底面积 ：<span>{{updataBehindMap.areaOfBase2?updataBehindMap.areaOfBase2+'㎡':No}}</span></li>
+                                        <li ng-if="updataBehindMap.grossArea2?true:false">房屋总面积 ：<span>{{updataBehindMap.grossArea2?updataBehindMap.grossArea2+'㎡':No}}</span></li>
+                                        <li ng-if="updataBehindMap.numberOfPlies2?true:false">层数 ：<span>{{updataBehindMap.numberOfPlies2?updataBehindMap.numberOfPlies2+'层':No}}</span></li>
+                                        <li ng-if="updataBehindMap.surveyCode2?true:false">测绘报告编号 ：<span>{{updataBehindMap.surveyCode2?updataBehindMap.surveyCode2:'无'}}</span></li>
+                                        <li ng-if="updataBehindMap.surveyBuilding2?true:false">测绘报告栋号 ：<span>{{updataBehindMap.surveyBuilding2?updataBehindMap.surveyBuilding2:'无'}}</span></li>
+                                        <li ng-if="updataBehindMap.buildingStructure2?true:false">房屋结构 ：<span>{{updataBehindMap.buildingStructure2?updataBehindMap.buildingStructure2:'无'}}</span></li>
+                                        <li ng-if="updataBehindMap.housingPurposes2?true:false">用途 ：<span>{{updataBehindMap.housingPurposes2?updataBehindMap.housingPurposes2:'无'}}</span></li>
+                                        <li ng-repeat="i in singleList">
+                                            {{i.name}} ：<span>{{i.val||No}}</span>
+                                        </li>
+                    
+                                    </ul>
+                                    <div ng-repeat="b in surveyList">
+                                        <h6 class="c0 mt25">{{b.compensateName}}</h6>
+                                        <ul >
+                                            <li class="mt25">
+                                                <div class="row">
+                                                    <span class="col-md-3 col-lg-3 col-sm-4">{{b.compensateName}} ：<span>{{b.typeName}}</span></span>
+                                                    <span class="col-md-3 col-lg-3 col-sm-4" ng-show="b.rent">现状租金 ：<span>{{b.rent}}</span></span>
+                                                    <span class="col-md-3 col-lg-3 col-sm-4" ng-show="b.area">面积 ：<span>{{b.area}}㎡</span></span>
+                                                    <span class="col-md-3 col-lg-3 col-sm-4" ng-show="b.rank">级别 ：<span>{{b.rank}}级</span></span>
+                                                </div>
+                                                <a ng-href="{{hostname+b.imgUrl}}" class="c4da3de j-top mt15 dis-inlBlo" ng-show="b.imgUrl" target="_blank">查看图片</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div ng-if="fileUrl">
+                                        <h6 class="c0 mb30">物业图片</h6>
+                                        <img ng-src="{{housesImg?(hostname+fileUrl):''}}" alt="" class=" max-w370 w100-">
+                                    </div>
+                                    <!-- 原因 -->
+                                    <div class="mt15" ng-if="updataBehindMap.remarks">
+                                        修改原因：<span ng-bind="updataBehindMap.remarks"></span>
+                                    </div>
+                                </div>
+                                <div ng-if="updateStatus!=1">
+                                    <div class="b-r-f9f9f9 left m-chxxl">
+                                        <ul class="lh32">
+                                            <li>基底面积 ：<span>{{surveyInfo.areaOfBase?surveyInfo.areaOfBase+'㎡':No}}</span></li>
+                                            <li>房屋总面积 ：<span>{{surveyInfo.grossArea?surveyInfo.grossArea+'㎡':No}}</span></li>
+                                            <li>层数 ：<span>{{surveyInfo.numberOfPlies?surveyInfo.numberOfPlies+'层':No}}</span></li>
+
+                                            <li ng-if="surveyInfo.areaOfBase1?true:false">基底面积 ：<span>{{surveyInfo.areaOfBase1?surveyInfo.areaOfBase1+'㎡':No}}</span></li>
+                                <li ng-if="surveyInfo.grossArea1?true:false">房屋总面积 ：<span>{{surveyInfo.grossArea1?surveyInfo.grossArea1+'㎡':No}}</span></li>
+                                <li ng-if="surveyInfo.numberOfPlies1?true:false">层数 ：<span>{{surveyInfo.numberOfPlies1?surveyInfo.numberOfPlies1+'层':No}}</span></li>
+                                <li ng-if="surveyInfo.surveyCode1?true:false">测绘报告编号 ：<span>{{surveyInfo.surveyCode1?surveyInfo.surveyCode1:'无'}}</span></li>
+                                <li ng-if="surveyInfo.surveyBuilding1?true:false">测绘报告栋号 ：<span>{{surveyInfo.surveyBuilding1?surveyInfo.surveyBuilding1:'无'}}</span></li>
+                                <li ng-if="surveyInfo.buildingStructure1?true:false">房屋结构 ：<span>{{surveyInfo.buildingStructure1?surveyInfo.buildingStructure1:'无'}}</span></li>
+                                <li ng-if="surveyInfo.housingPurposes1?true:false">用途 ：<span>{{surveyInfo.housingPurposes1?surveyInfo.housingPurposes1:'无'}}</span></li>
+                                <li ><br></li>
+
+                                <li ng-if="surveyInfo.areaOfBase2?true:false">基底面积 ：<span>{{surveyInfo.areaOfBase2?surveyInfo.areaOfBase2+'㎡':No}}</span></li>
+                                <li ng-if="surveyInfo.grossArea2?true:false">房屋总面积 ：<span>{{surveyInfo.grossArea2?surveyInfo.grossArea2+'㎡':No}}</span></li>
+                                <li ng-if="surveyInfo.numberOfPlies2?true:false">层数 ：<span>{{surveyInfo.numberOfPlies2?surveyInfo.numberOfPlies2+'层':No}}</span></li>
+                                <li ng-if="surveyInfo.surveyCode2?true:false">测绘报告编号 ：<span>{{surveyInfo.surveyCode2?surveyInfo.surveyCode2:'无'}}</span></li>
+                                <li ng-if="surveyInfo.surveyBuilding2?true:false">测绘报告栋号 ：<span>{{surveyInfo.surveyBuilding2?surveyInfo.surveyBuilding2:'无'}}</span></li>
+                                <li ng-if="surveyInfo.buildingStructure2?true:false">房屋结构 ：<span>{{surveyInfo.buildingStructure2?surveyInfo.buildingStructure2:'无'}}</span></li>
+                                <li ng-if="surveyInfo.housingPurposes2?true:false">用途 ：<span>{{surveyInfo.housingPurposes2?surveyInfo.housingPurposes2:'无'}}</span></li>
+                                            <li ng-repeat="singleList in singleList">
+                                                {{singleList.name||No}} ：<span>{{singleList.val||No}}</span>
+                                            </li>
+                        
+                                        </ul>
+                                        <div ng-repeat="b in surveyList">
+                                            <h6 class="c0 mt25">{{s.compensateName||No}}</h6>
+                                            <ul ng-repeat="b in s.subtype">
+                                                <li class="mt25">
+                                                    <div class="row">
+                                                        <span class="col-md-3 col-lg-3 col-sm-4 w180">{{b.compensateName||No}} ：<span>{{b.typeName||No}}</span></span>
+                                                        <span class="col-md-3 col-lg-3 col-sm-4" ng-show="b.rent">现状租金 ：<span>{{b.rent||No}}</span></span>
+                                                        <span class="col-md-3 col-lg-3 col-sm-4" ng-show="b.area">面积 ：<span>{{b.area||No}}㎡</span></span>
+                                                        <span class="col-md-3 col-lg-3 col-sm-4" ng-show="b.rank">级别 ：<span>{{b.ran||No}}级</span></span>
+                                                    </div>
+                                                    <a ng-href="{{hostname+b.imgUrl}}" class="c4da3de j-top mt15 dis-inlBlo" ng-show="b.imgUrl" target="_blank">查看图片</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <!--违建佣金规则-->
+                            <div class="mt20" ng-class="{'zjcoFF9900':updateStatus==2}" ng-if="locationFrefFlag=='500'?true:false">
+                                <div class="clearfix">
+                                        <p class="lh28" ng-if="weijian.issuingNode?true:false">发放节点：<span ng-bind="weijian.issuingNode"></span></p>
+                                        <p class="lh28" ng-if="weijian.commission?true:false">佣金：<span ng-bind="weijian.commission"></span> 元</p>
+                                        <p class="lh28" ng-if="weijian.remarks?true:false">备注：<span ng-bind="weijian.remarks"></span></p>
+                                </div>
+                                
+                            </div>
+        
+                            <!--综合业务佣金规则-->
+                            <div class="mt20"  ng-if="locationFrefFlag=='400'?true:false">
+                                <div ng-if="updateStatus==2" ng-class="{'zjcoFF9900':updateStatus==2}">
+                                    <p class="lh28" ng-if="yewu.integratedName?true:false">项目名称：<span ng-bind="yewu.integratedName"></span></p>
+                                    <p class="lh28" ng-if="yewu.type?true:false">激励类型：<span ng-bind="yewu.type===1?'节点类型':'测绘数据'"></span></p>
+                                    <p class="lh28" ng-if="yewu.paymentStandardTwoName?true:false">签约节点：<span ng-bind="yewu.paymentStandardOneName"></span> - <span ng-bind="yewu.paymentStandardTwoName"></span></p>
+                                    <p class="lh28" ng-if="yewu.commission?true:false">佣金：<span ng-bind="yewu.commission"></span> <span ng-bind="yewu.unit==1?'(总价)':'m²/元'"></span></p>
+                                    <p class="lh28" ng-if="yewu.remarks?true:false">备注：<span ng-bind="yewu.remarks"></span></p>
+                                </div>
+                                <div ng-if="updateStatus!=2">
+                                    <p class="lh28" ng-if="yewu.integratedName?true:false">项目名称：<span ng-bind="yewu.integratedName"></span></p>
+                                    <p class="lh28" ng-if="yewu.type?true:false">激励类型：<span ng-bind="yewu.type===1?'节点类型':'测绘数据'"></span></p>
+                                    <p class="lh28" ng-if="yewu.paymentStandardOne?true:false">签约节点：<span ng-bind="yewu.paymentStandardOne"></span> - <span ng-bind="yewu.paymentStandardTwo"></span></p>
+                                    <p class="lh28" ng-if="yewu.commission?true:false">佣金：<span ng-bind="yewu.commission"></span> <span ng-bind="yewu.unit==1?'(总价)':'m²/元'"></span></p>
+                                    <p class="lh28" ng-if="yewu.remarks?true:false">备注：<span ng-bind="yewu.remarks"></span></p>
+                                </div>
+                                
+                            </div>
+        
+                            <!--签约佣金规则-->
+                            <div class="mt20" ng-if="locationFrefFlag=='300'?true:false">
+                                <table class="mt20 l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <th>总体项目进度</th>
+                                        <th>标准（元/m²）</th>
+                                        <th>
+                                            <table width="100%">
+                                                <tr>
+                                                    <th width="25%">
+                                                        <span class="w-50 left">发放比例</span>
+                                                        <span class="w-50 left">发放节点</span>
+                                                    </th>
+                                                    <th width="25%">
+                                                        <span class="w-50 ">发放比例</span>
+                                                        <span class="w-50 left">发放节点</span>
+                                                    </th>
+                                                    <th width="25%">
+                                                        <span class="w-50 left">发放比例</span>
+                                                        <span class="w-50 left">发放节点</span>
+                                                    </th>
+                                                    <th width="25%">
+                                                        <span class="w-50 left">发放比例</span>
+                                                        <span class="w-50 ">发放节点</span>
+                                                    </th>
+                                                </tr>
+                                            </table>
+                                        </th>
+                                    </tr>
+                                    <tr  ng-repeat="item in rulesdata"  useid="{{item.id}}" projectid="{{item.projectId}}" ng-class="{'zjcoFF9900':updateStatus==2}">
+                                        <td ng-bind="item.allProcess2||no"></td>
+                                        <td ng-bind="item.standard||no"></td>
+                                        <td>
+                                            <table width="100%">
+                                                <tr ng-if="item.detailsList.length===1">
+                                                        <td ng-repeat="d in item.detailsList" width="25%">
+                                                            <span class="w-50 left" ng-bind="d.commsionPercent?d.commsionPercent:'-'"></span>
+                                                            <span class="w-50 left"  ng-bind="d.ruleNodes?d.ruleNodes:'-'"></span>
+                                                        </td>
+                                                        <td width="25%" >
+                                                            <span class="w-50 left" >-</span>
+                                                            <span class="w-50 left"  >-</span>
+                                                        </td>
+                                                        <td width="25%">
+                                                            <span class="w-50 left" >-</span>
+                                                            <span class="w-50 left"  >-</span>
+                                                        </td>
+                                                        <td width="25%">
+                                                                <span class="w-50 left" >-</span>
+                                                                <span class="w-50 left"  >-</span>
+                                                            </td>
+                                                    </tr>
+                                                <tr ng-if="item.detailsList.length===2">
+                                                    <td ng-repeat="d in item.detailsList" width="25%">
+                                                        <span class="w-50 left" ng-bind="d.commsionPercent?d.commsionPercent:'-'"></span>
+                                                        <span class="w-50 left"  ng-bind="d.ruleNodes?d.ruleNodes:'-'"></span>
+                                                    </td>
+                                                    <td width="25%" >
+                                                        <span class="w-50 left" >-</span>
+                                                        <span class="w-50 left"  >-</span>
+                                                    </td>
+                                                    <td width="25%">
+                                                        <span class="w-50 left" >-</span>
+                                                        <span class="w-50 left"  >-</span>
+                                                    </td>
+                                                </tr>
+                                                <tr ng-if="item.detailsList.length===3">
+                                                    <td width="25%" ng-repeat="d in item.detailsList">
+                                                        <span class="w-50 left" ng-bind="d.commsionPercent?d.commsionPercent:'-'"></span>
+                                                        <span class="w-50 left"  ng-bind="d.ruleNodes?d.ruleNodes:'-'"></span>
+                                                    </td>
+                                                    <td width="25%">
+                                                        <span class="w-50 left" >-</span>
+                                                        <span class="w-50 left"  >-</span>
+                                                    </td>
+                                                </tr>
+                                                <tr ng-if="item.detailsList.length===4">
+                                                    <td width="25%" ng-repeat="d in item.detailsList">
+                                                        <span class="w-50 left" ng-bind="d.commsionPercent?d.commsionPercent:'-'"></span>
+                                                        <span class="w-50 left"  ng-bind="d.ruleNodes?d.ruleNodes:'-'"></span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+        
+                                </table>
+                            </div>
+        
+                            <!--拆迁补偿规则-->
+                            <div ng-class="{'zjcoFF9900':updateStatus==2}"  ng-if="(locationFrefFlag=='200'||locationFrefFlag=='0')?true:false">
+                                <p class="lh28">补偿方式：<span ng-bind="rules.type=='1'?'货币补偿':'主体建筑产权置换'"></span></p>
+                                <p class="lh28" ng-if="rules.compensateProjectName?true:false">置换/补偿：<span ng-bind="rules.compensateProjectName"></span></p>
+                                <p class="lh28" ng-if="rules.compensateName?true:false">补偿类型：<span ng-bind="rules.compensateName"></span></p>
+                                <p class="lh28" ng-if="rules.compensateTypeName?true:false">子类型：<span ng-bind="rules.compensateTypeName"></span></p>
+                                <p class="lh28" ng-if="rules.rank?true:false">级别：<span ng-bind="rules.rank"></span></p>
+                                <p class="lh28" ng-if="rules.replacementRatio?true:false">置换比例：<span ng-bind="rules.replacementRatio+'%'"></span></p>
+                                <p class="lh28" ng-if="rules.compensationPrice?true:false">补偿价格：<span ng-bind="rules.pricesMode=='0'?rules.compensationPrice+'（总）':rules.compensationPrice+'（单）'"></span></p>
+                                <p class="lh28" ng-if="rules.buildTypeName?true:false">还建类型：<span ng-bind="rules.buildTypeName"></span></p>
+                                <p class="lh28" ng-if="rules.remaker?true:false">备注：<span ng-bind="rules.remaker"></span></p>
+                            </div>
+        
+                            <!--拆迁补偿规则一级删除-->
+                            <div ng-if="locationFrefFlag=='1600'?true:false">
+                                <p class="lh28" ng-if="rules.type?true:false">备注：<span ng-bind="rules.type=='1'?'货币补偿':'主体建筑产权置换'"></span></p>
+                                <p class="lh28" ng-if="rules.compensateProjectName?true:false">置换/补偿：<span ng-bind="rules.compensateProjectName"></span></p>
+                                <p class="lh28" ng-if="rules.compensateName?true:false">补偿类型：<span ng-bind="rules.compensateName"></span></p>
+                                <p class="lh28" ng-if="rules.compensateTypeName?true:false">子类型：<span ng-bind="rules.compensateTypeName"></span></p>
+                                <p class="lh28" ng-if="rules.rank?true:false">级别：<span ng-bind="rules.rank"></span></p>
+                                <p class="lh28" ng-if="rules.replacementRatio?true:false">置换比例：<span ng-bind="rules.replacementRatio"></span></p>
+                                <p class="lh28" ng-if="rules.compensationPrice?true:false">补偿价格：<span ng-bind="rules.pricesMode=='0'?rules.compensationPrice+'（总）':rules.compensationPrice+'（单）'"></span></p>
+                                <p class="lh28" ng-if="rules.buildTypeName?true:false">还建类型：<span ng-bind="rules.buildTypeName"></span></p>
+                            </div>
+                            <p class="mt40 mb20 colorf50 c-red">*注：有颜色部分为修改内容。</p>
+        
+                        </div>
+                    </div>
+                </div>
+
+            
+        
+        
+
+
+    </div>
+</div>
+
+

@@ -1,0 +1,44 @@
+<app-head></app-head>
+<script src="../../../../gulpfile.js"></script>
+
+
+<app-left-Column></app-left-Column>
+
+<div class="l-rightsider   pb55">
+    <div class="pl15 pr18 pt15 pb15">
+    <ul class="c-csrtop bgf clearfix">
+        <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl " ui-sref="newFiles">项目建设情况</a></li>
+        <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl " ui-sref="projectProcess">项目流程设置</a></li>
+        <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl" ui-sref="compensationRules">拆迁补偿规则</a></li>
+        <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl" ui-sref="commissionRules">佣金发放规则</a></li>
+        <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl maincolor" ui-sref="updatarecord">修改记录</a></li>
+    </ul>
+    <div class="mt15 ml15 mr15  back-white  ">
+        <div class="clearfix border-bottom pl20 pr20">
+            <h3 class="l-managetlt  fs18 left">
+                <i class="mr5"></i>
+                <em>修改记录</em>
+            </h3>
+        </div>
+    </div>
+    <div class="bs-example mt40  ml35" data-example-id="list-inline">
+        <ul class="list-inline mt20" ng-repeat="data in data">
+            <li class="ml30">{{data.createTime|date : 'yyyy-MM-dd HH:mm:ss'}}</li>
+            <li class="ml35">{{data.userName}} 修改了 {{data.typeName}} 数据</li>
+            <!--<li class="ml45"><a href="#" class="h-inline h-inlineh">点击查看</a></li>-->
+        </ul>
+
+    </div>
+        <div class="l-page fs12 tr pt20 pb30 lh30">
+            <div ui-pagination conf="conf"></div>
+        </div>
+
+
+</div>
+
+
+</div>
+
+
+
+

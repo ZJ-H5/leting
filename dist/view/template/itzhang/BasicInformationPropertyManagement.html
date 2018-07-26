@@ -1,0 +1,306 @@
+
+<app-head></app-head>
+<div app-left></div>
+
+<div class="l-rightsider pb55">
+    <!--基本信息物业管理-->
+    <div class="pl15 pr18 pt15 pb15">
+        <!--顶部关注-->
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+                <top-pact-information list="{{list}}"></top-pact-information>
+        </div>
+        <!--7个格子-->
+        <table class="table table-bordered bg3 mt15">
+            <tbody class="tc c0">
+
+            <tr class="h40  tc lh40 bgf c6" align="justify">
+                <td class=""><a href="#/propertyDetail?roomId={{roomId}}&projectid={{projectId}}" title="总览" class=" j-blur-a j-blur-as ">&nbsp;&nbsp;&nbsp;总览&nbsp;&nbsp;&nbsp;</a></td>
+                <td class=""><a href="#/BasicInformationPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="基本信息" class=" j-blur-a j-blur-as" style="color: #4ea4df;">基本信息</a></td>
+                <td class=""><a href="#/surveyingInformation?roomId={{roomId}}&projectid={{projectId}}" title="测绘信息" class=" j-blur-a j-blur-as ">测绘信息</a></td>
+                <td class=""><a href="#/compensateProperty?roomId={{roomId}}&projectid={{projectId}}" title="补偿方案" class=" j-blur-a j-blur-as">补偿方案</a></td>
+                <td class=""><a href="#/PropertyManagementPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="业权人" class=" j-blur-a j-blur-as">业权人</a></td>
+                <td class=""><a href="#/checkingFalse?roomId={{roomId}}&projectid={{projectId}}" title="查违信息" class=" j-blur-a j-blur-as">查违信息</a></td>
+                <td class=""><a href="#/LostPropertyManagementPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="关联物业" class=" j-blur-a j-blur-as">关联物业</a></td>
+                <td class=""><a href="#/enclosure?roomId={{roomId}}&projectid={{projectId}}" title="附件" class=" j-blur-a j-blur-as">&nbsp;&nbsp;&nbsp;附件&nbsp;&nbsp;&nbsp;</a></td>
+                <td class=""><a href="#/amendantRecord?roomId={{roomId}}&projectid={{projectId}}" title="修改记录" class=" j-blur-a j-blur-as" >修改记录</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <!--下面主体-->
+        <div class="mt15 mb20  clearfix">
+            <h3 class="c3 fs16">基本信息</h3>
+            <div class="clearfix bgf mt20 pl30 pr30 pt25 ">
+                <div class="c-jbxxl pb100 left">
+                    <div class="c-jbxxrc mb15 border-b">
+                        <h3 class="c-jbxxrah mb25 pl10 c3 fs16">初勘信息</h3>
+                        <p class="lh36">权利人：<span ng-bind="room.houseUser?room.houseUser:no"></span></p>
+                        <p class="lh36">资料名称：<span ng-bind="room.propertyRightDatumName?room.propertyRightDatumName:no"></span></p>
+                        <p class="lh36">土地证号：<span ng-bind="room.landCertificate?room.landCertificate:no"></span></p>
+                        <p class="lh36">房产证号：<span ng-bind="room.houseCertificate?room.houseCertificate:no"></span></p>
+                        <p class="lh36">土地性质：<span ng-bind="room.attribute?room.attribute:no"></span></p>
+                        <p class="lh36">物业面积：<span ng-bind="room.registerArea?room.registerArea+'m²':no"></span></p>
+                        <p class="lh36">基底面积：<span ng-bind="room.landArea?room.landArea+'m²':no"></span></p>
+                    </div>
+                    <ul class="border-b mb15">
+                        <li class="mb25" ng-repeat="i in ownership">
+                            <h3 class="c-jbxxrah mb25 pl10 c3 fs16">业权人{{$index+1}}</h3>
+                            <p class="lh36">业权人：<span ng-bind="i.holderName"></span></p>
+                            <p class="lh36 clearfix">
+                                <span class="c-jbxxlsp left">联系人：<span ng-bind="i.relationPerson"></span></span>
+                                <span class="c-jbxxlsp left">联系方式：<span ng-bind="i.relationPhone"></span></span>
+                                <!-- <span class="c-jbxxlsp left">分配比例：<span ng-bind="i.allocationProportion+'%'"></span></span> -->
+                            </p>
+                        </li>
+                    </ul>
+                    <div class="mb25 border-b mb15">
+                        <h3 class="c-jbxxrah mb25 pl10 c3 fs16">物业</h3>
+                        <p class="lh36" ng-show="room.splitJointName?true:false">所属片区：<span ng-bind="room.splitJointName?room.splitJointName:no"></span><span ng-bind="room.code?room.code:''"></span></p>
+                        <p class="lh36" ng-show="room.address?true:false">地址：<span ng-bind="room.address?room.address:no"></span></p>
+                        <p class="lh36" ng-show="areaOfBase?true:false">基地面积：<span ng-bind="areaOfBase?areaOfBase+'m²':no"></span></p>
+                        <p class="lh36" ng-show="grossArea?true:false">房屋总面积：<span ng-bind="grossArea?grossArea+'㎡':no"></span></p>
+                        <!--<p class="lh36">自住：330</p>-->
+                        <!--<p class="lh36">住宅出租：330㎡</p>-->
+                        <!--<p class="lh36">擅改商业：330㎡</p>-->
+                        <span ng-repeat="i in single">
+                            <p class="lh36" ng-bind="i.name+': '+i.val+'m²'"></p>
+                        </span>
+                        <span ng-repeat="i in survey">
+                            <p class="lh36" ng-bind="i.name+': '+i.area+'m²'"></p>
+                        </span>
+                        <!--<p class="lh36">临时建筑物：330㎡</p>-->
+                        <!--<p class="lh36">夹层：330㎡</p>-->
+                    </div>
+                    <div class="mb25 border-b mb15">
+                        <h3 class="c-jbxxrah mb25 pl10 c3 fs16">补偿</h3>
+                        <!--<p class="lh36">还建面积(住宅)：风门坳旧改项目 1区 2栋</p>-->
+                        <!--<p class="lh36">还建面积(商业)：330㎡</p>-->
+                        <!--<p class="lh36">货币补偿合计：330㎡</p>-->
+                        <!--<p class="lh36">每月过渡补偿合计：330㎡</p>-->
+                        <!--<p class="lh36">装修补偿（回迁自用部分）：330㎡</p>-->
+                        <!--<p class="lh36">搬迁补偿（还建回迁部分）：330㎡</p>-->
+                        <!--<p class="lh36">测绘未计内阳台：330㎡</p>-->
+                        <!--<p class="lh36">原产权证办证费补偿：330㎡</p>-->
+                        <span ng-repeat="i in compensateItemList">
+                            <p class="lh36">{{i.programmeName}}:{{i.area?(i.area+'m²'):'-'}}</p>
+                        </span>
+                        <span ng-repeat="i in builtInAreaList">
+                            <p class="lh36" ng-bind="i.builtType+': '+(i.builtInArea?i.builtInArea:'no')+'m²'"></p>
+                        </span>
+                        <p class="lh36" ng-show="monthlyInterimCompensate?true:false">每月过渡补偿合计：<span ng-bind="monthlyInterimCompensate?monthlyInterimCompensate+'元':no"></span></p>
+                        <p class="lh36" ng-show="totalMoneyCompensate?true:false">货币补偿合计：<span ng-bind="totalMoneyCompensate?totalMoneyCompensate+'元':no"></span></p>
+
+                    </div>
+                </div>
+                <div class="c-jbxxr left">
+                    <div class="c-jbxxra pb20">
+                        <p class="lh36">创建人：<span ng-bind="project2.createName?project2.createName:'/'"></span></p>
+                        <p class="lh36">创建时间：<span ng-bind="project2.createTime?(project2.createTime|date:'yyyy-MM-dd'):'/'"></span></p>
+                        <p class="lh36">最后更新时间：<span ng-bind="project2.updateTime?(project2.updateTime|date:'yyyy-MM-dd'):'/'"></span></p>
+                    </div>
+                    <div class="c-jbxxrb mt35">
+                        <div class="c-xmxqrb mb15 bgf">
+                            <h3 class="c-xmxqlh pl20 fs16 c3 pr30 clearfix">
+                                <span class="left">签约进度</span>
+                                <a class="fs14 c6 right" href="#/surveyingInformation?roomId={{roomId}}&projectid={{projectId}}">查看</a>
+                            </h3>
+                            <div class="pl20 pr30 pb35 pt15 ">
+                                <div class="c-jbxxrjd ml15">
+                                    <div class="mb35" ng-repeat="list in signList">
+                                        <p class="c-jbxxrjdp">
+                                            <i ng-class="list.isAccomplish==1?'c-jbxxriy mr10 c-iconfont':'c-jbxxrin mr15 c-iconfont'"></i>{{list.name}}
+                                            <a ng-if="list.isFinishedTime==1&&!list.accomplishTime" href="javascript:" class="fr" ng-click="showTime(list)">完成时间</a>
+                                            <a ng-if="list.isFinishedTime==1&&list.accomplishTime" href="javascript:" class="fr" ng-click="showTime(list)">修改时间</a>
+                                        </p >
+                                        <p class="c-jbxxrjdp pl35">{{list.accomplishTime| date:'yyyy-MM-dd'}}</p>
+                                        <div ng-repeat="sub in list.sublevel">
+                                            <p class="clearfix"><i class="c-jbxxrih mr15 c-iconfont"></i>
+                                                <i ng-class="sub.isAccomplish==1?'c-jbxxriy mr10 c-iconfont':'c-jbxxrin mr15 c-iconfont'"></i>{{sub.name}}
+                                                <a ng-if="sub.isReleaseTask==1&&(sub.isFinishedTime==1&&!sub.accomplishTime)" href="javascript:" class="fr ml10" ng-click="regCreatetaskist(sub,list)">创建任务</a>
+                                                <a ng-if="sub.isFinishedTime==1&&!sub.accomplishTime" href="javascript:" class="fr" ng-click="showTime(sub,sub.flag)">完成时间</a>
+                                                <a ng-if="sub.isFinishedTime==1&&sub.accomplishTime" href="javascript:" class="fr" ng-click="showTime(sub,sub.flag)">修改时间</a>
+                                            </p >
+                                            <p class="mb15 pl70">{{sub.accomplishTime | date:'yyyy-MM-dd'}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="c-jbxxra c-jbxxrc mb15">
+                        <h3 class="c-jbxxrah mt30 mb25 pl10 c3">原房产证信息</h3>
+                        <p class="lh36">土地征转情况：<span ng-bind="room.houseCertificate?room.landCircumstances:no"></span></p>
+                        <p class="lh36">土地证：<span ng-bind="room.houseCertificate?room.landCertificate:no"></span></p>
+                        <p class="lh36">土地面积：<span ng-bind="room.houseCertificate?room.landArea+'m²':no"></span></p>
+                        <p class="lh36">房产权属登记人：<span ng-bind="room.houseCertificate?room.houseUser:no"></span></p>
+                        <p class="lh36">权属人：<span ng-bind="room.houseCertificate?room.propertyOwner:no"></span></p>
+                        <p class="lh36" >房产证：<span ng-bind="room.houseCertificate?room.houseCertificate:no"></span></p>
+                        <p class="lh36">登记面积：<span ng-bind="room.houseCertificate?room.registerArea+'m²':no"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="dialog hopbntshare2">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w754 radius hop-cont">
+            <div class="back-white">
+                <h3 class="c-xmxqlh border-bottom pl35 fs16 c3">{{timeflag?'修改时间':'添加完成时间'}}
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15 mr35"></a></h3>
+                <div class="c-xmxqlt c-wyxqlt pl35 pr35 pb20 bgf clearfixf pt30">
+                    <div class="fs16 c333 lh30">{{timeflag?'修改时间:':'完成时间:'}}
+                        <span class="relative mt6 c-spgltspb pointer tc" style="width: 170px;">
+                            <input type="text" class="childData1 h80-" placeholder="选择时间" ng-model="submitTime.completeTime">
+                            <i class="c-iconfont c-spgltspi parentData1" ng-click="addTime()"></i>
+                        </span>
+                    </div>
+                    <div class="fs16 c333 lh30" ng-if="textareaTextflag">请输入原因：
+                        <span class="relative mt6 c-spgltspb pointer tc" style="width: 170px;">
+                            <textarea name="" class="childData1 h80-" id="" cols="30" rows="10" ng-model="submitTime.textareaText"></textarea>
+                        </span>
+                    </div>
+                    <div class="c-adfybtn mt25 ml50 clearfix pb30">
+                        <a class="c-adfybtna mr20 cf left dialog-close"  ng-click="submitTime(timeflag)">保存</a>
+                        <a class="c-adfybtnb mr20 cf left dialog-close" ng-click="submitTime={}">取消</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-foot></app-foot>
+    <!--新增-->
+    <div class="dialog h-liebiaoone">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w1080 radius    hop-cont">
+            <div class="back-white">
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3" ng-bind="registFlag===2?'重新指派任务':'添加任务'"></em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                </h3>
+                <div class="pt20 pl30 pr30">
+                    <table width="100%" class="back-f5 lh50" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th class="pl30 maincolor">物业：</th>
+                            <td class="pos-rel">
+                                <input ng-disabled="registFlag===2?true:false"
+                                       ng-model="add.peopel"
+                                       ng-focus="addfocus(add.peopel)"
+                                       ng-blur="addblur(add.peopel)"
+                                       placeholder="输入名字"
+                                       ng-change="addchange(add.peopel)"
+                                       class="l-input h-inputone border addJoinName"
+                                       style="width: 160px;height: 30px;"/>
+
+                                <ul class="zj-moaddshijian" style="z-index:999;top: 40px;width: 170px;" ng-if="dimArrFlag">
+                                    <li ng-repeat="i in dimArr">
+                                        <a class="bge3f5ff lh24 pt2 pl2 pb2 dis-inlBlo w100-"
+                                           ng-bind="i.splitJointName"
+                                           ng-click="alertliAdd($index)">
+
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <span class="cred " ng-if="addflag.peopel">*请选择联系人</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor">事件节点：</th>
+                            <td colspan="2" class="fl">
+                                {{parentOption}}，{{childOption}}
+                                <!--<select class="select hop-select w265"-->
+                                        <!--ng-disabled="registFlag===2?true:false"-->
+                                        <!--ng-options="i.id as i.name for i in initOrder"-->
+                                        <!--ng-model="add.parentOption"-->
+                                        <!--ng-change="addoptions(add.parentOption)">-->
+                                    <!--<option value="">请选择</option>-->
+                                <!--</select>-->
+                                <!--<select class="select hop-select w265"-->
+                                        <!--ng-disabled="registFlag===2?true:false"-->
+                                        <!--ng-options="i.id as i.name for i in childInitOrder"-->
+                                        <!--ng-model="add.childOption"-->
+                                        <!--ng-change="addoptionsChild(add.childOption)">-->
+                                    <!--<option value="">请选择</option>-->
+                                <!--</select>-->
+                                <!--<span class="cred" ng-if="addflag.select">*请选择事件节点</span>-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor">指派给：</th>
+                            <td class="pos-rel">
+                                <input  ng-model="add.person"
+                                        ng-focus="addfocus(add.person,2)"
+                                        ng-blur="addblur(add.person,2)"
+                                        placeholder="输入名字(限一人)"
+                                        ng-change="addchange(add.person,2)"
+                                        class="l-input h-inputone border addJoinName"
+                                        style="width: 160px;height: 30px;"/>
+
+                                <ul class="zj-moaddshijian" style="z-index: 999; top: 40px;width: 170px;" ng-if="personarrFlag">
+                                    <li ng-repeat="i in personarr">
+                                        <a class="bge3f5ff lh24 pt2 pl2 pb2 dis-inlBlo w100-"
+                                           ng-bind="i.realname"
+                                           ng-click="alertliAdd($index,2)">
+                                        </a>
+                                    </li>
+                                </ul>
+                                <span class="cred " ng-if="addflag.person">*请输入事件说明</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor">时间：</th>
+                            <td>
+                                <p class="clearfix">
+                                <span class="left relative mt6 h-spgltspb radius  pointer">
+                                    <input type="text" class="addchildData1 h80-" ng-model="add.date" placeholder="选择开始时间">
+                                    <i class="c-iconfont c-spgltspi addparentData1" ng-click="adddate('addchildData1','addparentData1')"></i>
+                                </span>
+                                    <span class="left">
+                                    <em class="h-mywhite ml100"></em>
+                                    <i >空余时间</i>
+                                </span>
+                                    <span class="left">
+                                    <em class="h-mywhiteone ml30"></em>
+                                    <i >已占用时间</i>
+                                </span>
+                                    
+                                    <span class="left">
+                                    <em class="zj-bggreen ml30"></em>
+                                    <i >可用时间</i>
+                                </span>
+                                </p>
+
+                                <table class="h-wdgzulhlc mt10 mb20 mr10 w100- ">
+                                    <tr class="lh1">
+                                        <th ng-repeat="i in bodyDataArr"
+                                            class="tc bor1c co4da3de"
+                                            ng-click="datachoose($index)"
+                                            ng-class="{'zjyeloow':i.flagClass,'curpoi':!i.flagClass,'bgf':!i.flagClass,'bggreen':i.clickClass}"
+                                            ng-bind="i.name"></th>
+                                    </tr>
+
+                                </table>
+                                </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor">事件说明：</th>
+                            <td>
+                            <textarea type="text"
+                                      ng-model="add.things"
+                                      placeholder="请输入......"
+                                      ng-blur="addsBlur(add.things)"
+                                      class="l-input h-inputtwo radius mt10 mb10 border w800 "></textarea>
+                                <div class="cred " ng-if="addflag.things">*请输入事件说明</div>
+                            </td>
+
+                        </tr>
+                    </table>
+                    <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius" ng-click="addsave(registIndex,registFlag)" ng-bind="registFlag===2?'重新发布':'发布'"></a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">关闭</a>
+                </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

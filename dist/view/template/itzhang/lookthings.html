@@ -1,0 +1,43 @@
+<app-head></app-head>
+<div class="pb55 pt55">
+    <div class="mt15 ml15 mr15  pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">公告详情</a>
+        </div>
+        <div class="mt60">
+            <div class="content-box">
+                <div class="content tc ma" style="word-wrap:break-word ">
+                    <!-- <div class="content" ng-bind-html="content | parseHTML"> -->
+                   <h2 class="fs16 c0" >{{afficheMap.title}}</h2>
+                   <hr class="mt20 mb40 bg0 ">
+                   <h4 ng-bind-html="afficheMap.content | parseHTML">
+                   </h4>
+                </div>
+                
+            </div>
+            <div class="w875  ma c0 mt20">附件：
+                <span class="ml10 mt20" ng-repeat="i in attachmentList">
+    
+                    <a href="{{hostname+i.fileUrl}}" target="_blank">{{i.fileName}}</a>
+                     <a href="{{hostname+i.fileUrl}}" download>下载
+                    </a> 
+                    <!-- <a href="{{hostname+i.fileUrl}}" download="{{hostname+i.fileUrl}}">
+                        <img border="0" src="" alt="{{i.fileUrl}}">
+                        </a> -->
+                </span>
+                
+            </div>
+            
+        </div>
+
+
+
+        
+    </div>
+
+</div>
+
+
+
+
+

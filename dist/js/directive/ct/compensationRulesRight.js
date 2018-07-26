@@ -1,0 +1,1 @@
+"use strict";angular.module("app").directive("appCompensationRulesRight",["cache",function(e){return{restrict:"AE",replace:!0,templateUrl:"view/template/ct/compensationRulesRight.html"}}]);

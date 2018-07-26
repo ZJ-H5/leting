@@ -1,0 +1,35 @@
+{
+  "_from": "angularjs-laydate",
+  "_id": "angularjs-laydate@0.0.1",
+  "_inBundle": false,
+  "_integrity": "sha512-3zmqh0Pli3l3Mx+RQLYFGZhn0tcK1Xbe1fY/MW8RBjtNeQPqKIgs4PmDNKjDa1Q1zbZqCi3NIf8PbJXWvS4T9w==",
+  "_location": "/angularjs-laydate",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "angularjs-laydate",
+    "name": "angularjs-laydate",
+    "escapedName": "angularjs-laydate",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angularjs-laydate/-/angularjs-laydate-0.0.1.tgz",
+  "_shasum": "41011cad9477b35440dc9a410dca8ae81362e4df",
+  "_spec": "angularjs-laydate",
+  "_where": "C:\\Users\\j\\Desktop\\任务\\letingzhiye\\乐庭置业\\angular1Project\\project\\u0opgu",
+  "bundleDependencies": false,
+  "dependencies": {
+    "angular": "^1.6.4"
+  },
+  "deprecated": false,
+  "description": "angularjs-[layate](http://www.layui.com/laydate/) 日期组件\r ==================\r ## 安装\r ``` \r npm install angularjs-laydate --save\r ```",
+  "license": "MIT",
+  "name": "angularjs-laydate",
+  "version": "0.0.1"
+}

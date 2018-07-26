@@ -1,0 +1,92 @@
+<app-head></app-head>
+<div app-left></div>
+<div class="l-rightsider   pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">{{projectname}}</a>
+            <a class=" left fs18 c6 mr35 pl5">全部物业</a>
+            <span class="c-csrbdtasp left fs14 c6 ml20 mt5">共<span ng-bind="pactList.length||0"></span>个</span>
+        </div>
+        <div class="c-csrbdb mt20 clearfix">
+            <attention list="{{list}}"></attention>
+            <!-- <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left ml20" href="javascript:;" ng-click="gcShowWin(true)">转移</a> -->
+            <!-- <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="javascript:;" ng-click="gcShowWin(false)">共享</a> -->
+            <div class="c-csrbdinp right clearfix">
+                <i class="c-iconfont mt8 ml10 left" ng-click="searchs()"></i>
+                <input class="ml10 left" type="text" ng-model="search" placeholder="请输入房产名称">
+            </div>
+        </div>
+        <div class="c-csrbdc mt20">
+            <p class="c-csrbdcpa pl30 fs16 c3">筛选</p>
+            <p class="fs14 c6 pl30 clearfix">
+                <span class="left c-htsxsp">签约进度：</span>
+                <span class="left ml45 relative">
+                    <input class=" c-csrbdcinp c-htcbox c-allcheacked" type="checkbox" name="signs" ng-click="selectedAll('sign')" value="">全部
+                 </span>
+                <span class="left ml45 relative" ng-repeat="index in nodeSign">
+                     <input class="c-csrbdcinp c-htcbox c-allcheacked" type="checkbox" id="{{index.id}}" ng-click="doChange('sign','signs')" name="sign"><span ng-bind="index.name"></span>
+                </span>
+            </p>
+            <p class="c-wygltp fs14 c6 pl30 clearfix">
+                <span class="left c-htsxsp">区域：</span>
+                <span class="left ml45 relative">
+                     <input class=" c-csrbdcinp c-htcbox c-allcheacked" type="checkbox" ng-click="selectedAll('con')" name="cons" value="">全部
+                </span>
+                <span class="left ml45 relative" ng-repeat="item in porpertyConditions ">
+                     <input class=" c-csrbdcinp c-htcbox c-allcheacked" type="checkbox" id="{{item.id}}" ng-click="doChange('con','cons')" name="con" value="">{{item.category}}
+                </span>
+            </p>
+
+        </div>
+
+        <div class="l-managetable mt20" ng-if="pactList.length>0?true:false">
+            <div class="l-managetable c-bordere6" >
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th>房产名称地址</th>
+                        <th>区域</th>
+                        <th>房屋总面积</th>
+                        <th>层数</th>
+                        <th>住宅</th>
+                        <th>擅改商业</th>
+                        <th>还建（住宅）</th>
+                        <th>还建（商业）</th>
+                        <th>货币补偿</th>
+                        <th>每月过度补偿</th>
+                        <th>签约进度</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="item in pactList">
+                        <td><a href="#/compactdetail?propertyId={{item.id}}&projectId={{projectId}}&pacteId={{item.pactId}}">{{(item.splitJointName||'')+(item.address||'')+(item.code||'')}}</a></td>
+                        <td ng-bind="item.category"></td>
+                        <td ng-bind="((item.grossArea|number:2)?(item.grossArea|number:2):0) + 'm²'"></td>
+                        <td ng-bind="(item.numberOfPlies)?item.numberOfPlies +'层':'---'"></td>
+                        <td ng-bind="item.house?item.house:'---'"></td>
+                        <td ng-bind="((item.commerceArea|number:2))?(item.commerceArea|number:2)+ 'm²':'---'">1区</td>
+                        <td ng-bind="((item.builtHouseArea|number:2)?(item.builtHouseArea|number:2):0)+ 'm²'"></td>
+                        <td ng-bind="((item.builtCommerceArea|number:2)?(item.builtCommerceArea|number:2):0)+ 'm²'"></td>
+                        <td ng-bind="((item.totalMoneyCompensate|number:2)?'￥'+(item.totalMoneyCompensate|number:2):0.00) "></td>
+                        <td ng-bind="((item.monthlyInterimCompensate|number:2)?'￥'+(item.monthlyInterimCompensate|number:2):0.00)"></td>
+                        <td ng-bind="item.name?item.name:'---'"></td>
+                        <td class="l-tablelink">
+                            <a ng-click="dataFollowUp(item.category+'-'+item.address + (code?code:''),item.id,item.pactId)">跟进</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+        </div>
+        <div class="l-page fs12 tr pt20 pb30 lh30">
+            <div ui-pagination conf="conf"></div>
+        </div>
+        <div class="l-managetable mt20 tc " ng-if="pactList.length>0?false:true">
+            暂无数据
+        </div>
+    </div>
+    <!--转移和共享-->
+    <transfer listtop="{{listtop}}" transferclick="transferclick"></transfer>
+    <!--跟踪-->
+    <follow listtop="{{listtop}}" action="action" my-follow="myajax()" my-location="mylocation()"></follow>
+</div>
+
+

@@ -1,0 +1,6 @@
+<div class="pl30 pr30 pb35 pt5 clearfix">
+    <div ng-repeat="i in attachment">
+        <a class="c-xmxqrba lh36 left ahover" ng-href="{{imgHost+i.fileUrl}}"  download="{{imgHost+i.fileUrl}}"><i class="c-htrbfj mr15 c-iconfont"></i><span
+                ng-bind="i.fileName?i.fileName:no" downUrl='i.fileUrl' ></span></a>
+    </div>
+</div>

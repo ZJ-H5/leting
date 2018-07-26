@@ -1,0 +1,60 @@
+
+
+<app-left-Column></app-left-Column>
+<div class="l-rightsider pb55">
+    <!--项目管理-->
+    <div class="mt 15 ml15 mr15  back-white pl30 pr30 ">
+        <h3 class="l-managetlt pt7 fs18">
+            <i class="mr5"></i>
+            <em>项目管理</em>
+        </h3>
+        <div class="l-managetap clearfix">
+					<span class="left l-managenav">
+						<a href="" class="cur">新增</a>
+						<a href="">转移</a>
+						<a href="">共享</a>
+					</span>
+            <span class="l-mseach right border relative">
+						<i class="iconfont"></i>
+						<input type="text" class="w210" placeholder="请输入项目名称" />
+					</span>
+        </div>
+        <div class="l-managetable mt20">
+            <table class="l-tablebox fs13" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <th>项目名称</th>
+                    <th>项目位置</th>
+                    <th>拆除范围占地面积</th>
+                    <th>规划容积率</th>
+                    <th>规划建筑面积</th>
+                    <th>物业数</th>
+                    <th>项目进度</th>
+                    <th>操作</th>
+                </tr>
+                <tr ng-repeat="indx in rows">
+                    <td ng-bind="indx.projectNarows"></td>
+                    <td ng-bind="indx.address">深圳市龙岗区坂田街道办</td>
+                    <td ng-bind="indx.areaDemolition">27378.13㎡</td>
+                    <td ng-bind="indx.plannedVolumeRatio">27378.13㎡</td>
+                    <td ng-bind="indx.planningFloorArea">27378.13㎡</td>
+                    <td ng-bind="indx.isBeenTransferred">27</td>
+                    <td ng-bind="indx.count">项目进度</td>
+                    <td class="l-tablelink" ng-bind="indx.isDone">
+                        <a href="">跟进</a>
+                        <a href="">编辑</a>
+                        <a href="">删除</a>
+                    </td>
+                </tr>
+
+            </table>
+            <div class="l-page fs12 tr pt20 pb30 lh30">
+                <div></div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+</div>
+

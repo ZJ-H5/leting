@@ -1,0 +1,43 @@
+
+
+<div class="dialog hchakantwo">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">{{typeFlag?'项目移交 （多选）':'项目共享 （多选）'}}</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancel()"></a>
+            </h3>
+            <div class="pt20 pl40 clearfix ">
+                <h1 class="mb30">选择用户 {{typeFlag?'（多选）':'（多选）'}}
+                    <div class="c-csrbdinp right mr50">
+                        <i class="c-iconfont mt8 ml10 left" ng-click="seach(searchKeys)"></i>
+                        <input class="ml10 left" type="text" placeholder="请输入角色名称" ng-model="searchKeys">
+                    </div>
+                </h1>
+
+                <div class=" mr10 left role bordere0 mb10" ng-repeat="r in rolelist" ng-class="{'border50':r.isFlag}" ng-click="addrole($index,r.id)">
+                    <div class="tc mt10 ">
+                        <p class="mb10">
+                            <img ng-src="{{(imgHost+r.photoUrl)||''}}" alt="" class="w70 borderr50">
+                        </p>
+                        <p>
+                            <span>{{r.realname}}</span>
+                        </p>
+
+                        <p class="f90">
+                            <span>{{r.postName}}</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="l-page fs12 tr pt20 pb30 lh30 pr40">
+                <div ui-pagination conf="conf_1"></div>
+            </div>
+            <span class="hop-bntap disblock pb55 tc">
+                    <a ng-show="typeFlag" href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="addAllotRole(true,rows)">保存</a>
+                    <a ng-show="!typeFlag" href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="addAllotRole(false,rows)">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="cancel()">取消</a>
+				</span>
+        </div>
+    </div>
+</div>

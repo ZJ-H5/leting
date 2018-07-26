@@ -1,0 +1,479 @@
+<app-head></app-head>
+<app-left-Column class="disnone"></app-left-Column>
+<!--main-->
+<div class="pb55 pt65">
+    <div class="pl15 pr18 pt15 pb15">
+    <!--顶部关注-->
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+
+            <div class="c-csrbdt pt25 col-md-7 col-lg-7 col-sm-7 ">
+                <top-information listtop="{{listtop}}"></top-information>
+                <div class="mt18 j-BtnDiv clearfix">
+                    <attention list="{{list}}"></attention>
+                    <delete-project list="{{list}}"></delete-project>
+                </div>
+            </div>
+            <right-information listtop="{{listtop}}"></right-information>
+        </div>
+    <!--7个格子-->
+    <table class="table table-bordered bg3 mt15">
+        <tbody class="tc c0">
+        <tr class="h40  tc lh40 bgf c6" align="justify">
+            <td class=""><a href="#/itemDetails?projectid={{projectId}}"  title="总览" class="j-blur-a j-blur-as maincolor">&nbsp;&nbsp;&nbsp;总览&nbsp;&nbsp;&nbsp;</a>
+            </td>
+            <td class=""><a href="#/itemInformation?projectid={{projectId}}" title="基本信息"
+                            class="j-blur-a j-blur-as ">基本信息</a></td>
+            <td class=""><a href="#/projectProcessInformation?projectid={{projectId}}" title="流程进度信息" class="j-blur-a j-blur-as">流程进度信息</a></td>
+            <td class=""><a href="#/propertyInformation?projectid={{projectId}}" title="物业信息" class="j-blur-a j-blur-as">物业信息</a></td>
+            <td class=""><a href="#/projectcompensationRules?projectid={{projectId}}" title="拆迁补偿规则" class="j-blur-a j-blur-as " >拆迁补偿规则</a>
+            </td>
+            <td class=""><a href="#/financialsettlement?projectid={{projectId}}" title="财务结算项目设置" class="j-blur-a j-blur-as " style="color: #337ab7;">财务结算项目设置</a>
+            </td>
+            <td class=""><a href="#/projectcommissionrelease?projectid={{projectId}}" title="佣金发放规则" class="j-blur-a j-blur-as ">佣金发放规则</a></td>
+            <td class=""><a href="#/annex?projectid={{projectId}}"  title="附件" class="j-blur-a j-blur-as">附件</a></td>
+            <td class=""><a href="#/projectupdaterecord?projectid={{projectId}}"  title="修改记录" class="j-blur-a j-blur-as">修改记录</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <!--下面主体-->
+    <div class="mt15 ml15 mr15  back-white  ">
+
+        <div class="clearfix pl20 pr20">
+            <h3 class="l-managetlt  fs18 left">
+                <i class="mr5"></i>
+                <em>财务结算项目设置</em>
+            </h3>
+
+            <span class="right l-managenav mt15">
+                <a class="cur financial" ng-click="addnewproject('addnew')">新增收费项目</a>
+            </span>
+
+        </div>
+
+
+        <div class="l-managetable ">
+            <table class="l-tablebox l-ruletab" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <th>补偿类型</th>
+                    <th>项目类型</th>
+                    <th>支付比例</th>
+                    <th>金额</th>
+                    <th>支付时间</th>
+                    <th>支付依据</th>
+                    <th>操作</th>
+
+                </tr>
+                <tr ng-repeat="s in settlementlist">
+                    <td>{{s.typement}}</td>
+                    <td>{{s.name}}</td>
+                    <td><p ng-repeat="d in s.detailList">{{d.scale?d.scale+'%':'/'}}</p>
+                        <!--<p>5%</p>-->
+                    </td>
+                    <td><p ng-repeat="d in s.detailList">{{d.amount?d.amount+'元':'/'}}</p>
+                    </td>
+                    <td ng-if="s.type==1"><p ng-repeat="d in s.detailList">{{d.ruleIdOne}}/{{d.isProtocol=='1'?'签署框架协议后':'不需要签署，直接支付'}}{{d.ruleTwoData+'天内'}}</p>
+                    </td>
+                    <td ng-if="(s.type==2||s.type==3)"><p ng-repeat="d in s.detailList">{{d.ruleIdOne}}/{{d.ruleTwoData+'天内'}}</p>
+                    </td>
+                    <td><p ng-repeat="d in s.detailList">{{d.paymentBasis||'/'}}</p>
+                    </td>
+
+                    <td class="l-tablelink" style="width:8%">
+                        <a href="javascript:void(0)" ng-click="opendilog(s.type,s.id)">编辑</a>
+                        <a href="javascript:void(0)" ng-click="deleteFinance(s.name,s.id)">删除</a>
+                    </td>
+                </tr>
+
+
+            </table>
+        </div>
+        </div>
+    </div>
+    <!--新增-->
+    <div class="dialog addnew">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w754 radius hop-cont" style="left: 404.5px; top: 113.5px; opacity: 1; margin-top: -30px;">
+            <div class="back-white pb20 ">
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">添加项目</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                </h3>
+                <span class="relative z-inputfiles pt20">
+                    <a class="cf fs16 tc radius c-msrzboxliaadd dialog-close" ng-click="compensationDialog('addcompensation')">物业补偿类</a>
+                </span>
+                <span class="relative z-inputfiles pt20">
+                    <a class="cf fs16 tc radius c-msrzboxliaadd dialog-close" ng-click="delayDialog('adddelay')">延期支付类</a>
+                </span>
+                <span class="relative z-inputfiles pt20">
+                    <a class="cf fs16 tc radius c-msrzboxliaadd dialog-close" ng-click="helpDialog('addhelp')">安置补助类</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--添加财务结算项目—物业补偿类-->
+    <div class="dialog addcompensation">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w1080 radius hop-cont" style="left: 404.5px; top: 113.5px; opacity: 1; margin-top: -30px;">
+            <div class="back-white pb20 c-csrbdc" style="height:550px;overflow:scroll;">
+
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">添加财务结算项目—物业补偿类</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancel()"></a>
+                </h3>
+                <div style="height:500px;overflow:auto;">
+                <div class="c-spgltclshow mt20 mt15 ml15 mr15 ">
+                    <p  class="c-wygltp fs14 c6 pl30 clearfix mb5"><span class="left w-100 maincolor">项目名称：</span><input type="text" class="l-input" placeholder="请输入..." ng-model="newprojectname"></p>
+                    <p class="c-wygltp fs14 c6 pl30 clearfix mb5">
+                        <span class="left c-spgltsp h-100 w-100 maincolor">关联补偿内容：</span>
+                        <span class="left mr45 relative" ng-repeat="n in newcontactlist">
+                           <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox"  name="area" value="" ng-click="updateSelection($event,n.compensateProjectId,n.compensationId)" ng-model="n.state"><i class="c-htcboxin c-iconfont maincolor"></i>{{n.compensateProjectName}}—{{n.compensateTypeName}}
+                        </span>
+
+                    </p>
+                </div>
+                <!--规则一-->
+                <div class="c-spgltclshow mt20 mt15 ml15 mr15" ng-repeat="new in newdetailJson">
+                    <p class="fs14 c6 pl30 clearfix">
+                        规则{{$index+1}}&nbsp;&nbsp;&nbsp;<span class="red">注：框架协议优先级最高，如未签署，则在签署后支付。</span>
+                        <a ng-if="$index!=0" href="javascript:void(0)" class="right w-delete disinblock w-100  radius" ng-click="deleteProcess(0,$index)">删除节点</a>
+                    </p>
+                    <p  class="c-wygltp fs14 c6 pl30 clearfix mb5">
+                        <span class="left c-spgltsp w-100 maincolor">框架协议：</span>
+                        <span class="left"><input name="display+{{$index}}" type="radio" ng-value="1" ng-model="new.isProtocol" ng-checked="true" required>需要签署后支付</span>
+                        <span class="left ml45"><input name="display+{{$index}}" type="radio" ng-value="0" ng-model="new.isProtocol">不需要签署，直接支付</span>
+                    </p>
+                    <p class="c-wygltp fs14 c6 pl30 clearfix mb5">
+                        <span class="left c-spgltsp w-100 maincolor">支付节点：</span>
+                        <select name="select+{{$index}}" id="" ng-change="getid(new.ruleIdOne,$index,'new')" class="select zjm-select w200" ng-model="new.ruleIdOne" ng-options="n.id as n.name for n in nodelist">
+                            <option value="">请选择</option>
+                        </select>
+                        <select name="" id="" class="select zjm-select w200" ng-model="new.ruleIdTwo" ng-options="s.id as s.name for s in new.stagelist" ng-show="new.stagelist.length!=0">
+                            <option value="">请选择</option>
+                        </select>
+                        
+                        <select name="" id="" class="select zjm-select" style="width:80px;" ng-model="new.status" ng-options="s.status as s.val for s in statusoption">
+                                <!-- <option value="">请选择</option> -->
+                            </select>
+                        <span class="maincolor">
+                            <input type="number" class="l-input" placeholder="请输入..." ng-model="new.ruleTwoData">
+                            日前支付</span>
+                    </p>
+                    <p  class="c-wygltp fs14 c6 pl30 clearfix mb5"><span class="left w-100 maincolor">支付比例(%)：</span>占项目总金额的<input type="number" class="l-input" placeholder="请输入..." name="rate"  validator="rate" ng-model="new.scale"></p>
+                    <p  class="c-wygltp fs14 c6 pl30 clearfix mb5"><span class="left w-100 maincolor">支付依据：</span><input type="text" class="l-input" placeholder="请输入..." ng-model="new.paymentBasis"></p>
+                </div>
+                <div class="c-cjszadd pl20 mt30 pb30">
+                    <a href="" class="c-cjszadda radius5 w133 disinblock" ng-click="show(1)" ng-hide="flag">
+                        <i class="c-iconfont mr10"></i>添加规则
+                    </a>
+                </div>
+                <span class="hop-bntap disblock pt30 pb55 tc">
+                    <button type="button" class="hop-save disinblock w133 hoptap radius saveDisabled" ng-click="addcommission('1')">保存</button>
+                    <a href="" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="cancel()">取消</a>
+                </span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--添加财务结算项目—延期支付类-->
+    <div class="dialog adddelay">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w1080 radius hop-cont" style="left: 404.5px; top: 113.5px; opacity: 1; margin-top: -30px;">
+            <div class="back-white pb20 c-csrbdc" style="height:550px;overflow:scroll;">
+
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">添加财务结算项目—延期支付类</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancel()"></a>
+                </h3>
+                <div class="c-spgltclshow mt20 mt15 ml15 mr15">
+                    <p  class="c-wygltp fs14 c6 pl30 clearfix"><span class="left w-100 maincolor">项目名称：</span><input type="text" class="l-input" placeholder="请输入..." ng-model="newprojectname"></p>
+                    <p class="c-wygltp fs14 c6 pl30 clearfix mb5">
+                        <span class="left c-spgltsp h-100 w-100 maincolor">关联补偿内容：</span>
+                        <span class="left mr45 relative" ng-repeat="n in newcontactlist">
+                           <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox"  name="area" value="" ng-click="updateSelection($event,n.compensateProjectId,n.compensationId)" ng-model="n.state"><i class="c-htcboxin c-iconfont maincolor"></i>{{n.compensateProjectName}}—{{n.compensateTypeName}}
+                        </span>
+
+                    </p>
+                </div>
+                <div  ng-repeat="new in newdetailJson">
+                     <div class="c-spgltclshow mt20 mt15 ml15 mr15 ">
+                    <p class="c-wygltp fs14 c6 pl30 clearfix mb5">
+                        <span class="left c-spgltsp w-100 maincolor">计算周期：</span>
+                        自   <select name="" id="" ng-change="getid(new.ruleIdOne,$index,'new')" class="select zjm-select w200" ng-model="new.ruleIdOne" ng-options="n.id as n.name for n in nodelist">
+                        <option value="">请选择</option>
+                    </select>
+                        <select name="" id="" class="select zjm-select w200" ng-model="new.ruleIdTwo" ng-options="s.id as s.name for s in new.stagelist" ng-show="new.stagelist.length!=0">
+                            <option value="">请选择</option>
+                        </select>开始计算，到框架协议签署完成截止计算，并进行支付。
+                    </p>
+                    <p  class="c-wygltp fs14 c6 pl30 clearfix mb5">
+                        <span class="left c-spgltsp w-100 maincolor">支付方式：</span>
+                        <span class="left"><input name="newdelaymode" type="radio" ng-value="1" ng-model="new.paymentMode" ng-checked="true">按月计算</span>
+                        <span class="left ml45"><input name="newdelaymode" type="radio" ng-value="2" ng-model="new.paymentMode">按季度计算</span>
+                    </p>
+
+                    <p  class="c-wygltp fs14 c6 pl30 clearfix mb5"><span class="left w-100 maincolor">支付金额：</span ><input type="number" class="l-input" placeholder="请单价..." ng-model="new.amount  "><span class="maincolor" ng-model=""></span>元/㎡</p>
+                    <p  class="c-wygltp fs14 c6 pl30 clearfix"><span class="left w-100 maincolor">支付依据：</span><input type="text" class="l-input" placeholder="请输入..." ng-model="new.paymentBasis"></p>
+                </div>
+                </div>
+                <span class="hop-bntap disblock pt30 pb55 tc">
+                    <button type="button" class="hop-save disinblock w133 hoptap radius saveDisabled" ng-click="addcommission('3')">保存</button>
+                    <a href="" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="cancel()">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--添加财务结算项目—安置补助类-->
+    <div class="dialog addhelp">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w1080 radius hop-cont" style="left: 404.5px; top: 113.5px; opacity: 1; margin-top: -30px;">
+            <div class="back-white pb20 c-csrbdc" style="height:550px;overflow:scroll">
+
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">添加财务结算项目—安置补助类</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancel()"></a>
+                </h3>
+
+                <div class="c-spgltclshow mt20 mt15 ml15 mr15 ">
+                    <p  class="c-wygltp fs14 c6 pl30 clearfix"><span class="left w-100 maincolor">项目名称：</span><input type="text" class="l-input" placeholder="请输入..." ng-model="newprojectname"></p>
+                    <p class="c-wygltp fs14 c6 pl30 clearfix mt5">
+                        <span class="left c-spgltsp h-100 w-100 maincolor">关联补偿内容：</span>
+                        <span class="left mr45 relative" ng-repeat="n in newcontactlist">
+                           <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox"  name="area" value="" ng-model="n.state" ng-click="updateSelection($event,n.compensateProjectId,n.compensationId)" ><i class="c-htcboxin c-iconfont maincolor"></i>{{n.compensateProjectName}}—{{n.compensateTypeName}}
+                        </span>
+
+                    </p>
+                </div>
+                <div ng-repeat="new in newdetailJson">
+                    <div class="c-spgltclshow mt20 mt15 ml15 mr15 ">
+                    <p  class="c-wygltp fs14 c6 pl30 clearfix mb5">
+                        <span class="left c-spgltsp w-100 maincolor">子类型：</span>
+                        <span class="left"><input name="newchildType" type="radio" ng-value="1" ng-model="new.childType" ng-checked="true" required>安置补助</span>
+                        <span class="left ml45"><input name="newchildType" type="radio" ng-value="2" ng-model="new.childType">其他补助</span>
+                    </p>
+                    <p class="c-wygltp fs14 c6 pl30 clearfix mb5" ng-if="new.childType==2">
+                        <span class="left c-spgltsp w-100 maincolor">支付节点：</span>
+                        <select name="" id="" ng-change="getid(new.ruleIdOne,$index,'new')" class="select zjm-select w200" ng-model="new.ruleIdOne" ng-options="n.id as n.name for n in nodelist">
+                            <option value="">请选择</option>
+                        </select>
+                        <select name="" id="" class="select zjm-select w200" ng-model="new.ruleIdTwo" ng-options="s.id as s.name for s in new.stagelist" ng-show="new.stagelist.length!=0">
+                            <option value="">请选择</option>
+                        </select>
+                        <span class="maincolor">完成后<input type="number" class="l-input" placeholder="请输入..." ng-model="new.ruleTwoData">日前支付</span>
+
+                    </p>
+                    <p class="c-wygltp fs14 c6 pl30 clearfix mb5" ng-if="new.childType==1">
+                        <span class="left c-spgltsp w-100 maincolor">支付节点：</span>
+                        <span class="mr5">自</span><select name="" id="" ng-change="getid(new.ruleIdOne,$index,'new')" class="select zjm-select w200" ng-model="new.ruleIdOne" ng-options="n.id as n.name for n in nodelist">
+                            <option value="">请选择</option>
+                        </select>
+                        <select name="" id="" class="select zjm-select w200" ng-model="new.ruleIdTwo" ng-options="s.id as s.name for s in new.stagelist" ng-show="new.stagelist.length!=0">
+                            <option value="">请选择</option>
+                        </select>
+                        <span class="maincolor">开始计算</span>
+                        <br/>
+                        <span class="mr5 pl100">到</span><select name="" id="" ng-change="getid(new.nodeOneId,$index,'new',1)" class="select zjm-select w200" ng-model="new.nodeOneId" ng-options="n.id as n.name for n in nodelist">
+                            <option value="">请选择</option>
+                        </select>
+                        <select name="" id="" class="select zjm-select w200" ng-model="new.nodeTwoId" ng-options="s.id as s.name for s in new.stagelist2" ng-show="new.stagelist2.length!=0">
+                            <option value="">请选择</option>
+                        </select>
+                        <span class="maincolor">截止计算，并完成支付</span>
+                    </p>
+                    <p class="c-wygltp fs14 c6 pl30 clearfix mb5" ng-if="new.childType==1">
+                        <span class="left c-spgltsp w-100 maincolor">支付方式：</span>
+                        <span class="left"><input name="newpaymode" type="radio" ng-value="1" ng-model="new.paymentMode" ng-checked="true" required>按月计算</span>
+                        <span class="left ml45"><input name="newpaymode" type="radio" ng-value="2" ng-model="new.paymentMode">按季度计算</span>
+                    </p>
+                    <p  class="c-wygltp fs14 c6 pl30 clearfix"><span class="left w-100 maincolor">支付依据：</span><input type="text" class="l-input" placeholder="请输入..." ng-model="new.paymentBasis"></p>
+                </div>
+                </div>
+                <span class="hop-bntap disblock pt30 pb55 tc">
+                    <button type="button" class="hop-save disinblock w133 hoptap radius saveDisabled" ng-click="addcommission('2')">保存</button>
+                    <a href="" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="cancel()">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--修改财务结算项目-物业补偿类-->
+    <div class="dialog updatecompensation">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w1080 radius hop-cont">
+            <div class="back-white pb20 c-csrbdc">
+
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">修改财务结算项目—物业补偿类</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancel()"></a>
+                </h3>
+                <div style="height:500px;overflow:auto;">
+                    <div class="c-spgltclshow mt20 mt15 ml15 mr15 ">
+                        <p  class="c-wygltp fs14 c6 pl30 clearfix mb5"><span class="left w-100 maincolor">项目名称：</span><input type="text" class="l-input" placeholder="请输入..." ng-model="projectname"></p>
+                        <p class="c-wygltp fs14 c6 pl30 clearfix mb5">
+                            <span class="left c-spgltsp h-100 w-100 maincolor">关联补偿内容：</span>
+                            <span class="left mr45 relative" ng-repeat="c in contactlist">
+                           <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox"  ng-model="c.state" ng-click="updateSelection($event,c.compensateProjectId,c.compensationId)">{{c.compensateProjectName}}—{{c.compensateTypeName}}
+                        </span>
+
+                        </p>
+                    </div>
+                    <!--规则一-->
+                    <div class="c-spgltclshow mt20 mt15 ml15 mr15" ng-repeat="new in detailJson">
+                        <p class="fs14 c6 pl30 clearfix">
+                            规则{{$index+1}}&nbsp;&nbsp;&nbsp;<span class="red">注：框架协议优先级最高，如未签署，则在签署后支付。</span>
+                            <a ng-if="$index!=0" href="javascript:void(0)" class="right w-delete disinblock w-100  radius" ng-click="deleteProcess(1,$index)">删除节点</a>
+                        </p>
+                        <p  class="c-wygltp fs14 c6 pl30 clearfix mb5">
+                            <span class="left c-spgltsp w-100 maincolor">框架协议：</span>
+                            <span class="left"><input name="display+{{$index}}" type="radio" ng-value="1" ng-model="new.isProtocol" ng-checked="true" required>需要签署后支付</span>
+                            <span class="left ml45"><input name="display+{{$index}}" type="radio" ng-value="0" ng-model="new.isProtocol">不需要签署，直接支付</span>
+                        </p>
+                        <p class="c-wygltp fs14 c6 pl30 clearfix mb5">
+                            <span class="left c-spgltsp w-100 maincolor">支付节点：</span>
+                            <select name="select+{{$index}}" id="" ng-change="getid(new.ruleIdOne,$index,'update')" class="select zjm-select w200" ng-model="new.ruleIdOne" ng-options="n.id as n.name for n in nodelist">
+                                <option value="">请选择</option>
+                            </select>
+                            <select name="" id="" class="select zjm-select w200" ng-model="new.ruleIdTwo" ng-options="s.id as s.name for s in new.stagelist" ng-show="new.stagelist.length!=0">
+                                <option value="">请选择</option>
+                            </select>
+                            <select name="" id="" class="select zjm-select" style="width:80px;" ng-model="new.status" ng-options="s.status as s.val for s in statusoption">
+    
+                            </select>
+                            <span class="maincolor"><input type="number" class="l-input" placeholder="请输入..." ng-model="new.ruleTwoData">日前支付</span>
+                        </p>
+                        <p  class="c-wygltp fs14 c6 pl30 clearfix mb5"><span class="left w-100 maincolor">支付比例(%)：</span>占项目总金额的<input type="number" class="l-input" placeholder="请输入..." name="rate"  validator="rate" ng-model="new.scale"></p>
+                        <p  class="c-wygltp fs14 c6 pl30 clearfix mb5"><span class="left w-100 maincolor">支付依据：</span><input type="text" class="l-input" placeholder="请输入..." ng-model="new.paymentBasis"></p>
+                    </div>
+                    <div class="c-cjszadd pl20 mt30 pb30">
+                        <a href="" class="c-cjszadda radius5 w133 disinblock" ng-click="show(2)" ng-hide="flag">
+                            <i class="c-iconfont mr10"></i>添加规则
+                        </a>
+                    </div>
+                    <span class="hop-bntap disblock pt30 pb55 tc">
+                    <button type="button" class="hop-save disinblock w133 hoptap radius saveDisabled" ng-click="updatesavecommission('1')">保存</button>
+                    <a href="" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="cancel()">取消</a>
+                </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--修改财务结算项目-延期支付类-->
+    <div class="dialog updatedelay">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w1080 radius hop-cont">
+            <div class="back-white pb20 c-csrbdc">
+
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">修改财务结算项目—延期支付类</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancel()"></a>
+                </h3>
+                <div class="c-spgltclshow mt20 mt15 ml15 mr15 ">
+                    <p  class="c-wygltp fs14 c6 pl30 clearfix"><span class="left w-100 maincolor">项目名称：</span><input type="text" class="l-input" placeholder="请输入..." ng-model="projectname"></p>
+                    <p class="c-wygltp fs14 c6 pl30 clearfix mb5">
+                        <span class="left c-spgltsp h-100 w-100 maincolor">关联补偿内容：</span>
+                        <span class="left mr45 relative" ng-repeat="c in contactlist">
+                           <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox"  ng-model="c.state" ng-click="updateSelection($event,c.compensateProjectId,c.compensationId)">{{c.compensateProjectName}}—{{c.compensateTypeName}}
+                        </span>
+                    </p>
+                </div>
+                <div  ng-repeat="new in detailJson">
+                    <div class="c-spgltclshow mt20 mt15 ml15 mr15 ">
+                        <p class="c-wygltp fs14 c6 pl30 clearfix mb5">
+                            <span class="left c-spgltsp w-100 maincolor">计算周期：</span>
+                            自   <select name="" id="" ng-change="getid(new.ruleIdOne,$index,'update')" class="select zjm-select w200" ng-model="new.ruleIdOne" ng-options="n.id as n.name for n in nodelist">
+                            <option value="">请选择</option>
+                        </select>
+                            <select name="" id="" class="select zjm-select w200" ng-model="new.ruleIdTwo" ng-options="s.id as s.name for s in new.stagelist" ng-show="new.stagelist.length!=0">
+                                <option value="">请选择</option>
+                            </select>开始计算，到框架协议签署完成截止计算，并进行支付。
+                        </p>
+                        <p  class="c-wygltp fs14 c6 pl30 clearfix mb5">
+                            <span class="left c-spgltsp w-100 maincolor">支付方式：</span>
+                            <span class="left"><input name="newdelaymode" type="radio" ng-value="1" ng-model="new.paymentMode">按月计算</span>
+                            <span class="left ml45"><input name="newdelaymode" type="radio" ng-value="2" ng-model="new.paymentMode">按季度计算</span>
+                        </p>
+
+                        <p  class="c-wygltp fs14 c6 pl30 clearfix mb5"><span class="left w-100 maincolor">支付金额：</span ><input type="number" class="l-input" placeholder="请单价..." ng-model="new.amount  "><span class="maincolor" ng-model=""></span>元/㎡</p>
+                        <p  class="c-wygltp fs14 c6 pl30 clearfix"><span class="left w-100 maincolor">支付依据：</span><input type="text" class="l-input" placeholder="请输入..." ng-model="new.paymentBasis"></p>
+                    </div>
+                </div>
+                <span class="hop-bntap disblock pt30 pb55 tc">
+                    <button type="button" class="hop-save disinblock w133 hoptap radius saveDisabled" ng-click="updatesavecommission('3')">保存</button>
+                    <a href="" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="cancel()">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--修改财务结算项目-安置补助类-->
+    <div class="dialog updatehelp">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w1080 radius hop-cont">
+            <div class="back-white pb20 c-csrbdc">
+
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">添加财务结算项目—安置补助类</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancel()"></a>
+                </h3>
+                <div class="c-spgltclshow mt20 mt15 ml15 mr15 ">
+                    <p  class="c-wygltp fs14 c6 pl30 clearfix"><span class="left w-100 maincolor">项目名称：</span><input type="text" class="l-input" placeholder="请输入..." ng-model="projectname"></p>
+                    <p class="c-wygltp fs14 c6 pl30 clearfix mt5">
+                        <span class="left c-spgltsp h-100 w-100 maincolor">关联补偿内容：</span>
+                        <span class="left mr45 relative" ng-repeat="c in contactlist">
+                           <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox"  name="area" value="" ng-model="c.state" ng-click="updateSelection($event,c.compensateProjectId,c.compensationId)"><i class="c-htcboxin c-iconfont maincolor"></i>{{c.compensateProjectName}}—{{c.compensateTypeName}}
+                        </span>
+
+                    </p>
+                </div>
+                <div ng-repeat="new in detailJson" ng-if="detailJson.length">
+                    <div class="c-spgltclshow mt20 mt15 ml15 mr15 ">
+                        <p  class="c-wygltp fs14 c6 pl30 clearfix mb5">
+                            <span class="left c-spgltsp w-100 maincolor">子类型：</span>
+                            <span class="left"><input name="nchildType" type="radio" ng-value="1" ng-model="new.childType" ng-checked="true" required>安置补助</span>
+                            <span class="left ml45"><input name="nchildType" type="radio" ng-value="2" ng-model="new.childType">其他补助</span>
+                        </p>
+                        <p class="c-wygltp fs14 c6 pl30 clearfix mb5" ng-if="new.childType==2">
+                            <span class="left c-spgltsp w-100 maincolor">支付节点：</span>
+                            <select name="" id="" ng-change="getid(new.ruleIdOne,$index,'update')" class="select zjm-select w200" ng-model="new.ruleIdOne" ng-options="n.id as n.name for n in nodelist">
+                                <option value="">请选择</option>
+                            </select>
+                            <select name="" id="" class="select zjm-select w200" ng-model="new.ruleIdTwo" ng-options="s.id as s.name for s in new.stagelist" ng-show="new.stagelist.length!=0">
+                                <option value="">请选择</option>
+                            </select>
+                            <span class="maincolor">完成后<input type="number" class="l-input" placeholder="请输入..." ng-model="new.ruleTwoData">日前支付</span>
+
+                        </p>
+                        <p class="c-wygltp fs14 c6 pl30 clearfix mb5" ng-if="new.childType==1">
+                            <span class="left c-spgltsp w-100 maincolor">支付节点：</span>
+                            <span class="mr5">自</span><select name="" id="" ng-change="getid(new.ruleIdOne,$index,'update')" class="select zjm-select w200" ng-model="new.ruleIdOne" ng-options="n.id as n.name for n in nodelist">
+                            <option value="">请选择</option>
+                        </select>
+                            <select name="" id="" class="select zjm-select w200" ng-model="new.ruleIdTwo" ng-options="s.id as s.name for s in new.stagelist" ng-show="new.stagelist.length!=0">
+                                <option value="">请选择</option>
+                            </select>
+                            <span class="maincolor">开始计算</span>
+                            <br/>
+                            <span class="mr5 pl100">到</span><select name="" id="" ng-change="getid(new.nodeOneId,$index,'update',2)" class="select zjm-select w200" ng-model="new.nodeOneId" ng-options="n.id as n.name for n in nodelist">
+                            <option value="">请选择</option>
+                        </select>
+                            <select name="" id="" class="select zjm-select w200" ng-model="new.nodeTwoId" ng-options="s.id as s.name for s in new.stagelist2" ng-show="new.stagelist2.length!=0">
+                                <option value="">请选择</option>
+                            </select>
+                            <span class="maincolor">截止计算，并完成支付</span>
+                        </p>
+                        <p class="c-wygltp fs14 c6 pl30 clearfix mb5" ng-if="new.childType==1">
+                            <span class="left c-spgltsp w-100 maincolor">支付方式：</span>
+                            <span class="left"><input name="npaymode" type="radio" ng-value="1" ng-model="new.paymentMode">按月计算</span>
+                            <span class="left ml45"><input name="npaymode" type="radio" ng-value="2" ng-model="new.paymentMode">按季度计算</span>
+                        </p>
+                        <p  class="c-wygltp fs14 c6 pl30 clearfix"><span class="left w-100 maincolor">支付依据：</span><input type="text" class="l-input" placeholder="请输入..." ng-model="new.paymentBasis"></p>
+                    </div>
+                </div>
+                <span class="hop-bntap disblock pt30 pb55 tc">
+                    <button type="button" class="hop-save disinblock w133 hoptap radius saveDisabled" ng-click="updatesavecommission('2')">保存</button>
+                    <a href="" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="cancel()">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+

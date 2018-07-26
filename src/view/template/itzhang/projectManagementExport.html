@@ -1,0 +1,52 @@
+<app-head></app-head>
+<div app-left></div>
+<div class="l-rightsider pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">{{projectname}}</a>
+            <a class=" left fs18 c6 mr35 pl5">全部物业</a>
+            <span class="c-csrbdtasp left fs14 c6 ml20 mt5">共{{number}}个</span>
+        </div>
+        <div class="c-csrbdb mt20 clearfix">
+            <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="javascript:;" ui-sref="#">导出</a>
+            <!--<div class="c-csrbdinp right clearfix">
+                <i class="c-iconfont mt8 ml10 left" ></i>
+                <input class="ml10 left" type="text" placeholder="请输入产品名称">
+            </div>-->
+        </div>
+        <div class="c-csrbdc mt20">
+            <p class="c-csrbdcpa pl30 fs16 c3">筛选</p>
+            <p class="fs14 c6 pl30 clearfix">
+                <span class="left">签约进度：</span>
+                <span class="left ml45 relative">
+                           <input class=" c-csrbdcinp c-htcbox c-allcheacked" type="checkbox"ng-click="selectedAll()" name="causes" value="">全部
+                        </span>
+                <span class="left ml45 relative" ng-repeat="item in conditions">
+                    <input class=" c-csrbdcinp c-htcbox" id="{{item.cause}}" type="checkbox" ng-click="doChange()" name="cause" value="">{{item.cause}}
+                </span>
+
+            </p>
+        </div>
+
+       <!-- <div class="l-managetable mt24">
+            <div class="clearfix h48 lh48 bor1c pl15 pr15">
+                <span class="fl">
+                    <span>1 区 </span>
+                    <span> 共81栋</span>
+                </span>
+                <span class="fr">
+                    <span class="ml20">已签约 31栋</span>
+                    <span class="ml20">未签约 31栋</span>
+                </span>
+            </div>
+        </div>-->
+        <div class="mt24 w100- clearfix" ng-repeat="items in datas">
+            <div class="w-23 fl bor1c pl15 pr15 pb15 mr22 mt20 minw265 j-w47- pos-rel">
+                <p class="mt15">{{items.address}}</p>
+                <p class="mt15">{{projectName}} {{items.address}} {{items.code}}</p>
+                <p class="mt15">未签约原因：{{items.cause}}</p>
+                <div class="bg2551020 w56 h26 lh26 tc pos-abs t10 r0 cfff">未签约</div>
+            </div>
+        </div>
+    </div>
+</div>

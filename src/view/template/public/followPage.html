@@ -1,0 +1,94 @@
+<div class="bgf">
+<h3 class="c-xmxqlh pl35 fs16 c3">添加 <span ng-bind="projectflag==1?'项目':'物业'"></span> 跟踪信息</h3>
+<div class=" p15">
+    
+    <textarea class="zj-textareapar radius5 z-resize" ng-model="advice"  placeholder="请输入内容..."></textarea>
+    <span class="fs12 tr disblock mr20">最多输入256个字符</span>
+    <!-- 上传图片 -->
+    <div class="relative c-inputfiless pt30 ng-scope">
+        <form action="" class="ng-pristine ng-valid">
+            <input type="file" class="zj-inputfile pointer importfile" multiple accept="" name="fileName" useindx="0" onchange="angular.element(this).scope().fileNameChanged(event,'photos')">
+        </form>
+        <i class="c-wyxqlta c-iconfont pointer mr15 pos-abs t10 l0" ></i>
+    </div>
+    <!-- 上传视频 -->
+    <div class="relative c-inputfiless pt30 ng-scope">
+        <form action="" class="ng-pristine ng-valid">
+            <input type="file" class="zj-inputfile pointer importfile" multiple capture="" accept="" name="fileName" useindx="0" onchange="angular.element(this).scope().fileNameChanged(event,'video')">
+        </form>
+        <i class="c-wyxqltass c-iconfont pointer mr15 pos-abs t10 l0" ></i>
+    </div>
+    <!--<i class="c-wyxqltc c-iconfont pointer mr15"></i>-->
+    <div class="mt20 mb20">
+        <div ng-repeat="i in fileArr" class="dis-inlBlo">
+            <img ng-if="i.flag=='photos'" class="c-xmxqlbimg disblock mr10" ng-src="{{i.filePath?imgHost+i.filePath:''}}" width="100" height="100" alt="用户头像">
+            <div class=" pos-rel mr10" ng-if="i.flag=='video'" ng-click="playauto(i.filePath)">
+                <video class="c-xmxqlbimg disblock" ng-src="{{trustSrc(i.filePath)}}" width="100" height="100"></video>
+                <img src="image/playstop.png" alt="" class=" pos-abs t0 w-100">
+            </div>
+            
+            <a ng-click="fileArrDel($index)" class="w100- disblock tc fs12">删除</a>
+        </div>
+    </div>
+    <p class="lh38 c-bordere6 radius5 mt15 pl15 clearfix">
+        <span class="left">问题类型：</span>
+        <span class="c-wyxqltsp ml20 left">
+                       <select ng-model="question" class="c-wyxqltspsl c-bordere6"
+                               ng-options="value.id as value.name for value in questionArr">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </span>
+
+    </p>
+    <p class="lh38 c-bordere6 radius5 mt15 pl15 clearfix">
+        <span class="left">进展阶段：</span>
+        <span class="c-wyxqltsp ml20 left">
+                       <select ng-model="myselect" ng-change="myFunc()" class="c-wyxqltspsl c-bordere6"
+                               ng-options="value.id as value.name for value in signListP">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </span>
+        <span class="c-wyxqltsp ml20 left" ng-if="listSecondP[0].length>0?true:false">
+                        <select class="c-wyxqltspsl c-bordere6" ng-model="myselect2" ng-change="myFunc2()"
+                                ng-options="l.id as l.name for l in listSecondP[0]">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </span>
+
+    </p>
+    <p class="lh38 c-bordere6 radius5 mt15 pl15 clearfix">
+        <span class="left">问题描述：</span>
+        <span class="c-wyxqltsp ml20 left">
+                            <input type="text" class="c-wyxqltinp" placeholder="请输入内容..." ng-model="depict">
+                        </span>
+    </p>
+    <p class="lh38 c-bordere6 radius5 mt15 pl15 clearfix">
+        <span class="left">解决办法：</span>
+        <span class="c-wyxqltsp ml20 left">
+                            <input type="text" class="c-wyxqltinp" placeholder="请输入内容..." ng-model="solution">
+                        </span>
+    </p>
+    <p class="mt15 clearfix">
+        <span class="right clearfix">
+            <a class="c-xmxqltbtn c-iconfont cf fs16 tc left" ng-click="addInformation(genjingId)">发布</a>
+        </span>
+
+    </p>
+
+    <!--添加业权人-->
+        <div class="dialog other">
+            <div class="dialog-bg" ng-click="stopplay()"></div>
+            <div class="dialog-cont radius  hop-cont" style="width:900px;">
+                <div class="back-white">
+                    <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                        <em class="left fs18 c3"><span ng-bind="addOrUpdateTitleName"></span></em>
+                        <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                    </h3>
+                    <div class="pt20 pl30 pr30" >
+                        <video id="otherplay"  ng-src="{{trustSrc(playurl)}}" width="800" controls style="max-height:500px; "></video>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</div>

@@ -1,0 +1,40 @@
+<div class="dialog hopbntfollow">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w754 radius hop-cont">
+        <div class="back-white">
+            <h3 class="c-xmxqlh pl35 fs16 c3">添加跟进信息
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15 mr35"></a></h3>
+            <div class="c-xmxqlt c-wyxqlt pl35 pr35 pb20 bgf clearfixf">
+                <form action="" name="form">
+                    <p class="lh38 c-bordere6 radius5 mt15 pl15 pr15 clearfix">
+                        <span class="left"><span ng-bind="projectName"></span>跟进信息：</span>
+                        <textarea class=" radius5 z-resize" style="border: 1px solid #ccc;" ng-model="followinfo" validator="required" name="info" maxlength="200"></textarea>
+                        <span class="fs12 tr disblock mr20" style="margin-top:-14px;">最多输入256个字符</span>
+                    <!--<div class="relative c-inputfiles pt30 ng-scope mt15" style="">-->
+                        <!--<form action="" class="ng-pristine ng-valid">-->
+                            <!--<input type="file" class="zj-inputfile pointer importfile" multiple="" accept="" name="fileName" useindx="0" onchange="angular.element(this).scope().fileNameChanged(event)">-->
+                        <!--</form>-->
+                        <!--<i class="c-wyxqlta c-iconfont pointer mr15 pos-abs t10 l0" ></i>-->
+                    <!--</div>-->
+                    <div class="mt20 mb20">
+                    <span ng-repeat="i in fileArr" class="dis-inlBlo">
+                        <img class="c-xmxqlbimg disblock" ng-src="{{i.filePath?(imgHost+i.filePath):''}}" width="100" height="100" alt="用户头像">
+                        <a ng-click="fileArrDel($index)" class="w100- disblock tc fs12">删除</a>
+                    </span>
+                    </div>
+                    <!--<p class="lh38 mt15 pr15 clearfix">-->
+                        <!--<span class="c-bordere6 radius5 zjmprn" >项目名:</span>-->
+                        <!--<span class="c-bordere6 radius5 zjmprn" >{{name_1}}</span>-->
+                    <!--</p>-->
+                    <p>
+                        <span></span>
+                    </p>
+                    <div class="c-adfybtn mt25 ml50 clearfix pb30">
+                        <a class="c-adfybtna mr20 cf left" href="" validation-submit="form" ng-click="issue(genjingId,genjingtype)" >保存</a>
+                        <a class="c-adfybtnb mr20 cf left dialog-console" href="" >取消</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

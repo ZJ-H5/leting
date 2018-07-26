@@ -1,0 +1,40 @@
+<app-head></app-head>
+
+<div app-left></div>
+<!--main-->
+<div class="l-rightsider   pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 pb30">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">财务管理</a>
+        </div>
+        <ul class="z-chbul h-cwgispxx mt15 back-white clearfix">
+            <li class="left"><a class="tc disblock c6" href="#/finance?projectid={{projectId}}">物业补偿和临时安置补助</a></li>
+            <li class="left"><a class="tc disblock c6" href="#/delayfinance?projectid={{projectId}}">延迟支付补偿</a></li>
+            <li class="left"><a class="tc disblock c6" href="#/commissionfinance?projectid={{projectId}}">佣金</a></li>
+            <li class="left"><a class="tc disblock maincolor" href="#/payfinance?projectid={{projectId}}">财务支付</a></li>
+            <li class="left" ng-show="payListFlag"><a class="tc disblock c6" href="javascript:void (0)">支付列表</a></li>
+        </ul>
+        <div class="l-managetable mt20">
+            <div class="clearfix h-cwglsz h-cwgispxx mb10 pl30 pb15" ng-repeat="s in statisticslist">
+                <div class="clearfix fl">
+                    <p class="clearfix lh25 mt15 ">
+                        <span class="fl">支付类型：{{s.payfinancetype}}</span>
+                        <span class="fl ml50">支付总金额：{{s.account?'￥'+s.account:no}}</span>
+                        <span class="fl ml40">支付条数：{{s.number}}条</span>
+                        <span class="fl ml40">状态：{{s.payment?s.payment:no}}</span>
+                    </p>
+                    <p class="clearfix lh25 mt10 ">
+                        <span class="fl">申请提交时间：{{s.applyTime?(s.applyTime|date:'yyyy-MM-dd'):'暂无数据'}}</span>
+                        <span class="fl ml45">申请通过时间：{{s.throughTime?(s.throughTime|date:'yyyy-MM-dd'):'暂无数据'}}</span>
+                    </p>
+                </div>
+                <span class="h-jiantou mr100  fr" ng-click="showPayList()"> <a href="#/paylist?projectid={{projectId}}&type={{s.type}}">></a> </span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!--main end-->

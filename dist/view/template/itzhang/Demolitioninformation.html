@@ -1,0 +1,70 @@
+<app-head></app-head>
+
+<div app-left></div>
+
+<!--main-->
+<div class="l-rightsider pb55">
+    <div class="pl15 pr18 pt15 pb15">
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <top-pact-information list="{{list}}"></top-pact-information>
+        </div>
+
+        <!--7个格子-->
+        <ul class="c-chbul h-cwgispxx mt15 back-white clearfix">
+            <li class="left"><a class="tc disblock ahover zj-NavAColor"  ui-sref="DemolitionDetails({projectid:projectId,roomId:roomId})">总览</a></li>
+            <li class="left"><a class="tc disblock ahover "  ui-sref="Demolitioninformation({projectid:projectId,roomId:roomId})">拆除信息</a></li>
+            <li class="left"><a class="tc disblock ahover zj-NavAColor" ui-sref="DemolitionMapingInfromation({projectid:projectId,roomId:roomId})">测绘信息</a></li>
+            <li class="left"><a class="tc disblock ahover zj-NavAColor" ui-sref="DemolitionOwner({projectid:projectId,roomId:roomId})">业权人</a></li>
+            <li class="left"><a class="tc disblock ahover zj-NavAColor" ui-sref="DemolitionAttachment({projectid:projectId,roomId:roomId})">物业附件</a></li>
+        </ul>
+        <!--下面主体-->
+        <h1 class="fs16 c3 h-shja">拆除信息</h1>
+        <div class="mt15 mb20 h-border back-white pb80 clearfix">
+            <div class="h-hjxinxi ml90 mt40 mb40">物业</div>
+            <ul class="fl h-hjxinxi ml90 ">
+                <li>物业：<span ng-bind="showdate.property?showdate.property:no"></span></li>
+                <li>地址：<span ng-bind="showdate.address?showdate.address:no"></span></li>
+                <li>房屋总面积：<span ng-bind="showdate.grossArea?showdate.grossArea+'㎡':no"></span></li>
+                <li>临时建筑物：<span ng-bind="showdate.area?showdate.area+'㎡':no"></span></li>
+                <li>违建：<span ng-bind="showdate.transgressArea?showdate.transgressArea+'㎡':no"></span></li>
+                <li>宅基地：<span ng-bind="showdate.curtilageArea?showdate.curtilageArea+'㎡':no"></span></li>
+                <li>水电、网络、电话注销时间：<span ng-bind="showdate.waterNetCancelTime?showdate.waterNetCancelTime:''"></span>
+                    <span ng-if="showdate.waterNetCancelTime?false:true" >
+                        <a  ng-click="addTime('test1','test2')" class="test2">请添加</a>
+                        <span class="test2" style="display:none">
+                            <input type="text" class="test1 bor1c">
+                            <a  ng-click="submitTime('waterNetCancelTime','test1')">提交</a>
+                        </span>
+
+                    </span>
+                </li>
+                <li>房产证注销时间：<span ng-bind="showdate.hosueCancelTime?showdate.hosueCancelTime:''"></span>
+                    <span ng-if="showdate.hosueCancelTime?false:true" >
+                        <a  ng-click="addTime('test3','test4')" class="test4">请添加</a>
+                        <span class="test4" style="display:none">
+                            <input type="text" class="test3 bor1c">
+                            <a  ng-click="submitTime('hosueCancelTime','test3')">提交</a>
+                        </span>
+
+                    </span>
+                </li>
+                <li>土地证注销时间：<span ng-bind="showdate.earthCancelTime?showdate.earthCancelTime:''"></span>
+                    <span ng-if="showdate.earthCancelTime?false:true" >
+                        <a  ng-click="addTime('test5','test6')" class="test6">请添加</a>
+                        <span class="test6" style="display:none">
+                            <input type="text" class="test5 bor1c"  ng-model="vals">
+                            <a  ng-click="submitTime('earthCancelTime','test5')" >提交</a>
+                        </span>
+
+                    </span>
+                </li>
+            </ul>
+            <div class="fr h-fuzeren mr100 mt30 c3">
+                <right-information-two listtop="{{listtop}}"></right-information-two>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--main end-->
+

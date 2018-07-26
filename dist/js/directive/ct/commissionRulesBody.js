@@ -1,0 +1,1 @@
+"use strict";angular.module("app").directive("appCommissionRulesBody",["cache",function(e){return{restrict:"A",replace:!0,templateUrl:"view/template/ct/commissionRulesBody.html"}}]);

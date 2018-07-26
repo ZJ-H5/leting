@@ -1,0 +1,123 @@
+<app-head></app-head>
+<left-system></left-system>
+
+<div class="l-rightsider clearfix   pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">单一基础数据</a>
+        </div>
+        <ul class="c-chbul h-cwgispxx mt15 back-white clearfix">
+            <li class="left"><a class="tc disblock ahover c6 "  href="#/databasicSign">签约阶段</a></li>
+            <li class="left"><a class="tc disblock ahover c6 " href="#/databasicprocess">审核流程</a></li>
+            <li class="left"><a class="tc disblock ahover c6 " href="#/databasicCompensationProject">补偿项目</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/databasicCompensationType">补偿类型</a></li>
+            <li class="left"><a class="tc disblock ahover c6 maincolor" href="#/singledatabasic">单一数据</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/databasiccompact">合同模板</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/databasicRebuild">还建基础数据</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/bankmessage">银行信息</a></li>
+        </ul>
+        <div class="clearfix mt20">
+            <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="javascript:void(0)" ng-click="addshow('addnew')">新建</a>
+        </div>
+        <div class="l-managetable mt20">
+            <div class="l-managetable c-bordere6">
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th>
+                            <span>类型</span>
+                        </th>
+                        <th>
+                            <span>名称</span>
+                        </th>
+                        <th class="zjm-w15">描述</th>
+                        <th>创建人</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="s in singledata">
+                        <td>{{s.type}}</td>
+                        <td>
+                            <span>{{s.name}}</span>
+                        </td>
+                        <td>{{s.remarks|limitTo:28}}</td>
+                        <td>{{s.realname}}</td>
+                        <td>{{s.createTime|date:'yyyy-MM-dd hh:mm'}}</td>
+                        <td class="l-tablelink">
+                            <a href="javascript:void(0)" ng-click="editprojectlist('h-eddit',s.id,s.code,s.name,s.remarks)">编辑</a>
+                            <a href="javascript:void(0)" ng-click="delete(s.id)">删除</a>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!--main end-->
+
+<!--编辑父级阶段-->
+<div class="dialog h-eddit">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius  hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">添加单一基础数据</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt10 pl30 pr30">
+                <p class="clearfix c-wygltp pl20 mt5 pt10 pb5">
+                    <span class="fl w-100" >类型：</span>
+                    <select name="" id="" ng-model="isupdatetype" ng-options="i.code as i.name for i in initdata" class="select c-adfylisl border">
+                        <option value="">--请选择--</option>
+                    </select>
+
+                </p>
+                <p class="clearfix border pl20 mt20 pt10">
+                    <span class="fl w-100" >名称：</span>
+                    <input type="text" placeholder="请输入名称..." class="fl mb5 border pt5 pb5 pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="updatename">
+                </p>
+                <p class="clearfix border mt20 pl20 pb10 pt10">
+                    <span class="fl w-100">备注：</span>
+                    <textarea name="" id="" cols="30" rows="10" class="textarea border radius5" ng-model="updateremarks"></textarea>
+                </p>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="updatesave(id)">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+				</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--添加补偿项目-->
+<div class="dialog addnew">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius  hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">添加单一基础数据</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="clearData()"></a>
+            </h3>
+            <div class="pt10 pl30 pr30">
+                <p class="clearfix c-wygltp pl20 mt5 pt10 pb5">
+                    <span class="fl w-100" >类型：</span>
+                    <select name="" id="" ng-model="istype" ng-options="i.code as i.name for i in initdata" class="select c-adfylisl border">
+                        <option value="">--请选择--</option>
+                    </select>
+
+                </p>
+                <p class="clearfix border pl20 mt20 pt10">
+                    <span class="fl w-100" >名称：</span>
+                    <input type="text" placeholder="请输入名称..." class="fl mb5 border pt5 pb5 pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="newname">
+                </p>
+                <p class="clearfix border mt20 pl20 pb10 pt10">
+                    <span class="fl w-100">备注：</span>
+                    <textarea name="" id="" cols="30" rows="10" class="textarea border radius5" ng-model="remarks"></textarea>
+                </p>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="projectsave()">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="clearData()">取消</a>
+				</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <title>webapp</title>
+    <link rel="stylesheet" href="css/bootstrap/dist/css/bootstrap.min.css" media="screen" title="no title"
+          charset="utf-8">
+    <link rel="stylesheet" href="css/bootstrap/dist/css/bootstrap-theme.min.css" media="screen" title="no title"
+          charset="utf-8">
+    <link rel="stylesheet" href="css/lib/swiper.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="css/index.css" media="screen" title="no title" charset="utf-8">
+    <!--时间换件-->
+    <link rel="stylesheet" href="css/layui-laydate/dist/theme/default/laydate.css">
+    <link rel="stylesheet" href="">
+
+</head>
+<body>
+<div ui-view>
+    <!--<div ui-view="foot"></div>-->
+
+</div>
+<script src="vendor/jquery/dist/jquery.min.js"></script>
+<script src="vendor/angular/angular.min.js" charset="utf-8"></script>
+<!--&lt;!&ndash;验证&ndash;&gt;-->
+<!--<script src="vendor/angular-messages/angular-messages.min.js" charset="utf-8"></script>-->
+<!--富文本-->
+<script src="vendor/angular-ueditor/dist/angular-ueditor.min.js"></script>
+<script src="vendor/angular-ui-router/release/angular-ui-router.min.js" charset="utf-8"></script>
+<script src="vendor/angular-cookies/angular-cookies.min.js" charset="utf-8"></script>
+<script src="vendor/angular-validation/dist/angular-validation.js" charset="utf-8"></script>
+<script src="vendor/angular-animate/angular-animate.min.js" charset="utf-8"></script>
+<!--富文本-->
+<script src="vendor/ueditor/ueditor.config.js"></script>
+<script src="vendor/ueditor/ueditor.all.js"></script>
+<script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="vendor/echarts/dist/echarts.min.js"></script>
+<!--<script src="vendor/lib/pagination.js"></script>-->
+<!-- <script src="vendor/lib/swiper-3.4.2.min.js"></script> -->
+<script src="vendor/lib/swiper.min.js"></script>
+<script src="vendor/lib/dialog.js"></script>
+<script src="vendor/lib/reset-dialog.js"></script>
+<script src="vendor/lib/pcmain.js"></script>
+<script src="vendor/lib/jsonp.js"></script>
+<script src="vendor/lib/ctjq.js"></script>
+<!--<script src="vendor/bootstrap/dist/js/bootstrap-datetimepicker.js"></script>-->
+<!--<script src="vendor/lib/moment-with-locales.min.js"></script>-->
+<!--文件上传js-->
+<script src="vendor/ng-file-upload/dist/ng-file-upload.js"></script>
+<script src="vendor/ng-file-upload/dist/ng-file-upload-shim.js"></script>
+<!--时间-->
+<script src="vendor/layui-laydate/dist/laydate.js"></script>
+
+
+<!-- <script src="js/index.js" charset="utf-8"></script> -->
+<script src="js/app.js"></script>
+<script src="js/config/dict.js"></script>
+<script src="js/config/http.js"></script>
+<script src="js/config/router.js"></script>
+<script src="js/config/server.js"></script>
+<script src="js/config/service.js"></script>
+<script src="js/config/validation.js"></script>
+<script src="js/filter/filterByObj.js"></script>
+<!--<script src="js/filter/Transformationtime.js"></script>-->
+<script src="js/service/cache.js"></script>
+
+<!-- 控制器 -->
+<script src="js/controller/itzhang/itemDetails.js"></script>
+<script src="js/controller/lh/lh.js"></script>
+<script src="js/controller/ct/ctao.js"></script>
+<!--<script src="js/controller/zjm/zjm.js"></script>-->
+<script src="js/controller/main.js"></script>
+<script src="js/controller/zjm/dataHierarchyCtrl.js"></script>
+<script src="js/controller/zjm/surveyingInformationCtrl.js"></script>
+<script src="js/controller/ly/projectProcessCtrl.js"></script>
+<script src="js/controller/ly/enclosureCtrl.js"></script>
+<script src="js/controller/ly/newFilesCtrl.js"></script>
+<!--<script src="js/controller/zjm/comSchemeCtrl.js"></script>-->
+<script src="js/controller/zjm/checkingFalseCtrl.js"></script>
+<script src="js/controller/zjm/propertyDetailCtrl.js"></script>
+<script src="js/controller/zjm/propertyManagement.js"></script>
+<!--<script src="js/controller/zjm/compensateProperty.js"></script>-->
+<script src="js/controller/zjm/zheng.js"></script>
+<script src="js/controller/zjm/compactCtrl.js"></script>
+<script src="js/controller/zjm/propertyInfo.js"></script>
+<script src="js/controller/zjm/propertyManagement.js"></script>
+<script src="js/controller/zjm/projectupdaterecordCtrl.js"></script>
+<script src="js/controller/zjm/compensatePropertyCtrl.js"></script>
+<script src="js/controller/zjm/fileuploadjs.js"></script>
+<!-- <script src="js/controller/ly/ly.js"></script>s
+<script src="js/controller/ct/ct.js"></script> -->
+<script src="js/controller/lgc/news.js"></script>
+<!-- 组件自定义指令 -->
+<script src="js/directive/itzhang/checkInformation.js"></script>
+<script src="js/directive/foot.js"></script>
+<script src="js/directive/head.js"></script>
+<script src="js/directive/zjm/imgUpload.js"></script>
+<script src="js/directive/leftColumn.js"></script>
+<sciprt src="js/directive/left.js"></sciprt>
+<script src="js/directive/pagination.js"></script>
+<script src="js/directive/pagination2.js"></script>
+<!--<script src="js/directive/paginationTwo.js"></script>-->
+<script src="js/directive/ly/newFilesRight.js"></script>
+<script src="js/directive/ly/projectProcessRight.js"></script>
+<script src="js/directive/ly/projectProcessInformationRight.js"></script>
+<script src="js/directive/ly/enclosureRight.js"></script>
+<script src="js/directive/ct/compensationRulesRight.js"></script>
+<script src="js/directive/zjm/fileuploadd.js"></script>
+<!--<script src="js/directive/ly/eventclick.js"></script>-->
+<!-- 轮播图 -->
+<script src="vendor/lib/animate.js"></script>
+<script src="vendor/lib/ZoomPic.js"></script>
+</body>
+</html>

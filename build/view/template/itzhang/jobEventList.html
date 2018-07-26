@@ -1,0 +1,365 @@
+<app-head></app-head>
+<app-left-Column class="disnone"></app-left-Column>
+<div class="pb55 pt50">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">事件列表</a>
+        </div>
+        <div class="c-csrbdb mt20 clearfix">
+            <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" ng-click="adds()">新增</a>
+            <div class="c-csrbdinp right clearfix">
+                <i class="c-iconfont mt8 ml10 left" ng-click="search(theme)"></i>
+                <input class="ml10 left" type="text" placeholder="请输入主题" ng-model="theme">
+            </div>
+        </div>
+        <div class="c-csrbdc mt20">
+            <p class="c-csrbdcpa pl30 fs16 c3 clearfix">
+                <span class="left">筛选</span>
+                <a class="right maincolor mr30 c-spgltcl" href="javascript:void (0)" ng-click="pullUp()" ng-bind="PullUpText">收起</a>
+            </p>
+            <div class="c-spgltclshow" ng-if="PullUpShow">
+                <p class="fs14 c6 clearfix pl30">
+                    <span class="left c-spgltsp">区域：</span>
+                    <span class="left ml45">
+                        <input class=" c-csrbdcinp c-htcbox" type="radio" name="type" value="" ng-model="type" ng-change="radios(type,1)">全部
+                    </span>
+                    <span class="left ml45">
+                        <input class=" c-csrbdcinp c-htcbox" type="radio" name="type" value="1" ng-model="type" ng-change="radios(type,1)">会议
+                    </span>
+                    <span class="left ml45">
+                        <input class=" c-csrbdcinp c-htcbox" type="radio" name="type" value="2" ng-model="type" ng-change="radios(type,1)">培训
+                    </span>
+                </p>
+                <p class="c-wygltp fs14 c6 pl30 clearfix">
+                    <span class="left c-spgltsp">参与方式：</span>
+                    <span class="left ml45">
+                        <input class=" c-csrbdcinp c-htcbox" type="radio" name="operaterType" value="" ng-model="operaterType" ng-change="radios(operaterType,2)">全部
+                    </span>
+                    <span class="left ml45">
+                        <input class=" c-csrbdcinp c-htcbox" type="radio" name="operaterType" value="1" ng-model="operaterType" ng-change="radios(operaterType,2)">我发起的
+                    </span>
+                    <span class="left ml45">
+                        <input class=" c-csrbdcinp c-htcbox" type="radio" name="operaterType" value="2" ng-model="operaterType" ng-change="radios(operaterType,2)">我参与的
+                    </span>
+                </p>
+                <p class=" c6 pl30 pt5 pb5 clearfix">
+                    <span class="left c-spgltsp">时间：</span>
+                    <span class="left relative mt6 c-spgltspb pointer tc" style="width: 170px;">
+                                    <input type="text" class="childData1 h80-" placeholder="选择开始时间">
+                                    <i class="c-iconfont c-spgltspi parentData1" ng-click="alertData('childData1','parentData1',1)"></i>
+                                </span>
+                    <span class="left ml15 mr15">至</span>
+                    <span class="left relative mt6 c-spgltspb pointer tc" style="width: 170px;">
+                                    <input type="text" class="childData2 h80-" placeholder="选择结束时间">
+                                    <i class="c-iconfont c-spgltspi parentData2" ng-click="alertData('childData2','parentData2')"></i>
+                                </span>
+                    <a class="left mr15 mt6 c-spgltaa tc" ng-class="{zjdatachoose:isActive}" ng-click="monthData(1)"  href="javascript:void (0)">近7天</a>
+                    <a class="left mt6 c-spgltaa tc" ng-class="{zjdatachoose:isActive2}" ng-click="monthData(2)"  href="javascript:void (0)">近1个月</a>
+                </p>
+            </div>
+
+
+        </div>
+
+        <div class="l-managetable mt20">
+            <div class="l-managetable c-bordere6">
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th>主题</th>
+                    <th>类型</th>
+                        <th>开始时间</th>
+                        <th>地点</th>
+                        <th>介绍</th>
+                        <th>参与方式</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="i in rows">
+                        <td ng-bind="i.theme||no"></td>
+                        <td ng-bind="i.type===1?'会议':'培训'"></td>
+                        <td ng-bind="i.startTime|date:'yyyy-MM-dd' ||no"></td>
+                        <td ng-bind="i.address||no"></td>
+                        <td ng-bind="i.description||no"></td>
+                        <td ng-bind="i.operaterType===1?'我发起的':'我参与的'"></td>
+                        <td class="l-tablelink">
+                            <a href="javascript:void(0)" ng-if="i.createUser==userId && i.status!==1" ng-click="done($index)">完成</a>
+                            <span  ng-if="i.createUser==userId && i.status===1" >已完成 &nbsp;&nbsp;</span>
+                            <a href="javascript:void(0)" ng-click="see(i.id,$index)">查看</a>
+                            <a href="javascript:void(0)" ng-show="i.operaterType===1?true:false" ng-click="edit(i.id,$index)">编辑</a>
+                            <a href="javascript:void(0)" ng-show="i.operaterType===1?true:false" ng-click="del(i.id,$index)">删除</a>
+                        </td>
+                    </tr>
+
+                </table>
+                <div class="tc lh55 ng-scope" ng-if="rows.length>0?false:true">
+                    暂无数据
+                </div>
+            </div>
+            <div class="l-page fs12 tr pt20 pb30 lh30">
+                <div ui-pagination conf="conf"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--新增-->
+<div class="dialog h-myworkone">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius    hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">发起事件</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt20 pl30 pr30 h600 oveaut">
+                <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th class="pl30 maincolor">事件类型：</th>
+                        <td >
+                            <span>
+                                <span class="pt2 mr6">
+                                    <input class=" c-csrbdcinp c-htcbox"
+                                           type="radio"
+                                           name="addtype"
+                                           value="1"
+                                           ng-model="addtype"
+                                           placeholder="请输入......"
+                                           ng-change="addradios(addtype)">
+                                </span>
+                                <em class="maincolor">会议</em>
+                            </span>
+                            <span>
+                                <span class="pt2 mr6">
+                                    <input class=" c-csrbdcinp c-htcbox"
+                                           type="radio"
+                                           name="addtype"
+                                           value="2"
+                                           ng-model="addtype"
+                                           placeholder="请输入......"
+                                           ng-change="addradios(addtype)">
+                                </span>
+                                <em class="maincolor">培训</em>
+                            </span>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">主题：</th>
+                        <td><input type="text"
+                                   ng-model="add.theme"
+                                   class="l-input h-inputone border w170"
+                                   ng-blur="addsBlur(add.theme,'theme')"
+                                   placeholder="请输入......"/>
+                            <span class="cred ml20" ng-if="addflag.theme">*请输入主题内容</span></td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">时间：</th>
+                        <td>
+                            <span class="left relative mt6 h-spgltspb radius  pointer">
+                            <input type="text"
+                                   class="addchild1 ml6"
+                                   ng-model="add.time"
+                                   ng-blur="addsBlur(add.time,'time')"
+                                   placeholder="请选择时间">
+                            <i class="c-iconfont c-spgltspi addparent1" ng-click="adddataclick('addchild1','addparent1')"></i></span>
+                            <span class="cred ml20" ng-if="addflag.time">*请选择时间</span>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">地点：</th>
+                        <td><input type="text"
+                                   class="l-input h-inputone border w170"
+                                   ng-model="add.address"
+                                   ng-blur="addsBlur(add.address,'address')"
+                                   placeholder="请输入......"/>
+                            <span class="cred ml20" ng-if="addflag.address">*请输入地点</span>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">事件介绍：</th>
+                        <td><textarea type="text"
+                                   ng-model="add.things"
+                                   placeholder="请输入......"
+                                  ng-blur="addsBlur(add.things,'things')"
+                                  class="l-input h-inputtwo radius mt10 mb10 border w800 "></textarea>
+                        <!--<span class="cred dis-Blo lh1" ng-if="addflag.things">*请输入事件内容</span></td>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">参与人：</th>
+                        <td class="pos-rel" style="height: 100px;">
+                            <input ng-disabled="seedata.flag===1?true:false"
+                                   ng-model="add.peopel"
+                                   ng-focus="addfocus(add.peopel)"
+                                   ng-blur="addblur(add.peopel)"
+                                   placeholder="请选择名字"
+                                   ng-change="addchange(add.peopel)"
+                                   class="l-input h-inputone border addJoinName"
+                                   style="width: 160px;height: 30px;"
+                            />
+
+                            <div class="zj-moaddshijian" ng-if="dimArrFlag">
+                                <a class="bge3f5ff lh24 pt2 pl2 pb2 dis-inlBlo w100-"
+                                   ng-repeat="i in dimArr"
+                                   ng-bind="i.realname"
+                                   ng-click="alertliAdd(i.realname,i.id,$index)">
+
+                                </a>
+                            </div>
+                            <ul class="pos-abs h-100" style="left:190px;top: 34px;line-height:30px;width: 190px;overflow: auto;">
+                                <li class="bge3f5ff lh24 pt2 pl2 pb2 dis-inlBlo w100-" ng-repeat="j in peoplename"><span ng-bind="j.realname"></span><a class="fr pr6" ng-click="peopeldel($index)">删除</a></li>
+                            </ul>
+                            <div class="cred pos-abs " style="top: 24px;left:400px;" ng-if="updateflag.participate">*请选择联系人</div>
+                        </td>
+                    </tr>
+                    <tr class="mt40">
+                        <th width="15%" class="pl30 maincolor h130">附件：</th>
+                        <td colspan="2" class="clearfix">
+                            <span class="fl mr15" ng-repeat="i in fileArr">
+                                <em ng-bind="i.fileName"></em>
+                                <a ng-click="fileArrDel($index)">删除</a>
+                            </span>
+                            <span class=" mr50  right mt10 pos-rel">
+                                <input type="file" class="zj-faqishijianfile" multiple name="upload" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"  onchange="angular.element(this).scope().fileNameChanged(event)">
+                                <a href="javascript:void(0)" class="l-addbnt iconfont zj-faqishijianfileclick"></a>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius" ng-click="addsave()">确认</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--查看编缉-->
+<div class="dialog h-myworktwo">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius    hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">会议提醒</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt20 pl30 pr30 h600 oveaut">
+                <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th class="pl30 maincolor">主题：</th>
+                        <td><input type="text" class="l-input h-inputone border w170"
+                                   ng-model="seedata.theme"
+                                   ng-blur="updatesBlur(seedata.theme,'theme')"
+                                   ng-disabled="seedata.flag===1?true:false"
+                                   placeholder="请输入......"/>
+                            <span class="cred ml20" ng-if="updateflag.theme">*请输入主题内容</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">时间：</th>
+                        <td><span class="left relative mt6 h-spgltspb radius  pointer">
+                            <input type="text" class="updatechild1 w100-"
+                                   ng-model="seedata.startTime"
+                                   ng-blur="updatesBlur(seedata.startTime,'startTime')"
+                                   ng-disabled="seedata.flag===1?true:false"
+                                   placeholder="请选择时间">
+                            <i class="c-iconfont c-spgltspi updateparent1" ng-if="seedata.flag===1?false:true" ng-click="updateataclick('updatechild1','updateparent1')"></i></span>
+                            <span class="cred ml20" ng-if="updateflag.startTime">*请选择时间</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">地点：</th>
+                        <td><input type="text" class="l-input h-inputone border w170"
+                                   ng-model="seedata.address"
+                                   ng-blur="updatesBlur(seedata.address,'address')"
+                                   ng-disabled="seedata.flag===1?true:false"
+                                   placeholder="请输入......"/>
+                            <span class="cred ml20" ng-if="updateflag.address">*请输入地点</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">事件介绍：</th>
+                        <td><textarea type="text" class="l-input h-inputtwo radius mt10 mb10 border w170"
+                                   ng-model="seedata.description"
+                                   ng-blur="updatesBlur(seedata.description,'description')"
+                                   ng-disabled="seedata.flag===1?true:false"
+                                   placeholder="请输入......"></textarea>
+                            <!--<span class="cred dis-Blo lh1" ng-if="updateflag.description">*请输入事件内容</span>-->
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th width="15%" class="pl30 maincolor">附件：</th>
+                        <td colspan="2" class="clearfix">
+                            <span class="fl mr10" ng-repeat="i in seedata.attachment">
+                                <em ng-bind="i.fileName"></em>
+                                <a href="{{host+i.fileUrl}}"   ng-if="seedata.flag===1?true:false">下载</a>
+                                <a  ng-if="seedata.flag===1?false:true" ng-click="updatedel($index)">删除</a>
+                            </span>
+                        </td>
+                    </tr>
+                    
+
+
+                    <tr>
+                        <th class="pl30 maincolor">参与人：</th>
+                        <td class="pos-rel" style="height: 100px;">
+                            <input ng-disabled="seedata.flag===1?true:false"
+                                   ng-model="participate"
+                                   ng-focus="addfocus(participate,2)"
+                                   ng-blur="addblur(participate,2)"
+                                   placeholder="参与人"
+                                   ng-change="addchange(participate,2)"
+                                   class="l-input h-inputone border addJoinName"
+                                   style="width: 160px;height: 30px;"
+                            />
+
+                            <div class="zj-moaddshijian" ng-if="dimArrFlag">
+                                <a class="bge3f5ff lh24 pt2 pl2 pb2 dis-inlBlo w100-"
+                                   ng-repeat="i in dimArr"
+                                   ng-bind="i.realname"
+                                   ng-click="alertliAdd(i.realname,i.id,$index,2)">
+
+                                </a>
+                            </div>
+                            <ul class="pos-abs  h-100" style="left:190px;top: 34px;line-height:30px;width: 190px;overflow: auto;">
+                                <li class="bge3f5ff lh24 pt2 pl2 pb2 dis-inlBlo w100-" ng-repeat="j in updateanme">
+                                    <span ng-bind="j.realname"></span>
+                                    <a class="fr pr6" ng-click="peopeldel($index,2)" ng-show="seedata.flag===1?false:true">删除</a>
+                                </li>
+                            </ul>
+                            <div class="cred pos-abs " style="top: 24px;left:400px;" ng-if="updateflag.participate">*请选择联系人</div>
+                        </td>
+                    </tr>
+
+                    <tr class="mt40" ng-show="seeeditflag">
+                            <th width="15%" class="pl30 maincolor h130">上传附件：</th>
+                            <td colspan="2" class="clearfix">
+                                <span class="fl mr15" ng-repeat="i in fileArr">
+                                    <em ng-bind="i.fileName"></em>
+                                    <a ng-click="fileArrDel($index)">删除</a>
+                                </span>
+                                <span class=" mr50  right mt10 pos-rel">
+                                    <input type="file" class="zj-faqishijianfile" multiple name="upload" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"  onchange="angular.element(this).scope().fileNameChanged(event)">
+                                    <a href="javascript:void(0)" class="l-addbnt iconfont zj-faqishijianfileclick"></a>
+                                </span>
+                            </td>
+                        </tr>
+
+
+
+
+                </table>
+                <span class="hop-bntap disblock pt30 pb55 clearfix">
+                    <a ng-click="updatesave(getid,seedata.flag)" class="hop-save disinblock w133 hoptap radius" ng-bind="seedata.flag===1?'确认':'修改'" ng-if="seedata.flag===1?false:true"></a>
+                    <a  class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-bind="seedata.flag===1?'关闭':'取消'"></a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+

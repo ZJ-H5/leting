@@ -1,0 +1,509 @@
+<div>
+    <div class="l-rightsider pb55">
+        <div class="pl15 pr18 pt15 pb15">
+            <ul class="c-csrtop bgf clearfix">
+                <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl " ui-sref="newFiles">项目建设情况</a></li>
+                <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl " ui-sref="projectProcess">项目流程设置</a></li>
+                <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl maincolor "
+                                                    ui-sref="compensationRules">拆迁补偿规则</a></li>
+                <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl" ui-sref="commissionRules">佣金发放规则</a></li>
+                <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl" ui-sref="updatarecord">修改记录</a></li>
+            </ul>
+            <div class="mt15 ml15 mr15  back-white  ">
+                <div class="clearfix border-bottom pl20 pr20">
+                    <h3 class="l-managetlt  fs18 left">
+                        <i class="mr5"></i>
+                        <em>拆迁补偿规则</em>
+                    </h3>
+                    <a href="javascript:void(0)" class="l-addbnt iconfont  right mt20"
+                       onclick="hopruletab('hopappendopen')"></a>
+                </div>
+                <div ng-repeat="d in data">
+            <span class="clearfix l-removetxt disblock lh55 pr40 pl40">
+                        <em class="left fs16 c3">{{d.name}}</em>
+                        <a href="javascript:void(0)" class="fs16 hoptxt right maincolor "
+                           onclick="hopruletab('hopaddruleopen')" ng-click="add(d.name,d.id)">添加规则 </a>
+                    </span>
+
+                    <div class="l-managetable ">
+                        <table class="l-tablebox l-ruletab" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <th>补偿方式</th>
+                                <th>置换/补偿</th>
+                                <th>补偿类型</th>
+                                <th>子类型</th>
+                                <th>级别</th>
+                                <th>置换比例</th>
+                                <th>补偿价格</th>
+                                <th>还建类型</th>
+                                <th  width="10%">操作</th>
+                            </tr>
+                            <tr ng-repeat="r in d.rules">
+                                <!--<td>{{r.type}}</td>-->
+                                <td ng-if="r.type==1">
+                                    货币补偿
+                                </td>
+                                <td ng-if="r.type==0">
+                                    主体建筑产权置换
+                                </td>
+                    <td ng-bind="r.compensateProjectName?r.compensateProjectName:'-'"></td>
+                    <td ng-bind="r.compensateName?r.compensateName:'-'"></td>
+                    <td ng-bind="r.compensateTypeName?r.compensateTypeName:'-'"></td>
+                    <td ng-bind="r.rank?r.rank:'-'"></td>
+                    <td ng-bind="r.replacementRatio?r.replacementRatio:'-'"></td>
+                                <td ng-if="r.pricesMode==null" ng-bind="'-'"></td>
+                                <td ng-if="r.pricesMode==0" ng-bind="r.compensationPrice?r.compensationPrice+'（总）':'-'"></td>
+                    <td ng-if="r.pricesMode==1" ng-bind="r.compensationPrice?r.compensationPrice+'（单）':'-'"></td>
+                    <td ng-bind="r.buildTypeName?r.buildTypeName:'-'"></td>
+                    <td class="l-tablelink ">
+                        <a href="javascript:void(0)" ng-click="checkinfo(r.type==0?'hopruleopen':'hopbntshare',d.name,d.id,r.id)">查看</a>
+                        <a href="javascript:void(0)" ng-click="editinfo(r.type,d.name,d.id,r.id)">编辑</a>
+                        <a href="" ng-click="deleteinfo(r.id)">删除</a>
+                    </td>
+                    </tr>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+        <!--主体建筑产权置换-->
+        <div class="dialog hopruleopen">
+            <div class="dialog-bg"></div>
+            <div class="dialog-cont w1080 radius    hop-cont">
+                <div class="back-white">
+                    <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                        <em class="left fs18 c3">查看—主体建筑产权置换</em>
+                        <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                    </h3>
+                    <div class="pt20 pl30 pr30">
+                        <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <th width="15%" class="pl30 maincolor">补偿类型：</th>
+                                <td>本地村民补偿规则</td>
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor">补偿方式：</th>
+                                <td>主体建筑产权置换</td>
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor">置换类型：</th>
+                                <!--<td>{{data.compensateName}}</td>-->
+                                <td><span style="width:265px" class="disinblock">{{data.compensateName}}</span>
+                                    <span style="width:265px" class="disinblock"><span class="maincolor pr30">子类型：</span>{{data.compensateTypeName}}</span>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor">置换比例：</th>
+                                <td>{{data.replacementRatio}} %</td>
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor">还建类型：</th>
+                                <td>{{data.buildTypeName}}</td>
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor">备注：</th>
+                                <td>{{remaker}}</td>
+                            </tr>
+                        </table>
+                        <span class="hop-bntap disblock pt30 pb55">
+
+							<a href="javascript:void(0)"
+                               class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">关闭</a>
+						</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!--编辑主体建筑产权置换-->
+            <div class="dialog hopruleopenedit">
+                <div class="dialog-bg"></div>
+                <div class="dialog-cont w1080 radius    hop-cont">
+                    <div class="back-white">
+                        <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                            <em class="left fs18 c3">编辑—主体建筑产权置换</em>
+                            <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                        </h3>
+                        <div class="pt20 pl30 pr30">
+                            <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <th width="15%" class="pl30 maincolor">补偿类型：</th>
+                                    <td>本地村民补偿规则</td>
+                                </tr>
+                                <tr>
+                                    <th class="pl30 maincolor">补偿方式：</th>
+                                    <td>主体建筑产权置换</td>
+                                </tr>
+                                <tr>
+                                    <th class="pl30 maincolor">置换类型：</th>
+                                    <td>
+                                        <select class="select hop-select w265" ng-model="typeid" ng-options="c.id as c.compensateName for c in compensateType" ng-change="projectselect(typeid)">
+                                            <option value="">{{cname}}</option>
+                                        </select>
+                                        <select ng-show="sublevel.length>0?flagc=true:flagc=false" class="select hop-select w265" ng-model="sid" ng-options="p.id as p.sublevelCompensateName for p in sublevel" ng-change="whether(sid)">
+                                            <option value="">{{sublevelcompensatename}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr ng-show="whetherOrNot==1?flagp=true:flagp=false">
+                                    <th class="pl30 maincolor">级别：</th>
+                                    <td><span style="width:265px" class="disinblock"><input type="text" class="l-input w170" ng-model="builddata.rank" placeholder="{{builddata.rank?builddata.rank:'空'}}"/> <em
+                                            class="maincolor"></em></span>
+                                        <span style="width:265px" class="disinblock"><span class="maincolor mr20">备注：</span><input type="text" class="l-input w170" placeholder="{{builddata.rankRemaker?builddata.rankRemaker:'空'}}" ng-model="builddata.rankRemaker"/> <em class="maincolor"></em></span>
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <th class="pl30 maincolor">置换比例：</th>
+                                    <td><input type="text" class="l-input w170" ng-model="builddata.replacementRatio" placeholder="{{builddata.replacementRatio}}"/>
+                                        <em class="maincolor">%</em></td>
+
+
+                                </tr>
+                                <tr>
+                                    <th class="pl30 maincolor">还建类型：</th>
+                                    <td>
+                                        <select class="select hop-select w265" ng-model="buildid" ng-options="b.id as b.shemaName for b in rebuildTypes">
+                                            <option value="">{{rebuildtype}}</option>
+                                        </select>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <th class="pl30 maincolor">备注：</th>
+                                    <td><input type="text" ng-model="builddata.remaker" placeholder="{{builddata.remaker}}" class="l-input w500"/></td>
+                                </tr>
+                            </table>
+                            <span class="hop-bntap disblock pt30 pb55">
+							<a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius " ng-click="updatabuild(builddata.replacementRatio,builddata.remaker,builddata.rank,builddata.remaker)">提交审核</a>
+							<a href="javascript:void(0)"
+                               class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">关闭</a>
+						</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!--添加规则—补偿方式-->
+        <div class="dialog hopaddruleopen" ng-show="mianflag">
+            <div class="dialog-bg"></div>
+            <div class="dialog-cont w754 radius    hop-cont">
+                <div class="back-white">
+                    <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                        <em class="left fs18 c3">添加规则—补偿方式</em>
+                        <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                    </h3>
+                    <span class="hop-bntap disblock pt30 pb50 tc">
+						<a href="javascript:void(0)" class="hop-save disinblock w410 hoptap radius "
+                           onclick="hopruletab('hopmainopen')">主体建筑产权置换</a>
+						<a href="javascript:void(0)" class="hop-canle disinblock w410 hoptap mt20 radius  back-greed"
+                           onclick="hopruletab('hopmonetopen')">货币补偿</a>
+					</span>
+                </div>
+            </div>
+        </div>
+        <!--添加规则—主体建筑产权置换-->
+        <div class="dialog hopmainopen">
+            <div class="dialog-bg"></div>
+            <div class="dialog-cont w1080 radius    hop-cont">
+                <div class="back-white">
+                    <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                        <em class="left fs18 c3">添加规则—主体建筑产权置换</em>
+                        <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                    </h3>
+                    <div class="pt20 pl30 pr30">
+                        <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <th width="15%" class="pl30 maincolor">补偿类型：</th>
+                                <td>{{name}}</td>
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor">补偿方式：</th>
+                                <td>主体建筑产权置换</td>
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor">置换类型：</th>
+                                <td>
+                                    <select class="select hop-select w265" ng-model="typeid" ng-options="c.id as c.compensateName for c in compensateType" ng-change="projectselect(typeid)">
+                                        <option value="">--请选择--</option>
+                                    </select>
+                                    <select ng-show="sublevel.length>0?flagc=true:flagc=false" class="select hop-select w265" ng-model="sid" ng-options="p.id as p.sublevelCompensateName for p in sublevel" ng-change="whether(sid)">
+                                        <option value="">--请选择--</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr ng-show="whetherOrNot==1?flagp=true:flagp=false">
+                                <th class="pl30 maincolor">级别：</th>
+                                <td><span style="width:265px" class="disinblock"><input type="text" class="l-input w170" ng-model="rank" placeholder="请输入......  "/> <em
+                                        class="maincolor"></em></span>
+                                    <span style="width:265px" class="disinblock"><span class="maincolor mr20">备注：</span><input type="text" class="l-input w170" placeholder="请输入......  " ng-model="rankremaker"/> <em class="maincolor"></em></span>
+                                </td>
+
+
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor">置换比例：</th>
+                                <td><input type="text" class="l-input w170" ng-model="replacementratio" placeholder="请输入......"/>
+                                    <em class="maincolor">%</em></td>
+
+
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor">还建类型：</th>
+                                <td>
+                                    <select class="select hop-select w265" ng-model="buildid" ng-options="b.id as b.shemaName for b in rebuildTypes">
+                                        <option value="">--请选择--</option>
+                                    </select>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor">备注：</th>
+                                <td><input type="text" placeholder="请输入" ng-model="remaker" class="l-input w500"/></td>
+                            </tr>
+
+                        </table>
+                        <span class="hop-bntap disblock pt30 pb55">
+							<a href="javascript:void(0)"
+                               class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="addbuilding(replacementratio,remaker,rank,rankremaker)">保存</a>
+							<a href="javascript:void(0)"
+                               class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+						</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--添加规则—货币补偿-->
+        <div class="dialog hopmonetopen">
+            <div class="dialog-bg"></div>
+            <div class="dialog-cont w1080 radius    hop-cont">
+                <div class="back-white">
+                    <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                        <em class="left fs18 c3">添加规则—货币补偿</em>
+                        <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                    </h3>
+                    <div class="pt20 pl30 pr30">
+                        <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <th width="15%" class="pl30 maincolor">补偿类型：</th>
+                                <td colspan="2">{{name}}</td>
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor">补偿方式：</th>
+                                <td colspan="2">货币补偿</td>
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor">补偿项目：</th>
+                                <td colspan="2">
+                                    <select class="select hop-select w265" ng-model="compensateid" ng-options="value.id as value.compensateName for value in compensate">
+                                        <option value="">--请选择--</option>
+                                    </select>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor">置换类型：</th>
+                                <td>
+                                    <select class="select hop-select w265" ng-model="typeid" ng-options="c.id as c.compensateName for c in compensateType" ng-change="projectselect(typeid)">
+                                        <option value="">--请选择--</option>
+                                    </select>
+                                    <select ng-show="sublevel.length>0?flagc=true:flagc=false" class="select hop-select w265" ng-model="sid" ng-options="p.id as p.sublevelCompensateName for p in sublevel" ng-change="whether(sid)">
+                                        <option value="">--请选择--</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr ng-show="whetherOrNot==1?flagp=true:flagp=false">
+                                <th class="pl30 maincolor">级别：</th>
+                                <td><span style="width:265px" class="disinblock"><input type="text" class="l-input w170" ng-model="rank" placeholder="请输入......  "/> <em
+                                        class="maincolor"></em></span>
+                                    <span style="width:265px" class="disinblock"><span class="maincolor mr20">备注：</span><input type="text" class="l-input w170" placeholder="请输入......  " ng-model="rankremaker"/> <em class="maincolor"></em></span>
+                                </td>
+
+
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor">补偿价格：</th>
+                                <td><span style="width:265px" class="disinblock"><input type="text" class="l-input w170" placeholder="请输入......  " ng-model="price"/> 元</span>
+
+
+                                    <input type="radio" ng-value="1" name="pricetype" ng-model="pricetype" ng-checked="true" ng-change="ok()"/>单价
+                                    <input type="radio" ng-value="0" name="pricetype" ng-model="pricetype" ng-change="ok()"/>总价
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor">备注：</th>
+                                <td colspan="2"><input type="text" placeholder="请输入" class="l-input w500" ng-model="remaker"/></td>
+                            </tr>
+
+                        </table>
+                        <span class="hop-bntap disblock pt30 pb55">
+							<a href="javascript:void(0)"
+                               class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="savepricelist(price,remaker,rank,rankremaker,compensateid)">保存</a>
+							<a href="javascript:void(0)"
+                               class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+						</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--添加补偿类型-->
+        <div class="dialog hopappendopen">
+            <div class="dialog-bg"></div>
+            <div class="dialog-cont w1080 radius    hop-cont">
+                <div class="back-white">
+                    <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                        <em class="left fs18 c3">添加补偿类型</em>
+                        <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                    </h3>
+                    <div class="pt20 pl30 pr30">
+                        <table width="100%" class="back-f5 hop-table lh50 border hop-ruletale" cellpadding="0"
+                               cellspacing="0">
+                            <tr>
+                                <td width="13%" class="pl30 c3" valign="top">类型名称:</td>
+                                <td>
+                                    <textarea class="hop-area lh40" ng-model="typeName"
+                                              placeholder="请输入......"></textarea>
+                                </td>
+                            </tr>
+
+                        </table>
+                        <span class="hop-bntap disblock pt30 pb55">
+							<a href="javascript:void(0)" ng-click="addTypeName(typeName)"
+                               class="hop-save disinblock w133 hoptap radius dialog-close">保存</a>
+							<a href="javascript:void(0)"
+                               class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+						</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--查看货币补偿-->
+        <div class="dialog hopbntshare">
+            <div class="dialog-bg"></div>
+            <div class="dialog-cont w1080 radius    hop-cont">
+                <div class="back-white">
+                    <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                        <em class="left fs18 c3">查看—货币补偿</em>
+                        <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                    </h3>
+                    <div class="pt20 pl30 pr30">
+                        <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <th width="15%" class="pl30 maincolor">补偿类型：</th>
+                                <td colspan="5">{{name}}</td>
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor">补偿方式：</th>
+                                <td colspan="5">货币补偿</td>
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor">补偿项目：</th>
+                                <td>{{compensateProjectName}}</td>
+                                <th width="10%" class=" maincolor">置换类型：</th>
+                                <td width="20%">{{compensateName}}</td>
+                                <th width="10%" class=" maincolor">子类型：</th>
+                                <td>{{compensateTypeName}}</td>
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor">补偿价格：</th>
+                                <td>{{compensationPrice}} 元</td>
+                                <td colspan="4">
+                                    <i class="checkbox iconfont check mr5"></i>
+                                    <em>{{pricesMode==1?'单价':'总价'}}</em>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor">备注：</th>
+                                <td colspan="5"><input type="text" class="l-input w500" ng-model="remaker"/></td>
+                            </tr>
+                        </table>
+                        <span class="hop-bntap disblock pt30 pb55">
+							<a href="javascript:void(0)"
+                               class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">关闭</a>
+						</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!--编辑货币补偿-->
+            <div class="dialog hopbntshareedit">
+                <div class="dialog-bg"></div>
+                <div class="dialog-cont w1080 radius hop-cont">
+                    <div class="back-white">
+                        <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                            <em class="left fs18 c3">编辑—货币补偿</em>
+                            <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                        </h3>
+                        <div class="pt20 pl30 pr30">
+                            <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <th width="15%" class="pl30 maincolor">补偿类型：</th>
+                                    <td colspan="5">{{name}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="pl30 maincolor">补偿方式：</th>
+                                    <td colspan="5">货币补偿</td>
+                                </tr>
+                                <tr>
+                                    <th class="pl30 maincolor">补偿项目：</th>
+                                    <td>
+                                <select class="select hop-select w265" ng-model="comid" ng-options="r.id as r.compensateName for r in compensateProject">
+                                    <option value="">{{pName}}</option>
+                                </select>
+
+                                </td>
+
+                                </tr>
+                                <tr>
+                                    <th class="pl30 maincolor">置换类型：</th>
+                                    <td>
+                                        <select class="select hop-select w265" ng-model="typeid" ng-options="r.id as r.compensateName for r in compensateType" ng-change="projectselect(typeid)">
+                                            <option value="">{{cname}}</option>
+                                        </select>
+                                        <select ng-show="sublevel.length>0?flagc=true:flagc=false" class="select hop-select w265" ng-model="sid" ng-options="p.id as p.sublevelCompensateName for p in sublevel" ng-change="whether(sid)">
+                                            <option value="">{{sublevelcompensatename}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr ng-show="whetherOrNot==1?flagp=true:flagp=false">
+                                    <th class="pl30 maincolor">级别：</th>
+                                    <td><span style="width:265px" class="disinblock"><input type="text" class="l-input w170" ng-model="rank" placeholder="{{pricedata.rank?pricedata.rank:'空'}}"/> <em
+                                            class="maincolor"></em></span>
+                                        <span style="width:265px" class="disinblock"><span class="maincolor mr20">备注：</span><input type="text" class="l-input w170" placeholder="{{pricedata.rankremaker?pricedata.rankremaker:'空'}}" ng-model="rankremaker"/> <em class="maincolor"></em></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="pl30 maincolor">补偿价格：</th>
+                                    <td><span style="width:265px" class="disinblock"><input type="text" class="l-input w170" placeholder="{{pricedata.compensationPrice}}" ng-model="pricedata.compensationPrice"/>元</span>
+
+
+                                        <input type="radio" ng-value="1" name="pricetype" ng-model="pricedata.pricesMode" ng-checked="true" ng-change="ok()"/>单价
+                                        <input type="radio" ng-value="0" name="pricetype" ng-model="pricedata.pricesMode" ng-change="ok()"/>总价
+
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <th class="pl30 maincolor">备注：</th>
+                                    <td colspan="2"><input type="text" placeholder="{{pricedata.remaker}}" class="l-input w500" ng-model="pricedata.remaker"/></td>
+                                </tr>
+
+                            </table>
+                            <span class="hop-bntap disblock pt30 pb55">
+							<a href="javascript:void(0)"
+                               class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="updatepricelist(pricedata.compensationPrice,pricedata.remaker,pricedata.rank,pricedata.rankremaker)">提交审核</a>
+							<a href="javascript:void(0)"
+                               class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+						</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+</div>

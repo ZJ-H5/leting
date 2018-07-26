@@ -1,0 +1,247 @@
+<app-head></app-head>
+
+<div app-left></div>
+<div class="l-rightsider   pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">{{projectname}}</a>
+            <a class=" left fs18 c6 mr35 pl5">{{examineName}}</a>
+            <span class="c-csrbdtasp left fs14 c6 ml20 mt5">共<span ng-bind="examineLength||0"></span>个</span>
+        </div>
+        <div class="c-csrbdb mt20 clearfix">
+            <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" ng-click="wholeApproval()">审批列表</a>
+            <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" ng-click="waterApproval()">支付审批</a>
+            <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" ng-click="waterApprovalthree()">规则审批</a>
+            <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" ng-click="waterApprovalfour()">项目审核</a>
+            <div class="c-csrbdinp right clearfix">
+                <i class="c-iconfont mt8 ml10 left" ng-click="searchs()"></i>
+                <input class="ml10 left" type="text" ng-model="searchKeys" placeholder="请输入关键字">
+            </div>
+        </div>
+        <div class="c-csrbdc mt20">
+
+            <p class="c-csrbdcpa pl30 fs16 c3 clearfix">
+                <span class="left">筛选</span>
+                <a class="right maincolor mr30 c-spgltcl" href="javascript:void (0)" ng-click="pullUp()" ng-bind="PullUpText"></a>
+            </p>
+            <div class="c-spgltclshow" ng-if="PullUpShow">
+
+
+
+                <p class="fs14 c6 pl30 clearfix">
+                    <span class="left c-spgltsp">类型：</span>
+                    <span class="left">
+                        <input type="checkbox" class="c-csrbdcinp c-htcbox c-allcheacked" ng-model="selectAll" ng-click="checkobxAll(selectAll,selectchild)">全部
+                    </span>
+
+                    <span class="left ml45" ng-repeat="i in dataCheckbox">
+                        <input class="c-csrbdcinp c-htcbox" type="checkbox" ng-click="updateSelection($event,i.id,i.state)" ng-model="i.state">{{i.name}}
+                    </span>
+                </p>
+
+                <p class="c-wygltp fs14 c6 pl30 clearfix">
+                    <span class="left c-spgltsp">参与方式：</span>
+                    <span class="left ml45">
+                        <input class=" c-csrbdcinp c-htcbox" type="radio" name="mode" ng-model="mode" value="3" ng-change="radios(mode)">全部
+                    </span>
+                    <span class="left ml45">
+                        <input class=" c-csrbdcinp c-htcbox" type="radio" name="mode" value="1" ng-model="mode" ng-change="radios(mode)">
+                        <span>我提交的</span>
+                    </span>
+                    <span class="left ml45">
+                        <input class=" c-csrbdcinp c-htcbox" type="radio" name="mode" value="2" ng-model="mode" ng-change="radios(mode)">
+                        <span>待审批的</span>
+                    </span>
+                </p>
+
+                <p class=" c6 pl30 pt5 pb5 clearfix">
+                    <span class="left c-spgltsp">时间：</span>
+                    <span class="left relative mt6 c-spgltspb pointer tc" style="width: 170px;">
+                                    <input type="text" class="childData1 h80-" placeholder="选择开始时间">
+                                    <i class="c-iconfont c-spgltspi parentData1" ng-click="alertData('childData1','parentData1',1)"></i>
+                                </span>
+                    <span class="left ml15 mr15">至</span>
+                    <span class="left relative mt6 c-spgltspb pointer tc mr15" style="width: 170px;">
+                                    <input type="text" class="childData2 h80-" placeholder="选择结束时间">
+                                    <i class="c-iconfont c-spgltspi parentData2" ng-click="alertData('childData2','parentData2')"></i>
+                                </span>
+                    <a class="left mr15 mt6 c-spgltaa tc" ng-class="{'h-lhbei':isActive}" ng-click="monthData(1)"  href="javascript:void (0)">近7天</a>
+                    <a class="left mt6 c-spgltaa tc" ng-class="{'h-lhbei':isActive2}" ng-click="monthData(2)"  href="javascript:void (0)">近1个月</a>
+                </p>
+            </div>
+
+        </div>
+
+        <button class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf mt20  w80 tc curpoi" style="width: 120px;"
+                ng-click="Allexamine()"
+                ng-disabled="!clickflag"
+                ng-class="{'zjcursordisabled':!clickflag}"
+        >全部审批</button>
+
+        <div class="l-managetable mt20">
+            <!--审批列表-->
+            <div class="l-managetable c-bordere6" ng-show="bigTab[0].tab">
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th><input type="checkbox" class="tc ma disblock ml10"
+                                   style="margin-left: 10px;"
+                                   ng-model="firstSelectAll"
+                                   ng-click="firstParentSelectionAll(firstSelectAll,propertys)"
+                                   ng-disabled="firstParentState"></th>
+                        <th>区域</th>
+                        <th>房产名称</th>
+                        <th>物业地址</th>
+                        <th>业权人</th>
+                        <th>户籍</th>
+                        <th>总建筑面积</th>
+                        <!-- <th>住宅</th>
+                        <th>擅改商业</th>
+                        <th>临建</th>
+                        <th>违建</th> -->
+                        <th>审批内容</th>
+                        <th>审批结果</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="item in propertys">
+
+                        <td>
+                            <input class="tc ma disblock ml10" style="margin-left: 10px;" type="checkbox" ng-disabled="item.is_done=='1'?false:true" ng-click="firstchildSelection(item.firstChildstate,$index,propertys)" ng-model="item.firstChildstate"></td>
+                        <td>{{item.category ||no}}</td>
+                        <td>{{item.splitJointName ||no}}</td>
+                        <td>{{item.address ||no}}</td>
+                        <td>{{item.holderName ||no}}</td>
+                        <td>{{item.placeOrigin ||no}}</td>
+                        <td>{{item.grossArea+'m²'||no}}</td>
+                        <!-- <td>{{item.houseArea+'m²'||no}}</td>
+                        <td>{{item.commerceArea+'m²'||no}}</td>
+                        <td>{{item.interimArea+'m²'||no}}</td>
+                        <td>{{item.violateArea+'m²'||no}}</td> -->
+                        <td>{{item.name ||no}}</td>
+                        <td class="red" ng-bind="item.status"></td>
+                        <td class="l-tablelink">
+                            <a  ng-click="typeLocation($index,'1')" ng-bind="item.is_done=='1'?'审批':'查看'"></a>
+                        </td>
+                    </tr>
+
+
+                </table>
+                <div class="tc lh55" ng-if="propertys.length>0?false:true">
+                    暂无数据
+                </div>
+            </div>
+            <!--支付待审批2-->
+            <div class="l-managetable c-bordere6" ng-show="bigTab[1].tab">
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th><input type="checkbox" class="tc ma disblock ml10"
+                            style="margin-left: 10px;"
+                            ng-model="firstSelectAll"
+                            ng-click="firstParentSelectionAll(firstSelectAll,waterRows)"
+                            ng-disabled="firstParentState"></th>
+                        <th>物业地址</th>
+                        <th>审批类型</th>
+                        <th>审批内容</th>
+                        <th>审批进度</th>
+                        <th>创建时间</th>
+                        <th>审批结果</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="item in waterRows">
+                        <td><input class="tc ma disblock ml10" style="margin-left: 10px;" type="checkbox" ng-disabled="item.is_done=='1'?false:true" ng-click="firstchildSelection(item.firstChildstate,$index,waterRows)" ng-model="item.firstChildstate"></td>
+                        <td>{{item.realname ||no}}</td>
+                        <td>{{item.type===1?'财务支付':'佣金支付'}}</td>
+                        <td>{{item.name ||no}}</td>
+                        <td>{{item.examineSeris}}</td>
+                        <td>{{item.createTime|date:'yyyy-MM-dd HH:MM' ||no}}</td>
+                        <td  ng-bind="item.examineStatus"></td>
+                        <td class="l-tablelink">
+                            <a  ng-click="typeLocation($index,'2')" ng-bind="item.is_done=='1'?'审批':'查看'"></a>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="tc lh55" ng-if="waterRows.length>0?false:true">
+                    暂无数据
+                </div>
+            </div>
+            <!--规则审批3-->
+            <div class="l-managetable c-bordere6" ng-show="bigTab[2].tab">
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th><input type="checkbox" class="tc ma disblock ml10"
+                                   ng-model="firstSelectAll"
+                                   style="margin-left: 10px;"
+                                   ng-click="firstParentSelectionAll(firstSelectAll,threeList)"
+                                   ng-disabled="firstParentState"></th>
+                        <th>物业地址</th>
+                        <th>创建时间</th>
+                        <th>项目地址</th>
+                        <th>审批内容</th>
+                        <th>审批进度</th>
+                        <th>审批结果</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="item in threeList">
+                        <td><input class="tc ma disblock ml10" style="margin-left: 10px;" type="checkbox" ng-disabled="item.is_done=='1'?false:true" ng-click="firstchildSelection(item.firstChildstate,$index,threeList)" ng-model="item.firstChildstate"></td>
+                        <td>{{item.projectName ||no}}</td>
+                        <td>{{item.createtime|date:'yyyy-MM-dd HH:MM' ||no}}</td>
+                        <td>{{item.address||no}}</td>
+                        <td>{{item.coontment ||no}}</td>
+                        <td>{{item.examineSeris}}</td>
+                        <td class="red" ng-bind="item.examineStatus"></td>
+                        <td class="l-tablelink">
+                            <a  ng-click="typeLocation($index,'3')" ng-bind="item.is_done==1?'审批':'查看'"></a>
+                        </td>
+                    </tr>
+                </table>
+                <div class="tc lh55" ng-if="threeList.length>0?false:true">
+                    暂无数据
+                </div>
+            </div>
+            <!--规则审批4-->
+            <div class="l-managetable c-bordere6" ng-show="bigTab[3].tab">
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th><input type="checkbox" class="tc ma disblock ml10"
+                                   ng-model="firstSelectAll"
+                                   style="margin-left: 10px;"
+                                   ng-click="firstParentSelectionAll(firstSelectAll,fourList)"
+                                   ng-disabled="firstParentState"></th>
+                        <th>物业地址</th>
+                        <th>创建时间</th>
+                        <th>项目地址</th>
+                        <th>审批内容</th>
+                        <th>审批进度</th>
+                        <th>审批结果</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="item in fourList">
+                        <td><input class="tc ma disblock ml10" style="margin-left: 10px;" type="checkbox" ng-disabled="item.is_done=='1'?false:true" ng-click="firstchildSelection(item.firstChildstate,$index,fourList)" ng-model="item.firstChildstate"></td>
+                        <td>{{item.projectName ||no}}</td>
+                        <td>{{item.createtime|date:'yyyy-MM-dd HH:MM' ||no}}</td>
+                        <td>{{item.address||no}}</td>
+                        <td>{{item.coontment ||no}}</td>
+                        <td>{{item.examineSeris}}</td>
+                        <td class="red" ng-bind="item.examineStatus"></td>
+                        <td class="l-tablelink">
+                            <a  ng-click="typeLocation($index,'4')" ng-bind="item.is_done==1?'审批':'查看'"></a>
+                        </td>
+                    </tr>
+                </table>
+                <div class="tc lh55" ng-if="fourList.length>0?false:true">
+                    暂无数据
+                </div>
+            </div>
+
+            <div class="l-page fs12 tr pt20 pb30 lh30" ng-show="pageflag">
+                <div ui-pagination conf="conf"></div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+<!--main end-->
+

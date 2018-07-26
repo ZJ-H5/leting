@@ -1,0 +1,331 @@
+<app-head></app-head>
+<left-system></left-system>
+
+<div class="l-rightsider clearfix   pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">单一基础数据</a>
+        </div>
+        <ul class="c-chbul h-cwgispxx mt15 back-white clearfix">
+            <li class="left"><a class="tc disblock ahover c6 "  href="#/databasicSign">签约阶段</a></li>
+            <li class="left"><a class="tc disblock ahover c6 " href="#/databasicprocess">审核流程</a></li>
+            <li class="left"><a class="tc disblock ahover c6 " href="#/databasicCompensationProject">补偿项目</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/databasicCompensationType">补偿类型</a></li>
+            <li class="left"><a class="tc disblock ahover c6 " href="#/singledatabasic">单一数据</a></li>
+            <li class="left"><a class="tc disblock ahover c6 maincolor" href="#/databasiccompact">合同模板</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/databasicRebuild">还建基础数据</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/bankmessage">银行信息</a></li>
+        </ul>
+        <div ng-show="typeflag">
+            <div class="clearfix mt20">
+                <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="javascript:void(0)" ng-click="addshow('addnew')">新建</a>
+            </div>
+            <div class="l-managetable mt20">
+                <div class="l-managetable c-bordere6">
+                    <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <th>序号</th>
+                            <th >
+                                <span>模板名称</span>
+                            </th>
+                            <th>操作</th>
+                        </tr>
+                        <tr ng-repeat="l in list">
+                            <td ng-bind="$index+1"></td>
+                            <td>
+                                <span>{{l.templateName}}</span>
+                            </td>
+                            <td class="l-tablelink">
+                                <a href="javascript:void(0)" ng-click="editcompact('h-eddit',l.id)">编辑</a>
+                                <a href="javascript:void(0)" ng-click="deletecompact(l.id)">删除</a>
+                                <a href="javascript:void(0)" ng-click="protocol(l.id)">查看补充协议</a>
+                                <a href="javascript:void(0)" ng-click="compactlook(l.id)">查看合同字段</a>
+    
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="lh55 tc l-managetable mt20" ng-if="list.length>0?false:true">
+                        暂无物业数据
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 协义父级 -->
+        <div ng-show="!typeflag&&typeflags==0">
+            <div class="clearfix mt20">
+                <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="javascript:void(0)" ng-click="addshowchild1('addnewchild')">新增</a>
+                <a class="fs14 right mt20" href="javascript:void(0)" ng-click="back()">返回>></a>
+            </div>
+            <div class="l-managetable mt20">
+                <div class="l-managetable c-bordere6">
+                    <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <th>补充协议名称</th>
+                            <th>创建时间</th>
+                            <th>创建人</th>
+                            <th>操作</th>
+                        </tr>
+                        <tr ng-repeat="l in listchild">
+                            <td>{{l.name||no}}</td>
+                            <td>{{l.createTime|date:'yyyy-MM-dd'||no}}</td>
+                            <td>{{l.realname||no}}</td>
+                            <td class="l-tablelink">
+                                <a href="javascript:void(0)" ng-click="editcompactchild('h-edditchild',l.id)">编辑</a>
+                                <a href="javascript:void(0)" ng-click="deletecompactchild(l.id)">删除</a>
+                                <a href="javascript:void(0)" ng-click="compactlook(l.id,2)">查看合同协议字段</a>
+                    
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="lh55 tc l-managetable mt20" ng-if="listchild.length>0?false:true">
+                        暂无物业数据
+                    </div>
+                    <div class="l-page fs12 tr pt20 pb30 lh30">
+                        <div ui-pagination conf="conf"></div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- 合同父级 -->
+        <div ng-show="!typeflag&&typeflags==1">
+                <div class="clearfix mt20">
+                    <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="javascript:void(0)" ng-click="addshowchild('parentmobanadd')">新建</a>
+                    <a class="fs14 right mt20" href="javascript:void(0)" ng-click="backparent('2')">返回>></a>
+                </div>
+                <div class="l-managetable mt20">
+                    <div class="l-managetable c-bordere6">
+                        <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <th>名称</th>
+                                <th>key名称</th>
+                                <th width="10%">创建人</th>
+                                <th width="12%">创建时间</th>
+                                <th width="12%">操作</th>
+                            </tr>
+                            <tr ng-repeat="l in parenthetonglist">
+                                <td>{{l.name||no}}</td>
+                                <td>{{l.keyName||no}}</td>
+                                <td>{{l.realname}}</td>
+                                <td>{{l.createTime|date:'yyyy-MM-dd'||no}}</td>
+                                <td class="l-tablelink">
+                                    <a href="javascript:void(0)" ng-click="editcompactchild1('parentmoban',l.id,$index)">编辑</a>
+                                    <a href="javascript:void(0)" ng-click="deletecompactchild1(l.id,$index)">删除</a>
+                                    
+                        
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="lh55 tc l-managetable mt20" ng-if="parenthetonglist.length>0?false:true">
+                            暂无物业数据
+                        </div>
+                        <!-- <div class="l-page fs12 tr pt20 pb30 lh30">
+                            <div ui-pagination conf="conf"></div>
+                        </div> -->
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- 合同子级 -->
+        
+    </div>
+</div>
+
+<!--编辑合同模板-->
+<div class="dialog h-eddit">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius  hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">编辑合同模板</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt10 pl30 pr30">
+                <p class="clearfix border pl20 mt20 pt10 mb20">
+                    <span class="fl w-100" >合同模板名称：</span>
+                    <input type="text" placeholder="请输入名称..." class="fl mb5 border pt5 pb5 pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="updatetemplateName">
+                </p>
+                <p class="clearfix border pl20 mt20 pt10 mb20">
+                        <span class="fl w-100" >页眉页脚：</span>
+                        <input type="text" placeholder="请输入内容..." class="fl mb5 border pt5 pb5 pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="updatetemplateOne">
+                    </p>
+                    <p class="clearfix border pl20 mt20 pt10 mb20">
+                        <span class="fl w-100" >甲方公司：</span>
+                        <input type="text" placeholder="请输入内容..." class="fl mb5 border pt5 pb5 pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="updatetemplateTwo">
+                    </p>
+                <div class="maxheight">
+                <div class="ueditor " ng-model="updatecontent" config="config"></div>
+                </div>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="updatecompactsave(updatecontent,id)">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+				</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--新建合同模板-->
+<div class="dialog addnew">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius  hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">添加合同模板</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="clearData()"></a>
+            </h3>
+            <div class="pt10 pl30 pr30">
+                <p class="clearfix border pl20 mt20 pt10 mb20">
+                    <span class="fl w-100" >合同模板名称：</span>
+                    <input type="text" placeholder="请输入名称..." class="fl mb5 border pt5 pb5 pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="templateName">
+                </p>
+                <p class="clearfix border pl20 mt20 pt10 mb20">
+                    <span class="fl w-100" >页眉页脚：</span>
+                    <input type="text" placeholder="请输入内容..." class="fl mb5 border pt5 pb5 pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="templateOne">
+                </p>
+                <p class="clearfix border pl20 mt20 pt10 mb20">
+                    <span class="fl w-100" >甲方公司：</span>
+                    <input type="text" placeholder="请输入内容..." class="fl mb5 border pt5 pb5 pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="templateTwo">
+                </p>
+                <div class="maxheight">
+                <div class="ueditor" ng-model="content" config="config"></div>
+                </div>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="projectsave(content)">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="clearData()">取消</a>
+				</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--编辑合同模板child-->
+<div class="dialog h-edditchild">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius  hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">编辑补充协议</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt10 pl30 pr30">
+                <p class="clearfix border pl20 mt20 pt10 mb20">
+                    <span class="fl w-100" >协议名称：</span>
+                    <input type="text" placeholder="请输入协议名称：..." class="fl mb5 border pt5 pb5 pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="updatenamechild">
+                </p>
+                <p class="clearfix border pl20 mt20 pt10 mb20">
+                    <span class="fl w-100" >是否有签署页：</span>
+                    <span class="left mr45 relative">
+                        <input class=" c-csrbdcinp c-htcbox" type="radio" name="types" value="0" ng-model="updateisSign">是
+                    </span>
+                    <span class="left mr45 relative">
+                        <input class=" c-csrbdcinp c-htcbox" type="radio" name="types" value="1" ng-model="updateisSign">否
+                    </span>
+                </p>
+                <p class="clearfix border pl20 mt20 pt10 mb20">
+                    <span class="fl w-100" >页脚内容：</span>
+                    <input type="text" placeholder="请输入页脚内容" class="fl mb5 border pt5 pb5 pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="updatefooter">
+                </p>
+                
+                
+                <div class="maxheight">
+                <div class="ueditor " ng-model="updatecontentchild" config="config"></div>
+                </div>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="updatecompactsavechild()">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+				</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--新建合同模板child-->
+<div class="dialog addnewchild">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius  hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">添加补充协议</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="clearData()"></a>
+            </h3>
+            <div class="pt10 pl30 pr30">
+                <p class="clearfix border pl20 mt20 pt10 mb20">
+                    <span class="fl w-100" >协议名称：</span>
+                    <input type="text" placeholder="请输入协议名称" class="fl mb5 border pt5 pb5 pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="namechild">
+                </p>
+                <p class="clearfix border pl20 mt20 pt10 mb20">
+                    <span class="fl w-100" >是否有签署页：</span>
+                    <span class="left mr45 relative">
+                        <input class=" c-csrbdcinp c-htcbox" type="radio" name="type" value="0" ng-model="type" ng-change="radios(type)">是
+                    </span>
+                    <span class="left mr45 relative">
+                        <input class=" c-csrbdcinp c-htcbox" type="radio" name="type" value="1" ng-model="type" ng-change="radios(type)">否
+                    </span>
+                </p>
+                <p class="clearfix border pl20 mt20 pt10 mb20">
+                    <span class="fl w-100" >页脚内容：</span>
+                    <input type="text" placeholder="请输入页脚内容" class="fl mb5 border pt5 pb5 pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="footer">
+                </p>
+                <div class="maxheight">
+                <div class="ueditor" ng-model="contentchild" config="config"></div>
+                </div>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="projectsavechild()">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+				</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--编辑合同模板child-->
+<div class="dialog parentmoban">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w1080 radius  hop-cont">
+            <div class="back-white">
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">编辑补充协议</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                </h3>
+                <div class="pt10 pl30 pr30">
+                        <p class="clearfix border pl20 mt20 pt10 mb20">
+                                <span class="fl w-100" >名称：</span>
+                                <input type="text" placeholder="请输入名称" class="fl mb5 border pt5 pb5 pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="updatenamechild1">
+                            </p>
+                            <p class="clearfix border pl20 mt20 pt10 mb20">
+                                    <span class="fl w-100" >key名称：</span>
+                                    <input type="text" placeholder="请输入名称" class="fl mb5 border pt5 pb5 pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="updatecontentchild1">
+                                </p>
+                    <span class="hop-bntap disblock pt30 pb55">
+                        <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="updatecompactsavechild1()">保存</a>
+                        <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+</div>
+<!--新建合同模板child-->
+<div class="dialog parentmobanadd">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius  hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">新增字段</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="clearData()"></a>
+            </h3>
+            <div class="pt10 pl30 pr30">
+                <p class="clearfix border pl20 mt20 pt10 mb20">
+                    <span class="fl w-100" >名称：</span>
+                    <input type="text" placeholder="请输入名称" class="fl mb5 border pt5 pb5 pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="namechild1">
+                </p>
+                <p class="clearfix border pl20 mt20 pt10 mb20">
+                        <span class="fl w-100" >key名称：</span>
+                        <input type="text" placeholder="请输入名称" class="fl mb5 border pt5 pb5 pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="contentchild1">
+                    </p>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="projectsavechild1()">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

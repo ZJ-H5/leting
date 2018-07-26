@@ -1,0 +1,181 @@
+<app-head></app-head>
+<app-left-Column></app-left-Column>
+<!--main-->
+<div class="l-rightsider clearfix   pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">银行信息</a>
+        </div>
+        <ul class="c-chbul h-cwgispxx mt15 back-white clearfix">
+            <li class="left"><a class="tc disblock ahover c6 "  href="#/databasicSign">签约阶段</a></li>
+            <li class="left"><a class="tc disblock ahover c6 " href="#/databasicprocess">审核流程</a></li>
+            <li class="left"><a class="tc disblock ahover c6 " href="#/databasicCompensationProject">补偿项目</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/databasicCompensationType">补偿类型</a></li>
+            <li class="left"><a class="tc disblock ahover c6 " href="#/singledatabasic">单一数据</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/databasiccompact">合同模板</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/databasicRebuild">还建基础数据</a></li>
+            <li class="left"><a class="tc disblock ahover maincolor" href="#/bankmessage">银行信息</a></li>
+        </ul>
+        <div class="clearfix mt20">
+            <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="javascript:void(0)" ng-click="add('adddata')">新增内容</a>
+            <div class="c-csrbdinp right  ">
+                <i class="c-iconfont mt8 ml10 left" ></i>
+                <input class="ml10 left" type="text" placeholder="请输入姓名" ng-model="searchKeys">
+            </div>
+        </div>
+        <div class="l-managetable mt20">
+            <div class="l-managetable c-bordere6">
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th>姓名</th>
+                        <th>银行名称</th>
+                        <th>银行卡号</th>
+                        <th>创建时间</th>
+                        <th width="15%">操作</th>
+                    </tr>
+
+                    <tr ng-repeat="l in list">
+                            <td>{{l.realname||no}}</td>
+                        <td>{{l.bankName||no}}</td>
+                        
+                        <td>{{l.bankCode||no}}</td>
+                        <td>{{l.createTime|date:'yyyy-MM-dd'||no}}</td>
+                        <td class="l-tablelink" width="15%">
+                           
+                            <a href="javascript:void(0)" ng-click="edit($index)">编辑</a>
+                            <a href="javascript:void(0)" ng-click="delete(l.id)">删除</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="l-page fs12 tr pt20 pb30 lh30">
+                <div ui-pagination conf="conf"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!--main end-->
+
+
+<!--添加内容-->
+<div class="dialog adddata">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius    hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">添加银行信息</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt20 pl30 pr30">
+                <table width="100%" class="back-f5 hop-table" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th class="pl30 maincolor">银行名称：</th>
+                        <td colspan="2">
+                            <input type="text"  placeholder="请输入....." class="l-input w500" ng-model="bankName"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">银行卡号：</th>
+                        <td colspan="2">
+                            <input type="text"  placeholder="请输入....." class="l-input w500" ng-model="bankCode"/>
+                        </td>
+                    </tr>
+                    <th class="pl30 maincolor">员工名称：</th>
+                        <td class="pos-rel" style="height: 100px;">
+                            <input ng-disabled="seedata.flag===1?true:false"
+                                   ng-model="add.peopel"
+                                   ng-focus="addfocus(add.peopel)"
+                                   ng-blur="addblur(add.peopel)"
+                                   placeholder="请选择名字"
+                                   ng-change="addchange(add.peopel)"
+                                   class="l-input h-inputone border addJoinName"
+                                   style="width: 160px;height: 30px;"
+                            />
+
+                            <div class="zj-moaddshijian" ng-if="dimArrFlag">
+                                <a class="bge3f5ff lh24 pt2 pl2 pb2 dis-inlBlo w100-"
+                                   ng-repeat="i in dimArr"
+                                   ng-bind="i.realname"
+                                   ng-click="alertliAdd(i.realname,i.id,$index)">
+
+                                </a>
+                            </div>
+                            <ul class="pos-abs h-100" style="left:190px;top: 34px;line-height:30px;width: 190px;overflow: auto;">
+                                <li class="bge3f5ff lh24 pt2 pl2 pb2 dis-inlBlo w100-" ng-repeat="j in peoplename"><span ng-bind="j.realname"></span><a class="fr pr6" ng-click="peopeldel($index)">删除</a></li>
+                            </ul>
+                            <div class="cred pos-abs " style="top: 24px;left:400px;" ng-if="updateflag.participate">*请选择联系人</div>
+                        </td>
+                </table>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius" ng-click="addnews(filePath,fileName)">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+				</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--编辑内容-->
+<div class="dialog editdata">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius  hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">编辑银行信息</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancel(editsort)"></a>
+            </h3>
+            <div class="pt20 pl30 pr30">
+                <table width="100%" class="back-f5 hop-table" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th class="pl30 maincolor">银行名称：</th>
+                        <td colspan="2">
+                            <input type="text"  placeholder="请输入....." class="l-input w500" ng-model="updatebankName"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">银行卡号：</th>
+                        <td colspan="2">
+                            <input type="text"  placeholder="请输入....." class="l-input w500" ng-model="updatebankCode"/>
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                            <th class="pl30 maincolor">员工名称：</th>
+                            <td class="pos-rel" style="height: 100px;">
+                                <input ng-disabled="seedata.flag===1?true:false"
+                                       ng-model="participate"
+                                       ng-focus="addfocus(participate,2)"
+                                       ng-blur="addblur(participate,2)"
+                                       placeholder="参与人"
+                                       ng-change="addchange(participate,2)"
+                                       class="l-input h-inputone border addJoinName"
+                                       style="width: 160px;height: 30px;"
+                                />
+    
+                                <div class="zj-moaddshijian" ng-if="dimArrFlag">
+                                    <a class="bge3f5ff lh24 pt2 pl2 pb2 dis-inlBlo w100-"
+                                       ng-repeat="i in dimArr"
+                                       ng-bind="i.realname"
+                                       ng-click="alertliAdd(i.realname,i.id,$index,2)">
+    
+                                    </a>
+                                </div>
+                                <ul class="pos-abs  h-100" style="left:190px;top: 34px;line-height:30px;width: 190px;overflow: auto;">
+                                    <li class="bge3f5ff lh24 pt2 pl2 pb2 dis-inlBlo w100-" ng-repeat="j in updateanme">
+                                        <span ng-bind="j.realname"></span>
+                                        <a class="fr pr6" ng-click="peopeldel($index,2)" ng-show="seedata.flag===1?false:true">删除</a>
+                                    </li>
+                                </ul>
+                                <div class="cred pos-abs " style="top: 24px;left:400px;" ng-if="updateflag.participate">*请选择联系人</div>
+                            </td>
+                        </tr> -->
+                    
+                </table>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="editsave()">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="cancel()"> 取消</a>
+				</span>
+            </div>
+        </div>
+    </div>
+</div>

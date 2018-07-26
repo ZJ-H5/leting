@@ -1,0 +1,1 @@
+angular.module("app").directive("appNewFilesRight",["cache",function(e){return{restrict:"AE",replace:!0,templateUrl:"view/template/ly/newFilesRight.html"}}]);

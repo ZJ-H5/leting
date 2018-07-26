@@ -1,0 +1,1 @@
+angular.module("app").service("cache",["$cookies",function(e){this.put=function(t,n){e.put(t,n)},this.get=function(t){return e.get(t)},this.remove=function(t){e.remove(t)}}]);

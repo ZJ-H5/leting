@@ -1,0 +1,22 @@
+<div class="l-leftsider w235  leftsider">
+    <div class="l-tltbox zjm-h">
+        <h3 class="pt30 cf l-tlt">
+            <i class="iconfont mr20 ml5"></i>
+            <em class="fs24">项目</em>
+        </h3>
+        <div class="l-txt lh26 pt35 cf">
+            在这个模块中，我们可以对公司项目进行<br>
+            管理。项目创建完成后，即生成楼宇信息。<br>
+            这些信息是添加产品的必要字段
+        </div>
+        <ul>
+            <li class="h48 lh48 clearfix zjleftli" style="border-bottom: 1px dashed #ccc;border-top: 1px dashed #ccc;padding-left:15px;padding-right: 15px;" ng-repeat="i in leftdata">
+                <a href="#/propertyBuilt?projectid={{i.id}}">
+                    <span class="fl cf" ng-bind="i.projectName"></span>
+                    <span class="fr cf" ng-bind="i.number"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</div>

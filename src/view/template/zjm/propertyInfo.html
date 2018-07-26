@@ -1,0 +1,184 @@
+<app-head></app-head>
+
+
+<div app-left></div>
+
+<div class="l-rightsider pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 pb30">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">{{projectname?projectname:''}}</a>
+            <a class=" left fs18 c6 mr35 pl5">全部物业</a>
+            <span class="c-csrbdtasp left fs14 c6 ml20 mt5">共 <span>{{total?total:'0'}}</span> 个</span>
+        </div>
+        <div class="c-csrbdb mt20 clearfix">
+            <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" ng-click="xinzeng()">新增物业</a>
+            <a class="c-csrbdba c-wyrbda  fs14 cf left" href="#/dataHierarchy?projectid={{projectId}}">数据层级管理</a>
+
+            <span>
+                <a class="c-csrbdba c-wyrbda  fs14 cf left" ng-click="import()">导入</a>
+                <a class="c-csrbdba c-wyrbda  fs14 cf left"  ng-click="export()"  >导出</a>
+                <a class="c-csrbdba c-wyrbda  fs14 cf left"  ng-click="Down()" >下载导入模板</a>
+            </span>
+
+            <div class="c-csrbdinp right clearfix">
+                <i class="c-iconfont mt8 ml10 left curpoi" ng-click="search()"></i>
+                <input class="ml10 left" type="text" placeholder="请输入房源地址/权利人" ng-model="searchKeys">
+            </div>
+        </div>
+        <!--物业信息内容-->
+        <div >
+
+            <div class="c-csrbdc mt20">
+                <p class="c-csrbdcpa pl30 fs16 c3">筛选</p>
+                <p class="fs14 c6 pl30 clearfix">
+                    <span class="left">区域：</span>
+                    <span class="left ml45">
+                        <input type="checkbox" ng-model="selectAll" ng-click="checkobxAll(selectAll,selectchild)">全部
+                    </span>
+
+                    <span class="left ml45" ng-repeat="i in dataCheckbox">
+                        <input class=" c-csrbdcinp " type="checkbox" ng-click="updateSelection($event,i.id,i.state)" ng-model="i.state">{{i.category}}
+                    </span>
+                </p>
+            </div>
+            <div class="l-managetable mt20" ng-show="propertys.length>0?true:false">
+                <table class="l-tablebox c-wytabbox fs13" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th style="text-align: center;">区域名称</th>
+                        <th style="text-align: center;">房源地址</th>
+                        <th style="text-align: center;" >权利人</th>
+                        <th style="text-align: center;">土地证号</th>
+                        <th style="text-align: center;">房产证号</th>
+                        <th style="text-align: center;">土地性质</th>
+                        <th style="text-align: center;">物业面积</th>
+                        <th style="text-align: center;">基底面积</th>
+                        <th style="text-align: center;">操作</th>
+                    </tr>
+                    <tr ng-repeat="property in propertys">
+                        <td style="text-align:center;">{{property.category||no}}</td>
+                        <td style="text-align:center;">{{(property.splitJointName||'')+(property.code||'')+(property.address||'')}}</td>
+                        <td style="text-align:center;" attr="{{property.houseUser}}">{{property.houseUser||no}}</td>
+                        <td style="text-align:center;">{{property.landCertificate||no}}</td>
+                        <td style="text-align:center;">{{property.houseCertificate||no}}</td>
+                        <td style="text-align:center;">{{property.attribute||no}}</td>
+                        <td style="text-align:center;">{{property.registerArea?property.registerArea+'m²':no}}</td>
+                        <td style="text-align:center;">{{property.landArea?property.landArea+'m²':no}}</td>
+                        <td style="text-align:center;" class="c-tablelink">
+                            <a href="javascript:;" style="color:#337ab7" ng-click="edit(property.id,property.schemaId,$index)">编辑</a>
+                            <a  style="color:#337ab7" ng-click="dels(property.id,$index)">删除</a>
+                        </td>
+                    </tr>
+
+                </table>
+                <div class="l-page fs12 tr pt20 pb30 lh30">
+                    <div ui-pagination conf="conf"></div>
+                </div>
+                <div class="l-page fs12 tr pt20 pb30 lh30">
+                    <div ui-pagination2 conf="conf"></div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+        <!--初始化页面-->
+        <div class="c-csrbdc mt20" ng-show="propertys.length>0?false:true">
+            <p class="fs14 c6 tc pt45 pb45">暂无物业信息展示，您可以立即
+                <a class="ml5 mr5 c-csrtoplicur" href="#/dataHierarchy?projectid={{projectId}}">创建数据层级关系</a>后
+                <a class="ml5 mr5 c-csrtoplicur" ng-click="xinzeng()">添加物业信息</a>
+            </p>
+        </div>
+
+        <!--新增弹窗-->
+        <div class="dialog supper" style="display: none;">
+            <div class="dialog-bg"></div>
+            <div class="dialog-cont w754 radius    hop-cont" style="left: 404.5px; top: 113.5px; opacity: 1; margin-top: -30px;">
+                <div class="back-white">
+                    <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                        <em class="left fs18 c3">新增物业</em>
+                        <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                    </h3>
+                    <span class="hop-bntap disblock pt30 pb50 tc">
+						<a href="javascript:void(0)"  ng-repeat="i in newHousData" class="hop-save disinblock w410 radius mt20 dialog-close" ng-click="NewHousingStandards(i.parkId,i.id)" ng-bind="i.category"></a>
+					</span>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--删除-->
+        <div class="zj-alertBox delect" style="display:none">
+            <div class="dialog-bg"></div>
+            <div class="dialog-cont back-white back-alertcont" style="left: 540px; top: 98px; opacity: 1; margin-top: 0px;">
+                <h2 class="dialog-head">
+                    <span class="left">平台提示</span>
+                </h2>
+                <div class="alertmsg">确认删除吗</div>
+                <div class="alerthandle">
+                    <input type="button" class="btn dialog-console" ng-click="sels(delid,delindx)" value="确定">
+                    <input type="button" class="btn dialog-console" ng-click="cance()" value="取消">
+            </div>
+            </div>
+        </div>
+
+        <!--导入-->
+        <div class="dialog import" style="display: none;">
+            <div class="dialog-bg"></div>
+            <div class="dialog-cont w754 radius hop-cont" style="left: 404.5px; top: 113.5px; opacity: 1; margin-top: -30px;">
+                <div class="back-white pb20 ">
+                    <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                        <em class="left fs18 c3">导入</em>
+                        <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                    </h3>
+                    <span class="relative c-inputfiles pt30" ng-repeat="i in newHousData">
+                        <form action="">
+                            <input type="file" class="c-msrzboxlifile pointer importfile" multiple accept="application/vnd.ms-excel" name="fileName" useindx="{{i.indx}}" onchange="angular.element(this).scope().fileNameChanged(event)">
+                        </form>
+
+                        <a class="cf fs16 tc radius c-msrzboxliaadd" ng-bind="i.category"></a>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!--导出-->
+        <div class="dialog export" style="display: none;">
+            <div class="dialog-bg"></div>
+            <div class="dialog-cont w754 radius hop-cont" style="left: 404.5px; top: 113.5px; opacity: 1; margin-top: -30px;">
+                <div class="back-white pb20 ">
+                    <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                        <em class="left fs18 c3">导出</em>
+                        <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                    </h3>
+                    <span class="hop-bntap disblock pt30 pb50 tc">
+                        <a ng-href="{{link}}"  ng-repeat="i in newHousData" ng-bind="i.category" class="hop-save disinblock w410 hoptap radius mt20" ng-click="exportSave(i.parkId,i.id,$index)"></a>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!--下载-->
+        <div class="dialog Down" style="display: none;">
+            <div class="dialog-bg"></div>
+            <div class="dialog-cont w754 radius hop-cont" style="left: 404.5px; top: 113.5px; opacity: 1; margin-top: -30px;">
+                <div class="back-white pb20 ">
+                    <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                        <em class="left fs18 c3">下载导入模板</em>
+                        <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                    </h3>
+                    <span class="hop-bntap disblock pt30 pb50 tc">
+                        <a ng-href="{{link}}"  ng-repeat="i in newHousData" ng-bind="i.category" class="hop-save disinblock w410 hoptap radius mt20" ng-click="DownSave(i.parkId,i.id,$index)"></a>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+

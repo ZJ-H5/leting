@@ -1,0 +1,47 @@
+<div class="ui-page">
+    共<span style="margin-right:0;">{{conf2.counts}}</span>条记录
+    <ul class="pagination paginations" ng-if="conf2.total">
+        <li>
+            <a ng-click="firstPage()" style="width: 46px;">首页</a>
+        </li>
+
+        <li ng-class = "{disabled :  conf2.currentPage == 1}" ng-click="prevPage()">
+            <a href="javascript:;" aria-label="Previous">
+      <span aria-hidden="true">
+        <
+      </span>
+            </a>
+        </li>
+
+        <li ng-repeat="page in pageList track by $index" ng-click="changePage(page)" ng-class="{active : conf2.currentPage == page }">
+            <a>{{page}}</a>
+        </li>
+
+        <li ng-class = "{disabled :  conf2.currentPage == page.limit}"  ng-click="nextPage()">
+            <a href="javascript:;" aria-label="Previous">
+      <span aria-hidden="true">
+        >
+      </span>
+            </a>
+        </li>
+
+        <li>
+            <a ng-click="lastPage()" style="width: 46px;">尾页</a>
+        </li>
+
+    </ul>
+    <div class="pageconf2">
+        <!--<div ng-if="!conf2.isSelectPage">-->
+        <!--一页<select ng-options="limit for limit in conf2.pageLimit" ng-model="conf2.itemPageLimit" ng-change="selectPage()"></select>条/-->
+        <!--</div>-->
+        <div style="margin-right: 8px;">
+            共<span>{{conf2.total?conf2.total:'0'}}</span>页
+        </div>
+        <div ng-if="!conf2.isLinkPage">
+            <div class="name">
+                转到<input type="text" ng-model="conf2.linkPage" ng-change="linkPage()">页
+            </div>
+            <button class="btn btn-success" ng-if="0">确定</button>
+        </div>
+    </div>
+</div>

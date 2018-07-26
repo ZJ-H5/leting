@@ -1,0 +1,1 @@
+angular.module("app").controller("propertyInitCtrl",["$http","$scope","server","$state",function(r,t,e,p){t.projectId=p.params.projecid}]);

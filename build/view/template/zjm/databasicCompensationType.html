@@ -1,0 +1,277 @@
+<app-head></app-head>
+<left-system></left-system>
+<div class="l-rightsider clearfix   pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">补偿项目类型</a>
+        </div>
+        <ul class="c-chbul h-cwgispxx mt15 back-white clearfix">
+            <li class="left"><a class="tc disblock ahover c6 "  href="#/databasicSign">签约阶段</a></li>
+            <li class="left"><a class="tc disblock ahover c6 " href="#/databasicprocess">审核流程</a></li>
+            <li class="left"><a class="tc disblock ahover c6 " href="#/databasicCompensationProject">补偿项目</a></li>
+            <li class="left"><a class="tc disblock ahover c6 maincolor" href="#/databasicCompensationType">补偿类型</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/singledatabasic">单一数据</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/databasiccompact">合同模板</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/databasicRebuild">还建基础数据</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/bankmessage">银行信息</a></li>
+        </ul>
+        <div class="clearfix mt20">
+            <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="javascript:void(0)" ng-click="addshow('addnew')">新建</a>
+        </div>
+        <div class="l-managetable mt20">
+            <div class="l-managetable c-bordere6">
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th style="width:5%">展开</th>
+                        <th style="width:10%">阶段名称</th>
+                        <th style="width:15%">子阶段</th>
+                        <th style="width:15%">备注</th>
+                        <th style="width:15%">创建人</th>
+                        <th style="width:15%">创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="p in parentlist">
+                        <td colspan="7">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width:5%" class="jia" ng-click="showson(p.id)"><span>+</span></td>
+                                    <td style="width:10%">{{p.compensateName}}</td>
+                                    <td style="width:15%">--</td>
+                                    <td style="width:15%">{{p.remarks}}</td>
+                                    <td style="width:15%">{{p.realname|date:'yyyy-MM-dd'}}</td>
+                                    <td style="width:15%">{{p.createTime|date:'yyyy-MM-dd'}}</td>
+                                    <td class="l-tablelink">
+                                        <a href="javascript:void(0)" ng-click="edit(p.id,'h-eddit')">编辑</a>
+                                        <a href="javascript:void(0)" ng-click="delete(p.id,'')">删除</a>
+                                        <a href="javascript:void(0)" ng-click="addnewson(p.id,'addnewson')">添加子阶段</a>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="s in sonlist" ng-show="p.id==s.parentId">
+                                    <td style="width:5%"></td>
+                                    <td style="width:10%">--</td>
+                                    <td style="width:15%">{{s.compensateName}}</td>
+                                    <td style="width:15%">{{s.remarks}}</td>
+                                    <td style="width:15%">{{s.realname}}</td>
+                                    <td style="width:15%">{{s.createTime|date:'yyyy-MM-dd hh:mm'}}</td>
+                                    <td class="l-tablelink">
+                                        <a href="javascript:void(0)" ng-click="editson(p.id,s.id,'son-eddit')">编辑</a>
+                                        <a href="javascript:void(0)" ng-click="delete(s.id,p.id)">删除</a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+
+
+                        <!--<td ng-repeat="s in d.stage">{{s.name}}</td>-->
+
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!--新增父级阶段-->
+    <div class="dialog addnew">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w1080 radius  hop-cont">
+            <div class="back-white">
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">添加父级补偿类型</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                </h3>
+                <div class="pt10 pl30 pr30 ">
+                    <p class="clearfix c-wygltp pl20 mt5 pt10 pb5">
+                        <span class="fl zjm-w15" >补偿类型名称：</span>
+                        <input type="text" placeholder="请输入名称..." class="fl mb5 border pt5  pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="compensateName">
+                    </p>
+                    <p class="clearfix c-wygltp pl20 mt5 pt10 pb5">
+                        <span class="fl zjm-w15" >自定义状态：</span>
+                        <span class="left mr20"><input type="radio" class="z-checkbox" ng-model="isStatus" ng-value="0" name="status">无限制</span>
+                        <span class="left mr20"><input type="radio" class="z-checkbox" ng-model="isStatus" ng-value="1" name="status">擅改商业</span>
+                        <span class="left mr20"><input type="radio" class="z-checkbox" ng-model="isStatus" ng-value="2" name="status">查违信息</span>
+                        <span class="left mr20"><input type="radio" class="z-checkbox" ng-model="isStatus" ng-value="3" name="status">临时建筑物</span>
+                        <span class="left mr20"><input type="radio" class="z-checkbox" ng-model="isStatus" ng-value="4" name="status">住宅出租</span>
+                        <span class="left mr20"><input type="radio" class="z-checkbox" ng-model="isStatus" ng-value="5" name="status">宅基地</span>
+                        <span class="left mr20"><input type="radio" class="z-checkbox" ng-model="isStatus" ng-value="6" name="status">夹层</span>
+                        <span class="left mr20"><input type="radio" class="z-checkbox" ng-model="isStatus" ng-value="7" name="status">住宅</span>
+                    </p>
+                    <p class="clearfix c-wygltp pl20 mt5 pt10 pb5">
+                        <span class="fl zjm-w15" >是否有面积：</span>
+                        <input type="radio" class="z-checkbox" ng-value="2" ng-model="isArea" name="area">是
+                        <input type="radio" class="z-checkbox" ng-value="1" ng-model="isArea" name="area">否
+                    </p>
+                    <p class="clearfix c-wygltp pl20 mt5 pt10 pb5">
+                        <span class="fl zjm-w15" >是否有级别备注：</span>
+                        <input type="radio" class="z-checkbox" name="jbremarks" ng-value="1" ng-model="whetherOrNot">是
+                        <input type="radio" class="z-checkbox" name="jbremarks" ng-value="0" ng-model="whetherOrNot">否
+                    </p>
+                    <p class="clearfix c-wygltp pl20 mt5 pt10 pb5">
+                        <span class="fl zjm-w15" >是否有图片：</span>
+                        <input type="radio" class="z-checkbox" ng-value="2" name="image" ng-model="isPicture">是
+                        <input type="radio" class="z-checkbox" ng-value="1" name="image" ng-model="isPicture">否
+                    </p>
+                    <p class="clearfix c-wygltp mt5 pl20 pb10 pt10 pb5">
+                        <span class="fl zjm-w15">备注：</span>
+                        <textarea name="" id="" cols="30" rows="10" class="textarea border radius5" ng-model="remarks"></textarea>
+                    </p>
+                    <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="addprojectsave('','1',compensateName,isStatus,isArea,whetherOrNot,isPicture,remarks)">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="clearData()">取消</a>
+				</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--编辑父级阶段-->
+    <div class="dialog h-eddit">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w1080 radius  hop-cont">
+            <div class="back-white">
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">编辑父级补偿类型</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                </h3>
+                <div class="pt10 pl30 pr30 ">
+                    <p class="clearfix c-wygltp pl20 mt5 pt10 pb5">
+                        <span class="fl zjm-w15" >补偿类型名称：</span>
+                        <input type="text" placeholder="请输入名称..." class="fl mb5 border pt5  pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="updatecompensateName">
+                    </p>
+                    <p class="clearfix c-wygltp pl20 mt5 pt10 pb5">
+                        <span class="fl zjm-w15" >自定义状态：</span>
+                        <span class="left mr20"><input type="radio" class="z-checkbox" ng-model="isupdateStatus" ng-value="0" name="updatestatus">无限制</span>
+                        <span class="left mr20"><input type="radio" class="z-checkbox" ng-model="isupdateStatus" ng-value="1" name="updatestatus">擅改商业</span>
+                        <span class="left mr20"><input type="radio" class="z-checkbox" ng-model="isupdateStatus" ng-value="2" name="updatestatus">查违信息</span>
+                        <span class="left mr20"><input type="radio" class="z-checkbox" ng-model="isupdateStatus" ng-value="3" name="updatestatus">临时建筑物</span>
+                        <span class="left mr20"><input type="radio" class="z-checkbox" ng-model="isupdateStatus" ng-value="4" name="updatestatus">住宅出租</span>
+                        <span class="left mr20"><input type="radio" class="z-checkbox" ng-model="isupdateStatus" ng-value="5" name="updatestatus">宅基地</span>
+                        <span class="left mr20"><input type="radio" class="z-checkbox" ng-model="isupdateStatus" ng-value="6" name="updatestatus">夹层</span>
+                        <span class="left mr20"><input type="radio" class="z-checkbox" ng-model="isupdateStatus" ng-value="7" name="updatestatus">住宅</span>
+                    </p>
+                    <p class="clearfix c-wygltp pl20 mt5 pt10 pb5">
+                        <span class="fl zjm-w15" >是否有面积：</span>
+                        <input type="radio" class="z-checkbox" ng-value="2" ng-model="isupdateArea" name="updatearea">是
+                        <input type="radio" class="z-checkbox" ng-value="1" ng-model="isupdateArea" name="updatearea">否
+                    </p>
+                    <p class="clearfix c-wygltp pl20 mt5 pt10 pb5">
+                        <span class="fl zjm-w15" >是否有级别备注：</span>
+                        <input type="radio" class="z-checkbox" name="updatejbremarks" ng-value="1" ng-model="updatewhetherOrNot">是
+                        <input type="radio" class="z-checkbox" name="updatejbremarks" ng-value="0" ng-model="updatewhetherOrNot">否
+                    </p>
+                    <p class="clearfix c-wygltp pl20 mt5 pt10 pb5">
+                        <span class="fl zjm-w15" >是否有图片：</span>
+                        <input type="radio" class="z-checkbox" ng-value="2" name="updateimage" ng-model="isupdatePicture">是
+                        <input type="radio" class="z-checkbox" ng-value="1" name="updateimage" ng-model="isupdatePicture">否
+                    </p>
+                    <p class="clearfix c-wygltp mt5 pl20 pb10 pt10 pb5">
+                        <span class="fl zjm-w15">备注：</span>
+                        <textarea name="updateremarks" id="" cols="30" rows="10" class="textarea border radius5" ng-model="updateremarks"></textarea>
+                    </p>
+                    <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="updateprojectsave(id,'','1',updatecompensateName,isupdateStatus,isupdateArea,updatewhetherOrNot,isupdatePicture,updateremarks)">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close " ng-click="clearData()">取消</a>
+				</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--新增子级阶段-->
+    <div class="dialog addnewson">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w1080 radius  hop-cont">
+            <div class="back-white">
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">添加子级补偿类型</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                </h3>
+                <div class="pt10 pl30 pr30 ">
+                    <p class="clearfix c-wygltp pl20 mt5 pt10 pb5">
+                        <span class="fl zjm-w15" >补偿类型名称：</span>
+                        <input type="text" placeholder="请输入名称..." class="fl mb5 border pt5  pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="sonName">
+                    </p>
+                    <!--<p class="clearfix c-wygltp pl20 mt5 pt10 pb5">-->
+                        <!--<span class="fl zjm-w15" >自定义状态：</span>-->
+                        <!--<span class="left mr45"><input type="radio" class="z-checkbox" ng-model="issonStatus" ng-value="1" name="status">擅改商业</span>-->
+                        <!--<span class="left mr45"><input type="radio" class="z-checkbox" ng-model="issonStatus" ng-value="2" name="status">查违信息</span>-->
+                        <!--<span class="left mr45"><input type="radio" class="z-checkbox" ng-model="issonStatus" ng-value="3" name="status">临时建筑物</span>-->
+                        <!--<span class="left mr45"><input type="radio" class="z-checkbox" ng-model="issonStatus" ng-value="4" name="status">住宅出租</span>-->
+                        <!--<span class="left mr45"><input type="radio" class="z-checkbox" ng-model="issonStatus" ng-value="5" name="status">宅基地</span>-->
+                    <!--</p>-->
+                    <!--<p class="clearfix c-wygltp pl20 mt5 pt10 pb5">-->
+                        <!--<span class="fl zjm-w15" >是否有面积：</span>-->
+                        <!--<input type="radio" class="z-checkbox" ng-value="2" ng-model="issonArea" name="area">是-->
+                        <!--<input type="radio" class="z-checkbox" ng-value="1" ng-model="issonArea" name="area">否-->
+                    <!--</p>-->
+                    <!--<p class="clearfix c-wygltp pl20 mt5 pt10 pb5">-->
+                        <!--<span class="fl zjm-w15" >是否有级别备注：</span>-->
+                        <!--<input type="radio" class="z-checkbox" name="jbremarks" ng-value="1" ng-model="sonwhetherOrNot">是-->
+                        <!--<input type="radio" class="z-checkbox" name="jbremarks" ng-value="0" ng-model="sonwhetherOrNot">否-->
+                    <!--</p>-->
+                    <!--<p class="clearfix c-wygltp pl20 mt5 pt10 pb5">-->
+                        <!--<span class="fl zjm-w15" >是否有图片：</span>-->
+                        <!--<input type="radio" class="z-checkbox" ng-value="2" name="image" ng-model="issonPicture">是-->
+                        <!--<input type="radio" class="z-checkbox" ng-value="1" name="image" ng-model="issonPicture">否-->
+                    <!--</p>-->
+                    <p class="clearfix c-wygltp mt5 pl20 pb10 pt10 pb5">
+                        <span class="fl zjm-w15">备注：</span>
+                        <textarea name="" id="" cols="30" rows="10" class="textarea border radius5" ng-model="description"></textarea>
+                    </p>
+                    <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="addsonsave(parentid,'2',sonName,'','','','',sonremarks)">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+				</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--编辑子级阶段-->
+    <div class="dialog son-eddit">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w1080 radius  hop-cont">
+            <div class="back-white">
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">编辑子级补偿类型</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                </h3>
+                <div class="pt10 pl30 pr30 ">
+                    <p class="clearfix c-wygltp pl20 mt5 pt10 pb5">
+                        <span class="fl zjm-w15" >补偿类型名称：</span>
+                        <input type="text" placeholder="请输入名称..." class="fl mb5 border pt5  pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="updatesonName">
+                    </p>
+                    <!--<p class="clearfix c-wygltp pl20 mt5 pt10 pb5">-->
+                        <!--<span class="fl zjm-w15" >自定义状态：</span>-->
+                        <!--<span class="left mr45"><input type="radio" class="z-checkbox" ng-model="isupdatesonStatus" ng-value="1" name="status">擅改商业</span>-->
+                        <!--<span class="left mr45"><input type="radio" class="z-checkbox" ng-model="isupdatesonStatus" ng-value="2" name="status">查违信息</span>-->
+                        <!--<span class="left mr45"><input type="radio" class="z-checkbox" ng-model="isupdatesonStatus" ng-value="3" name="status">临时建筑物</span>-->
+                        <!--<span class="left mr45"><input type="radio" class="z-checkbox" ng-model="isupdatesonStatus" ng-value="4" name="status">住宅出租</span>-->
+                        <!--<span class="left mr45"><input type="radio" class="z-checkbox" ng-model="isupdatesonStatus" ng-value="5" name="status">宅基地</span>-->
+                    <!--</p>-->
+                    <!--<p class="clearfix c-wygltp pl20 mt5 pt10 pb5">-->
+                        <!--<span class="fl zjm-w15" >是否有面积：</span>-->
+                        <!--<input type="radio" class="z-checkbox" ng-value="2" ng-model="isupdatesonArea" name="area">是-->
+                        <!--<input type="radio" class="z-checkbox" ng-value="1" ng-model="isupdatesonArea" name="area">否-->
+                    <!--</p>-->
+                    <!--<p class="clearfix c-wygltp pl20 mt5 pt10 pb5">-->
+                        <!--<span class="fl zjm-w15" >是否有级别备注：</span>-->
+                        <!--<input type="radio" class="z-checkbox" name="jbremarks" ng-value="1" ng-model="updatesonwhetherOrNot">是-->
+                        <!--<input type="radio" class="z-checkbox" name="jbremarks" ng-value="0" ng-model="updatesonwhetherOrNot">否-->
+                    <!--</p>-->
+                    <!--<p class="clearfix c-wygltp pl20 mt5 pt10 pb5">-->
+                        <!--<span class="fl zjm-w15" >是否有图片：</span>-->
+                        <!--<input type="radio" class="z-checkbox" ng-value="2" name="image" ng-model="isupdatesonPicture">是-->
+                        <!--<input type="radio" class="z-checkbox" ng-value="1" name="image" ng-model="isupdatesonPicture">否-->
+                    <!--</p>-->
+                    <p class="clearfix c-wygltp mt5 pl20 pb10 pt10 pb5">
+                        <span class="fl zjm-w15">备注：</span>
+                        <textarea name="" id="" cols="30" rows="10" class="textarea border radius5" ng-model="updatesonremarks"></textarea>
+                    </p>
+                    <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="updateprojectsave(sonid,parentid,'2',updatesonName,'','','','',updatesonremarks)">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+				</span>
+                </div>
+            </div>
+        </div>
+    </div>

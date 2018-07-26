@@ -1,0 +1,31 @@
+{
+  "result": true,
+  "message": null,
+  "data": {
+    "pageNo": 1,
+    "pageCount": 1,
+    //当前页数
+    "pageSize": 10,
+    //当前页总记录数
+    "pageStartOffset": 0,
+    "total": 2,
+    //总记录数
+    "rows": [
+      {
+        "id": "02d83dd9a1754b7c9548988555eec0c4",
+        //id
+        "parentId": "1dd1e4c7211f4ddeb5e5471eab2a17d3",
+        "propertyOwner": "马云",
+        //负责人
+        "category": "小区住房",
+        //区域名称
+        "address": "西乡固戍",
+        //地址
+        "splitJointName": "1栋A座3层",
+        //房源名称
+        "registerArea": 200
+        //登记面积
+      }
+    ]
+  }
+}

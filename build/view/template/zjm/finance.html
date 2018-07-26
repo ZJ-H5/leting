@@ -1,0 +1,154 @@
+<app-head></app-head>
+
+<div app-left></div>
+
+<!--main-->
+<div class="l-rightsider   pb55">
+    <!--<input type="text" name="name" ng-model="inputname" ng-init="inputname='hello'">-->
+    <!--<span>{{inputname}}</span>-->
+    <!--<button type="button" name="button" ng-click="change()">改变值</button>-->
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">财务管理</a>
+        </div>
+        <ul class="z-chbul h-cwgispxx mt15 back-white clearfix">
+            <li class="left">
+                <a class="tc disblock maincolor ahover" style="color: #4ea4df;" href="#/finance?projectid={{projectId}}">物业补偿和临时安置补助</a>
+            </li>
+            <li class="left">
+                <a class="tc disblock ahover c6" href="#/delayfinance?projectid={{projectId}}">延迟支付补偿</a>
+            </li>
+            <li class="left">
+                <a class="tc disblock ahover c6" href="#/commissionfinance?projectid={{projectId}}">佣金</a>
+            </li>
+            <li class="left">
+                <a class="tc disblock ahover c6" href="#/payfinance?projectid={{projectId}}">财务支付</a>
+            </li>
+            <!--<li class="left"><a class="tc disblock ahover c6" href="#/paylist?projectid={{projectId}}">支付列表</a></li>-->
+        </ul>
+        <div class="c-csrbdc mt20">
+            <p class="c-csrbdcpa pl30 fs16 c3 clearfix">
+                <span class="left">筛选</span>
+                <a class="right maincolor mr30 c-spgltcl" href="javascript:void (0)" ng-click="scrolldiv()">收起</a>
+            </p>
+
+            <div class="c-spgltclshow" ng-show="myscrol">
+                <p class="fs14 c6 pl30 clearfix">
+                    <span class="left c-spgltsp h-100">补偿款项目：</span>
+                    <span class="left mr45 relative">
+                        <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox" name="area" value="" ng-model="selectall" ng-click="checktall(selectall,1,criterialist)">全部
+                    </span>
+                    <span class="left mr45 relative" ng-repeat="c in criterialist">
+                        <input class=" c-csrbdcinp c-htcbox relative" type="checkbox" id="{{c.id}}" name="{{c.name}}" value="" ng-model="c.state"
+                            ng-checked="isSelected(c.id)" ng-click="updateSelection($index,c.state,1,criterialist)">{{c.name}}{{myselect}}
+                    </span>
+                </p>
+                <p class="c-wygltp fs14 c6 pl30 clearfix">
+                    <span class="left c-spgltsp">收/付款状态：</span>
+                    <span class="left mr45 relative">
+                        <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox" name="pay" value="" ng-model="payselectall" ng-click="checktall(payselectall,2,paylist)">全部
+                    </span>
+                    <span class="left mr45 relative" ng-repeat="p in paylist">
+                        <input class=" c-csrbdcinp c-htcbox relative" id="p.id" type="checkbox" name="pay" value="" ng-model="p.state" ng-checked="isSelected(p.id)"
+                            ng-click="updateSelection($index,c.state,2,paylist)">{{p.name}}
+                    </span>
+                </p>
+                <div class=" c6 pl30 pt5 pb5 clearfix relative" style="display: flex;align-items: center;">
+                    <p>
+                    <span class="left c-spgltsp">时间：</span>
+                    <div class="relative left">
+                        <input type="text" id="text1" class="test1 left relative mt6 c-spgltspb pointer" ng-model="starttime">
+                        <i style="top: 12px;" class="test2 c-iconfont c-spgltspi" ng-click="mychange(mydata,selected,payselected,endtime,exporttype)"></i>
+                    </div>
+                    <span class="left ml15 mr15 mt10">至</span>
+                    <div class="relative left">
+
+                        <input type="text" class="test3 left relative mt6 mr15 c-spgltspb pointer" ng-model="endtime">
+                        <i style="top: 12px;right: 26px;" ng-click="mychange2(mydata,selected,payselected,starttime,exporttype)" class="test4 c-iconfont c-spgltspi"></i>
+                    </div>
+                    <a class="left mr15 mt6 c-spgltaa tc" href="javascript:void (0)" ng-class="{visited:flag==true}" ng-click="seven($event,selected,payselected,starttime,endtime,exporttype)">近7天</a>
+                    <a class="left mt6 c-spgltaa tc" ng-class="{visited:flag2==true}" href="javascript:void (0)" ng-click="month($event,selected,payselected,starttime,endtime,exporttype)">近1个月</a>
+                    </p>
+                </div>
+                <div class="c-wygltp c6 pl30 pt5 lh40 pb5 clearfix" ng-show="myscrol">
+                    <span class="left lh40 c-spgltsp">关键字搜索：</span>
+                    <div class="c-csrbdinp back-white left  mt4">
+                        <i class="c-iconfont mt8  ml10 pt10 left"></i>
+                        <input class="ml10 left" type="text" placeholder="收款人姓名" ng-model="ppnameinput">
+                    </div>
+                </div>
+
+            </div>
+            <div class="clearfix">
+                <!--<a class="left mt10 mb10 ml30  c-spgltabb radius5 tc cf" href="javascript:void (0)">查询</a>-->
+                <!--<a class="left mt10 mb10 ml80  c-spgltabb radius5 tc cf" href="javascript:void (0)">批量操作</a>-->
+                <a class="left mt10 mb10 ml10  c-spgltabb radius5 tc cf saveDisabled" href="javascript:void (0)" ng-click="payapply()">批量申请支付</a>
+                <a class="left mt10 mb10 ml10  c-spgltabbh radius5 tc cf " ng-href="{{exporttypeUrl}}" ng-click="export(selected,payselected,starttime,endtime,type)">导出所有</a>
+            </div>
+            <div class="l-managetable">
+                <div class="l-managetable c-bordere6">
+                    <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <th>
+                                <input type="checkbox" ng-click="batchAll($event,type)" ng-model="batchChecked">
+                            </th>
+                            <th>房源地址</th>
+                            <th>付款项目</th>
+                            <!-- <th>付款依据</th> -->
+                            <th>付款金额</th>
+                            <th>收款人姓名</th>
+                            <th>收款银行</th>
+                            <th>收款银行账号</th>
+                            <th>付款时间</th>
+                            <th>状态</th>
+                            <th>实际付款时间</th>
+                            <th>操作</th>
+                        </tr>
+
+                        <tr ng-repeat="l in list">
+                            <td>
+                                <input type="checkbox" ng-click="batchselect($event,l.id)" ng-if="l.examineStatus==0||l.examineStatus==2"
+                                    ng-model="l.checked">
+                            </td>
+                            <td>
+                                <a target="_blank" href="#/pactInfo?pactId={{l.pactId}}">{{(l.commissionId?l.commissionId:'')+(l.address?l.address:'')}}</a>
+                            </td>
+                            <td>{{l.name?l.name:'-'}}</td>
+                            <!-- <td class="relative mylook"><a href="javascript:void(0)" ng-mouseenter="show = true" ng-mouseleave="show = false">查看</a>
+                                <div class="pos-abs bgf p5 fs12" ng-if="show" style="width: 100%;border: 1px solid #337ab7; left:70%;z-index:9998;border-radius:10px; box-shadow:2px 2px 2px #ccc;">
+                                <span class="fl pl0 mr10 ml10">
+                                    <span>{{l.paymentBasis||'暂无数据'}}</span>
+                                </span>
+                                </div>
+                                <div class="chart radius5" dialog-title="">
+                                    {{l.paymentBasis }}
+                                </div></td> -->
+                            <td>{{l.paymentAmount?l.paymentAmount:'-'}}</td>
+                            <td>{{l.recieveName?l.recieveName:'-'}}</td>
+                            <td>{{l.recieveBank?l.recieveBank:'-'}}</td>
+                            <td>{{l.recieveAcct?l.recieveAcct:'-'}}</td>
+                            <td>{{l.paymentTime?(l.paymentTime|date:'yyyy-MM-dd')+'前':'-'}}</td>
+                            <td>{{l.payment?l.payment:'-'}}</td>
+                            <td>{{l.relasePaymentTime?(l.relasePaymentTime|date:'yyyy-MM-dd'):'-'}}</td>
+                            <td>
+                                <a ng-click="paySingle(l.id)" ng-if="l.examineStatus==0||l.examineStatus==2">申请支付</a>
+                                <span ng-if="l.examineStatus==3">已提交申请</span>
+                                <span ng-if="l.examineStatus==1">审核通过</span>
+                            </td>
+                        </tr>
+
+                    </table>
+                    
+                </div>
+                <div ng-show="list.length>0?false:true" class="mt10 tc">
+                    暂无数据
+                </div>
+                <div class="l-page fs12 tr pt20 pb30 lh30">
+                    <div ui-pagination conf="conf"></div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!--main end-->

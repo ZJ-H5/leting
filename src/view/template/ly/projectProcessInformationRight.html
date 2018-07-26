@@ -1,0 +1,510 @@
+<div class="pb55 pt65">
+    <!--项目信息-->
+    <div class="pl15 pr18 pt15 pb15">
+        <!--顶部关注-->
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <div class="c-csrbdt pt25 col-md-7 col-lg-7 col-sm-7 ">
+                <a class="c-csrbdta fs18 c6 mr35 pl5 ng-binding" ng-bind="project.projectName?project.projectName:no">西乡建设</a>
+                <p class="ml10 mt15"><span ng-bind="project.address?project.address:no" class="ng-binding">广东省深圳市宝安区西乡固戍</span></p>
+                <div class="mt18 j-BtnDiv clearfix">
+                    <a href="javascript:;" title="已关注" class="j-blur-c w136 h40 bge3f5ff mr15 tc left brrad6 dis-inlBlo">
+                        <span class="j-prite j-child-a j-eyse mr2"></span>
+                        <span class="lh40">已关注</span>
+                    </a>
+                    <!--<a href="javascript:;" class="c-cqtbtna radius5 tc mr35 left"> </a>-->
+                    <a href="javascript:;" class="c-cqtbtnb radius5 tc cf c-iconfont left" ng-click="deleteProject(projectId)">删除项目</a>
+                </div>
+            </div>
+            <ul class="col-md-5 col-lg-5 col-sm-5 mt30 mb30 pl40">
+                <li class="lh30">创建人：<span ng-bind="project.createName?project.createName:no" class="ng-binding">马云</span></li>
+                <li class="lh30">创建时间：<span ng-bind="project.createTime|date:'yyyy-MM-dd hh:mm'"></span></li>
+                <li class="lh30">最后更新时间：<span ng-if="project.updateTime">{{project.updateTime|date:'yyyy-MM-dd hh:mm'}}</span>
+                    <span ng-if="project.updateTime==null">{{no}}</span>
+                </li>
+            </ul>
+
+        </div>
+        <!--7个格子-->
+        <table class="table table-bordered bg3 mt15">
+            <tbody class="tc c0">
+            <tr class="h40  tc lh40 bgf c6" align="justify">
+                <td class=""><a href="#/itemDetails?projectid={{projectId}}"  title="总览" class="j-blur-a j-blur-as maincolor">&nbsp;&nbsp;&nbsp;总览&nbsp;&nbsp;&nbsp;</a>
+                </td>
+                <td class=""><a href="#/itemInformation?projectid={{projectId}}" title="基本信息"
+                                class="j-blur-a j-blur-as ">基本信息</a></td>
+                <td class=""><a href="#/projectProcessInformation?projectid={{projectId}}" title="流程进度信息" class="j-blur-a j-blur-as" style="color: #337ab7;">流程进度信息</a></td>
+                <td class=""><a href="#/propertyInformation?projectid={{projectId}}" title="物业信息" class="j-blur-a j-blur-as">物业信息</a></td>
+                <td class=""><a href="#/projectcompensationRules?projectid={{projectId}}" title="拆迁补偿规则" class="j-blur-a j-blur-as ">拆迁补偿规则</a>
+                </td>
+                <td class=""><a href="#/financialsettlement?projectid={{projectId}}" title="财务结算项目设置" class="j-blur-a j-blur-as ">财务结算项目设置</a>
+                </td>
+                <td class=""><a href="#/projectcommissionrelease?projectid={{projectId}}" title="佣金发放规则" class="j-blur-a j-blur-as ">佣金发放规则</a></td>
+                <td class=""><a href="#/annex?projectid={{projectId}}"  title="附件" class="j-blur-a j-blur-as">附件</a></td>
+                <td class=""><a href="#/projectupdaterecord?projectid={{projectId}}"  title="修改记录" class="j-blur-a j-blur-as">修改记录</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <!--下面主体-->
+        <div class="mt30 mb20 pl50 pr30 pb30 back-white clearfix">
+            <div class="c-xmboxa mt15 pb10 clearfix">
+                <h6 class="fs18 c3  fl mt5">流程进度信息</h6>
+                <div class="right c-xmboxabtn">
+                    <a class="c-xmboxabtnb cf disinblock tc radius5 ml15  c-iconfont" ng-click="addfirst('addnew')">新增</a>
+                </div>
+            </div>
+            <div class="l-managetable mt20">
+                <div class="l-managetable c-bordere6">
+                    <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                        <tr class="zjm-w10">
+                            <th>一级阶段</th>
+                            <th>二级阶段</th>
+                            <th>三级阶段</th>
+                            <th style="width:5%">是否完成</th>
+                            <th style="width:5%">类型</th>
+                            <th>负责人</th>
+                            <th>完成时间</th>
+                            <th>备注</th>
+                            <th>附件</th>
+                            <th style="width:20%">操作</th>
+                        </tr>
+                        <tr ng-repeat="l in list">
+                            <td colspan="10">
+                                <table style="width: 100%;">
+                                    <!--一层-->
+                                    <tr class="zjm-w10">
+                                        <td>{{l.processName}}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="width:5%">{{l.accomplish==1?'是':'否'}}</td>
+                                        <td style="width:5%">{{l.type==1?'前置':'非前置'}}</td>
+                                        <td>
+
+                                            <span ng-repeat="d in l.detailList" ng-if="d.keyAssignments==1">
+                                              {{d.userName}}
+                                             </span>
+
+                                        </td>
+                                        <td>
+                                            <span ng-repeat="d in l.detailList" ng-if="d.keyAssignments==2">
+                                              {{d.val}}
+                                             </span>
+
+                                        </td>
+                                        <td>
+                                            <span ng-repeat="d in l.detailList" ng-if="d.keyAssignments==3">
+                                              {{d.val=='null'?'':d.val}}
+                                             </span>
+
+                                        </td>
+                                        <td>
+                                            <span ng-repeat="d in l.detailList" ng-if="d.keyAssignments==4">
+                                                <a ng-href="{{hostname+d.val}}"  ng-if="d.val!=null" target="_blank">
+                                                    下载
+                                                </a>
+                                             </span>
+
+                                        </td>
+                                        <td class="l-tablelink" style="width:20%">
+                                            <span href="javascript:void(0)" ng-show="l.type==2&&l.accomplish==1">已完成</span>
+                                            <a href="javascript:void(0)" ng-show="l.type==2&&l.accomplish==0" ng-click="addinfo(l.id,'addinfo',l.detailList)">添加信息</a>
+                                            <a href="javascript:void(0)" ng-click="delete(l.id)">删除</a>
+                                            <a href="javascript:void(0)" ng-click="addsecond(l.id,'addnewson')">添加子级</a>
+                                            <a href="javascript:void(0)" ng-click="watchPrepose(l.id,'watchson')">查看前置</a>
+                                        </td>
+                                    </tr>
+                                    <!--二层-->
+                                    <tr ng-show="t.processName" ng-repeat="t in l.twoStage">
+                                        <td colspan="10">
+                                            <table style="width:100%">
+                                                <tr class="zjm-w10">
+                                                    <td></td>
+                                                    <td>
+                                                        {{t.processName}}
+                                                    </td>
+                                                    <td></td>
+                                                    <td style="width:5%">{{t.accomplish==1?'是':'否'}}</td>
+                                                    <td style="width:5%">{{t.type==1?'前置':'非前置'}}</td>
+                                                    <td >
+                                                        <span ng-repeat="d in t.detailList" ng-if="d.keyAssignments==1">
+                                                          {{d.userName}}
+                                                         </span>
+
+                                                    </td>
+                                                    <td>
+                                                        <span ng-repeat="d in t.detailList" ng-if="d.keyAssignments==2">
+                                                          {{d.val}}
+                                                         </span>
+
+                                                    </td>
+                                                    <td>
+                                                        <span ng-repeat="d in t.detailList" ng-if="d.keyAssignments==3">
+                                                          {{d.val}}
+                                                         </span>
+
+                                                    </td>
+                                                    <td>
+                                                        <span ng-repeat="d in t.detailList" ng-if="d.keyAssignments==4">
+                                                         <a ng-href="{{hostname+d.val}}"  ng-if="d.val" target="_blank">
+                                                    下载
+                                                </a>
+                                                         </span>
+
+                                                    </td>
+                                                    <td class="l-tablelink" style="width:20%">
+                                                        <a href="javascript:void(0)" ng-show="t.type==2&&t.accomplish==0" ng-click="addinfo(t.id,'addinfo',t.detailList)">添加信息</a>
+                                                        <a href="javascript:void(0)" ng-click="delete(t.id)">删除</a>
+                                                        <a href="javascript:void(0)" ng-click="addsecond(t.id,'addnewson')">添加子级</a>
+                                                        <a href="javascript:void(0)" ng-click="watchPrepose(t.id,'watchson')">查看前置</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="10"  width="100%">
+                                                        <table width="100%">
+                                                            <!-- &lt;!&ndash;&lt;!&ndash;三层&ndash;&gt;&ndash;&gt;-->
+                                                            <tr ng-show="r.processName" ng-repeat="r in t.threeLevel" class="zjm-w10">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td>{{r.processName}}</td>
+                                                                <td style="width:5%">{{r.accomplish==1?'是':'否'}}</td>
+                                                                <td style="width:5%">{{r.type==1?'前置':'非前置'}}</td>
+                                                                <td>
+                                                                <span ng-repeat="d in r.detailList" ng-if="d.keyAssignments==1">
+                                                                  {{d.userName}}
+                                                                 </span>
+
+                                                                </td>
+                                                                <td>
+                                                                    <span ng-repeat="d in r.detailList" ng-if="d.keyAssignments==2">
+                                                                      {{d.val}}
+                                                                     </span>
+
+                                                                </td>
+                                                                <td>
+                                                                    <span ng-repeat="d in r.detailList" ng-if="d.keyAssignments==3">
+                                                                      {{d.val}}
+                                                                     </span>
+
+                                                                </td>
+                                                                <td>
+                                                                    <span ng-repeat="d in r.detailList" ng-if="d.keyAssignments==4">
+                                                                     <a ng-href="{{hostname+d.val}}" ng-if="d.val" target="_blank">
+                                                    下载
+                                                </a>
+                                                                     </span>
+
+                                                                </td>
+                                                                <td class="l-tablelink" style="width:20%">
+                                                                    <a href="javascript:void(0)" ng-show="r.type==2&&r.accomplish==1" ng-click="watchinfo(r.id,'addnewson')">查看</a>
+                                                                    <a href="javascript:void(0)" ng-show="r.type==2&&r.accomplish==0" ng-click="addinfo(r.id,'addinfo')">添加信息</a>
+                                                                    <a href="javascript:void(0)" ng-click="delete(r.id)">删除</a>
+                                                                    <a href="javascript:void(0)" ng-click="watchPrepose(r.id,'watchson')">查看前置</a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!--新增-->
+        <div class="dialog addnew">
+            <div class="dialog-bg"></div>
+            <div class="dialog-cont w875 radius    hop-cont">
+                <div class="back-white">
+                    <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                        <em class="left fs18 c3">添加流程</em>
+                        <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancel()"></a>
+                    </h3>
+
+                    <div class="pt20 pl30 pr30">
+                        <table width="100%" class=" hop-table lh50  hop-ruletale" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td width="13%" class="pl30 c3" valign="top">流程名称: </td>
+                                <td >
+                                    <input  type="text"  placeholder="请输入......" ng-model="processName" name="processName"  class="l-projectinput" required/>
+                                    <!--validator="projectName"-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td  class="pl30 c3" valign="top">功能: </td>
+                                <td >
+
+                            <span class="l-tabcheckbox" ng-repeat="color in colors">
+                                <input type="checkbox"  ng-model="color.status"/>
+                                <em>{{color.name}} </em>
+                            </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <table width="100%" cellpadding="0" cellspacing="0" class="addtable" name>
+                                        <tr>
+                                            <td width="13%" class="pl30 c3" valign="top">前置条件1: </td>
+                                            <td >
+                                                <input  type="text" placeholder="请输入......" ng-model="processNameList[0].processName" name="processitem1" class="l-projectinput"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td  class="pl30 c3" valign="top">前置条件2: </td>
+                                            <td >
+                                                <input  type="text" placeholder="请输入......" ng-model="processNameList[1].processName" name="processitem2" class="l-projectinput"/>
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="flag">
+                                            <td  class="pl30 c3" valign="top" >前置条件3: </td>
+                                            <td >
+                                                <input  type="text" placeholder="请输入......" ng-model="processNameList[2].processName" name="processitem2" class="l-projectinput"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+
+                            <tr ng-show="flag2">
+                                <td  class="pl30 c3" valign="top"> </td>
+                                <td >
+                                    <a href="javascript:void(0)" ng-click="addcondition()" class="l-addtab radius"><i  class="  l-addbnt iconfont" ></i><em class="ml10">添加前置条件</em></a>
+                                </td>
+                            </tr>
+                        </table>
+                        <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" ng-click="savebnt()" class="hop-save disinblock w133 hoptap radius dialog-close">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="cancel()">取消</a>
+                </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--列表一级新增-->
+        <div class="dialog addnewson">
+            <div class="dialog-bg"></div>
+            <div class="dialog-cont w1080 radius    hop-cont">
+                <div class="back-white">
+                    <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                        <em class="left fs18 c3">添加流程</em>
+                        <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancel()"></a>
+                    </h3>
+
+                    <div class="pt20 pl30 pr30">
+                        <table width="100%" class=" hop-table lh50  hop-ruletale" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td width="13%" class="pl30 c3" valign="top">流程名称: </td>
+                                <td >
+                                    <input  type="text"  placeholder="请输入......" ng-model="processName2" name="processName2"  class="l-projectinput" required/>
+                                    <!--validator="projectName"-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td  class="pl30 c3" valign="top">功能: </td>
+                                <td >
+
+                            <span class="l-tabcheckbox" ng-repeat="color in colors">
+                                <input type="checkbox"  ng-model="color.status"/>
+                                <em>{{color.name}} </em>
+                            </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <table width="100%" cellpadding="0" cellspacing="0" class="addtable" name>
+                                        <tr>
+                                            <td width="13%" class="pl30 c3" valign="top">前置条件1: </td>
+                                            <td >
+                                                <input  type="text" placeholder="请输入......" ng-model="processNameList[0].processName" name="processitem1" class="l-projectinput"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td  class="pl30 c3" valign="top">前置条件2: </td>
+                                            <td >
+                                                <input  type="text" placeholder="请输入......" ng-model="processNameList[1].processName" name="processitem2" class="l-projectinput"/>
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="flag">
+                                            <td  class="pl30 c3" valign="top" >前置条件3: </td>
+                                            <td >
+                                                <input  type="text" placeholder="请输入......" ng-model="processNameList[2].processName" name="processitem3" class="l-projectinput"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+
+                            <tr ng-show="flag2">
+                                <td  class="pl30 c3" valign="top"> </td>
+                                <td >
+                                    <a href="javascript:void(0)" ng-click="addcondition()" class="l-addtab radius"><i  class="  l-addbnt iconfont" ></i><em class="ml10">添加前置条件</em></a>
+                                </td>
+                            </tr>
+                        </table>
+                        <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" ng-click="savebnt2(parentId)" class="hop-save disinblock w133 hoptap radius dialog-close">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="cancel()">取消</a>
+                </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--添加信息-->
+        <div class="dialog addinfo">
+            <div class="dialog-bg"></div>
+            <div class="dialog-cont w875 radius    hop-cont">
+                <div class="back-white">
+                    <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                        <em class="left fs18 c3">添加信息</em>
+                        <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancel()"></a>
+                    </h3>
+                    <form action="" name="form">
+                        <div class="pt20 pl30 pr30">
+
+                            <table width="100%" class=" hop-table lh50  hop-ruletale" cellpadding="0" cellspacing="0">
+                                <tr ng-show="detailId1">
+                                    <td width="13%" class="pl30 c3" valign="top">负责人: </td>
+                                    <td class="relative">
+                                        <input type="text"  placeholder="请输入....." class="l-projectinput fl" ng-model="peoplename" ng-click="ulshow(peoplename)" ng-blur="ulcancel(peoplename)" ng-keyup="serachsomthing(peoplename)" name="username"/>
+                                        <div class="absolute zIndex ulshow" ng-show="searchlist" style="top:38px">
+                                            <ul>
+                                                <li ng-repeat="s in searchlist" ng-click="getname(s.id,s.realname)">{{s.realname}}</li>
+                                            </ul>
+                                        </div>
+                                        <span class="cred lh34" ng-if="check.peoplenameFlag">*负责人不能为空</span>
+                                    </td>
+                                </tr>
+                                <tr ng-show="detailId2">
+                                    <td width="13%" class="pl30 c3" valign="top">完成时间: </td>
+                                    <td class="clearfix relative">
+                                        <input type="text" name="time" id="text1" class="test1 l-projectinput relative mt6 pointer" ng-model="completeTime" ng-blur="timecancel(completeTime)">
+                                        <i class="test2 c-iconfont c-spgltspi time-t48" ng-click="mychange(mydata,selected,payselected)"></i>
+                                        <span style="color:red;" ng-if="check.completeTimeFlag">*时间不能为空</span>
+                                    </td>
+                                </tr>
+                                <tr ng-show="detailId3">
+                                    <td width="13%" class="pl30 c3" valign="top">备注: </td>
+                                    <td >
+                                        <input  type="text"  placeholder="请输入......" ng-model="remark" name="remark"  class="l-projectinput fl" ng-blur="remarkcancel(remark)"/>
+                                        <span style="color:red;" ng-if="check.remarkFlag">*备注不能为空</span>
+                                    </td>
+                                </tr>
+                                <tr ng-show="detailId4">
+                                    <td width="13%" class="pl30 c3" valign="top">附件: </td>
+                                    <td >
+                                    <span class="btn btn-info fileinput-button radius5 ">
+                                    <span>添加附件</span>
+                                          <input ng-file-select="addannex($files)" type="file" name="annex"/>
+                                    </span>
+                                        <span>
+                                        {{fileName}}
+                                    </span>
+                                        <span style="color:red;" ng-if="check.annexFlag">*附件不能为空</span>
+                                    </td>
+                                </tr>
+                            </table>
+                            <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" ng-click="addInfoList(processid,selid,detailId1,detailId2,detailId3,detailId4)" class="hop-save disinblock w133 hoptap radius">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="cancel()">取消</a>
+                </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dialog addinfo">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w875 radius    hop-cont">
+            <div class="back-white">
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">添加信息</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancel()"></a>
+                </h3>
+                <form action="" name="form">
+                    <div class="pt20 pl30 pr30">
+
+                        <table width="100%" class=" hop-table lh50  hop-ruletale" cellpadding="0" cellspacing="0">
+                            <tr ng-show="detailId1">
+                                <td width="13%" class="pl30 c3" valign="top">负责人: </td>
+                                <td class="relative">
+                                    <input type="text"  placeholder="请输入....." class="l-projectinput fl" ng-model="peoplename" ng-click="ulshow(peoplename)" ng-blur="ulcancel(peoplename)" ng-keyup="serachsomthing(peoplename)" name="username"/>
+                                    <div class="absolute zIndex ulshow" ng-show="searchlist" style="top:38px">
+                                        <ul>
+                                            <li ng-repeat="s in searchlist" ng-click="getname(s.id,s.realname)">{{s.realname}}</li>
+                                        </ul>
+                                    </div>
+                                    <span class="cred lh34" ng-if="check.peoplenameFlag">*负责人不能为空</span>
+                                </td>
+                            </tr>
+                            <tr ng-show="detailId2">
+                                <td width="13%" class="pl30 c3" valign="top">完成时间: </td>
+                                <td class="clearfix relative">
+                                    <input type="text" name="time" id="text1" class="test1 l-projectinput relative mt6 pointer" ng-model="completeTime" ng-blur="timecancel(completeTime)">
+                                    <i class="test2 c-iconfont c-spgltspi time-t48" ng-click="mychange(mydata,selected,payselected)"></i>
+                                    <span style="color:red;" ng-if="check.completeTimeFlag">*时间不能为空</span>
+                                </td>
+                            </tr>
+                            <tr ng-show="detailId3">
+                                <td width="13%" class="pl30 c3" valign="top">备注: </td>
+                                <td >
+                                    <input  type="text"  placeholder="请输入......" ng-model="remark" name="remark"  class="l-projectinput fl" ng-blur="remarkcancel(remark)"/>
+                                </td>
+                            </tr>
+                            <tr ng-show="detailId4">
+                                <td width="13%" class="pl30 c3" valign="top">附件: </td>
+                                <td >
+                                    <span class="btn btn-info fileinput-button radius5 ">
+                                    <span>添加附件</span>
+                                          <input ng-file-select="addannex($files)" type="file" name="annex"/>
+                                    </span>
+                                    <span>
+                                        {{fileName}}
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                        <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" ng-click="addInfoList(processid,selid,detailId1,detailId2,detailId3,detailId4)" class="hop-save disinblock w133 hoptap radius">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="cancel()">取消</a>
+                </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="dialog watchson">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w875 radius    hop-cont">
+            <div class="back-white">
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">查看前置条件</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancel()"></a>
+                </h3>
+                <div class="l-managetable mt20">
+                    <div class="l-managetable c-bordere6">
+                        <table width="100%" class=" l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <th>名称</th>
+                                <th>类型</th>
+                                <th>是否完成</th>
+                                <th>操作</th>
+                            </tr>
+                            <tr ng-repeat="w in watchList">
+                                <td>{{w.processName}}</td>
+                                <td>前置</td>
+                                <td>{{w.accomplish==1?'已完成':'未完成'}}</td>
+                                <td><a ng-if="w.accomplish==0" href="" ng-click="complete(w.id,parentid)">完成</a>
+                                    <span ng-if="w.accomplish==1">已完成</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

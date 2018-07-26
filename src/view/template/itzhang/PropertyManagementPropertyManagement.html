@@ -1,0 +1,1028 @@
+<app-head></app-head>
+
+<div app-left></div>
+
+<div class="l-rightsider pb55">
+    <!--业权人_收款方式（物业管理）-->
+    <div class="pl15 pr18 pt15 ha pb15">
+        <!--first-->
+        <!--顶部关注-->
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <top-pact-information list="{{list}}" pacts="pacts"></top-pact-information>
+        </div>
+        <!--10个格子-->
+        <table class="table table-bordered bg3 mt15">
+            <tbody class="tc c0">
+                <tr class="h40  tc lh40 bgf c6" align="justify">
+                    <td class="">
+                        <a href="#/propertyDetail?roomId={{roomId}}&projectid={{projectId}}" title="总览" class=" j-blur-a j-blur-as ">&nbsp;&nbsp;&nbsp;总览&nbsp;&nbsp;&nbsp;</a>
+                    </td>
+                    <td class="">
+                        <a href="#/BasicInformationPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="基本信息"
+                            class=" j-blur-a j-blur-as">基本信息</a>
+                    </td>
+                    <td class="">
+                        <a href="#/surveyingInformation?roomId={{roomId}}&projectid={{projectId}}" title="测绘信息" class=" j-blur-a j-blur-as ">测绘信息</a>
+                    </td>
+                    <td class="">
+                        <a href="#/compensateProperty?roomId={{roomId}}&projectid={{projectId}}" title="补偿方案" class=" j-blur-a j-blur-as">补偿方案</a>
+                    </td>
+                    <td class="">
+                        <a href="#/PropertyManagementPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="业权人"
+                            class=" j-blur-a j-blur-as" style="color: #4ea4df;">业权人</a>
+                    </td>
+                    <td class="">
+                        <a href="#/checkingFalse?roomId={{roomId}}&projectid={{projectId}}" title="查违信息" class=" j-blur-a j-blur-as">查违信息</a>
+                    </td>
+                    <td class="">
+                        <a href="#/LostPropertyManagementPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="关联物业"
+                            class=" j-blur-a j-blur-as">关联物业</a>
+                    </td>
+                    <td class="">
+                        <a href="#/enclosure?roomId={{roomId}}&projectid={{projectId}}" title="附件" class=" j-blur-a j-blur-as">&nbsp;&nbsp;&nbsp;附件&nbsp;&nbsp;&nbsp;</a>
+                    </td>
+                    <td class="">
+                        <a href="#/amendantRecord?roomId={{roomId}}&projectid={{projectId}}" title="修改记录" class=" j-blur-a j-blur-as">修改记录</a>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <!--three-->
+        <div class="clearfix  mt20 mb20">
+            <h1 class="fs16 fl mt35">业权人</h1>
+            <div class="fr mt20" ng-show="(pacts=='2'||!pacts)?true:false">
+                <button type="button" class="btn-primary w125 h30 bra  mb15" onclick="hopruletab('other')" ng-click="addovwen()">添加业权人</button>
+            </div>
+        </div>
+        <div class="h-yequan h-yequnren h-shoukuan" ng-show="data.length>0?true:false">
+            <div class="bs-example" data-example-id="simple-responsive-table" ng-repeat="i in data">
+                <div class="table-responsive  mt30 ml30">
+                    <table class="table htable h-born h-fenpei hjiguan">
+                        <tbody>
+                            <tr>
+                                <td clospan="2">
+                                    业权人：
+                                    <span ng-bind="i.holderName?i.holderName:no" useid="{{i.id}}"></span>
+                                </td>
+                                <td clospan="2">
+                                    身份证住址：
+                                    <span ng-bind="i.permanentAddress?i.permanentAddress:no" useid="{{i.id}}"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <!-- <td>分配比例：
+                                    <span ng-bind="i.allocationProportion?i.allocationProportion.toFixed(4)+'%':no"></span>
+                                </td> -->
+                                <td>住宅分配面积:
+                                    <span ng-bind="i.houseArea?i.houseArea+'m²':no"></span>
+                                </td>
+                                <td>商业分配面积:
+                                    <span ng-bind="i.commerceArea?i.commerceArea+'m²':no"></span>
+                                </td>
+                                <td>产业研发用房:
+                                    <span ng-bind="i.industryArea?i.industryArea+'m²':no"></span>
+                                </td>
+                                <td>配套单身宿舍:
+                                    <span ng-bind="i.dormArea?i.dormArea+'m²':no"></span>
+                                </td>
+                                <td>籍贯：
+                                    <span ng-bind="i.placeOrigin?i.placeOrigin:no"></span>
+                                </td>
+                                <td>联系人：
+                                    <span ng-bind="i.relationPerson?i.relationPerson:no"></span>
+                                </td>
+                                <td>联系电话：
+                                    <span ng-bind="i.relationPhone?i.relationPhone:no"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>通讯地址：
+                                    <span ng-bind="i.address?i.address:no"></span>
+                                </td>
+                                <td>身份证号码：
+                                    <span ng-bind="i.ownerIdCard?i.ownerIdCard:no"></span>
+                                </td>
+                                <td>身份证有效期限：
+                                    <span ng-bind="i.isEffective==1?'长期':i.cardPeriod"></span>
+                                </td>
+                                <td>身份证签发地：
+                                    <span ng-bind="i.placeIdentity?i.placeIdentity:no"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td clospan="4" ng-if="i.recievePerson">
+                                    收款人：
+                                    <span ng-bind="i.recievePerson?i.recievePerson:no"></span>
+                                </td>
+                                <td clospan="4" ng-if="i.recieveType">
+                                    收款方式：
+                                    <span ng-bind="i.recieveType?i.recieveType:no"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td ng-if="i.recieveGuardian">监护人姓名：
+                                    <span ng-bind="i.recieveGuardian?i.recieveGuardian:no"></span>
+                                </td>
+                                <td ng-if="i.recieveRelationShip">关系：
+                                    <span ng-bind="i.recieveRelationShip?i.recieveRelationShip:no"></span>
+                                </td>
+                                <td ng-if="i.recievePhone">联系电话：
+                                    <span ng-bind="i.recievePhone?i.recievePhone:no"></span>
+                                </td>
+                                <td ng-if="i.recieveAddress">通讯地址：
+                                    <span ng-bind="i.recieveAddress?i.recieveAddress:no"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td ng-if="i.recieveIdCard">身份证号码：
+                                    <span ng-bind="i.recieveIdCard?i.recieveIdCard:no"></span>
+                                </td>
+                                <td ng-if="i.recieveInformationBank">收款银行：
+                                    <span ng-bind="i.recieveInformationBank?i.recieveInformationBank:no"></span>
+                                </td>
+                                <td ng-if="i.recieveBankNo">银行账号：
+                                    <span ng-bind="i.recieveBankNo?i.recieveBankNo:no"></span>
+                                </td>
+                                <td ng-if="i.monetaryAmount">货币补偿金额(官龙)：
+                                    <span ng-bind="i.monetaryAmount?i.monetaryAmount+'元':no"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td ng-if="i.transitionalAmount">过渡补偿金额(官龙)：
+                                    <span ng-bind="i.transitionalAmount?i.transitionalAmount+'元':no"></span>
+                                </td>
+                                <td ng-if="i.relocateCompensateAmount">搬迁补偿金额：
+                                    <span ng-bind="i.relocateCompensateAmount?i.relocateCompensateAmount+'元':no"></span>
+                                </td>
+                                <td ng-if="i.signAwardAmount">签约奖励金额：
+                                    <span ng-bind="i.signAwardAmount?i.signAwardAmount+'元':no"></span>
+                                </td>
+                                <td ng-if="i.decorateCompensateAmount">装修补偿金额：
+                                    <span ng-bind="i.decorateCompensateAmount?i.decorateCompensateAmount+'元':no"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td ng-if="i.oneStageAmount">{{fiveAmount[0].chunchinese}}：
+                                    <span ng-bind="i.oneStageAmount?i.oneStageAmount+'元':no"></span>
+                                </td>
+                                <td ng-if="i.towStageAmount">{{fiveAmount[1].chunchinese}}：
+                                    <span ng-bind="i.towStageAmount?i.towStageAmount+'元':no"></span>
+                                </td>
+                                <td ng-if="i.threeStageAmount">{{fiveAmount[2].chunchinese}}：
+                                    <span ng-bind="i.threeStageAmount?i.threeStageAmount+'元':no"></span>
+                                </td>
+                                <td ng-if="i.temporaryAmount">{{fiveAmount[3].chunchinese}}：
+                                    <span ng-bind="i.temporaryAmount?i.temporaryAmount+'元':no"></span>
+                                </td>
+                                <td ng-if="i.certificatesHandlingAmount">{{fiveAmount[4].chunchinese}}：
+                                    <span ng-bind="i.certificatesHandlingAmount?i.certificatesHandlingAmount+'元':no"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                
+                            </tr>
+                            <td class="l-tablelink">
+                                <a ng-show="(pacts=='2'||!pacts)?true:false" href="javascript:;" useid="{{i.id}}" onclick="hopruletab('other')" ng-click="updateOwnerAlert(i.id,$index)">编缉业权人</a>
+                                <a ng-show="(pacts=='2'||!pacts)?true:false" href="javascript:;" useid="{{i.id}}" class="" onclick="hopruletab('supper')" ng-click="editmoneyInformation(i,true)" ng-if="!i.recieveType">添加收款信息</a>
+                                <a ng-show="(pacts=='2'||!pacts)?true:false" href="javascript:;" useid="{{i.id}}" class="" ng-click="editmoneyInformation(i,false)" ng-if="i.recieveType">编辑收款信息</a>
+                                
+                                <a href="javascript:;" useid="{{i.id}}" class="" onclick="hopruletab('supperme')" ng-click="addpresontips(i.id,$index)">添加联系人</a>
+
+                                <a href="javascript:;" useid="{{i.id}}" onclick="hopruletab('guanxitu')" ng-click="editInformation(i.id,$index)">关系图谱</a>
+                                <a ng-show="(pacts=='2'||!pacts)?true:false" href="javascript:;" useid="{{i.id}}" onclick="hopruletab('delect')" ng-click="delects(i.id,$index,2)">删除</a>
+                                <a ng-show="(pacts=='2'||!pacts)?true:false" href="javascript:;" useid="{{i.id}}" ng-click="delectsrecieve(i.recieveId,$index,2)" ng-if="i.recieveType">删除收款信息</a>
+                            </td>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="l-managetable" ng-if="i.makeCollectionsList.length>0?true:false">
+                    <table class="l-tablebox h-tablebox fs13 " cellpadding="0" cellspacing="0" width="100%">
+                        <tr class="h50 born hbtntr hbtntrs l-tablebox h-tablebox w100- mr5">
+                            <th>联系人</th>
+                            <th>电话</th>
+                            <th>户籍</th>
+                            <th>亲属关系</th>
+                            <th>决策关系</th>
+                            <th>操作</th>
+                        </tr>
+
+                        <tr ng-repeat="j in i.makeCollectionsList">
+                            <td ng-bind="j.relationPersion?j.relationPersion:no"></td>
+                            <td ng-bind="j.relationPhone?j.relationPhone:no"></td>
+                            <td ng-bind="j.householdRegister?j.householdRegister:no"></td>
+                            <td ng-bind="j.relationShip?j.relationShip:no"></td>
+                            <td ng-bind="j.decisionRelation?j.decisionRelation:no"></td>
+                            <td class="l-tablelink">
+                                <a href="javascript:;" useid="{{j.id}}" onclick="hopruletab('supperme')" ng-click="addpresontips(j.id,$index,1,i.indx)">编缉</a>
+                                <a href="javascript:;" useid="{{j.id}}" onclick="hopruletab('delect')" ng-click="delects(j.id,$index,1,i.indx)">删除</a>
+                                <a href="javascript:;" useid="{{j.id}}" onclick="hopruletab('guanxitu')" ng-click="makecoll(j.id,$index)">关系图谱</a>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div ng-show="data.length>0?false:true" style="width: 100% ;height: 100px;border: 1px solid #ccc; text-align: center;line-height: 100px;">暂无业权人
+        </div>
+    </div>
+</div>
+
+<div class="l-footer fs12 tc footer">
+    Copyright © 2011 - 2013 TianAn Success. All Rights Reserved
+</div>
+
+
+<!--关系图-->
+<div class="dialog guanxitu">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w754 radius    hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">
+                    <span ng-bind="ownerTempName"></span>
+                    <span class="fs14 ml30">
+                        <span style="display:inline-block; width: 12px;height: 12px;border-radius: 50%;background: green;"></span>：业权人</span>
+                    <span class="fs14">
+                        <span style="display:inline-block; width: 12px;height: 12px;border-radius: 50%;background:dodgerblue;"></span>：联系人</span>
+                </em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <!--!&#45;&#45; 为 ECharts 准备一个具备大小（宽高）的 DOM &ndash;&gt;-->
+            <div id="main" style="width: 600px;height:400px;margin: auto;padding-bottom: 20px;"></div>
+        </div>
+    </div>
+</div>
+
+
+<!--编辑收款方式-->
+<div class="dialog supper">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w754 radius    hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">收款方式</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <span class="hop-bntap disblock pt30 pb50 tc">
+                <a href="javascript:void(0)" class="hop-save disinblock w410 hoptap radius dialog-close" onclick="hopruletab('hopmainopen')">业权人收款</a>
+                <a href="javascript:void(0)" class="hop-canle disinblock w410 hoptap mt20 radius dialog-close  back-greed" onclick="hopruletab('otherhopmainopen')">其他人代收款</a>
+                <!-- <a href="javascript:void(0)" class="hop-canle disinblock w410 hoptap mt20 radius dialog-close  back-greed" onclick="hopruletab('guardianhopmainopen')">未满18岁,监护人代收款</a> -->
+                <a href="javascript:void(0)" class="hop-canle disinblock w410 hoptap mt20 radius dialog-close  back-greed" ng-click="fouraboustAsmoney(ownershipId)">关联其他业权人收款</a>
+            </span>
+
+        </div>
+    </div>
+</div>
+
+<!--type1业权人收款-->
+<div class="dialog hopmainopen">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius    hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">业权人收款</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt20 pl30 pr30" style="height: 550px;overflow:scroll;">
+                <form action="" name="form">
+                    <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th class="pl30 maincolor w146">*收款银行：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(addType.InformationBank,'InformationBank')" ng-model="addType.InformationBank"
+                                    placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.InformationBank">*请输入收款银行</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*银行账号：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.bankNo,'bankNo')"
+                                    ng-model="addType.bankNo" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.bankNo">*请输入银行账号</span>
+                            </td>
+                        </tr>
+                        <!-- 后加的5条 -->
+                        <tr>
+                            <th class="pl30 maincolor w146">*货币补偿金额(官龙)：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.monetaryAmount,'monetaryAmount')"
+                                    ng-model="addType.monetaryAmount" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.monetaryAmount">*请输入货币补偿金额(官龙)</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*过渡补偿金额(官龙)：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.transitionalAmount,'transitionalAmount')"
+                                    ng-model="addType.transitionalAmount" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.transitionalAmount">*请输入过渡补偿金额(官龙)</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*搬迁补偿金额：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.relocateCompensateAmount,'relocateCompensateAmount')"
+                                    ng-model="addType.relocateCompensateAmount" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.relocateCompensateAmount">*请输入搬迁补偿金额</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*签约奖励金额：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.signAwardAmount,'signAwardAmount')"
+                                    ng-model="addType.signAwardAmount" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.signAwardAmount">*请输入签约奖励金额</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*装修补偿金额：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.decorateCompensateAmount,'decorateCompensateAmount')"
+                                    ng-model="addType.decorateCompensateAmount" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.decorateCompensateAmount">*请输入装修补偿金额</span>
+                            </td>
+                        </tr>
+                        <!-- 新增5个字段 -->
+                        <tr ng-repeat="i in fiveAmount">
+                            <th class="pl30 maincolor" style="width:250px">{{i.chinese}}</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(i.val,i.name)"
+                                    ng-model="i.val" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="i.flag">{{i.tip}}</span>
+                            </td>
+                        </tr>
+
+
+                    </table>
+                    <span class="hop-bntap disblock pt30 pb55">
+                        <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius" ng-click="moneysave(ownershipId,1)">保存</a>
+                        <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="addType={}">取消</a>
+                    </span>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--type2业权人收款-->
+<div class="dialog otherhopmainopen">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">其他人代收款</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt20 pl30 pr30" style="height: 550px;overflow:scroll;">
+                <form action="" name="form">
+                    <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th class="pl30 maincolor w146">*代收人姓名：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(addType.guardian,'guardian')" ng-model="addType.guardian" placeholder="请填写....."
+                                    class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.guardian">*请输入代收人姓名</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*联系电话：</th>
+                            <td colspan="2">
+                                <input type="text" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" ng-blur="blurs(addType.relationPhone,'relationPhone')"
+                                    ng-model="addType.relationPhone" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.relationPhone">*请输入联系电话</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*通讯地址：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(addType.address,'address')" ng-model="addType.address" placeholder="请填写....."
+                                    class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.address">*请输入通讯地址</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*身份证号码：</th>
+                            <!-- onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" -->
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(addType.idCard,'idCard')" ng-model="addType.idCard" placeholder="请填写....."
+                                    class="l-input w500 w30- " />
+                                <span class="red" ng-if="addTypeflag.idCard">*请输入身份证号码</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*收款银行：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(addType.InformationBank,'InformationBank')" ng-model="addType.InformationBank"
+                                    placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.InformationBank">*请输入收款银行</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*银行账号：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.bankNo,'bankNo')"
+                                    ng-model="addType.bankNo" placeholder="请填写....." class="l-input  w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.bankNo">*请输入银行账号</span>
+                            </td>
+                        </tr>
+
+                        <!-- 后加的5条 -->
+                        <tr>
+                            <th class="pl30 maincolor w146">*货币补偿金额(官龙)：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.monetaryAmount,'monetaryAmount')"
+                                    ng-model="addType.monetaryAmount" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.monetaryAmount">*请输入货币补偿金额(官龙)</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*过渡补偿金额(官龙)：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.transitionalAmount,'transitionalAmount')"
+                                    ng-model="addType.transitionalAmount" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.transitionalAmount">*请输入过渡补偿金额(官龙)</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*搬迁补偿金额：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.relocateCompensateAmount,'relocateCompensateAmount')"
+                                    ng-model="addType.relocateCompensateAmount" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.relocateCompensateAmount">*请输入搬迁补偿金额</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*签约奖励金额：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.signAwardAmount,'signAwardAmount')"
+                                    ng-model="addType.signAwardAmount" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.signAwardAmount">*请输入签约奖励金额</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*装修补偿金额：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.decorateCompensateAmount,'decorateCompensateAmount')"
+                                    ng-model="addType.decorateCompensateAmount" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.decorateCompensateAmount">*请输入装修补偿金额</span>
+                            </td>
+                        </tr>
+                        <!-- you ta ma de 新增5个 -->
+                        <tr ng-repeat="i in fiveAmount">
+                            <th class="pl30 maincolor" style="width:250px">{{i.chinese}}</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(i.val,i.name)"
+                                    ng-model="i.val" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="i.flag">{{i.tip}}</span>
+                            </td>
+                        </tr>
+
+
+                    </table>
+                    <span class="hop-bntap disblock pt30 pb55">
+                        <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius" ng-click="moneysave(ownershipId,2)">保存</a>
+                        <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="addType={}">取消</a>
+                    </span>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--type3监护人代收款-->
+<div class="dialog guardianhopmainopen">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">监护人代收款</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt20 pl30 pr30" style="height: 550px;overflow:scroll;">
+                <form name="form">
+                    <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th class="pl30 maincolor w146">*监护人姓名：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(addType.guardian,'guardian')" ng-model="addType.guardian" placeholder="请填写....."
+                                    class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.guardian">*请输入监护人姓名</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*关系：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(addType.relationShip,'relationShip')" ng-model="addType.relationShip"
+                                    placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.relationShip">*请输入关系</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*联系电话：</th>
+                            <td colspan="2">
+                                <input  type="text" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" ng-blur="blurs(addType.relationPhone,'relationPhone')"
+                                    ng-model="addType.relationPhone" placeholder="请填写....." class=" l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.relationPhone">*请输入联系电话</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*通讯地址：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(addType.address,'address')" ng-model="addType.address" placeholder="请填写....."
+                                    class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.address">*请输入通讯地址</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*身份证号码：</th>
+                            <!-- onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" -->
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(addType.idCard,'idCard')" ng-model="addType.idCard" placeholder="请填写....."
+                                    class=" l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.idCard">*请输入身份证号码</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*收款银行：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(addType.InformationBank,'InformationBank')" ng-model="addType.InformationBank"
+                                    placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.InformationBank">*请输入收款银行</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*银行账号：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(addType.bankNo,'bankNo')"
+                                    ng-model="addType.bankNo" placeholder="请填写....." class=" l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.bankNo">*请输入银行账号</span>
+                            </td>
+                        </tr>
+
+                        <!-- 后加的5条 -->
+                        <tr>
+                            <th class="pl30 maincolor w146">*货币补偿金额(官龙)：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.monetaryAmount,'monetaryAmount')"
+                                    ng-model="addType.monetaryAmount" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.monetaryAmount">*请输入货币补偿金额(官龙)</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*过渡补偿金额(官龙)：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.transitionalAmount,'transitionalAmount')"
+                                    ng-model="addType.transitionalAmount" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.transitionalAmount">*请输入过渡补偿金额(官龙)</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*搬迁补偿金额：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.relocateCompensateAmount,'relocateCompensateAmount')"
+                                    ng-model="addType.relocateCompensateAmount" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.relocateCompensateAmount">*请输入搬迁补偿金额</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*签约奖励金额：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.signAwardAmount,'signAwardAmount')"
+                                    ng-model="addType.signAwardAmount" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.signAwardAmount">*请输入签约奖励金额</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*装修补偿金额：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.decorateCompensateAmount,'decorateCompensateAmount')"
+                                    ng-model="addType.decorateCompensateAmount" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.decorateCompensateAmount">*请输入装修补偿金额</span>
+                            </td>
+                        </tr>
+                        <!-- you ta ma de 新增5个 -->
+                        <tr ng-repeat="i in fiveAmount">
+                            <th class="pl30 maincolor" style="width:250px">{{i.chinese}}</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(i.val,i.name)"
+                                    ng-model="i.val" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="i.flag">{{i.tip}}</span>
+                            </td>
+                        </tr>
+
+
+                    </table>
+                    <span class="hop-bntap disblock pt30 pb55">
+                        <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius" ng-click="moneysave3(ownershipId,3)">保存</a>
+                        <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="addType={}">取消</a>
+                    </span>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--type4关联其他业权人收款-->
+<div class="dialog h-luohui">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius    hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">关联其它业权人收款</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt20 pl30 pr30" style="height: 550px;overflow:scroll;">
+                <form name="form">
+                    <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th class="pl30 maincolor">关联业权人：</th>
+                            <td colspan="2">
+                                <select class="select hop-select w265 fl mt4" ng-model="addType.agencyFundId" ng-options="i.id as i.holderName for i in ablutePreson" ng-change="blurs(addType.agencyFundId,'rightvals')">
+                                    <option value="">请选择</option>
+                                </select>
+                                <span>
+                                    <!-- <a href="javascript:void(0)" class=" fl ml20 l-addbnt iconfont mt10" ng-click="ablutePresonselect(rightVal)"></a> -->
+                                    <!-- <a href="javascript:void(0)" class=" fl ml20 mt7 zj-l-addbnt iconfont " ng-click="ablutePresonselectjian(rightVal,rightvals)"></a> -->
+                                </span>
+
+                                <!-- <div class="bor1c  fl" style="width: 265px;height: 60px;overflow:auto;margin-left: 20px;">
+                                    <div class="h16 ml10 c6" ng-repeat="i in rightvals" ng-bind="i.holderName"></div>
+                                </div> -->
+                                <span class="red ml10" ng-if="addTypeflag.rightvals">*请选择关联业权人</span>
+
+                            </td>
+
+
+                        </tr>
+
+                        <!-- <tr>
+                            <th class="pl30 maincolor">代收形式：</th>
+                            <td>
+                                <input type="radio" value="1" ng-model="level" name="level" style="margin:0;" class=" checkbox iconfont check mr5">
+                                <em class="maincolor">代关联人收款</em>
+                                <input type="radio" value="2" ng-model="level" name="level" style="margin:0;" class=" checkbox iconfont check mr5">
+                                <em class="maincolor">关联人代业权人收款</em>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*收款银行：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(addType.InformationBank,'InformationBank')" ng-model="addType.InformationBank"
+                                    placeholder="请填写....." class="l-input w500 w30-" />
+
+                                <span class="red" ng-if="addTypeflag.InformationBank">*请输入收款银行</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*银行账号：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.bankNo,'bankNo')"
+                                    ng-model="addType.bankNo" placeholder="请填写....." class=" l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.bankNo">*请输入银行账号</span>
+                            </td>
+                        </tr> -->
+                        <!-- 后加的5条 -->
+                        <tr>
+                            <th class="pl30 maincolor w146">*货币补偿金额(官龙)：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.monetaryAmount,'monetaryAmount')"
+                                    ng-model="addType.monetaryAmount" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.monetaryAmount">*请输入货币补偿金额(官龙)</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*过渡补偿金额(官龙)：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.transitionalAmount,'transitionalAmount')"
+                                    ng-model="addType.transitionalAmount" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.transitionalAmount">*请输入过渡补偿金额(官龙)</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*搬迁补偿金额：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.relocateCompensateAmount,'relocateCompensateAmount')"
+                                    ng-model="addType.relocateCompensateAmount" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.relocateCompensateAmount">*请输入搬迁补偿金额</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*签约奖励金额：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.signAwardAmount,'signAwardAmount')"
+                                    ng-model="addType.signAwardAmount" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.signAwardAmount">*请输入签约奖励金额</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*装修补偿金额：</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(addType.decorateCompensateAmount,'decorateCompensateAmount')"
+                                    ng-model="addType.decorateCompensateAmount" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="addTypeflag.decorateCompensateAmount">*请输入装修补偿金额</span>
+                            </td>
+                        </tr>
+                        <!-- you ta ma de 新增5个 -->
+                        <tr ng-repeat="i in fiveAmount">
+                            <th class="pl30 maincolor" style="width:250px">{{i.chinese}}</th>
+                            <td colspan="2">
+                                <input type="text"  ng-blur="blurs(i.val,i.name)"
+                                    ng-model="i.val" placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="i.flag">{{i.tip}}</span>
+                            </td>
+                        </tr>
+
+                    </table>
+                    <span class="hop-bntap disblock pt30 pb55">
+                        <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius" ng-click="moneysave4(ownershipId,4)">保存</a>
+                        <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="addType={}">取消</a>
+                    </span>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--&lt;!&ndash;添加添加联系人&ndash;&gt;ok-->
+<div class="dialog supperme">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3" ng-bind="bianjiflag?'编辑联系人':'添加联系人'"></em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt20 pl30 pr30">
+                <form name="form">
+                    <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                        <tr ng-show="!bianjiflag">
+                            <th class="pl30 maincolor">*是否是业权人：</th>
+                            <td>
+                                <span class="left mr45 relative">
+                                    <input class=" c-csrbdcinp c-htcbox" type="radio" name="types" value="1" ng-model="types" ng-change="radiosowne(types)">是
+                                </span>
+                                <span class="left mr45 relative">
+                                    <input class=" c-csrbdcinp c-htcbox" type="radio" name="types" value="2" ng-model="types" ng-change="radiosowne(types)">否
+                                </span>
+                            </td>
+                        </tr>
+                        <tr ng-show="types==1&&!bianjiflag">
+                            <th class="pl30 maincolor">*关联业权人：</th>
+                            <td>
+                                <select class="select hop-select w265 bianjiselect3" ng-model="addpreson.ownershipId" ng-change="blurs(addpreson.ownershipId,'ownershipId')">
+                                    <option value="">{{decisionRelation?decisionRelation:'请选择'}}</option>
+                                    <option value="{{i.id}}" ng-repeat="i in ownershipList">{{i.holderName}}</option>
+                                </select>
+                                <!-- <select class="select hop-select w265 bianjiselect2"  ng-options="indx.id as indx.holderName for indx in ownershipList" ng-model="addpreson.ownershipId" ng-change="blurs(addpreson.ownershipId,'ownershipId')">
+                                    <option value="">请选择</option>
+                                </select> -->
+                                <span class="red" ng-if="addpresonflag.ownershipId">*请选择关联业权人</span>
+                            </td>
+
+                            
+
+                        </tr>
+
+                        <tr ng-show="types==2 || bianjiflag">
+                            <th class="pl30 maincolor">*联系人姓名：</th>
+                            <td>
+                                <input type="text" class="l-input w170" placeholder="请填写......  " ng-blur="blurs(addpreson.relationPersion,'relationPersion')"
+                                    ng-model="addpreson.relationPersion" />
+                                <span class="red" ng-if="addpresonflag.relationPersion"> *请输入联系人姓名</span>
+                            </td>
+
+                        </tr>
+
+                        <tr ng-show="types==2 || bianjiflag">
+                            <th class="pl30 maincolor">*联系电话：</th>
+                            <td>
+                                <input type="text"  class="l-input w170 " placeholder="请填写......  " onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');"
+                                    ng-blur="blurs(addpreson.relationPhone,'relationPhone')" ng-model="addpreson.relationPhone"
+                                />
+                                <span class="red" ng-if="addpresonflag.relationPhone"> *请输入联系电话</span>
+                            </td>
+                        </tr>
+
+                        <tr ng-show="types==2 || bianjiflag">
+                            <th class="pl30 maincolor">*户籍：</th>
+                            <td>
+                                <input type="text" class="l-input w170" placeholder="请填写......  " ng-blur="blurs(addpreson.householdRegister,'householdRegister')"
+                                    ng-model="addpreson.householdRegister" />
+                                <span class="red" ng-if="addpresonflag.householdRegister"> *请输入户籍</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th class="pl30 maincolor">*亲属关系：</th>
+                            <td>
+                                <select class="select hop-select w265 bianjiselect1" ng-model="addpreson.relationShip" ng-change="blurs(addpreson.relationShip,'relationShip')">
+                                    <option value="">{{relationShip?relationShip:'请选择'}}</option>
+                                    <option value="{{i.name}}" ng-repeat="i in relation">{{i.name}}</option>
+                                </select>
+                                <!-- <select class="select hop-select w265 bianjiselect2"  ng-options="indx.id as indx.name for indx in relation" ng-model="addpreson.relationShip" ng-change="blurs(addpreson.relationShip,'relationShip')">
+                                    <option value="">请选择</option>
+                                </select> -->
+                                <span class="red" ng-show="addpresonflag.relationShip">*请选择亲属关系人</span>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor">*决策关系：</th>
+                            <td>
+                                <select class="select hop-select w265 bianjiselect2" ng-model="addpreson.decisionRelation" ng-change="blurs(addpreson.decisionRelation,'decisionRelation')">
+                                    <option value="">{{decisionRelation?decisionRelation:'请选择'}}</option>
+                                    <option value="{{i.name}}" ng-repeat="i in makePolicy">{{i.name}}</option>
+                                </select>
+                                <!-- <select class="select hop-select w265 bianjiselect2"  ng-options="indx.id as indx.name for indx in makePolicy" ng-model="addpreson.decisionRelation" ng-click="blurs(addpreson.decisionRelation,'decisionRelation')">
+                                    <option value="">请选择</option>
+                                </select> -->
+                                <span class="red" ng-show="addpresonflag.decisionRelation">*请选择决策关系人</span>
+                            </td>
+
+                        </tr>
+
+                    </table>
+                    <span class="hop-bntap disblock pt30 pb55">
+                        <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius" ng-click="AddContact(addpreson.InformationId,parentIdbianjiIndex)"
+                            ng-bind="bianjiflag?'修改':'保存'"></a>
+                        <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="addType={}">取消</a>
+                    </span>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--添加业权人-->
+<div class="dialog other">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius    hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">
+                    <span ng-bind="addOrUpdateTitleName"></span>
+                </em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+
+            <!--validator="phone"-->
+            <!--validation-submit="form-->
+
+            <div class="pt20 pl30 pr30" style="height: 550px;overflow: scroll;">
+                <form name="form">
+                    <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th class="pl30 maincolor w146">*业权人姓名：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(saveObj.holderName,'holderName')" ng-model="saveObj.holderName" placeholder="请填写业权人姓名..."
+                                    class="l-input w500 w30-" />
+                                <span class="red" ng-if="saveflag.holderName">*请输入业权人姓名</span>
+                            </td>
+
+                        </tr>
+                        <!-- <tr>
+                            <th class="pl30 maincolor w146">*分配比例%：</th>
+                            <td colspan="2">
+                                <input  type="text" onkeyup="if( ! /^-?\d+\.?\d{0,4}$/.test(this.value)){this.value='';}"
+                                    ng-blur="blurs(saveObj.allocationProportion,'allocationProportion')" ng-model="saveObj.allocationProportion"
+                                    placeholder="请填写....." class="l-input w500 w30- fl" />
+                            </td>
+                        </tr> -->
+                        <tr>
+                            <th class="pl30 maincolor w146">*住宅分配面积：</th>
+                            <td colspan="2">
+                                <input type="text" 
+                                    ng-blur="blurs(saveObj.houseArea,'houseArea')" ng-model="saveObj.houseArea"
+                                    placeholder="请填写....." class="l-input w500 w30-" />
+                                    <span class="red" ng-if="saveflag.houseArea"> *请输入住宅分配面积</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*商业分配面积：</th>
+                            <td colspan="2">
+                                <input type="text" 
+                                    ng-blur="blurs(saveObj.commerceArea,'commerceArea')" ng-model="saveObj.commerceArea"
+                                    placeholder="请填写....." class="l-input w500 w30-" />
+                                    <span class="red" ng-if="saveflag.commerceArea"> *请输入商业分配面积</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*产业研发用房：</th>
+                            <td colspan="2">
+                                <input type="text" 
+                                    ng-blur="blurs(saveObj.industryArea,'industryArea')" ng-model="saveObj.industryArea"
+                                    placeholder="请填写....." class="l-input w500 w30-" />
+                                    <span class="red" ng-if="saveflag.industryArea"> *请输入产业研发用房：</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*配套单身宿舍：</th>
+                            <td colspan="2">
+                                <input type="text" 
+                                    ng-blur="blurs(saveObj.dormArea,'dormArea')" ng-model="saveObj.dormArea"
+                                    placeholder="请填写....." class="l-input w500 w30-" />
+                                    <span class="red" ng-if="saveflag.dormArea"> *请输入配套单身宿舍：</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*籍贯：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(saveObj.placeOrigin,'placeOrigin')" ng-model="saveObj.placeOrigin"
+                                    placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="saveflag.placeOrigin"> *请输入籍贯</span>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <th class="pl30 maincolor w146">*联系人：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(saveObj.relationPerson,'relationPerson')" ng-model="saveObj.relationPerson"
+                                    placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="saveflag.relationPerson">*请输入联系人</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*联系电话：</th>
+                            <td colspan="2">
+                                <input  type="text" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" ng-blur="blurs(saveObj.relationPhone,'relationPhone')"
+                                    ng-model="saveObj.relationPhone" placeholder="请填写....." class="l-input w500 w30-" />
+                                    <span class="red" ng-if="saveflag.relationPhone">*请输入联系电话</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*通讯地址：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(saveObj.address,'address')" ng-model="saveObj.address" placeholder="请填写....."
+                                    class="l-input w500 w30-" />
+                                <span class="red" ng-if="saveflag.address">*请输入通讯地址</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*身份证住址：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(saveObj.permanentAddress,'permanentAddress')" ng-model="saveObj.permanentAddress"
+                                    placeholder="请填写....." class="l-input w500 w30-"  />
+                                <span class="red" ng-if="saveflag.permanentAddress">*请输入身份证住址</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w146">*身份证号码：</th>
+                            <!-- onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" -->
+                            <td colspan="2">
+                                <input  type="text" ng-blur="blurs(saveObj.idCard,'idCard')" ng-model="saveObj.idCard"
+                                    placeholder="请填写....." class="l-input w500 w30- " />
+                                <span class="red" ng-if="saveflag.idCard">*请输入身份证号码</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w200">*身份证有效期限截止至：</th>
+                            <td colspan="2">
+                                <span class="left mr45 relative">
+                                    <input class=" c-csrbdcinp c-htcbox" type="radio" name="type" value="0" ng-model="type" ng-change="radios(type)">有效期
+                                </span>
+                                <span class="left mr45 relative">
+                                    <input class=" c-csrbdcinp c-htcbox" type="radio" name="type" value="1" ng-model="type" ng-change="radios(type)">长期
+                                </span>
+                                <span class="left relative mt9 h-spgltspb radius  pointer" ng-show="type==0">
+                                    <input type="text" class="addchildData1 h80- addchildData1" ng-model="saveObj.cardPeriod" ng-blur="blurs(saveObj.cardPeriod,'cardPeriod')"
+                                        placeholder="选择截止时间">
+                                    <i class="c-iconfont c-spgltspi addparentData1" ng-click="adddate('addchildData1','addparentData1')"></i>
+                                </span>
+                                <span class="red" ng-if="saveflag.cardPeriod &&type==0">*请输入身份证有效期限日期</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w160">*身份证签发机关：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(saveObj.placeIdentity,'placeIdentity')" ng-model="saveObj.placeIdentity"
+                                    placeholder="请填写....." class="l-input w500 w30-" />
+                                <span class="red" ng-if="saveflag.placeIdentity">*请输入身份证签发机关</span>
+                            </td>
+                        </tr>
+
+
+                    </table>
+                    <span class="hop-bntap disblock pt30 pb55">
+                        <button href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius"
+                            ng-class="{'zjcursordisabled':clickdisabled===false}" 
+                            ng-click="addPersonsave(addOrUpdatefalg)"
+                            >保存</button>
+                        <button href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="addPersoncance()">取消</button>
+                    </span>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

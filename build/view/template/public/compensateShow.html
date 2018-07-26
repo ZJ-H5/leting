@@ -1,0 +1,37 @@
+<div>
+    <div class="clearfix">
+        <h6 class="fs16 c0 mt24 mb20 fl">拆赔方案</h6>
+    </div>
+
+
+    <table class="table table-bordered j-tablemar">
+        <tbody class="tc c0">
+        <tr class="h40 va bge3f5ff">
+            <td rowspan="{{topData.length+1}}" class="w170 bgcae9fa table-middle table-middles">
+                主体建筑产权置换
+            </td>
+            <td class="" colspan="2"><b>置换类型</b></td>
+            <td class="" ><b>置换面积（㎡）</b></td>
+            <td class="" ><b>置换比例（%）</b></td>
+            <td class="" ><b>还建面积（㎡）</b> </td>
+            <td class="" ><b>还建类型</b></td>
+            <td class="" ><b>还建期数</b></td>
+        </tr>
+
+        <tr class="h40 c6 bgf" ng-repeat="i in topData">
+            <td ng-bind="i.parentName||no"></td>
+            <td ng-bind="i.childName||no"></td>
+
+            <td ng-bind="i.area+'m²'||no"></td>
+            <td ng-bind="i.replacementRatio+'%'||no"></td>
+            <td ng-bind="i.builtInArea+'m²'||no"></td>
+
+            <td ng-bind="i.builtType||no"></td>
+            <td ng-bind="i.builtInPeriod||no">
+
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>

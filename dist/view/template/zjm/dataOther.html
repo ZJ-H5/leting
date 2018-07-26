@@ -1,0 +1,166 @@
+<app-head></app-head>
+
+<div app-left></div>
+<div class="l-rightsider pb55">
+    <div class="pl15 pr18 pt15 pb15">
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <p class="c-csrbdta fs18 c6 mt25  pl5 ">其他统计</p>
+            <ul class="c-chbul mt15 c-datatjul clearfix">
+                    <li class="left">
+                        <a class="tc disblock ahover c6" href="#/dataSurvey?projectid={{projectId}}">测绘数据统计</a>
+                    </li>
+                    <li class="left">
+                        <a class="tc disblock ahover c6" href="#/datalist?projectid={{projectId}}">签约数据统计</a>
+                    </li>
+    
+                    <li class="left">
+                        <a class="tc disblock ahover c6" href="#/wuyeyijiao?projectid={{projectId}}">物业移交数据统计</a>
+                    </li>
+                    <li class="left">
+                        <a class="tc disblock ahover c6" href="#/dataFinance?projectid={{projectId}}">财务统计</a>
+                    </li>
+                    <li class="left">
+                        <a class="tc disblock ahover c6" href="#/dataFile?projectid={{projectId}}">物业信息统计</a>
+                    </li>
+                    <li class="left">
+                        <a class="tc disblock ahover maincolor" href="#/dataOther?projectid={{projectId}}">其他统计</a>
+                    </li>
+    
+                </ul>
+            <div class="mt25 clearfix">
+                <div class=" c6 pt5 pb5 clearfix relative" style="display: flex;align-items: center;">
+                    <span class="left">时间：</span>
+                    <div class="relative left">
+                        <input type="text" class="test1 left relative mt6 c-spgltspb pointer" ng-model="starttime">
+                        <i style="top: 12px;" class="test2 c-iconfont c-spgltspi" ng-click="mychange('test1','test2',0)"></i>
+                    </div>
+                    <span class="left ml15 mr15 mt10">至</span>
+                    <div class="relative left mr70">
+
+                        <input type="text" class="test3 left relative mt6 mr15 c-spgltspb pointer" ng-model="endtime">
+                        <i style="top: 12px;right: 23px;" ng-click="mychange('test3','test4',1)" class="test4 c-iconfont c-spgltspi"></i>
+                    </div>
+                    <span class="left">
+                        <em>物业范围：</em>
+                        <select class="c-datatjsel " ng-model="scheId" ng-options="p.id as p.category for p in propertyList" ng-change="changeData(1)">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+            <div class="c-datatjbd mt30 pb30 clearfix">
+                <div class="c-datatjbdl left clearfix">
+                    <h2 class="c-datatjbdlh fs16 pl20 cf fwb">房产证统计</h2>
+                    <p class="tc">
+                        <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+                        <div id="main" style="width: 400px;height: 350px;"></div>
+                    </p>
+                    <ul class="ml30 clearfix">
+                        <li class="c-xmxqrbli mb15 left">
+                            <i class="c-iconfont mr10"></i>
+                            <span>有房产证数量百分比<span>{{otherHouseCountMap.havePercentage+'%'}}</span></span>
+                        </li>
+                        <li class="c-xmxqrbli mb15 left">
+                            <i class="c-iconfont mr10"></i>
+                            <span>无房产证数量百分比<span>{{otherHouseCountMap.notHavePercentage+'%'}}</span></span>
+                        </li>
+                        <li class="c-xmxqrbli mb15 left">
+                            <i class="c-iconfont mr10"></i>
+                            <span>无房产证数量<span>{{otherHouseCountMap.haveCount+'栋'}}</span></span>
+                        </li>
+                        <li class="c-xmxqrbli mb15 left">
+                            <i class="c-iconfont mr10"></i>
+                            <span>无房产证数量<span>{{otherHouseCountMap.notHaveCount+'栋'}}</span></span>
+                        </li>
+                        
+                            
+                            
+                    </ul>
+
+                </div>
+                <div class="c-datatjbdr right">
+                    <div class="l-managetable c-bordere6">
+                        <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <th>日期</th>
+                                <th>无房产证</th>
+                                <th>有房产证</th>
+                            </tr>
+                            <tr ng-repeat="s in otherHouseCountList">
+                                <td>{{s.time}}</td>
+                                <td>{{s.absenceCertificate?(s.absenceCertificate+'栋'):'0栋'}}</td>
+                                <td>{{s.haveCertificate?(s.haveCertificate+'栋'):'0栋'}}</td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <a class="tc cf radius disinblock c-datatjbdra mt20" href="{{imgHost+exportLink}}">导出数据</a>
+                </div>
+            </div>
+
+            <div class="mt25 clearfix">
+                <div class=" c6 pt5 pb5 clearfix relative" style="display: flex;align-items: center;">
+                    <span class="left">时间：</span>
+                    <div class="relative left">
+                        <input type="text" class="test5 left relative mt6 c-spgltspb pointer" ng-model="followStartTime">
+                        <i style="top: 12px;" class="test6 c-iconfont c-spgltspi" ng-click="mychange('test5','test6',2)"></i>
+                    </div>
+                    <span class="left ml15 mr15 mt10">至</span>
+                    <div class="relative left mr70">
+
+                        <input type="text" class="test7 left relative mt6 mr15 c-spgltspb pointer" ng-model="followEndTime">
+                        <i style="top: 12px;right: 23px;" ng-click="mychange('test7','test8',3)" class="test8 c-iconfont c-spgltspi"></i>
+                    </div>
+                    <span class="left">
+                        <em>物业范围：</em>
+                        <select class="c-datatjsel " ng-model="scheId2" ng-options="p.id as p.category for p in propertyList" ng-change="changeData(2)">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+            <div class="c-datatjbd mt30 pb30 clearfix">
+                <div class="c-datatjbdl left clearfix">
+                    <h2 class="c-datatjbdlh fs16 pl20 cf fwb">不足480平方米统计</h2>
+                    <p class="tc">
+                        <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+                        
+                        <div id="main2" style="width: 400px;height: 350px;"></div>
+                    </p>
+                    <ul class="ml30 clearfix">
+                        <li class="c-xmxqrbli mb15 left" ng-repeat="(key,i) in otherSquareArr">
+                            <i class="c-iconfont mr10"></i>
+                            <span ng-bind="i.name"></span>
+                            <span ng-bind="i.value+'%'"></span>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="c-datatjbdr right">
+                    <div class="l-managetable c-bordere6">
+                        <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <th>日期</th>
+                                <th>不足480㎡</th>
+                                <th>480㎡以上</th>
+
+                            </tr>
+                            <tr ng-repeat="s in otherSquareCountList">
+                                <td>{{s.month|number}}</td>
+                                <td>{{s.lessThan?(s.lessThan):'-'}}</td>
+                                <td>{{s.greaterThan?(s.greaterThan):'-'}}</td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <a class="tc cf radius disinblock c-datatjbdra mt20" href="{{imgHost+exportFollowLink}}">导出数据</a>
+                </div>
+            </div>
+            <div class="c-datatjbd c-datatjbdb mt30 pb30 clearfix">
+               
+            </div>
+
+
+        </div>
+
+    </div>

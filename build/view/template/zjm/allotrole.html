@@ -1,0 +1,108 @@
+<app-head></app-head>
+
+<left-system></left-system>
+<!--main-->
+<div class="l-rightsider clearfix   pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">角色分配</a>
+            <span>共{{total?total:0}}个</span>
+        </div>
+        <ul class="c-chbul h-cwgispxx mt15 back-white clearfix">
+            <li class="left"><a class="tc disblock ahover c6"  href="#/systemset">组织机构</a></li>
+            <li class="left"><a class="tc disblock ahover maincolor c6" href="#/roleaccredit">角色授权</a></li>
+            <!--<li class="left"><a class="tc disblock ahover c6" href="#/commissionfinance?projectid={{projectId}}">基础数据</a></li>-->
+        </ul>
+        <div class="clearfix mt20">
+            <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="javascript:void(0)" ng-click="addroleshow('hchakantwo')">分配</a>
+            <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="javascript:void(0)" ng-click="deleteUserList()">删除</a>
+            <div class="c-csrbdinp right  ">
+                <i class="c-iconfont mt8 ml10 left" ></i>
+                <input class="ml10 left" type="text" placeholder="请输入角色名称" ng-model="searchKeys">
+            </div>
+        </div>
+        <div class="l-managetable mt20">
+            <div class="l-managetable c-bordere6">
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th class="zjm-w6">
+                            <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox"  name="area" value="" ng-click="batchAll($event)">
+                        </th>
+                        <th>
+                            <span>分配人姓名</span>
+                        </th>
+                        <th>创建人姓名</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="r in roleuserlist">
+                        <td class="zjm-w6">
+                            <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox"  name="area" value="" ng-model="r.status">
+                        </td>
+                        <td>
+                            <span>{{r.realname}}</span>
+                        </td>
+                        <td>{{r.createName}}</td>
+                        <td>{{r.createTime|date:'yyyy-MM-dd hh:mm'}}</td>
+                        <td class="l-tablelink">
+                            <a href="javascript:void(0)" ng-click="deleteUser(r.id)">删除</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="l-page fs12 tr pt20 pb30 lh30">
+                <div ui-pagination conf="conf"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--main end-->
+
+<!--选择角色-->
+<div class="dialog hchakantwo">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">选择角色（多选）</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancel()"></a>
+            </h3>
+            <div class="pt20 pl40 clearfix ">
+                <span class="mb20 left">
+                    组织机构：
+                </span>
+            </div>
+
+            <div class="pt20 pl40 clearfix ">
+                <h1 class="mb30">选择用户 （可多选）
+                    <div class="c-csrbdinp right mr50">
+                        <i class="c-iconfont mt8 ml10 left" ></i>
+                        <input class="ml10 left" type="text" placeholder="请输入角色名称" ng-model="searchKeys2">
+                    </div>
+                </h1>
+
+                <div class=" mr10 left role bordere0 mb10" ng-class="{'border50':r.isFlag}" ng-repeat="r in rolelist" ng-click="addrole($event,$index)">
+                    <div class="tc mt10 ">
+                        <p class="mb10">
+                            <img ng-src="r.photoUrl" alt="" class="w70 borderr50">
+                        </p>
+                        <p>
+                            <span>{{r.realname}}</span>
+                        </p>
+
+                        <p class="f90 fs12 mt20">
+                            <span>{{r.name}}</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="l-page fs12 tr pt20 pb30 lh30 pr40">
+    
+                <div ui-pagination-two conf2="conf2"></div>
+            </div>
+            <span class="hop-bntap disblock pb55 tc">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="addAllotRole()">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="cancel()">取消</a>
+				</span>
+        </div>
+    </div>
+</div>

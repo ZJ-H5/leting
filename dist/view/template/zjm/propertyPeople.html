@@ -1,0 +1,153 @@
+<app-head></app-head>
+<left-system></left-system>
+<!--main-->
+<div class="l-rightsider clearfix   pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">系统设置</a>
+        </div>
+        <ul class="c-chbul h-cwgispxx mt15 back-white clearfix">
+            <li class="left"><a class="tc disblock ahover c6 " href="#/systemset">组织机构</a></li>
+            <!--<li class="left"><a class="tc disblock ahover c6"  href="#/peoplelist">人员列表</a></li>-->
+            <li class="left"><a class="tc disblock ahover c6 maincolor" href="#/propertyPeople">物业授权</a></li>
+        </ul>
+        <div class="clearfix mt20">
+            <!--<a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="">新增组织机构</a>-->
+            <div class="left c-xmboxabtn">
+                <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="#/propertyaccredit">物业授权</a>
+                <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="javascript:void(0)" ng-click="allotrole()">批量删除</a>
+            </div>
+            <div class="c-csrbdinp right  ">
+                <i class="c-iconfont mt8 ml10 left" ></i>
+                <input class="ml10 left" type="text" placeholder="搜索名称" ng-model="searchKeys">
+            </div>
+        </div>
+        <div class="l-managetable mt20">
+            <div class="l-managetable c-bordere6">
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                            <th class="zjm-w6">
+                                    <span class="h-xtszse relative">
+                                          <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" 
+                                          type="checkbox"  
+                                          name="area" 
+                                          ng-model="selectAll"
+                                          ng-click="checkAll(selectAll)">
+                                          <i class="c-htcboxin c-iconfont"></i>
+                                    </span>
+                               </th>
+                        <th>
+                            <span>人员名称</span>
+                        </th>
+                        <th>已授权物业数量</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="l in accreditlist">
+                        <td class="zjm-w6">
+                            <span class="h-xtszse relative">
+                                    <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox"  
+                                    name="area" 
+                                    ng-model="l.status" 
+                                    ng-click="check(l.status,$index)" >
+                                    <i class="c-htcboxin c-iconfont"></i>
+                            </span>
+                        </td>
+                        <td>
+                            <span>{{l.realname}}</span>
+                        </td>
+                        <td>{{l.propertyNumber?l.propertyNumber:0}}</td>
+                        <td class="l-tablelink">
+                            <a ng-click="selproperty(l.userId,'hchakantwo')">查看</a>
+                            <a href="javascript:void(0)" ng-click="deleterole(l.userId)">删除</a>
+                        </td>
+                    </tr>
+
+
+                </table>
+            </div>
+
+
+            <div class="l-page fs12 tr pt20 pb30 lh30">
+                <div ui-pagination conf="conf"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!--main end-->
+
+
+<!--选择角色-->
+<div class="dialog hchakantwo">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">查看物业</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancel()"></a>
+            </h3>
+
+             <!-- <div class="pt20 pl40 clearfix " style="height:550px;overflow:scroll"> -->
+                <!-- <h1 class=""> -->
+                    <div class="c-csrbdinp right mr50 mb20 mt20">
+                        <i class="c-iconfont mt8 ml10 left" ></i>
+                        <input class="ml10 left" type="text" placeholder="请输入房源地址" ng-model="searchKeyswuye">
+                    </div>
+                <!-- </h1> -->
+                    <!--
+                <div class=" mr10 left role bordere0 mb10" ng-class="{'border50':r.isFlag}" ng-repeat="p in propertylist" ng-click="addrole($event,r.id)">
+                    <div class="tc mt10 ">
+                        <p>
+                            <span>{{p.address}}</span>
+                        </p>
+
+                        <p class="f90">
+                            <span>{{p.splitJointName+(p.code?p.code:'')}}</span></p>
+                    </div>
+                </div>
+                -->
+            <!-- </div>  -->
+            <div class="l-managetable mt20 back-white">
+                <table class="l-tablebox  fs13" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th style="text-align: center;">区域名称</th>
+                        <th style="text-align: center;">房源地址</th>
+                        <th style="text-align: center;" >权利人</th>
+                        <th style="text-align: center;">土地证号</th>
+                        <th style="text-align: center;">房产证号</th>
+                        <th style="text-align: center;">土地性质</th>
+                        <th style="text-align: center;">物业面积</th>
+                        <th style="text-align: center;">基底面积</th>
+                        <th style="text-align: center;width:8%">操作</th>
+                    </tr>
+                    <tr ng-repeat="property in propertylist">
+                        <td style="text-align:center;">{{property.category||no}}</td>
+                        <td style="text-align:center;">{{(property.splitJointName||'')+(property.code||'')+(property.address||'')}}</td>
+                        <td style="text-align:center;" attr="{{property.houseUser}}">{{property.houseUser||no}}</td>
+                        <td style="text-align:center;">{{property.landCertificate||no}}</td>
+                        <td style="text-align:center;">{{property.houseCertificate||no}}</td>
+                        <td style="text-align:center;">{{property.attribute||no}}</td>
+                        <td style="text-align:center;">{{property.registerArea?property.registerArea+'m²':no}}</td>
+                        <td style="text-align:center;">{{property.landArea?property.landArea+'m²':no}}</td>
+                        <td style="text-align:center;" class="c-tablelink">
+                            <a  style="color:#337ab7" ng-click="deletelist(property.authorityId)">删除</a>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="mt20 tc" ng-if="propertylist.length>0?false:true">
+                    暂无数据
+                </div>
+            </div>
+            <div class="l-page fs12 tr pt20 pb30 lh30 pr40">
+                <div ui-pagination conf="conf2"></div>
+            </div>
+            <!-- daochu -->
+            <span class="hop-bntap disblock pb55 tc">
+                    <a ng-href="{{daochu}}" class="hop-canle disinblock w133 hoptap ml20 radius" >导出</a>
+                    <a href="javascript:void(0)"  class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="cancel()">关闭</a>
+				</span>
+        </div>
+    </div>
+</div>

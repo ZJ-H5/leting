@@ -1,0 +1,141 @@
+<div>
+<div class="l-rightsider   pb55">
+    <div class="pl15 pr18 pt15 pb15">
+    <ul class="c-csrtop bgf clearfix">
+        <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl " ui-sref="newFiles">项目建设情况</a></li>
+        <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl " ui-sref="projectProcess" style="color: #4da3de;">项目流程设置</a></li>
+        <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl " ui-sref="compensationRules">拆迁补偿规则</a></li>
+        <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl" ui-sref="commissionRules">佣金发放规则</a></li>
+        <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl"  ui-sref="updatarecord">修改记录</a></li>
+    </ul>
+    <div class="mt15 ml15 mr15  back-white  ">
+        <div class="clearfix border-bottom pl20 pr20">
+            <h3 class="l-managetlt  fs18 left">
+                <i class="mr5"></i>
+                <em>项目流程设置</em>
+            </h3>
+
+        </div>
+        <div class="l-projectbox pt45 pl30 pr30 pb30">
+            <ul class="l-projectlist">
+                <li>
+                    <span class="clearfix">
+
+                        <em class="l-projectcont disinblock left">项目流程管理</em>
+
+                        <a href="javascript:void(0)" class=" left ml20 mt7 l-addbnt iconfont " ng-click="hopurltab('hopappendopen',$event)"></a>
+                        <span class="l-projectips ml15 left">
+                                    负责人；完成时间；备注；上传附件
+                        </span>
+                     </span>
+                    <ul class="l-projectab addproject" >
+
+                    </ul>
+                </li>
+            </ul>
+            <span class="hop-bntap disblock pt80  pl200">
+						<a href="javascript:void(0)" ng-click="savebntprocess()" class="hop-save disinblock w75 hoptap radius ">保存</a>
+						<a href="javascript:void(0)" class="hop-canle disinblock w75 hoptap ml20 radius ">取消</a>
+            </span>
+        </div>
+
+    </div>
+    <ul class="l-tabinbox disnone"  >
+        <li ng-repeat="item in augl">
+            <ul class='l-projectup'>
+                <li ng-repeat='d in item.rank' class="clearfix"><i class='l-linebox left '></i><em class='l-projectcont disinblock left mt-20' ng-bind='d.processname'></em></li>
+            </ul>
+            <span class="clearfix">
+                <i class='l-linebox left '></i>
+                <em class='l-projectcont disinblock left mt-20'>{{item.projectName}}</em>
+                <a href='javascript:void(0)' class='mt-10 ml20 l-addbnt iconfont left' ng-click="hopurltab('hopappendopen',$event)"></a>
+                <span class='l-projectips ml15 left mt-20'>
+                    <i ng-repeat="t in item.name" ng-bind="t.name"></i>
+                </span>
+            </span>
+            <ul class="l-projectab addproject">
+
+            </ul>
+
+        </li>
+    </ul>
+</div>
+
+<!--项目流程管理-->
+<div class="dialog hopappendopen">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius    hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">添加流程</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+
+            <div class="pt20 pl30 pr30">
+                <table width="100%" class=" hop-table lh50  hop-ruletale" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td width="13%" class="pl30 c3" valign="top">流程名称: </td>
+                        <td >
+                            <input  type="text"  placeholder="请输入......" ng-model="projectName" name="projectName"  class="l-projectinput" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td  class="pl30 c3" valign="top">功能: </td>
+                        <td >
+
+                            <span class="l-tabcheckbox" ng-repeat="color in colors">
+                                <input type="checkbox"  ng-checked="isChecked(color.id)"  ng-click="updateSelection($event,color.id)"  />
+                                <em>{{color.name}}  </em>
+                            </span>
+                            <!--<span class="l-tabcheckbox">-->
+                                <!--<input type="checkbox" value="2"  ng-model="item.two" />-->
+                                <!--<em>完成时间</em>-->
+                            <!--</span>-->
+                            <!--<span class="l-tabcheckbox">-->
+                                <!--<input type="checkbox"  value="3"  ng-model="item.three" />-->
+                                <!--<em>备注</em>-->
+                            <!--</span>-->
+                            <!--<span class="l-tabcheckbox">-->
+                                <!--<input type="checkbox" value="4"  ng-model="item.four" />-->
+                                <!--<em>上传附件</em>-->
+                            <!--</span>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <table width="100%" cellpadding="0" cellspacing="0" class="addtable" name>
+                                <tr>
+                                    <td width="13%" class="pl30 c3" valign="top">前置条件1: </td>
+                                    <td >
+                                        <input  type="text" placeholder="请输入......" ng-model="processitem1" name="processitem1" class="l-projectinput"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td  class="pl30 c3" valign="top">前置条件2: </td>
+                                    <td >
+                                        <input  type="text" placeholder="请输入......" ng-model="processitem2" name="processitem2" class="l-projectinput"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td  class="pl30 c3" valign="top"> </td>
+                        <td >
+                            <a href="javascript:void(0)" ng-click="addterm()" class="l-addtab radius"><i  class="  l-addbnt iconfont" ></i><em class="ml10">添加前置条件</em></a>
+                        </td>
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" ng-click="savebnt()" class="hop-save disinblock w133 hoptap radius dialog-close">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+</div>

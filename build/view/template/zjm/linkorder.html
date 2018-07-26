@@ -1,0 +1,73 @@
+<app-head></app-head>
+
+<app-left></app-left>
+<div class="l-rightsider pb55">
+    <div class="pl15 pr18 pt15 pb15">
+        <!--顶部关注-->
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <top-pact-information list="{{list}}"></top-pact-information>
+        </div>
+        <!--7个格子-->
+        <table class="table table-bordered bg3 mt15">
+            <tbody class="tc c0">
+                <tr class="h40  tc lh40 bgf c6" align="justify">
+                    <td class="" ng-if="pnumber?true:false"><a ui-sref="surveyingMapping({projectid:projectId,roomId:roomId,approveId:approveId,number:pnumber,flag:pflag,status:pstatus,pactId:pactId,updateStatus:pupdateStatus})"
+                        title="审批信息"  class=" j-blur-a j-blur-as" >审批信息</a></td>
+                    <td class="" ng-if="pnumber?false:true"><a href="#/compactdetail?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}" 
+                        title="总览" class="j-blur-a j-blur-as " >&nbsp;&nbsp;&nbsp;总览&nbsp;&nbsp;&nbsp;</a></td>
+                    <td class=""><a  href="#/compactbasic?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}" title="基本信息" class="j-blur-a j-blur-as ">基本信息</a></td>
+                    <td class=""><a  href="#/comsurveyinginfo?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}" title="测绘信息" class="j-blur-a j-blur-as ">测绘信息</a></td>
+                    <td class=""><a  href="#/comcompensate?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}"  title="补偿方案" class="j-blur-a j-blur-as ">补偿方案</a></td>
+                    <td class=""><a  href="#/compactpageholder?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}"  title="业权人" class="j-blur-a j-blur-as  ">业权人</a></td>
+                    <td class=""><a  href="#/comcheckfalse?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}"  title="查违信息" class="j-blur-a j-blur-as ">查违信息</a></td>
+                    <td class="" ng-if="pnumber?false:true"><a href="#/compactPay?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}" title="支付方案" class="j-blur-a j-blur-as  ">支付方案</a></td>
+                    <td class="" ng-if="pnumber?false:true"><a href="#/commissionScheme?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}"  title="佣金方案" class="j-blur-a j-blur-as ">佣金方案</a></td>
+                    <td class=""><a style="color: #4ea4df;" href="#/linkorder?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}"  title="关联物业" class="j-blur-a j-blur-as ">关联物业</a></td>
+                    <td class=""><a href="#/compactappendix?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}"  title="附件" class="j-blur-a j-blur-as ">&nbsp;&nbsp;&nbsp;附件&nbsp;&nbsp;&nbsp;</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <!--下面主体-->
+        <div class="clearfix">
+            <h1 class="fs16 mt25 fl">关联物业</h1>
+        </div>
+
+        <div class="l-managetable mt20">
+            <table class="l-tablebox h-tablebox fs13 " cellpadding="0" cellspacing="0" width="100%" ng-show="data.length>0?true:false">
+                <tr class="h50 born hbtntr hbtntrs l-tablebox h-tablebox">
+                    <th>区域</th>
+                    <th>房产名称</th>
+                    <th>物业地址</th>
+                    <th>业权人</th>
+                    <th>户籍</th>
+                    <th>总建筑面积</th>
+                    <th>住宅</th>
+                    <th>擅改商业</th>
+                    <th>临建</th>
+                    <th>违建</th>
+                    <th>进展情况</th>
+                </tr>
+                <tr  ng-repeat="i in data">
+                    <td ng-bind="i.category?i.category:'-'"></td>
+                    <td ng-bind="i.splitJointName?i.splitJointName:'-'"></td>
+                    <td ng-bind="i.address?i.address:'-'"></td>
+                    <td ng-bind="i.holderName?i.holderName:'-'"></td>
+                    <td ng-bind="i.placeOrigin?i.placeOrigin:'-'"></td>
+                    <td ng-bind="i.grossArea?i.grossArea+'㎡':'-'"></td>
+                    <td ng-bind="i.houseArea?i.houseArea+'㎡':'-'"></td>
+                    <td ng-bind="i.commerceArea?i.commerceArea+'㎡':'-'"></td>
+                    <td ng-bind="i.temporaryArea?i.temporaryArea+'㎡':'-'"></td>
+                    <td ng-bind="i.violateArea?i.violateArea+'㎡':'-'"></td>
+                    <td ng-bind="i.name?i.name:'-'"></td>
+                </tr>
+
+            </table>
+
+        </div>
+
+        <div ng-show="data.length<=0?true:false" style="width: 100% ;height: 100px;border: 1px solid #ccc; text-align: center;line-height: 100px;">暂无关联物业
+            <!-- ，您可以立即<a class="maincolor" href="#/LostPropertyManagementPropertyManagement?roomId={{propertyId}}&projectid={{projectId}}">关联物业</a> -->
+        </div>
+    </div>
+</div>
+

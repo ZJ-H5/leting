@@ -1,0 +1,23 @@
+<div>
+    <div class="c-xmxqlb c-wyxqlb pl35 pr35 clearfix">
+        <div class="mt20 left">
+            <img class="c-xmxqlbimg" ng-src="{{imgHost+data.photoUrl}}" width="60" alt="用户头像">
+        </div>
+        <div class="mt30 ml15 left">
+            <p class="mb15">
+                <span>{{d.realname}} - 项目:({{project2.projectName?project2.projectName:no}})</span>
+                <a class="ml20 maincolor" href="javascript:void(0)" ng-click="daletetrack(d.id)">删除</a>
+            </p>
+
+            <p class="fs12 c9 mb15">{{d.createTime|date:'yyyy-MM-dd hh:mm:ss'}}</p>
+            <p class=" fs12 c9 mb15">建议：{{d.advice}}</p>
+            <p class=" fs12 c9 mb15">遇到的问题类型：{{d.orderSignParendName}}{{d.orderSignName?'—'+d.orderSignName:''}}</p>
+            <p class=" c3 mb15">描述：{{d.depict}}</p>
+            <p class=" c3 mb15">解决办法：{{d.solution}}</p>
+
+        </div>
+
+    </div>
+    <!--<p class="lh42 ml110" ng-repeat="r in d.replyContents">{{r.realname}}：{{r.content}}-->
+    <!--<a href="" ng-click="addReply()">回复</a></p>-->
+</div>

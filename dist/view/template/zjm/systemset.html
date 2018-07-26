@@ -1,0 +1,68 @@
+<app-head></app-head>
+
+<left-system></left-system>
+<!--main-->
+<div class="l-rightsider clearfix pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">组织机构</a>
+        </div>
+        <ul class="c-chbul h-cwgispxx mt15 back-white clearfix">
+            <li class="left"><a class="tc disblock ahover c6 maincolor" href="#/systemset">组织机构</a></li>
+            <!--<li class="left"><a class="tc disblock ahover c6"  href="#/peoplelist">人员列表</a></li>-->
+            <li class="left"><a class="tc disblock ahover c6 " href="#/propertyPeople">物业授权</a></li>
+        </ul>
+        <div class="clearfix mt20">
+            <div class="c-csrbdinp right  ">
+                <i class="c-iconfont mt8 ml10 left" ></i>
+                <input class="ml10 left" type="text" placeholder="请输入机构名称" ng-model="searchKeys">
+            </div>
+        </div>
+        <div class="l-managetable mt20">
+            <div class="l-managetable c-bordere6">
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <!-- <th class="zjm-w6">
+                         <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox"  name="area" value=""  ng-click="batchAll($event)">
+                        </th> -->
+                        <th>
+                        <span>组织机构名称</span>
+                        </th>
+                        <th>人数</th>
+                        <th>授权房源</th>
+                        <th>创建者</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="d in datalist">
+                        <!-- <td class="zjm-w6">
+                        <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox"  name="area" value="">
+                        </td> -->
+                        <td>
+                        <span>{{d.name}}</span>
+                        </td>
+                        <td>{{d.userNumber}}</td>
+                        <td>{{d.propertyNumber?d.propertyNumber:0}}</td>
+                        <td>{{d.realname}}</td>
+                        <td>{{d.createTime|date:'yyyy-MM-dd hh:mm'}}</td>
+                        <td class="l-tablelink">
+                            <a href="#/peoplelist?deptId={{d.deptId}}">查看</a>
+                            <a href="#/roleaccredit" >角色授权</a>
+                        </td>
+                    </tr>
+
+
+                </table>
+            </div>
+
+
+            <div class="l-page fs12 tr pt20 pb30 lh30">
+                <div ui-pagination conf="conf"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!--main end-->
+

@@ -1,0 +1,62 @@
+<app-head></app-head>
+<div app-left></div>
+<div class="l-rightsider pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 pb30">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">{{projectname}}</a>
+            <a class=" left fs18 c6 mr35 pl5">全部物业</a>
+            <!--<span class="c-csrbdtasp left fs14 c6 ml20 mt5">共<span ng-bind="number?number:0"></span>个</span>-->
+        </div>
+        <div class="c-csrbdb mt20 clearfix">
+            <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="#/totalPropertyList?projectid={{projectId}}">全部物业列表</a>
+            <!--<div class="c-csrbdinp right clearfix">
+                <i class="c-iconfont mt8 ml10 left" ></i>
+                <input class="ml10 left" type="text" placeholder="请输入产品名称">
+            </div>-->
+        </div>
+        <!--<div class="c-csrbdc mt20">-->
+            <!--<p class="c-csrbdcpa pl30 fs16 c3">筛选</p>-->
+            <!--<p class="c-wygltp fs14 c6 pl30 clearfix">-->
+                <!--<span class="left">物业阶段：</span>-->
+                <!--<span class="left ml45 relative">-->
+                    <!--<input class=" c-csrbdcinp c-htcbox c-allcheacked" type="checkbox" name="signs" ng-click="selectedAll()" value="">全部-->
+                 <!--</span>-->
+                <!--<span class="left ml45 relative" ng-repeat="index in nodeSign">-->
+                     <!--<input class="c-csrbdcinp c-htcbox c-allcheacked" type="checkbox" id="{{index.id}}" ng-click="doChange(index.id)" name="sign"><span ng-bind="index.name"></span>-->
+                <!--</span>-->
+            <!--</p>-->
+
+        <!--</div>-->
+
+        <div class="l-managetable mt20" ng-repeat="item in propertys">
+            <div class="c-wyglb c-bordere6 mb20 clearfix">
+                <div class="c-wyglbl left">
+                    <p class="tc c3 fs18">{{item.category}}</p>
+                </div>
+                <div class="c-wyglbr left">
+                    <ul>
+                        <li class="c-wyglbrli c-wyglbrlia c3 pl25">
+                            <span>物业总数  {{item.count||'0'}} 栋</span>
+                            <span> 已测绘  {{item.surveyCount||'0'}} 栋</span>
+                            <span>已签约  {{item.signCount||'0'}} 栋</span>
+                            <span>已移交  {{item.turnOverCount||'0'}} 栋</span>
+                            <span> 已拆除 {{item.demolishCount||'0'}} 栋</span>
+                            <span> 已还建 {{item.alsoCount||'0'}} 栋</span>
+                        </li>
+                        <li class="c-wyglbrli c-wyglbrlib  pl25">
+                            <span>已签约面积：{{item.signArea||'0'}} ㎡</span>
+                            <span>已移交面积:{{item.turnOverArea||'0'}} ㎡</span>
+                            <span>已拆除面积：{{item.demolishArea||'0'}} ㎡</span>
+                            <span>已还建面积：{{item.alsoArea||'0'}} ㎡</span>
+                        </li>
+                        <!-- <li class="c-wyglbrli c-wyglbrlin c3 pl25 pr100 clearfix">
+                            <a class="c-wyglbrliab tc radius5 ml25 mt10 cf right" ui-sref="projectManagementExport({projectid:projectId})">生成签约进度表</a>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,1 @@
+angular.module("app").config(["$provide",function(e){e.decorator("$http",["$delegate","$q",function(e,n){return e.post=function(r,o,t){var c=n.defer();return e.get(r).success(function(e){c.resolve(e)}).error(function(e){c.reject(e)}),{success:function(e){c.promise.then(e)},error:function(e){c.promise.then(null,e)}}},e}])}]);

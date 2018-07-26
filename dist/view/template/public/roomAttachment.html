@@ -1,0 +1,15 @@
+<div class="c-jbxxrjd ml15">
+    <div class="mb35" ng-repeat="list in surveyingList">
+        <p class="c-jbxxrjdp"><i
+                ng-class="list.isAccomplish==1?'c-jbxxriy mr10 c-iconfont':'c-jbxxrin mr15 c-iconfont'"></i>{{list.name}}
+        </p>
+        <div ng-repeat="sub in list.sublevel">
+            <p class="mb15">
+                <i class="c-jbxxrih mr15 c-iconfont"></i>
+                <i ng-class="sub.isAccomplish==1?'c-jbxxriy mr10 c-iconfont':'c-jbxxrin mr15 c-iconfont'"></i>{{sub.name}}
+                <br>
+                <span class="ml70" ng-bind="sub.accomplishTime?(sub.accomplishTime | date:'yyyy-mm-dd'):no"></span>
+            </p>
+        </div>
+    </div>
+</div>

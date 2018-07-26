@@ -1,0 +1,152 @@
+<app-head></app-head>
+
+<div app-left></div>
+<!--main-->
+<div class="l-rightsider   pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">财务管理</a>
+        </div>
+        <ul class="z-chbul h-cwgispxx mt15 back-white clearfix">
+            <li class="left"><a class="tc disblock c6" href="#/finance?projectid={{projectId}}">物业补偿和临时安置补助</a></li>
+            <li class="left"><a class="tc disblock c6" href="#/delayfinance?projectid={{projectId}}">延迟支付补偿</a></li>
+            <li class="left"><a class="tc disblock c6" href="#/commissionfinance?projectid={{projectId}}">佣金</a></li>
+            <li class="left"><a class="tc disblock c6" href="#/payfinance?projectid={{projectId}}">财务支付</a></li>
+            <li class="left"><a class="tc disblock maincolor"href="javascript:void(0);">支付列表</a></li>
+        </ul>
+        <!--佣金的头部-->
+        <div class="clearfix c-wygltp pl30 pb15" ng-if="type==4">
+            <p class="clearfix lh25 mt15 ">
+                <!--<span class="fl">支付类型：{{headcommissionlist.payfinancetype?headlist.payfinancetype:no}}</span>-->
+                <span class="fl">支付总金额：{{headcommissionlist.account?headcommissionlist.account:no}}</span>
+                <span class="fl ml40">支付条数：{{headcommissionlist.number?headcommissionlist.number:0}}条</span>
+                <span class="fl ml40">状态：{{headcommissionlist.paymentStatus=='0'?'未支付':'已支付'}}</span>
+            </p>
+            <p class="clearfix lh25 mt10">
+                <span class="fl">申请提交时间：{{headcommissionlist.applyTime?(headcommissionlist.applyTime|date:'yyyy-MM-dd'):no}}</span>
+                <span class="fl ml45">申请通过时间：{{headcommissionlist.throughTime?(headcommissionlist.throughTime|date:'yyyy-MM-dd'):no}}</span>
+            </p>
+        </div>
+        <!--非佣金的头部-->
+        <div class="clearfix c-wygltp pl30 pb15" ng-if="type!=4">
+            <p class="clearfix lh25 mt15 ">
+                <!--<span class="fl">支付类型：{{headcommissionlist.payfinancetype?headlist.payfinancetype:no}}</span>-->
+                <span class="fl">支付总金额：{{headlist.amount?headlist.amount:no}}</span>
+                <span class="fl ml40">支付条数：{{headlist.number?headlist.number:0}}条</span>
+                <span class="fl ml40">状态：{{headlist.paymentStatus=='0'?'未支付':'已支付'}}</span>
+                <span class="fl ml40">支付类型：{{(headlist.type=='1'&&'物业补偿')||(headlist.type=='2'&&'安置补助补偿')||(headlist.type=='3'&&'延期支付补偿')}}</span>
+            </p>
+            <p class="clearfix lh25 mt10">
+                <span class="fl">申请提交时间：{{headlist.applyTime?(headlist.applyTime|date:'yyyy-MM-dd'):no}}</span>
+                <span class="fl ml45">申请通过时间：{{headlist.throughTime?(headlist.throughTime|date:'yyyy-MM-dd'):no}}</span>
+            </p>
+        </div>
+        <div class="c-csrbdc mt10">
+            <p class="c-csrbdcpa pl30 fs16 c3 clearfix">
+                <span class="left">筛选</span>
+                <!--<a class="right maincolor mr30 c-spgltcl" href="javascript:void (0)">收起</a>-->
+            </p>
+            <div class="c-spgltclshow" ng-show="myscrol">
+                <p class="borderbottom fs14 c6 pl30 clearfix">
+                    <span class="left c-spgltsp">付款状态：</span>
+                    <span class="left mr45 relative">
+                        <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox" name="pay" value="" ng-model="payselectall" ng-click="checktall(payselectall,'payselectall',exporttype)" ><i class="c-htcboxin c-iconfont"></i>全部
+                    </span>
+                    <span class="left mr45 relative" ng-repeat="p in paylist">
+                        <input class=" c-csrbdcinp c-htcbox relative" id="p.id" type="checkbox" name="pay" value="" ng-model="p.state" ng-checked="isSelected(p.id)" ng-click="updateSelection($event,p.id,exporttype)"><i class="c-htcboxin c-iconfont"></i>{{p.name}}
+                    </span>
+                </p>
+            </div>
+            <div class="clearfix">
+                <a class="left mt10 mb10 ml10  c-spgltabb radius5 tc cf saveDisabled" href="javascript:void (0)" ng-click="payAll(commissionlist,list)">批量申请支付</a>
+                <a class="left mt10 mb10 ml10  c-spgltabbh radius5 tc cf" ng-href="{{exporttypeUrl}}" ng-click="export(payselected)">导出所有</a>
+            </div>
+            <div class="l-managetable" ng-show="type!=4">
+                <div class="l-managetable c-bordere6">
+                    <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <th><input type="checkbox" ng-click="batchAll($event,type)"  ng-model="batchChecked"></th>
+                            <th>合同编号</th>
+                            <th>付款项目</th>
+                            <th>地址</th>
+                            <th>付款金额</th>
+                            <th>收款人姓名</th>
+                            <th>收款银行</th>
+                            <th>收款银行账号</th>
+                            <th>付款时间</th>
+                            <th>状态</th>
+                            <th>实际付款时间</th>
+                            <th>操作</th>
+                        </tr>
+                        <tr ng-repeat="l in list">
+                            <td ><input type="checkbox" ng-if="l.paymentStatus==0" ng-model="l.paySatus" ng-click="batchselect()"></td>
+                            <td><a target="_blank" href="#/pactInfo?pactId={{l.pactId}}">{{l.commissionId?l.commissionId:'-'}}</a></td>
+                            <td>{{l.name?l.name:'-'}}</td>
+                            <td>{{l.address?l.address:'-'}}</td>
+                            <td>{{l.paymentAmount?l.paymentAmount:'-'}}</td>
+                            <td>{{l.recieveName?l.recieveName:'-'}}</td>
+                            <td>{{l.recieveBank?l.recieveBank:'-'}}</td>
+                            <td>{{l.recieveAcct?l.recieveAcct:'-'}}</td>
+                            <td>{{l.paymentTime?(l.paymentTime|date:'yyyy-MM-dd'):'-'}}前</td>
+                            <td>{{l.payment?l.payment:'-'}}</td>
+                            <td>{{l.relasePaymentTime?(l.relasePaymentTime|date:'yyyy-MM-dd'):'-'}}</td>
+                            <td ng-if="l.paymentStatus==0">
+                                <a href="javascript:void (0)" ng-click="pay(l.id)">支付</a></td>
+                            <td ng-if="l.paymentStatus!=0">
+                                -</td>
+                        </tr>
+                    </table>
+                    <div ng-show="list.length>0?false:true" class="mt10 tc">
+                        暂无数据
+                    </div>
+                </div>
+            </div>
+            <div class="l-managetable" ng-show="type==4">
+                <div class="l-managetable c-bordere6">
+                    <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <th><input type="checkbox" ng-click="batchAll($event,type)"  ng-model="batchChecked"></th>
+                            <th>房源地址</th>
+                            <th>付款项目</th>
+                            <th>付款金额</th>
+                            <th>收款人姓名</th>
+                            <th>收款银行</th>
+                            <th>收款银行账号</th>
+                            <th>付款时间</th>
+                            <th>付款状态</th>
+                            <th>实际付款时间</th>
+                            <th>操作</th>
+                        </tr>
+                        <tr ng-repeat="l in commissionlist">
+                            <td ><input type="checkbox" ng-if="l.paymentStatus==0" ng-model="l.paySatus" ng-click="batchselect()"></td>
+                            <td>{{l.address?l.address:'-'}}</td>
+                            <td>{{l.name?l.name:'-'}}</td>
+                            <td>{{l.reAccount?l.reAccount:'-'}}</td>
+                            <td>{{l.reUserName?l.reUserName:'-'}}</td>
+                            <td>{{l.reBankName?l.reBankName:'-'}}</td>
+                            <td>{{l.reBankNo?l.reBankNo:'-'}}</td>
+                            <td>{{l.paymentTime?(l.paymentTime|date:'yyyy-MM-dd'):'-'}}</td>
+                            <td>{{l.payment?l.payment:'-'}}</td>
+                            <td>{{l.actualPaymentTime?(l.actualPaymentTime|date:'yyyy-MM-dd'):'-'}}</td>
+                            <td ng-if="l.paymentStatus==0">
+                                <a href="javascript:void (0)" ng-click="paymoney(l.id)">支付</a></td>
+                            <td ng-if="l.paymentStatus!=0">
+                                -</td>
+                        </tr>
+                    </table>
+                    <div ng-show="commissionlist.length>0?false:true" class="mt10 tc">
+                        暂无数据
+                    </div>
+                </div>
+            </div>
+
+            <div class="l-page fs12 tr pt20 pb30 lh30">
+                <div ui-pagination conf="conf"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!--main end-->

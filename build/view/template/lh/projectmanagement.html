@@ -1,0 +1,198 @@
+<app-head></app-head>
+
+<app-left-Column class="disnone"></app-left-Column>
+<div class="pb55 pt85">
+    <!--项目管理-->
+    <div class="mt 15 ml15 mr15  back-white pl30 pr30 ">
+        <h3 class="l-managetlt pt7 fs18">
+            <i class="mr5"></i>
+            <em>项目管理</em>
+        </h3>
+        <div class="l-managetap clearfix">
+					<span class="left l-managenav">
+						<a href="#/newFiles" class="cur">新增</a>
+						<!-- <a href="javascript:void (0)" ng-click="gcShowWin(true)">转移</a> -->
+                        <!-- <a href="javascript:void (0)" ng-click="gcShowWin(false)">共享</a> -->
+
+					</span>
+            <span class="l-mseach right border relative">
+						<i class="iconfont"></i>
+						<input type="text" class="w210" placeholder="请输入项目名称" ng-model="projectnameinput"/>
+					</span>
+        </div>
+        <div class="l-managetable mt20" ng-if="rows.length>0">
+            <table class="l-tablebox fs13" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <th></th>
+                    <th>项目名称</th>
+                    <th>项目位置</th>
+                    <th>拆除范围占地面积</th>
+                    <th>规划容积率</th>
+                    <th>规划建筑面积</th>
+                    <th>物业数</th>
+                    <th>项目进度(%)</th>
+                    <th>操作</th>
+                </tr>
+                <tr ng-repeat="t in rows">
+                    <td class="zjm-w6">
+                        <input ng-click="checkitems($index)" class="c-csrbdcinp c-htcbox relative c-allcheacked" ng-value="true" type="radio"  name="area" ng-model="t.status_1">
+                    </td>
+                    <td><a ng-click="checkitems($index)" href="#/itemDetails?projectid={{t.id}}">{{t.projectName}}</a></td>
+                    <td ng-bind="!t.address?'-':t.address">深圳市龙岗区坂田街道办</td>
+                    <td ng-bind="t.areaDemolition?t.areaDemolition:0">27378.13㎡</td>
+                    <td ng-bind="t.plannedVolumeRatio?t.plannedVolumeRatio:0">27378.13㎡</td>
+                    <td ng-bind="t.planningFloorArea?t.planningFloorArea:0">27378.13㎡</td>
+                    <td ng-bind="t.count?t.count:0">物业数</td>
+                    <td ng-bind="t.scale?(t.scale|number:2):0">项目进度</td>
+                    <td class="l-tablelink">
+                        <a href="javascript:" ng-click="dataFollowUp(t.id)">跟进</a>
+                        <a href="javascript:"  ng-click="edit(t.id,'hopbntbuild')">编辑</a>
+                        <a  ng-click="delete(t.id)">删除</a>
+                    </td>
+                </tr>
+
+            </table>
+            <div class="l-page fs12 tr pt20 pb30 lh30">
+                <div ui-pagination conf="conf"></div>
+            </div>
+        </div>
+        <div class="lh55 tc l-managetable mt20" ng-if="rows.length>0?false:true">
+            暂无物业数据
+        </div>
+    </div>
+
+    <!--添加跟进信息-->
+    <add-follow-alert listtop="{{listtop}}" action="action" my-follow="myajax()" my-location="mylocation()"></add-follow-alert>
+    <!--转移和共享-->
+    <transfer listtop="{{listtop}}" transferclick="transferclick"></transfer>
+
+
+    <!--项目编辑-->
+    <div class="dialog hopbntbuild">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w875 radius hop-cont">
+            <div class="back-white">
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix mb15">
+                    <em class="left fs18 c3 ">编辑项目信息</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                </h3>
+                <form name="form">
+                    <table class="l-projectable" width="100%">
+                        <tr>
+                            <th class="w200" valign="top"><i class="red">*</i>项目名称：</th>
+                            <td>
+                                <input type="text" ng-blur="tips(project.projectName,'projectName')" placeholder="请输入......" name="projectName"
+                                       ng-model="project.projectName" class="l-projectinput fl" validator="required"/>
+                                <!--<span class="ml15 cred lh34" ng-if="check.projectNameflag">*项目名称不能为空</span>-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="w200" valign="top">宗地编号：</th>
+                            <td>
+                                <input type="text"  ng-blur="tips(project.parcelNumber,'parcelNumber')"   placeholder="请输入......" name="parcelNumber" ng-model="project.parcelNumber"
+                                       class="l-projectinput fl" />
+                                <!--<span class="ml15 cred lh34" ng-if="check.parcelNumberflag">*宗地编号不能为空</span>-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <th valign="top">项目位置：</th>
+                            <td>
+                    <span class="l-citytap">
+                        <select name="provinceId" class="select l-cityselect fs12  " ng-model="project.provinceId"
+                                ng-change="provincetab(project.provinceId)" ng-options="value.id as value.name for value in provinceList">
+                            <option value="">请选择省</option>
+
+                        </select>
+                        <select name="cityId" class="select l-cityselect fs12  " ng-model="project.cityId" ng-change="citytab(project.cityId)"
+                                ng-options="value.id as value.name for value in cityList">
+                            <option value="">请选择市</option>
+
+                        </select>
+                        <select name="areaId" class="select l-cityselect fs12  " ng-model="project.areaId" ng-change="areatab(project.areaId)"
+                                ng-options="value.id as value.name for value in areaList" >
+                            <option value="">请选择区</option>
+
+                        </select>
+                        <span class="relative disinblock l-timed w210 ml5">
+                            <input type="text"  ng-blur="tips(project.roadId,'roadId')"   placeholder="请输入......" name="roadId"  ng-model="project.roadId"
+                                   class="l-projectinput"/>
+
+                        </span>
+
+                    </span>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th valign="top">拆除范围用地面积(㎡)：</th>
+                            <td>
+                            <input type="text" placeholder="请输入......"  ng-model="project.areaDemolition"
+                                   class="l-projectinput fl" />
+                                <!--<span class="ml15 cred lh34" ng-if="check.areaDemolitionflag">*拆除范围占地面积不能为空</span>-->
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th valign="top">现状建筑面积(㎡)：</th>
+                            <td>
+                                <input type="text" placeholder="请输入......" ng-model="project.surveyArea"
+                                       class="l-projectinput fl" />
+                                <!--<span class="ml15 cred lh34" ng-if="check.surveyAreaflag">*测绘面积不能为空</span>-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <th valign="top">规划容积率(%)：</th>
+                            <td>
+                                <input type="text" placeholder="请输入......"  name="plannedVolumeRatio"
+                                       ng-model="project.plannedVolumeRatio" class="l-projectinput fl" onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')"/>
+                                <!--<span class="ml15 cred lh34" ng-if="check.plannedVolumeRatioflag">*规划容积率不能为空</span>-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <th valign="top">规划建筑面积(㎡)：</th>
+                            <td>
+                                <input type="text"  ng-blur="tips(project.planningFloorArea,'planningFloorArea')"  placeholder="请输入......" ng-model="project.planningFloorArea" class="l-projectinput fl" />
+                                <!--<span class="ml15 cred lh34" ng-if="check.planningFloorAreaflag">*规划建筑面积不能为空</span>-->
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th valign="top">
+                                <input type="text" placeholder="框架协议" class="l-projectinput mr5" ng-model="agreementName">签署时间：</th>
+                            <td>
+                                <span class="relative disblock l-timed w210 test2" ng-click="mychange()">
+                                <input  type="text" placeholder="请输入......"   class="l-projectinput test1" ng-model="project.signingAgreementTime" name="signingAgreementTime" />
+                                <i class="iconfont"></i>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <span class="hop-bntap disblock tc pb55">
+                        <button type="button" class="hop-save disinblock w133 hoptap radius saveDisabled" value="保存" ng-click="saveproject()">保存</button>
+                        <input type="button" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close"
+                               value="取消">
+                    </span>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--删除-->
+    <div class="zj-alertBox delect" ng-show="flag">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont back-white back-alertcont" style="left: 540px; top: 98px; opacity: 1; margin-top: 0px;">
+            <h2 class="dialog-head">
+                <span class="left">平台提示</span>
+            </h2>
+            <div class="alertmsg">确认删除吗</div>
+            <div class="alerthandle">
+                <input type="button" class="btn dialog-console" ng-click="sels(projectid)" value="确定">
+                <input type="button" class="btn dialog-console" ng-click="cance()" value="取消">
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+

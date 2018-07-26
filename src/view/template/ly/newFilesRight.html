@@ -1,0 +1,129 @@
+<div class="l-rightsider   pb55">
+    <div class="pl15 pr18 pt15 pb15">
+    <div class="c-csrtop bgf">
+        <ul class="clearfix tc">
+            <li class="c-csrtopli mt10 left"><a class="c-csrtoplicur maincolor" ui-sref="newFiles">项目建设情况</a></li>
+            <li class="c-csrtopli mt10 left"><a  ui-sref="projectProcess"> 项目流程设置</a></li>
+            <li class="c-csrtopli mt10 left"><a  ui-sref="compensationRules"> 拆迁补偿规则</a></li>
+            <li class="c-csrtopli mt10 left"><a  ui-sref="commissionRules"> 佣金发放规则</a></li>
+            <li class="c-csrtopli mt10 left"><a  ui-sref="commissionrules"> 修改记录</a></li>
+        </ul>
+    </div>
+    <div class="mt15 ml15 mr15  back-white  ">
+        <div class="clearfix border-bottom pl20 pr20">
+            <h3 class="l-managetlt  fs18 left">
+            <i class="mr5"></i>
+            <em>项目建设情况</em>
+            </h3>
+
+        </div>
+        <div class="l-projectbox pt45 pl30 pr30 pb30">
+            <form name="form">
+                <table class="l-projectable" width="100%">
+                <tr class="">
+                    <th  class="w155" valign="top"><i class="red">*</i>项目名称：</th>
+                    <td>
+                        <input type="text" validator="projectName" name="projectName"  placeholder="请输入......" ng-model="projectName" class="l-projectinput w48- fl" />
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <th  class="w155" valign="top"><i class="red">*</i>宗地编号：</th>
+                    <td>
+                        <input type="text"  name="projectnumber"  placeholder="请输入......" ng-model="projectnumber" class="l-projectinput w48- fl" />
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <th valign="top"><i class="red">*</i>项目位置：</th>
+                    <td>
+                    <span class="l-citytap">
+                        <select required="" name="provinceId" class="select l-cityselect fs12  "   ng-model="provinceId"  ng-change="provincetab()" ng-options="value.name as value.name for value in signListP">
+                            <option value="">请选择省</option>
+
+                        </select>
+                        <select name="cityId" class="select l-cityselect fs12  " ng-model="cityId" ng-change="citytab()"  ng-options="value.name as value.name for value in city">
+                            <option value="">请选择市</option>
+
+                        </select>
+                        <select name="areaId" class="select l-cityselect fs12  " ng-model="areaId" ng-change="areatab()" ng-options="value.name as value.name for value in area">
+                            <option value="">请选择区</option>
+
+                        </select>
+                        <span class="relative disinblock l-timed w210 ml5">
+                            <input type="text" name="roadId" placeholder="请输入......" ng-model="roadId" class="l-projectinput w48-"/>
+                        </span>
+
+                    </span>
+                    </td>
+
+                </tr>
+                <tr>
+                    <th valign="top"><i class="red">*</i>拆除范围占地面积：</th>
+                    <td>
+                        <span class="relative disinblock l-timed w210">
+                            <input type="text" name="areaDemolition" onkeyup="this.value=/^d*(?:.d{0,2})?$/.test(this.value)" placeholder="请输入......" ng-model="areaDemolition" class="l-projectinput w48-"/>
+
+                        </span>
+                        <span>m²</span>
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <th valign="top"><i class="red">*</i>规划容积率：</th>
+                    <td>
+                        <input type="text" placeholder="请输入......" onkeyup="this.value=/^d*(?:.d{0,2})?$/.test(this.value)" name="plannedVolumeRatio" ng-model="plannedVolumeRatio" class="l-projectinput w48- fl"/>
+                    </td>
+
+                </tr>
+                <tr>
+                    <th valign="top"><i class="red">*</i>规划建筑面积：</th>
+                    <td>
+                        <input  type="text" placeholder="请输入......" onkeyup="this.value=/^d*(?:.d{0,2})?$/.test(this.value)" ng-model="planningFloorArea" name="planningFloorArea" class="l-projectinput w48- fl"/>
+                    </td>
+
+                </tr>
+                <tr>
+                    <th valign="top"><i class="red">*</i>测绘面积：</th>
+                    <td>
+                        <input  type="text" placeholder="请输入......" onkeypress="return myNumberic(event)" ng-model="surveyArea" name="surveyArea" class="l-projectinput w48- fl"/>
+                    </td>
+
+                </tr>
+                <tr>
+                <th>框架协议签署时间：</th>
+                    <td>
+                        <span class="relative disblock l-timed w210">
+                            <!--<datetimepicker dateID="timepicker" ng-model="time2" class="l-projectinput" formatDate="Y/m/d"></datetimepicker>-->
+
+
+                            <input  type="datetime" placeholder="请输入......" class="l-projectinput" ng-model="startTime" name="createUser" />
+                            <i class="iconfont"></i>
+                        </span>
+                    </td>
+                    <td>
+
+                    </td>
+                <tr>
+                    <th></th>
+                    <td>
+                        <span class="hop-bntap disblock pt40 pb55">
+                            <input type="submit" ng-click="saveSubMit()" class="hop-save disinblock w133 hoptap radius "value="保存"/>
+                            <input type="reset"   class="hop-canle disinblock w133 hoptap ml20 radius " value="取消">
+                        </span>
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>

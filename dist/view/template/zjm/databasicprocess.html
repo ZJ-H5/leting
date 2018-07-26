@@ -1,0 +1,111 @@
+<app-head></app-head>
+
+<left-system></left-system>
+<!--main-->
+<div class="l-rightsider clearfix   pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">审批流程管理</a>
+        </div>
+        <ul class="c-chbul h-cwgispxx mt15 back-white clearfix">
+            <li class="left"><a class="tc disblock ahover c6 "  href="#/databasicSign">签约阶段</a></li>
+            <li class="left"><a class="tc disblock ahover c6 maincolor" href="#/databasicprocess">审核流程</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/databasicCompensationProject">补偿项目</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/databasicCompensationType">补偿类型</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/singledatabasic">单一数据</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/databasiccompact">合同模板</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/databasicRebuild">还建基础数据</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/bankmessage">银行信息</a></li>
+        </ul>
+        <div class="l-managetable mt20">
+            <div class="l-managetable c-bordere6">
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th>审批名称</th>
+                        <th>备注</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="p in processlist">
+                        <td>{{p.name}}</td>
+                        <td>{{p.remarks}}</td>
+                        <td class="l-tablelink">
+                            <a href="javascript:void(0)" ng-click="editprocess('updateprocess',p.id,p.name)">编辑</a>
+                        </td>
+                    </tr>
+
+
+                </table>
+            </div>
+
+    </div>
+
+</div>
+<!--main end-->
+ <!-- 编辑 -->
+    <div class="dialog updateprocess">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w1080 radius    hop-cont">
+            <div class="back-white">
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">审批人设置</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancelsave()"></a>
+                </h3>
+                <div class="pt20 pl30 pr30 relative dialog-jie" style="height:580px;overflow:auto;">
+                    <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th width="15%" class="pl30 maincolor">审批名称：</th>
+                            <td colspan="2" class="ml30">{{processName}}</td>
+                        </tr>
+                    </table>
+                    <!--模糊搜索-->
+                    <ul class="absolute ulshow" style="display:none">
+                        <li ng-repeat="s in searchnamelist" ng-click="getname(s.id,s.realname)">{{s.realname}}</li>
+                    </ul>
+                    <div ng-repeat="n in newJson">
+                        <p class="mt10 mb10">节点{{$index+1}}
+                            <a href="javascript:void(0)" class="right w-delete disinblock w-100  radius dialog-close" ng-click="deleteProcess(nodetypeId,n.id)">删除节点</a>
+                        </p>
+
+                        <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <th width="15%" class="pl30 maincolor">审批方式：</th>
+                                <td colspan="2">
+                                    <input type="radio"  name="check{{$index}}" style="margin-right:10px" ng-value="1" ng-model="n.type" ><span style="margin-right:30px">并行审批</span>
+                                    <input type="radio" name="check{{$index}}" style="margin-right:10px" ng-value="2" ng-model="n.type">会签审批
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="maincolor pl30">审批1：</th>
+                                <td colspan="2" class="fl">
+                                    <input class=" c-fbyltxth back-white textA{{$index}}"  placeholder="请输入..." ng-model="n.exminusers[0].username" ng-click="ulshow(n.id,'textA',$index,0)" ng-blur="ulcancel($index,0)" ng-change="clearData()" ng-keyup="serachsomthing(n.exminusers[0].username)">
+                                    <span class="ml80 c2">审批2：</span>
+                                    <input class=" c-fbyltxth back-white textB{{$index}}"  placeholder="请输入..." ng-model="n.exminusers[1].username" ng-click="ulshow(n.id,'textB',$index,1)" ng-blur="ulcancel($index,1)"
+                                           ng-change="clearData()" ng-keyup="serachsomthing(n.exminusers[1].username)">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="maincolor pl30">审批3：</th>
+                                <td colspan="2" class="fl">
+                                    <input class=" c-fbyltxth back-white textC{{$index}}"  placeholder="请输入..." ng-model="n.exminusers[2].username" ng-click="ulshow(n.id,'textC',$index,2)" ng-blur="ulcancel($index,2)"
+                                           ng-change="clearData()" ng-keyup="serachsomthing(n.exminusers[2].username)">
+                                    <span class="ml80 c2">审批4：</span>
+                                    <input class=" c-fbyltxth back-white textD{{$index}}"  placeholder="请输入..." ng-model="n.exminusers[3].username" ng-click="ulshow(n.id,'textD',$index,3)" ng-blur="ulcancel($index,3)"
+                                           ng-change="clearData()" ng-keyup="serachsomthing(n.exminusers[3].username)">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                    <a href="javascript:;" title="" class="h-lhbeih clearfix mt20 radius5" ng-click="pushNewProcess()">
+                        <em class="h-lhprite h-tupian ml15 left "></em>
+                        <i class="left fs12  pt10 ml5 cw">添加审批节点</i>
+                    </a>
+                    <span class="hop-bntap disblock pt30 pb55">
+							<a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius" ng-click="updatesave()">保存</a>
+							<a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="cancelsave()">取消</a>
+                </span>
+                </div>
+            </div>
+        </div>
+    </div>

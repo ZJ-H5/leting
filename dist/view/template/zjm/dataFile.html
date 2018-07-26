@@ -1,0 +1,116 @@
+<app-head></app-head>
+<div app-left></div>
+<div class="l-rightsider pb55">
+    <div class="pl15 pr18 pt15 pb15">
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <p class="c-csrbdta fs18 c6 mt25  pl5 ">物业信息统计</p>
+            <ul class="c-chbul mt15 c-datatjul clearfix">
+                    <li class="left">
+                        <a class="tc disblock ahover c6" href="#/dataSurvey?projectid={{projectId}}">测绘数据统计</a>
+                    </li>
+                    <li class="left">
+                        <a class="tc disblock ahover c6" href="#/datalist?projectid={{projectId}}">签约数据统计</a>
+                    </li>
+    
+                    <li class="left">
+                        <a class="tc disblock ahover c6" href="#/wuyeyijiao?projectid={{projectId}}">物业移交数据统计</a>
+                    </li>
+                    <li class="left">
+                        <a class="tc disblock ahover c6" href="#/dataFinance?projectid={{projectId}}">财务统计</a>
+                    </li>
+                    <li class="left">
+                        <a class="tc disblock ahover maincolor" href="#/dataFile?projectid={{projectId}}">物业信息统计</a>
+                    </li>
+                    <li class="left">
+                        <a class="tc disblock ahover c6" href="#/dataOther?projectid={{projectId}}">其他统计</a>
+                    </li>
+    
+                </ul>
+
+            <!-- <div class="c-csrbdc mt20">
+                <p class="c-csrbdcpa pl30 fs16 c3 clearfix">
+                    <span class="left">筛选</span>
+                    <a class="right maincolor mr30 c-spgltcl" href="javascript:;">收起</a>
+                </p>
+                <div class="c-spgltclshow">
+                    <p class="fs14 c6 pl30 clearfix">
+                        <span class="left c-spgltsp">付款状态：</span>
+                        <span class="left mr45 relative">
+                            <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox" name="area" value="">
+                            <i class="c-htcboxin c-iconfont"></i>全部
+                        </span>
+                        <span class="left mr45 relative">
+                            <input class=" c-csrbdcinp c-htcbox relative" type="checkbox" name="area" value="">
+                            <i class="c-htcboxin c-iconfont"></i>未付款
+                        </span>
+                        <span class="left mr45 relative">
+                            <input class=" c-csrbdcinp c-htcbox relative" type="checkbox" name="area" value="">
+                            <i class="c-htcboxin c-iconfont"></i>已付款
+                        </span>
+                    </p>
+                </div>
+            </div> -->
+            <a class="radius tc cf c-zdybtn mt8 c-btnhover disinblock" ng-click="extend()" target="_self">导出excel</a>
+
+            <div class="c-bordere6 mt20 " ng-if="rebuildTypeList">
+                <div class="lhbge46">{{arrs[0].name}}</div>
+                <div>
+                    <p class="fs14 c6 clearfix ml30 pb20">
+                        <span class="left mr45 relative mt10  w-20" ng-repeat="j in rebuildTypeList">
+                            <input class=" c-csrbdcinp c-htcbox relative " type="checkbox" name="area" value="" ng-model="j.status" ng-click="singleChoose(j.status,$index)">{{j.name}}
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="c-bordere6 mt20 " ng-if="compensateProjectList">
+                <div class="lhbge46">{{arrs[1].name}}</div>
+                <div>
+                    <p class="fs14 c6 clearfix ml30 pb20">
+                        <span class="left mr45 relative mt10  w-20" ng-repeat="j in compensateProjectList">
+                            <input class=" c-csrbdcinp c-htcbox relative " type="checkbox" name="area" value="" ng-model="j.status" ng-click="singleChoose(j.status,$index)">{{j.name}}
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- 先玩这个 -->
+            <div class="c-bordere6 mt20 " ng-if="compensateTypeList">
+                <div class="lhbge46">{{arrs[1].name}}</div>
+                <div>
+                    <div style="margin-top:10px;margin-left:15px;" ng-class="{'maincolor':true}">父级</div>
+                    <p class="fs14 c6 clearfix ml30 pb20">
+                        <span class="left mr45 relative mt10  w-20" ng-repeat="j in compensateTypeList" ng-if="!j.parentId">
+                            <input class=" c-csrbdcinp c-htcbox relative " type="checkbox" name="area" value="" ng-model="j.status" ng-click="singleChoose(j.status,$index)">{{j.name}}
+                        </span>
+                    </p>
+                </div>
+                <div>
+                    <div style="margin-top:10px;margin-left:15px;" ng-class="{'maincolor':true}">子级</div>
+                    <p class="fs14 c6 clearfix ml30 pb20">
+                        <span class="left mr45 relative mt10  w-20" ng-repeat="j in compensateTypeList" ng-if="j.parentId">
+                            <input class=" c-csrbdcinp c-htcbox relative " type="checkbox" name="area" value="" ng-model="j.status" ng-click="singleChoose(j.status,$index)">{{j.name}}
+                        </span>
+                    </p>
+                </div>
+                
+            </div>
+                <!-- 走开 -->
+
+            <div class="c-bordere6 mt20 " ng-if="orderSignList">
+                    <div class="lhbge46">{{arrs[1].name}}</div>
+                    <div>
+                        <p class="fs14 c6 clearfix ml30 pb20">
+                            <span class="left mr45 relative mt10  w-20" ng-repeat="j in orderSignList">
+                                <input class=" c-csrbdcinp c-htcbox relative " type="checkbox" name="area" value="" ng-model="j.status" ng-click="singleChoose(j.status,$index)">{{j.name}}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
+            
+        </div>
+    </div>
+
+
+</div>

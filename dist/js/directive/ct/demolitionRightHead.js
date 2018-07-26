@@ -1,0 +1,1 @@
+"use strict";angular.module("app").directive("appDemolitionRightHead",["cache",function(e){return{restrict:"A",replace:!0,templateUrl:"view/template/ct/demolitionRightHead.html"}}]);

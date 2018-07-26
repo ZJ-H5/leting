@@ -1,0 +1,61 @@
+<app-head></app-head>
+
+<div app-left></div>
+
+<!--main-->
+<div class="l-rightsider pb55">
+    <div class="pl15 pr18 pt15 pb15">
+        <!--顶部关注-->
+
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <top-pact-information list="{{list}}"></top-pact-information>
+
+        </div>
+
+        <ul class="c-chbul mt15 ml15 mr15  back-white clearfix">
+            <li class="left"><a class="tc disblock ahover"  ui-sref="builtDetails({projectid:projectId,roomId:roomId})">总览</a></li>
+            <li class="left"><a class="tc disblock ahover zj-NavAColor"  ui-sref="builtInformation({projectid:projectId,roomId:roomId})">还建信息</a></li>
+            <li class="left"><a class="tc disblock ahover zj-NavAColor" ui-sref="builtOwner({projectid:projectId,roomId:roomId})">业权人</a></li>
+            <li class="left"><a class="tc disblock ahover zj-NavAColor" ui-sref="builtCompensate({projectid:projectId,roomId:roomId})">补偿方案</a></li>
+            <li class="left"><a class="tc disblock ahover zj-NavAColor" ui-sref="builtAttachment({projectid:projectId,roomId:roomId})">物业附件</a></li>
+        </ul>
+        <!--下面主体-->
+        <div class="mt15 mb20  clearfix">
+            <div class="c-xmxql left clearfix">
+                <add-follow listtop="{{listtop}}"></add-follow>
+            </div>
+            <div class="c-xmxqr left clearfix">
+                <div class="c-xmxqrb mb15 bgf">
+                    <h3 class="c-xmxqlh pl30 fs16 c3 pr30 clearfix">
+                        <span class="left">物业信息</span>
+                        <a class="fs14 c6 right" ui-sref="builtInformation({projectid:projectId,roomId:roomId})">查看</a>
+                    </h3>
+                    <room-information listtop="{{listtop}}"></room-information>
+                </div>
+
+                <!--右侧测绘进度-->
+                <div class="c-xmxqrb mb15 bgf pb10">
+                    <h3 class="c-xmxqlh pl40 fs16 c3 pr30 clearfix">
+                        <span class="left">签约进度</span>
+                        <a class="fs14 c6 right" ui-sref="Demolitioninformation({projectid:projectId,roomId:roomId})"></a>
+                    </h3>
+                    <div class="mt20  pl10">
+                         <room-attachment listtop="{{listtop}}"></room-attachment>
+                    </div>
+                </div>
+
+                <div class="c-xmxqrb mb15 bgf">
+                    <h3 class="c-xmxqlh pl30 fs16 c3 pr30 clearfix">
+                        <span class="left">项目附件<em class="fs12 c6">（共 <span ng-bind="length"></span> 个）</em></span>
+                        <a class="fs14 c6 right" ui-sref="builtAttachment({projectid:projectId,roomId:roomId})">查看</a>
+                    </h3>
+                    <room-surveying listtop="{{listtop}}" length="length"></room-surveying>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!--main end-->
+

@@ -1,0 +1,87 @@
+<app-head></app-head>
+
+<div app-left></div>
+
+<!--main-->
+<div class="l-rightsider pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">{{projectname}}</a>
+            <a class=" left fs18 c6 mr35 pl5 propertyBuilt" ng-click="test()">全部物业</a>
+            <span class="c-csrbdtasp left fs14 c6 ml20 mt5">共<span ng-bind="number?number:0"></span>个</span>
+        </div>
+        <div class="c-csrbdb mt20 clearfix">
+            <attention list="{{list}}"></attention>
+            <!-- <a class="c-csrbdba c-htbdbb  fs14 cf left ml20" href="javascript:void (0)" ng-click="gcShowWin(true)">转移</a> -->
+            <!-- <a class="c-csrbdba c-htbdbb  fs14 cf left" href="javascript:void (0)" ng-click="gcShowWin(false)">共享</a> -->
+            <div class="c-csrbdinp right clearfix">
+                <i class="c-iconfont mt8 ml10 left curpoi" ng-click="search()"></i>
+                <input class="ml10 left" type="text" placeholder="请输入业权人名称" ng-model="searchVal">
+            </div>
+        </div>
+        <div class="c-csrbdc mt20">
+            <p class="c-csrbdcpa pl30 fs16 c3 clearfix">
+                <span class="left">筛选</span>
+                <a class="right maincolor mr30 c-spgltcl" href="javascript:void (0)" ng-click="pullUp()" ng-bind="PullUpText"></a>
+            </p>
+            <div class="c-spgltclshow" ng-if="PullUpShow">
+                <p class="fs14 c6 pl30 clearfix">
+                    <span class="left c-spgltsp">还建物业：</span>
+                    <span class="left">
+                            <input class=" c-csrbdcinp c-htcbox" type="radio" name="isAccomplish" value="" ng-model="isAccomplish" ng-click="radiosall()">全部
+                        </span>
+                    <span class="left ml45" ng-repeat="i in chockboxArr">
+                        <input class=" c-csrbdcinp c-htcbox" type="radio" name="isAccomplish" value="isAccomplish"  ng-model="i.status" ng-click="radios(i.status,$index)">{{i.name}}
+                    </span>
+                    
+                </p>
+            </div>
+
+
+        </div>
+
+        <div class="l-managetable mt20" ng-if="rows.length>0?true:false">
+            <div class="l-managetable c-bordere6">
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th>业权人</th>
+                        <th>联系电话</th>
+                        <th>住宅还建面积</th>
+                        <th>商业还建面积</th>
+                        <th>其它还建面积</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="i in rows">
+                        <td><a ui-sref="builtDetails({projectid:projectId,roomId:i.propertyId})"><span ng-bind="i.holderName||no"></span></a></td>
+                        <td ng-bind="i.relationPhone||no"></td>
+                        <td ng-bind="i.houseBuiltArea+'m²'||no"></td>
+                        <td ng-bind="i.bizBuiltArea+'m²'||no"></td>
+                        <td ng-bind="i.otherBuildArea+'m²'||no"></td>
+                        <td ng-bind="i.is_accomplish===1?'已完成':'未完成'"></td>
+                        <td class="l-tablelink" >
+                            <a href="javascript:void(0)" ng-click="dataFollowUp(i.propertyId,$index)">跟进</a>
+                            <a ui-sref="builtDetails({projectid:projectId,roomId:i.propertyId})">详情</a>
+                        </td>
+                    </tr>
+
+
+                </table>
+            </div>
+        </div>
+        <div class="l-page fs12 tr pt20 pb30 lh30">
+            <div ui-pagination conf="conf"></div>
+        </div>
+
+        <div class="l-managetable mt20 tc" ng-if="rows.length>0?false:true">
+            暂无数据
+        </div>
+    </div>
+
+    <!--添加跟进信息-->
+    <add-follow-alert listtop="{{listtop}}" action="action" my-follow="myajax()" my-location="mylocation()"></add-follow-alert>
+    <!--转移和共享-->
+    <transfer listtop="{{listtop}}" transferclick="transferclick"></transfer>
+
+</div>
+

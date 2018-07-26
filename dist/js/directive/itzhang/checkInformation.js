@@ -1,0 +1,1 @@
+"use strict";angular.module("app").directive("appCheckInformation",["cache",function(e){return{restrict:"A",replace:!0,templateUrl:"view/template/itzhang/checkinformation.html"}}]);

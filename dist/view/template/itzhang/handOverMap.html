@@ -1,0 +1,50 @@
+<app-head></app-head>
+
+<div app-left></div>
+
+<div class="l-rightsider pb55">
+    <div class="pl15 pr18 pt15 pb15">
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <top-pact-information list="{{list}}"></top-pact-information>
+        </div>
+
+        <!--7个格子-->
+        <ul class="c-chbul h-cwgispxx mt15 back-white clearfix">
+            <li class="left"><a class="tc disblock ahover zj-NavAColor"  ui-sref="handOverDetails({projectid:projectId,roomId:roomId})">总览</a></li>
+            <li class="left"><a class="tc disblock ahover zj-NavAColor"  ui-sref="handOverInformation({projectid:projectId,roomId:roomId})">移交信息</a></li>
+            <li class="left"><a class="tc disblock ahover " ui-sref="handOverMap({projectid:projectId,roomId:roomId})">测绘信息</a></li>
+            <li class="left"><a class="tc disblock ahover zj-NavAColor" ui-sref="handOverOwner({projectid:projectId,roomId:roomId})">业权人</a></li>
+            <li class="left"><a class="tc disblock ahover zj-NavAColor" ui-sref="handOverAttachment({projectid:projectId,roomId:roomId})">物业附件</a></li>
+        </ul>
+
+        <!--three-->
+        <div class="clearfix">
+            <h6 class="fs16 c0 mt24 mb20 fl">测绘信息</h6>
+        </div>
+        <!--测绘信息-->
+        <div class="bgf pl30 pt20 pb40 pos-rel clearfix">
+            <div class="b-r-f9f9f9 left m-chxxl">
+                <examine-show listtop="{{listtop}}"></examine-show>
+            </div>
+            <div class="right m-chxxr">
+                <!--右侧图片-->
+                <div class=" pos-abs r8- j-rigImg">
+                    <h6 class="c0 mb30">物业图片</h6>
+                    <examine-img-show listtop="{{listtop}}"></examine-img-show>
+                </div>
+                <!--右侧测绘进度-->
+                <div class=" pos-abs r9- j-rigImg">
+                    <h6 class="c0 mb30">测绘进度</h6>
+                    <div class=" ml15">
+                        <room-attachment listtop="{{listtop}}"></room-attachment>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--main end-->
+    </div>
+</div>
+
+
+

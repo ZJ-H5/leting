@@ -1,0 +1,70 @@
+<app-head></app-head>
+
+<div app-left></div>
+<div class="l-rightsider pb55">
+    <div class="pl15 pr18 pt15 ha pb15">
+        <!--顶部关注-->
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+                <top-pact-information list="{{list}}"></top-pact-information>
+        </div>
+        <!--10个格子-->
+        <table class="table table-bordered bg3 mt15">
+            <tbody class="tc c0">
+            <tr class="h40  tc lh40 bgf c6" align="justify">
+                <td class=""><a href="#/propertyDetail?roomId={{roomId}}&projectid={{projectId}}"  title="总览" class=" j-blur-a j-blur-as " >&nbsp;&nbsp;&nbsp;总览&nbsp;&nbsp;&nbsp;</a></td>
+                <td class=""><a href="#/BasicInformationPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="基本信息" class=" j-blur-a j-blur-as">基本信息</a></td>
+                <td class=""><a href="#/surveyingInformation?roomId={{roomId}}&projectid={{projectId}}" title="测绘信息" class=" j-blur-a j-blur-as ">测绘信息</a></td>
+                <td class=""><a href="#/compensateProperty?roomId={{roomId}}&projectid={{projectId}}" title="补偿方案" class=" j-blur-a j-blur-as">补偿方案</a></td>
+                <td class=""><a href="#/PropertyManagementPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="业权人" class=" j-blur-a j-blur-as">业权人</a></td>
+                <td class=""><a href="#/checkingFalse?roomId={{roomId}}&projectid={{projectId}}" title="查违信息" class=" j-blur-a j-blur-as">查违信息</a></td>
+                <td class=""><a href="#/LostPropertyManagementPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="关联物业" class=" j-blur-a j-blur-as">关联物业</a></td>
+                <td class=""><a href="#/enclosure?roomId={{roomId}}&projectid={{projectId}}" title="附件" class=" j-blur-a j-blur-as" style="color: #4ea4df;">&nbsp;&nbsp;&nbsp;附件&nbsp;&nbsp;&nbsp;</a></td>
+                <td class=""><a href="#/amendantRecord?roomId={{roomId}}&projectid={{projectId}}" title="修改记录" class=" j-blur-a j-blur-as" >修改记录</a></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!--three-->
+        <h1 class="fs16 mt25">附件 <span class="ml5">共{{length?length:0}}个</span></h1>
+        <div ng-repeat="l in lists">
+            <div class="clearfix  back-white mt20 pt5 pr5">
+                <h1 class="fs16 mt5 ml30 fl">{{l.name}}</h1>
+                <div class="right mr30">
+                 <span class="btn btn-info fileinput-button radius5 ">
+                     <span>添加附件</span>
+                          <input ng-file-select="addannex($files,l.type)" multiple type="file"/>
+                     </span>
+                </div>
+            </div>
+
+            <div class="l-managetable">
+                <table class="l-tablebox h-tablebox fs13 " cellpadding="0" cellspacing="0" width="100%">
+                    <tr class="h50 born hbtntr hbtntrs l-tablebox h-tablebox w100-">
+
+                        <th style="width: 45%">文件名称</th>
+                        <th style="width: 25%">上传时间</th>
+                        <th style="width: 15%">上传人</th>
+                        <th style="width: 15%">操作</th>
+                    </tr>
+                    <tr class="h-white" ng-repeat="p in l.propertyAttachments">
+                        <!--<td><span class="h-fathersprite h-childerone mt10"></span></td>-->
+                        <!--<span class="h-fathersprite h-childerthree mr20  h-dsp"></span>-->
+                        <td style="width:40%;"><a href="{{host+p.propertyAttachmentUrl}}" target="_blank">{{p.propertyAttachmentName}}</a></td>
+                        <td style="width:25%;">{{p.createTime|date:'yyyy-MM-dd hh-mm-ss'}}</td>
+                        <td style="width:20%;">{{p.createUser}}</td>
+                        <td class="l-tablelink zjm-w15">
+                            <a href="{{link}}" ng-click="downenclosure(p.id)">下载</a>
+                            <!--<a href="">重新上传</a>-->
+                            <a href="" ng-click="deleteenclosure(p.id)">删除</a>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+

@@ -1,0 +1,96 @@
+<div class="c-ftop c-fdbxm">
+    <div class="container clearfix">
+        <div class="left mt15">
+            <a ui-self="main"><img src="image/c-logoa.png"></a>
+        </div>
+        <div class="right">
+            <ul class="clearfix">
+                <li class="left">
+                    <a class="c-ftopa cf tc disinblock" href="#/main">首页</a>
+                </li>
+                <!-- <li class="left">
+                    <a class="c-ftopa  cf tc disinblock" href="#/showProject">代表项目</a>
+                </li> -->
+                <li class="left">
+                    <a class="c-ftopa cf tc disinblock" href="#/objective" ng-bind="brandintroduced"></a>
+                </li>
+                <!-- <li class="left">
+                    <a class="c-ftopa cf tc disinblock" href="#/positioning">战略定位</a>
+                </li> -->
+                <li class="left">
+                    <a class="c-ftopa  cf tc disinblock  c-ftopacur" href="#/laws">政策法规</a>
+                </li>
+                <li class="left">
+                    <a class="c-ftopa  cf tc disinblock" href="#/news">新闻动态</a>
+                </li>
+                <li class="left">
+                    <a class="c-ftopa  cf tc disinblock" ng-click="login()" ng-bind="nickname||'登录'"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="c-fbody">
+    <div class="bgc-z c-fbodyb">
+        <div class="container c-fbodybig " ng-class="{'h386':lawsTypeList.length>0?false:true}">
+            <h2 class="tc fs30 c3 mt75">政策法规</h2>
+            <!-- <p class="tc c3 h-syone fs18 mt10">POLICIES AND REGULATIONS</p> -->
+            <!-- <p class="fs18 lh2 tc mt30 mb30">
+                    城乡社区是社会治理的基本单元。城乡社区治理事关党和国家大政方针贯彻落实，事关居民群众切身利益，事关城乡
+                    基层和谐稳定。为实现党领导下的政府治理和社会调节，居民自治良性互动，全面提升城乡社区治理法治化，科学化，
+                    精细化水平和组织化程度，促进城乡社区治理体系和治理能力现代化，现就加强和完善城乡社区治理提出以下意见。
+                </p>  -->
+            <div class="clearfix mb100 mt75" ng-if="lawsTypeList.length>0">
+                <div class="fl h-zcfgone">
+                    <ul>
+                        <li class="tal pl60" ng-class="{'lawsHover':$index==isType}" ng-repeat="item in lawsTypeList" ng-click="searDate(item.id,$index)"
+                            style="cursor:pointer">
+                            <em>{{$index+1}}/</em>{{item.typeName}}</li>
+                    </ul>
+                </div>
+                <div class="h-zcfgfrone fr gc_lawContent">
+                    <p ng-if="detailFlag" class="gc_con" ng-repeat="item in lawsInfoList" ng-click="showDetail(item)">
+                        <a href="" class="c333">{{item.title}}</a>
+                    </p>
+                    <div ng-if="!detailFlag" class="pl20 pt20 pb20 pr20">
+                        <div class="tc fs18 c333">{{isLaws.title}}</div>
+                        <div class="fs16 c333 lh25" ng-bind-html="isLaws.content | parseHTML"></div>
+                        <div>下载附件：<a  ng-href="{{imgHost+imgUrl}}" download="" target="_blank">{{title}}</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="c-fbottom fs16">
+        <div class="container c-fbodybig">
+            <div class="clearfix pt35 c-fbottoma">
+                <div class="left c-fbottomal mb50">
+                    <p class="mb50">
+                        <a class="c-fbottomala mr40" href="#/main">首页</a>
+                        <a class="c-fbottomala mr40" href="#/objective" ng-bind="brandintroduced"></a>
+                        <a class="c-fbottomala mr40" href="#/laws">政策法规</a>
+                        <a class="c-fbottomala mr40" href="#/news">新闻动态</a>
+                    </p>
+                    <p class="mb15">
+                        <i class="mr10 disinblock c-fbottomalia"></i>zhoujl@szyungu.com
+                    </p>
+                    <p class="mb15">
+                        <i class="mr10 disinblock c-fbottomalib"></i>深圳市龙岗区坂田街道风门坳一区27号
+                    </p>
+                </div>
+                <div class="left c-fbottomar clearfix">
+                    <div class="ml55 left">
+                        <p class="lh28 ml25">咨询热线：</p>
+                        <h2 class="fs24 ml25"><span ng-bind="mobile"></span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="c-fbottomb clearfix">
+                <div class="left lh65">
+                    <span class="mr50">深圳智慧园区信息技术有限公司 版权所有 © 2011-2016</span>
+                    <span>粤ICP备14058468号</span>
+                </div>
+            </div>
+        </div>
+    </div>

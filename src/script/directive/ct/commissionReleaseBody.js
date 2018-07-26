@@ -1,0 +1,8 @@
+'use strict';
+angular.module('app').directive('appCommissionReleaseBody', ['cache', function(cache){
+    return {
+        restrict: 'A',
+        replace: true,
+        templateUrl: 'view/template/ct/commissionReleaseBody.html',
+    };
+}]);

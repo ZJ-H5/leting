@@ -1,0 +1,337 @@
+<app-head></app-head>
+
+<div app-left></div>
+
+<!--main-->
+<div class="l-rightsider pb55">
+    <div class="pl15 pr18 pt15 pb15">
+
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <top-pact-information list="{{list}}"></top-pact-information>
+        </div>
+
+        <!--7个格子-->
+        <ul class="c-chbul h-cwgispxx mt15 back-white clearfix">
+            <li class="left"><a class="tc disblock ahover zj-NavAColor"  ui-sref="builtDetails({projectid:projectId,roomId:roomId})">总览</a></li>
+            <li class="left"><a class="tc disblock ahover "  ui-sref="builtInformation({projectid:projectId,roomId:roomId})">还建信息</a></li>
+            <li class="left"><a class="tc disblock ahover zj-NavAColor" ui-sref="builtOwner({projectid:projectId,roomId:roomId})">业权人</a></li>
+            <li class="left"><a class="tc disblock ahover zj-NavAColor" ui-sref="builtCompensate({projectid:projectId,roomId:roomId})">补偿方案</a></li>
+            <li class="left"><a class="tc disblock ahover zj-NavAColor" ui-sref="builtAttachment({projectid:projectId,roomId:roomId})">物业附件</a></li>
+        </ul>
+        <!--下面主体-->
+        <h1 class="fs16 c3 h-shja">还建信息</h1>
+        <div class="mt15 mb20 h-border back-white pb80 pl20 pr20">
+            <div class="l-managetable mt20" ng-if="rows.length>0?true:false">
+                <div class="l-managetable c-bordere6">
+                    <table  style="border:1px solid #ddd;" class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                        <tr style="border-bottom:1px solid #ddd;">
+                            <th style="background-color:#e3f5ff;border-right:1px solid #ddd;" colspan="2">合同还建信息</th>
+                            <th style="background-color:#e3f5ff;border-right:1px solid #ddd;" colspan="2">合同还建协议</th>
+                            <th style="background-color:#e3f5ff;" colspan="8">合同还建信息</th>
+                        </tr>
+                        <tr style="border-bottom:1px solid #ddd;">
+                            <th>还建类型</th>
+                            <th style="border-right:1px solid #ddd;">还建期数</th>
+                            
+                            <th>还建位置</th>
+                            <th style="border-right:1px solid #ddd;">还建面积</th>
+
+                            <th>还建房源面积</th>
+                            <th>还建房源单价</th>
+                            <th>还建房源差价补偿金额</th>
+                            <th>还建协议签署时间</th>
+                            <th>截留款项目名称</th>
+                            <th>截留款项目当前金额</th>
+                            <th>结算还建项目金额</th>
+                            <th>操作</th>
+                        </tr>
+                        <tr ng-repeat="i in rows">
+                            <td>{{i.type}}</td>
+                            <td  style="border-right:1px solid #ddd;" ng-bind="i.period+'期'"></td>
+                            
+                            <td>{{i.houseBuilt}}
+                                <a ng-click="edit($index,0)" ng-if="!i.houseBuilt&&!i.flagArr[0]" class="c4da">{{no}}</a>
+                                <span ng-if="i.flagArr[0]">
+                                    <input ng-model="obj.houseBuilt" type="text" class="bor1c test2 w125 h30">
+                                    <a ng-click="submit('houseBuilt',i.id)">提交</a>
+                                </span>
+                            </td>
+                            <td  style="border-right:1px solid #ddd;" ng-bind="i.builtArea+'m²'"></td>
+                            <td>{{i.builtHouseArea?i.builtHouseArea+'m²':''}}
+                                <a ng-click="edit($index,1)" ng-if="!i.builtHouseArea&&!i.flagArr[1]" class="c4da">{{no}}</a>
+                                <span ng-if="i.flagArr[1]">
+                                    <input ng-model="obj.builtHouseArea" type="text" class="bor1c test2 w125 h30">
+                                    <a ng-click="submit('builtHouseArea',i.id)">提交</a>
+                                </span>
+                            </td>
+                            <td>{{i.builtHousePrice?i.builtHousePrice+'元':''}}
+                                <a ng-click="edit($index,2)" ng-if="!i.builtHousePrice&&!i.flagArr[2]" class="c4da">{{no}}</a>
+                                <span ng-if="i.flagArr[2]">
+                                    <input ng-model="obj.builtHousePrice" type="text" class="bor1c test2 w125 h30">
+                                    <a ng-click="submit('builtHousePrice',i.id)">提交</a>
+                                </span>
+                            </td>
+                            <td>{{i.builtCompensateMoney?i.builtCompensateMoney+'元':''}}
+                                <a ng-click="edit($index,3)" ng-if="!i.builtCompensateMoney&&!i.flagArr[3]" class="c4da">{{no}}</a>
+                                <span ng-if="i.flagArr[3]">
+                                    <input ng-model="obj.builtCompensateMoney" type="text" class="bor1c test2 w125 h30">
+                                    <a ng-click="submit('builtCompensateMoney',i.id)">提交</a>
+                                </span>
+                            </td>
+                            <td>{{i.agreeTime?(i.agreeTime|date:'yyyy-MM-dd'):''}}<a ng-click="selTime(i.id)" ng-if="!i.agreeTime"  class="c4da">{{no}}</a></td>
+                            <td class="relative mylook">
+                                <a ng-mouseenter="i.show=true" ng-mouseleave="i.show=false" href="javascript:void(0)" ng-if="i.financialName">查看</a>
+                                <span ng-if="!i.financialName">自动读取</span>
+                                <!--查看的付款依据-->
+                                <div class="gc_titles radius5" ng-show="i.show">
+                                    {{i.financialName||'暂无数据'}}
+                                </div>
+                            </td>
+                            <td>{{(i.retentProjectMoney!=null)?(i.retentProjectMoney+'元'):'自动读取'}}</td>
+                            <td>{{(i.retentProjectMoney!=null&&i.retentProjectMoney!=null)?((i.builtCompensateMoney-i.retentProjectMoney)+'元'):'自动读取'}}</td>
+                            <td>
+
+                                <a href="javascript:;" ng-click="addupdate($index)" ng-show="!i.attachmentList">添加</a>
+                                <a href="javascript:;" ng-click="editupdate($index)" fileLenth="{{i.flagArr.length}}" ng-show="i.attachmentList">修改</a>
+
+                                <a href="javascript:;" ng-click="look($index)">查看</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="l-page fs12 tr pt20 pb30 lh30">
+                    <div ui-pagination conf="conf"></div>
+                </div>
+            </div>
+
+            <div class="l-managetable mt20 tc" ng-if="rows.length>0?false:true">
+                暂无数据
+            </div>
+        </div>
+    </div>
+</div>
+<!--main end-->
+<!--修改还建协议签署时间-->
+<div class="dialog editupdate">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius    hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">还建信息查看</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt20 pl30 pr30 h600 oveaut">
+                <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th class="pl30 maincolor">租客清退时间：</th>
+                        <td>
+                            <span class="h40 dis-inlBlo bgf relative mt6 c-spgltspb pointer tc" style="width: 170px;">
+                                    <input type="text" class="zjchildData3 h100-" placeholder="选择开始时间" ng-model="repayingStartTime|date:'yyyy-MM-dd'">
+                                    <i class="c-iconfont c-spgltspi zjparentData3" style="top:12px;right: 10px;" ng-click="alertData('zjchildData3','zjparentData3',1)"></i>
+                                </span>
+                            <span class="h40 dis-inlBlo ml15 mr15">至</span>
+                            <span class="h40 dis-inlBlo bgf relative mt6 c-spgltspb pointer tc" style="width: 170px;">
+                                    <input type="text" class="zjchildData4 h100-" placeholder="选择结束时间" ng-model="(repayingEndTime|date:'yyyy-MM-dd')">
+                                    <i class="c-iconfont c-spgltspi zjparentData4" style="top:12px;right: 10px;" ng-click="alertData('zjchildData4','zjparentData4')"></i>
+                                </span>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">搬迁盘点金额：</th>
+                        <td><input type="text"
+                                   class="l-input h-inputone border w170"
+                                   ng-model="movingInventory"
+                                   placeholder="请输入......"/>
+                            <!--<span class="cred ml20" ng-if="addflag.address">*请输入搬迁盘点金额</span>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">资产评估金额：</th>
+                        <td><input type="text"
+                                   class="l-input h-inputone border w170"
+                                   ng-model="assetEvaluation"
+                                   placeholder="请输入......"/>
+                            <!--<span class="cred ml20" ng-if="addflag.address">*请输入>资产评估金额</span>-->
+                        </td>
+                    </tr>
+                    <tr class="mt40">
+                        <th width="15%" class="pl30 maincolor h130">附件：</th>
+                        <td colspan="2" class="clearfix">
+                            <span class="fl mr15" ng-repeat="i in fileArr">
+                                <em ng-bind="i.fileName"></em>
+                                <a ng-click="fileArrDel($index)">删除</a>
+                            </span>
+                            <span class=" mr50  right mt10 pos-rel">
+                                <input type="file" class="zj-faqishijianfile" multiple name="upload" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"  onchange="angular.element(this).scope().fileNameChanged(event)">
+                                <a href="javascript:void(0)" class="l-addbnt iconfont zj-faqishijianfileclick"></a>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius" ng-click="addsave()">确认</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--查看还建协议签署时间-->
+<div class="dialog industrialshow">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius    hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">还建信息查看</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt20 pl30 pr30 h600 oveaut">
+                <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+
+                    <tr>
+                        <th class="pl30 maincolor">租客清退时间：</th>
+                        <td>
+                            <span class="h40 dis-inlBlo bgf relative mt6 c-spgltspb pointer tc" style="width: 170px;">
+                                <div class="childData1 h100- lh40" ng-bind="(repayingStartTime|date:'yyyy-MM-dd')||nos"></div>
+                                    <i class="c-iconfont c-spgltspi parentData1" style="top:12px;right: 10px;" ng-click="alertData('childData1','parentData1',1)"></i>
+                                </span>
+                            <span class="h40 dis-inlBlo ml15 mr15">至</span>
+                            <span class="h40 dis-inlBlo bgf relative mt6 c-spgltspb pointer tc" style="width: 170px;">
+                                <div class="childData2 h100- lh40" ng-bind="(repayingEndTime|date:'yyyy-MM-dd')||nos"></div>
+                                    <i class="c-iconfont c-spgltspi parentData2" style="top:12px;right: 10px;" ng-click="alertData('childData2','parentData2')"></i>
+                                </span>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">搬迁盘点金额：</th>
+                        <td><div class="l-input h-inputone border w170" ng-bind="movingInventory||nos"></div>
+                            <!--<span class="cred ml20" ng-if="addflag.address">*请输入搬迁盘点金额</span>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">资产评估金额：</th>
+                        <td><div class="l-input h-inputone border w170" ng-bind="assetEvaluation||nos"></div>
+                            <!--<span class="cred ml20" ng-if="addflag.address">*请输入>资产评估金额</span>-->
+                        </td>
+                    </tr>
+                    <tr class="mt40">
+                        <th width="15%" class="pl30 maincolor h130">附件：</th>
+                        <td colspan="2" class="clearfix">
+                            <span class="fl mr15" ng-repeat="i in fileArr">
+                                <a href="{{hostname+i.filePath}}"><em ng-bind="i.fileName"></em></a>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius" ng-click="addsave()">确认</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--添加还建协议签署时间-->
+<div class="dialog industrialPlant">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius    hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">还建信息添加</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt20 pl30 pr30 h600 oveaut">
+                <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+
+                    <tr>
+                        <th class="pl30 maincolor">租客清退时间：</th>
+                        <td>
+                            <span class="h40 dis-inlBlo bgf relative mt6 c-spgltspb pointer tc" style="width: 170px;">
+                                    <input type="text" class="zjchildData1 h100-" placeholder="选择开始时间">
+                                    <i class="c-iconfont c-spgltspi zjparentData1" style="top:12px;right: 10px;" ng-click="alertData('zjchildData1','zjparentData1',1)"></i>
+                                </span>
+                            <span class="h40 dis-inlBlo ml15 mr15">至</span>
+                            <span class="h40 dis-inlBlo bgf relative mt6 c-spgltspb pointer tc" style="width: 170px;">
+                                    <input type="text" class="zjchildData2 h100-" placeholder="选择结束时间">
+                                    <i class="c-iconfont c-spgltspi zjparentData2" style="top:12px;right: 10px;" ng-click="alertData('zjchildData2','zjparentData2')"></i>
+                                </span>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">搬迁盘点金额：</th>
+                        <td><input type="text"
+                                   class="l-input h-inputone border w170"
+                                   ng-model="movingInventory"
+                                   placeholder="请输入......"/>
+                            <!--<span class="cred ml20" ng-if="addflag.address">*请输入搬迁盘点金额</span>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">资产评估金额：</th>
+                        <td><input type="text"
+                                   class="l-input h-inputone border w170"
+                                   ng-model="assetEvaluation"
+                                   placeholder="请输入......"/>
+                            <!--<span class="cred ml20" ng-if="addflag.address">*请输入>资产评估金额</span>-->
+                        </td>
+                    </tr>
+                    <tr class="mt40">
+                        <th width="15%" class="pl30 maincolor h130">附件：</th>
+                        <td colspan="2" class="clearfix">
+                            <span class="fl mr15" ng-repeat="i in fileArr">
+                                <em ng-bind="i.fileName"></em>
+                                <a ng-click="fileArrDel($index)">删除</a>
+                            </span>
+                            <span class=" mr50  right mt10 pos-rel">
+                                <input type="file" class="zj-faqishijianfile" multiple name="upload" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"  onchange="angular.element(this).scope().fileNameChanged(event)">
+                                <a href="javascript:void(0)" class="l-addbnt iconfont zj-faqishijianfileclick"></a>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius" ng-click="addsave()">确认</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--添加还建协议签署时间-->
+<div class="dialog hopbntshare2">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w754 radius hop-cont">
+        <div class="back-white">
+            <h3 class="c-xmxqlh border-bottom pl35 fs16 c3">添加还建协议签署时间
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15 mr35"></a></h3>
+            <div class="c-xmxqlt c-wyxqlt pl35 pr35 pb20 bgf clearfixf pt30">
+                <div class="fs16 c333 lh30">还建协议签署时间：{{agreeTime}}
+                    <span ng-if="!agreeTime">
+                        <a ng-click="addTime('test3','test4')" class="test4">请添加</a>
+                        <span class="test4" style="display:none">
+                            <input ng-model="obj.agreeTime" type="text" class="test3 bor1c">
+                            <a ng-click="isTime('test3')">提交</a>
+                        </span>
+                    </span>
+                </div>
+                <div class="fs16 c333 lh30 mt20">截留款项目选择：</div>
+                <div class="clearfix">
+                    <div class="left ml20 mt10" ng-repeat="i in financialList">
+                        <input type="checkbox" ng-model="financialList[$index].checkbox" ng-click="checkboxFn()"><span class="ml5">{{i.name}}</span>
+                    </div>
+                </div>
+                <div class="c-adfybtn mt25 ml50 clearfix pb30">
+                    <a class="c-adfybtna mr20 cf left"  ng-click="submitFinancial()">保存</a>
+                    <a class="c-adfybtnb mr20 cf left dialog-close" >取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,190 @@
+<app-head></app-head>
+
+<div app-left></div>
+
+<div class="l-rightsider pb55">
+    <!--失联物业（物业管理）-->
+    <div class="pl15 pr18 pt15 ha pb15">
+        <!--first-->
+        <!--顶部关注-->
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+                <top-pact-information list="{{list}}"></top-pact-information>
+        </div>
+        <!--10个格子-->
+        <table class="table table-bordered bg3 mt15">
+            <tbody class="tc c0">
+            <tr class="h40  tc lh40 bgf c6" align="justify">
+                <td class=""><a href="#/propertyDetail?roomId={{roomId}}&projectid={{projectId}}"  title="总览" class=" j-blur-a j-blur-as " >&nbsp;&nbsp;&nbsp;总览&nbsp;&nbsp;&nbsp;</a></td>
+                <td class=""><a href="#/BasicInformationPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="基本信息" class=" j-blur-a j-blur-as">基本信息</a></td>
+                <td class=""><a href="#/surveyingInformation?propertyId={{roomId}}&projectid={{projectId}}" title="测绘信息" class=" j-blur-a j-blur-as ">测绘信息</a></td>
+                <td class=""><a href="#/compensateProperty?roomId={{roomId}}&projectid={{projectId}}" title="补偿方案" class=" j-blur-a j-blur-as">补偿方案</a></td>
+                <td class=""><a href="#/PropertyManagementPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="业权人" class=" j-blur-a j-blur-as">业权人</a></td>
+                <td class=""><a href="#/checkingFalse?roomId={{roomId}}&projectid={{projectId}}" title="查违信息" class=" j-blur-a j-blur-as">查违信息</a></td>
+                <td class=""><a href="#/LostPropertyManagementPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="关联物业" class=" j-blur-a j-blur-as" style="color: #4ea4df;">关联物业</a></td>
+                <td class=""><a href="#/enclosure?roomId={{roomId}}&projectid={{projectId}}" title="附件" class=" j-blur-a j-blur-as">&nbsp;&nbsp;&nbsp;附件&nbsp;&nbsp;&nbsp;</a></td>
+                <td class=""><a href="#/amendantRecord?roomId={{roomId}}&projectid={{projectId}}" title="修改记录" class=" j-blur-a j-blur-as" >修改记录</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <!--three-->
+        <div class="clearfix">
+            <h1 class="fs16 mt25 fl">关联物业</h1>
+            <button type="button" class="btn-primary fr mt20 w125 h30 "  ng-click="showBox()">关联物业</button>
+        </div>
+
+        <div class="l-managetable mt20">
+            <table class="l-tablebox h-tablebox fs13 " cellpadding="0" cellspacing="0" width="100%" ng-show="datas.length>0?true:false">
+                <tr class="h50 born hbtntr hbtntrs l-tablebox h-tablebox">
+                    <th>区域</th>
+                    <th>房产名称</th>
+                    <th>物业地址</th>
+                    <th>业权人</th>
+                    <th>户籍</th>
+                    <th>总建筑面积</th>
+                    <th>住宅</th>
+                    <th>擅改商业</th>
+                    <th>临建</th>
+                    <th>违建</th>
+                    <th>进展情况</th>
+                    <th>操作</th>
+                </tr>
+                <tr  ng-repeat="i in datas">
+                    <td ng-bind="i.category?i.category:no"></td>
+                    <td ng-bind="i.splitJointName?i.splitJointName:no"></td>
+                    <td ng-bind="i.address?i.address:no"></td>
+                    <td ng-bind="i.holderName?i.holderName:no"></td>
+                    <td ng-bind="i.placeOrigin?i.placeOrigin:no"></td>
+                    <td ng-bind="i.grossArea?i.grossArea+'㎡':no"></td>
+                    <td ng-bind="i.houseArea?i.houseArea+'㎡':no"></td>
+                    <td ng-bind="i.commerceArea?i.commerceArea+'㎡':no"></td>
+                    <td ng-bind="i.temporaryArea?i.temporaryArea+'㎡':no"></td>
+                    <td ng-bind="i.violateArea?i.violateArea+'㎡':no"></td>
+                    <td ng-bind="i.name?i.name:no"></td>
+                    <td class="l-tablelink">
+                        <a href="javascript:;" ng-click="dataFollowUp(i.relatedRoomId)">跟进</a>
+                        <a href="javascript:;" ng-click="dataDelete(i.id,$index)">删除</a>
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+        <div ng-show="datas.length<=0?true:false" style="width: 100% ;height: 100px;border: 1px solid #ccc; text-align: center;line-height: 100px;">暂无关联物业，您可以立即
+            <a class="maincolor"  href="javascript:;" ng-click="showBox('letbox')">关联物业</a>
+        </div>
+
+        
+    </div>
+    <div class="dialog notealert">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w754 radius hop-cont">
+            <div class="back-white">
+                <h3 class="c-xmxqlh pl35 fs16 c3">请填写备注信息
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15 mr35"></a></h3>
+                <div class="c-xmxqlt c-wyxqlt pl35 pr35 pb20 bgf clearfixf">
+                    <form action="" name="form"></form>
+                    <p class="lh38 c-bordere6 radius5 mt15 pl15 pr15 clearfix">
+                        <textarea name="form" class=" radius5 mt20" ng-model="noteText" placeholder="请输入内容"></textarea>
+                    </p>
+                    <div class="c-adfybtn mt25 ml50 clearfix pb30">
+                        <a class="c-adfybtna mr20 cf left" ng-click="notevalue(noteText)">保存</a>
+                        <a class="c-adfybtnb mr20 cf left dialog-close" href="" onclick="hopruletab('letbox')">取消</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="dialog letbox" style="z-index: 9999;">
+            <div class="dialog-bg"></div>
+            <div class="dialog-cont radius hop-cont" style="width: 95%;">
+                <div class="bgc">
+                    <!--筛选-->
+                    <div class="c-csrbdc">
+                        <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                            <em class="left fs18 c3">关联列表</em>
+                            <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                        </h3>
+
+                        <p class="fs14 c6 pl30 clearfix" style="display: flex;align-items: center">
+                            <span class="">筛选：</span>
+                            <span class="c-csrbdinp clearfix dis-inlBlo ml30">
+                                <i class="c-iconfont mt8 ml10 left curpoi" ng-click="searchInput()"></i>
+                                <input class="ml10 left" type="text" placeholder="请输入物业地址" ng-model="searchKeys">
+                            </span>
+                        </p>
+                        <p class="fs14 c6 pl30 clearfix">
+                            <span class="left">区域：</span>
+
+                            <span class="left ml45">
+                                <input type="checkbox" ng-model="selectAll" ng-click="checkobxAll(selectAll,selectchild)">全部
+                            </span>
+                            <span class="left ml45" ng-repeat="i in dataCheckbox">
+                                <input class=" c-csrbdcinp " type="checkbox" ng-click="updateSelection($event,i.id,i.state)" ng-model="i.state">{{i.category}}
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="l-managetable mt20 back-white" ng-show="rows.length>0?true:false" style="overflow: scroll;height: 450px;">
+                        <table class="l-tablebox c-wytabbox fs13" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <th><input type="checkbox" ng-model="childSelectAll" ng-click="childCheckobxAll(childSelectAll)"></th>
+                                <th>区域</th>
+                                <th>房产名称</th>
+                                <th>物业地址</th>
+                                <th>业权人</th>
+                                <th>户籍</th>
+                                <th>总建筑面积</th>
+                                <th>住宅</th>
+                                <th>擅改商业</th>
+                                <th>临建</th>
+                                <th>违建</th>
+                                <th>进展情况</th>
+
+                            </tr>
+                            <tr  ng-repeat="i in rows">
+                                <td><input class="c-csrbdcinp" type="checkbox" ng-click="childUpdateSelection($event,i.id,i.state)" ng-model="i.state" ng-checked="i.state" ></td>
+                                <td ng-bind="i.category?i.category:no"></td>
+                                <td ng-bind="i.splitJointName?i.splitJointName:no"></td>
+                                <td ng-bind="i.address?i.address:no"></td>
+                                <td ng-bind="i.holderName?i.holderName:no"></td>
+                                <td ng-bind="i.placeOrigin?i.placeOrigin:no"></td>
+                                <td ng-bind="i.grossArea?i.grossArea+'m²':no"></td>
+                                <td ng-bind="i.houseArea?i.houseArea+'m²':no"></td>
+                                <td ng-bind="i.commerceArea?i.commerceArea+'m²':no"></td>
+                                <td ng-bind="i.temporaryArea?i.temporaryArea+'m²':no"></td>
+                                <td ng-bind="i.violateArea?i.violateArea+'m²':no"></td>
+                                <td ng-bind="i.name?i.name:no"></td>
+                            </tr>
+                        </table>
+
+                        <div class="mt20 tc" ng-if="rows.length>0?false:true">
+                            没有找到物业数据
+                        </div>
+
+
+                        <div class="l-page fs12 tr pt20 pb30 lh30">
+                            <div ui-pagination conf="conf"></div>
+                        </div>
+
+                        <div class="c-adfybtn mt25 ml50 clearfix pb30">
+                            <a class="c-adfybtna mr20 cf left" href="" ng-click="save()">保存</a>
+                            <a class="c-adfybtnb mr20 cf left dialog-console" href="">取消</a>
+                        </div>
+                    </div>
+
+                    <div ng-show="rows.length<=0?true:false" style="width: 100% ;background: #fff; height: 100px; text-align: center;line-height: 100px;">暂无关联物业数据
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    <!--添加跟进信息-->
+    <follow listtop="{{listtop}}" action="action" my-follow="myajax()" my-location="mylocation()"></follow>
+
+</div>
+
+
+

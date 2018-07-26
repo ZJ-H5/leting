@@ -1,0 +1,47 @@
+<div>
+    <div class="c-csrbdt pt25 col-md-7 col-lg-7 col-sm-7 ">
+        <a class="c-csrbdta fs18 c6 mr35 pl5" ng-bind="patcData.propertyName?patcData.propertyName:no"></a>
+        <div class="mt18 j-BtnDiv clearfix">
+            <a ng-if="acctionName" ng-click="acctionClick(statusId)" href="javascript:;" title="已关注"
+            class="j-blur-c w136 h36 bge3f5ff tc left brrad6 dis-inlBlo">
+                <span class="j-prite j-child-a j-eyse mr2"></span>
+                <span class="lh36">已关注</span>
+            </a>
+            <a ng-if="!acctionName" ng-click="acctionClick(statusId)"  class="c-cqtbtnb radius5 tc cf c-iconfont left" href="javascript:;">关注</a>
+            
+            <!-- ng-disabled="firstParentState"
+            ng-class="{'zjcursordisabled':firstParentState}" -->
+            <button href="javascript:;" 
+            class="c-cqtbtnb radius5 tc cf c-iconfont left ml10"
+            ng-show="Pact" 
+             ng-click="doApplyPact()"
+            
+             >申请制作合同</button>
+        </div>
+    </div>
+    <ul class="col-md-5 col-lg-5 col-sm-5 mt30 mb30 pl40">
+        <li class="lh30">创建人：<span ng-bind="patcData.realname?patcData.realname:no"></span></li>
+        <li class="lh30">创建时间：<span ng-bind="patcData.createTime?(patcData.createTime|date:'yyyy-MM-dd'):no"></span></li>
+        <li class="lh30">最后更新时间：<span ng-bind="patcData.updateTime?(patcData.updateTime|date:'yyyy-MM-dd'):no"></span></li>
+    </ul>
+    <!-- <div>
+        <div class="c-csrbdt pt25 col-md-7 col-lg-7 col-sm-7 ">
+            <a class="c-csrbdta fs18 c6 mr35 pl5" ng-bind="project2.projectName?project2.projectName:no"></a>
+            <p class="ml10 mt15"><span ng-bind="project2.address?project2.address:no"></span> </p>
+            <div class="mt18 j-BtnDiv clearfix">
+                <a ng-if="acctionName" ng-click="acctionClick(statusId)" href="javascript:;" title="已关注"
+                class="j-blur-c w136 h36 bge3f5ff tc left brrad6 dis-inlBlo">
+                    <span class="j-prite j-child-a j-eyse mr2"></span>
+                    <span class="lh36">已关注</span>
+                </a>
+                <a ng-if="!acctionName" ng-click="acctionClick(statusId)"  class="c-cqtbtnb radius5 tc cf c-iconfont left" href="javascript:;">关注</a>
+                <a href="javascript:;" class="c-cqtbtnb radius5 tc cf c-iconfont left ml10" ng-show="Pact" ng-click="doApplyPact()">申请制作合同</a>
+            </div>
+        </div>
+        <ul class="col-md-5 col-lg-5 col-sm-5 mt30 mb30 pl40">
+            <li class="lh30">创建人：<span ng-bind="project2.createName?project2.createName:'暂无数据'"></span></li>
+            <li class="lh30">创建时间：<span ng-bind="project2.createTime?(project2.createTime|date:'yyyy-MM-dd'):'暂无数据'"></span></li>
+            <li class="lh30">最后更新时间：<span ng-bind="project2.updateTime?(project2.updateTime|date:'yyyy-MM-dd'):'暂无数据'"></span></li>
+        </ul>
+    </div> -->
+</div>

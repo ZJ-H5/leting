@@ -1,0 +1,55 @@
+<app-head></app-head>
+<app-left-Column class="disnone"></app-left-Column>
+<div class="pb55 pt55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">物业信息变动提醒</a>
+        </div>
+        <div class=" right relative" style="width:150px;height:35px;right:2px;">
+            <select class="absolute ulshow " style="width:150px;border-radius:5px;height:34px;" ng-model="projectName" ng-change="myFunc2(projectName)"
+                ng-options="l.id as l.projectName for l in searchlist">
+            </select>
+        </div>
+        <div class="c-csrbdinp right  mr20">
+            <i class="c-iconfont mt8 ml10 left" ng-click="sellists(searchProperty)"></i>
+            <input class="ml10 left" type="text" placeholder="搜索物业" ng-model="searchProperty" >
+        </div>
+
+
+
+
+        <div class="l-managetable mt40">
+            <div class="l-managetable c-bordere6">
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th>项目名称</th>
+                        <th>物业名称</th>
+                        <th>最近更新时间</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="i in warm" class="pos-rel">
+                        <td ng-bind="i.projectName||no"></td>
+                        <td ng-bind="i.propertyName||no"></td>
+                        <td ng-bind="i.createTime?(i.createTime |date:'yyyy-MM-dd'):no"></td>
+                        <td class="l-tablelink">
+                            <a ui-sref="amendantRecord({roomId:i.roomId,projectid:i.projectId})" ng-click="shenpi()">查看</a>
+                        </td>
+
+                    </tr>
+
+                </table>
+                <div class="mt20 tc" ng-if="warm.length>0?false:true">暂无数据</div>
+                <div class="l-page fs12 tr pt20 pb30 lh30">
+                    <div ui-pagination conf="conf"></div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+

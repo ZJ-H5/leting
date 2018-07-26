@@ -1,0 +1,38 @@
+<div>
+    <h3 class="c-xmxqlh pl35 fs16 c3">添加 产品 跟踪信息</h3>
+    <div class="c-xmxqlt pl35 pr35 pb20 bgf">
+        <textarea class="mt15 bor radius5 z-resize" style="border: 1px solid #ccc;" placeholder="请输入..." ng-model="textareaVal" maxlength="200"></textarea>
+        <span class="fs12 tr disblock mr20" >最多输入256个字符</span>
+        <!--<div class="relative c-inputfiles pt30 ng-scope mt15" style="">-->
+            <!--<form action="" class="ng-pristine ng-valid">-->
+                <!--<input type="file" class="zj-inputfile pointer importfile" multiple="" accept="" name="fileName" useindx="0" onchange="angular.element(this).scope().fileNameChanged(event)">-->
+            <!--</form>-->
+            <!--<i class="c-wyxqlta c-iconfont pointer mr15 pos-abs t10 l0" ></i>-->
+        <!--</div>-->
+        <div class="mt20 mb20">
+                    <span ng-repeat="i in fileArr" class="dis-inlBlo">
+                        <img class="c-xmxqlbimg disblock" ng-src="{{i.filePath?(imgHost+i.filePath):''}}" width="100" height="100" alt="用户头像">
+                        <a ng-click="fileArrDel($index)" class="w100- disblock tc fs12">删除</a>
+                    </span>
+        </div>
+        <p class="mt15 clearfix">
+            <span class="left">跟踪信息 - 产品</span>
+            <a class="c-xmxqltbtn c-iconfont cf fs16 tc right" ng-click="issue(textareaVal)">发布</a>
+        </p>
+    </div>
+
+
+    <div class="c-xmxqlb bgf mt15 pl35 pr35 clearfix" ng-repeat="i in showMes">
+        <div class="mt20 left">
+            <img class="c-xmxqlbimg bor border50-" ng-src="{{i.photoUrl?headImg+i.photoUrl:localhostimg}}" width="60" alt="用户头像">
+        </div>
+        <div class="mt30 ml15 left">
+            <p class="mb15">
+                <span> <span ng-bind="i.realname"></span> - 项目（<span ng-bind="i.projectName"></span>）</span>
+                <a class="ml20 maincolor" ng-click="delete(i.id,$index)">删除</a>
+            </p>
+            <p class="fs12 c9 mb35"><span ng-bind="i.createTime"></span></p>
+            <p class=" c3 mb35" ng-bind="i.depict"></p>
+        </div>
+    </div>
+</div>

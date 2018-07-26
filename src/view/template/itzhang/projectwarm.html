@@ -1,0 +1,42 @@
+<app-head></app-head>
+<app-left-Column class="disnone"></app-left-Column>
+<div class="pb55 pt55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">项目流程列表</a>
+        </div>
+
+
+
+
+        <div class="l-managetable mt40">
+            <div class="l-managetable c-bordere6">
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th>项目名称</th>
+                        <th>流程名称</th>
+                        <th>预计完成时间</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="i in warm" class="pos-rel">
+                        <td ng-bind="i.projectName||no"></td>
+                        <td ng-bind="i.processName||no"></td>
+                        <td ng-bind="i.planTime?(i.planTime |date:'yyyy-MM-dd'):no"></td>
+                        <td class="l-tablelink">
+                            <a ui-sref="projectProcessInformation({projectid:i.projectId})">查看</a>
+                        </td>
+
+                    </tr>
+
+                </table>
+                <div class="mt20 tc" ng-if="warm.length>0?false:true">暂无数据</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+

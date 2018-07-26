@@ -1,0 +1,122 @@
+<app-head></app-head>
+
+<app-left-Column class="disnone"></app-left-Column>
+
+<div class="pb55 pt65">
+    <!--项目信息-->
+    <div class="pl15 pr18 pt15 pb15">
+        <!--顶部关注-->
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <div class="c-csrbdt pt25 col-md-7 col-lg-7 col-sm-7 ">
+                <top-information listtop="{{listtop}}"></top-information>
+                <div class="mt18 j-BtnDiv clearfix">
+                    <attention list="{{list}}"></attention>
+                    <delete-project list="{{list}}"></delete-project>
+                </div>
+            </div>
+            <right-information listtop="{{listtop}}"></right-information>
+            <!--<div class="c-csrbdt pt25 col-md-7 col-lg-7 col-sm-7 ">
+                <a class="c-csrbdta fs18 c6 mr35 pl5" ng-bind="project.projectName?project.projectName:no"></a>
+                <p class="ml10 mt15"><span ng-bind="project.address?project.address:no"></span></p>
+                <div class="mt18 j-BtnDiv clearfix">
+                    <a href="javascript:;" title="已关注" class="j-blur-c w136 h40 bge3f5ff mr15 tc left brrad6 dis-inlBlo">
+                        <span class="j-prite j-child-a j-eyse mr2"></span>
+                        <span class="lh40">已关注</span>
+                    </a>
+                    &lt;!&ndash;<a href="javascript:;" class="c-cqtbtna radius5 tc mr35 left"> </a>&ndash;&gt;
+                    <a href="javascript:;" class="c-cqtbtnb radius5 tc cf c-iconfont left" ng-click="deleteProject(projectId)">删除项目</a>
+                </div>
+            </div>
+            <ul class="col-md-5 col-lg-5 col-sm-5 mt30 mb30 pl40">
+                <li class="lh30">创建人：<span ng-bind="project.createName?project.createName:no"></span></li>
+                <li class="lh30">创建时间：<span ng-bind="project.createTime|date:'yyyy-MM-dd hh:mm'"></span></li>
+                <li class="lh30">最后更新时间：<span ng-if="project.updateTime">{{project.updateTime|date:'yyyy-MM-dd hh:mm'}}</span>
+                    <span ng-if="project.updateTime==null">{{no}}</span>
+                </li>
+            </ul>-->
+
+        </div>
+        <!--7个格子-->
+        <table class="table table-bordered bg3 mt15">
+            <tbody class="tc c0">
+
+            <tr class="h40  tc lh40 bgf c6" align="justify">
+                <td class=""><a href="#/itemDetails?projectid={{projectId}}"  title="总览" class="j-blur-a j-blur-as maincolor">&nbsp;&nbsp;&nbsp;总览&nbsp;&nbsp;&nbsp;</a>
+                </td>
+                <td class=""><a href="#/itemInformation?projectid={{projectId}}" style="color: #337ab7;" title="基本信息"
+                                class="j-blur-a j-blur-as ">基本信息</a></td>
+                <td class=""><a href="#/projectProcessInformation?projectid={{projectId}}" title="流程进度信息" class="j-blur-a j-blur-as">流程进度信息</a></td>
+                <td class=""><a href="#/propertyInformation?projectid={{projectId}}" title="物业信息" class="j-blur-a j-blur-as">物业信息</a></td>
+                <td class=""><a href="#/projectcompensationRules?projectid={{projectId}}" title="拆迁补偿规则" class="j-blur-a j-blur-as ">拆迁补偿规则</a>
+                </td>
+                <td class=""><a href="#/financialsettlement?projectid={{projectId}}" title="财务结算项目设置" class="j-blur-a j-blur-as ">财务结算项目设置</a>
+                </td>
+                <td class=""><a href="#/projectcommissionrelease?projectid={{projectId}}" title="佣金发放规则" class="j-blur-a j-blur-as " >佣金发放规则</a></td>
+                <td class=""><a href="#/annex?projectid={{projectId}}"  title="附件" class="j-blur-a j-blur-as">附件</a></td>
+                <td class=""><a href="#/projectupdaterecord?projectid={{projectId}}"  title="修改记录" class="j-blur-a j-blur-as">修改记录</a></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!--下面主体-->
+        <div class="mt30 mb20 pl50 pr30 back-white clearfix">
+
+            <div class="c-xmboxa mt15 pb10 clearfix">
+                <h6 class="fs18 c3  fl mt5">项目信息</h6>
+                <!--效果图片和规划图片-->
+                <div class="right">
+                 <span class="btn btn-info fileinput-button radius5 ">
+                     <span>规划图上传</span>
+                          <input ng-file-select="addannex($files,1)" type="file" multiple/>
+                 </span>
+                 <span class="btn btn-info fileinput-button radius5 ">
+                     <span>效果图上传</span>
+                          <input ng-file-select="addannex($files,2)" type="file" multiple/>
+                 </span>
+                </div>
+            </div>
+            <div class="c-xmboxb clearfix">
+                <div class="c-xmboxbl pt20 left">
+                    <p class="lh28">项目名称：<span ng-bind="project.projectName?project.projectName:no"></span></p>
+                    <p class="lh28">项目位置：<span ng-bind="project.address?project.address:no"></span></p>
+                    <p class="lh28">拆除范围占地面积：<span ng-bind="project.areaDemolition?project.areaDemolition+'m²':no"></span></p>
+                    <p class="lh28">规划容积率：<span ng-bind="project.plannedVolumeRatio?project.plannedVolumeRatio:no"></span></p>
+                    <p class="lh28">规划建筑面积：<span ng-bind="project.planningFloorArea?project.planningFloorArea+'m²':no"></span></p>
+                    <!-- 加的形状建筑面积：，暂时没有字段 -->
+                    <p class="lh28">现状建筑面积：<span ng-bind="project.actualityArea?project.actualityArea+'m²':no"></span></p>
+                    <p class="lh28">规划图:<br/>
+                        <a href="{{hostname+a.fileUrl}}" target="_blank" class="att-img mr10 mb10" ng-repeat="a in arr1">
+                            {{a.fileName}}
+                        </a>
+                        <!-- <img ng-src="{{hostname+a.fileUrl}}" alt=""  class=""> -->
+                    </p>
+                    <p class="lh28">效果图:<br/>
+                        <a href="{{hostname+a.fileUrl}}" target="_blank" class="att-img mr10 mb10" ng-repeat="a in arr2">
+                            {{a.fileName}}
+                        </a>
+                        <!-- <img ng-src="{{hostname+l.fileUrl}}" alt="" ng-repeat="l in arr2" class="att-img mr10 mb10"> -->
+                    </p>
+                </div>
+                <div class="c-xmboxbr pt20 left">
+                    <div class="c-xmboxbra mb20">
+                        <p class="lh28">创建人：<span ng-bind="project.createName?project.createName:no"></span></p>
+                        <p class="lh28">创建时间：<span ng-bind="project.createTime?(project.createTime|date:'yyyy-MM-dd'):no"></span></p>
+                        <p class="lh28">最后更新时间：<span ng-bind="project.updateTime?(project.updateTime|date:'yyyy-MM-dd'):no"></span></p>
+                    </div>
+                    <div class="c-xmboxbrb mt45">
+                        <p class="lh28">项目资源</p>
+                        <p class="lh28">栋数量：<span ng-bind="count.count?(count.count+'栋'):no"></span></p>
+                        <!-- 这里改了建筑面积=》基底面积；违建面积=》建筑面积 -->
+                        <p class="lh28">基底面积：<span ng-bind="count.registerArea?count.registerArea+'m²':no"></span></p>
+                        <p class="lh28">建筑面积：<span ng-bind="count.transgressArea?count.transgressArea+'m²':no"></span></p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+

@@ -1,0 +1,109 @@
+<app-head></app-head>
+
+<app-left></app-left>
+<div class="l-rightsider pb55">
+    <div class="pl15 pr18 pt15 pb15">
+        <!--顶部关注-->
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <top-pact-information list="{{list}}"></top-pact-information>
+
+        </div>
+        <!--7个格子-->
+        <table class="table table-bordered bg3 mt15">
+            <tbody class="tc c0">
+                <tr class="h40  tc lh40 bgf c6" align="justify">
+                    <td class="" ng-if="pnumber?true:false"><a ui-sref="surveyingMapping({projectid:projectId,roomId:roomId,approveId:approveId,number:pnumber,flag:pflag,status:pstatus,pactId:pactId,updateStatus:pupdateStatus})"
+                        title="审批信息"  class=" j-blur-a j-blur-as" >审批信息</a></td>
+                    <td class="" ng-if="pnumber?false:true"><a href="#/compactdetail?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}" 
+                        title="总览" class="j-blur-a j-blur-as " >&nbsp;&nbsp;&nbsp;总览&nbsp;&nbsp;&nbsp;</a></td>
+                    <td class=""><a  href="#/compactbasic?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}" title="基本信息" class="j-blur-a j-blur-as ">基本信息</a></td>
+                    <td class=""><a  href="#/comsurveyinginfo?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}" title="测绘信息" class="j-blur-a j-blur-as ">测绘信息</a></td>
+                    <td class=""><a  href="#/comcompensate?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}"  title="补偿方案" class="j-blur-a j-blur-as ">补偿方案</a></td>
+                    <td class=""><a  href="#/compactpageholder?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}"  title="业权人" class="j-blur-a j-blur-as  ">业权人</a></td>
+                    <td class=""><a  href="#/comcheckfalse?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}"  title="查违信息" class="j-blur-a j-blur-as ">查违信息</a></td>
+                    <td class=""><a  style="color: #4ea4df;" href="#/compactPay?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}" title="支付方案" class="j-blur-a j-blur-as  ">支付方案</a></td>
+                    <td class=""><a href="#/commissionScheme?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}"  title="佣金方案" class="j-blur-a j-blur-as ">佣金方案</a></td>
+                    <td class=""><a href="#/linkorder?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}"  title="关联物业" class="j-blur-a j-blur-as ">关联物业</a></td>
+                    <td class=""><a href="#/compactappendix?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}"  title="附件" class="j-blur-a j-blur-as ">&nbsp;&nbsp;&nbsp;附件&nbsp;&nbsp;&nbsp;</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <!--下面主体-->
+        <div class="mt15 mb20  clearfix">
+            <h6 class="fs18 c3  left">支付方案 共<span ng-bind="conf.counts?conf.counts:0"></span> 期</h6>
+        </div>
+        <div class="l-managetable  mt20">
+            <div class="l-managetable  bgf pb30 ">
+                <table class="l-tablebox l-ruletab "  cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th>合同编号</th>
+                        <th>付款项目</th>
+                        <th>地址</th>
+                        <th>付款金额</th>
+                        <th>收款人姓名</th>
+                        <th>收款银行</th>
+                        <th>收款银行账号</th>
+                        <th>付款时间</th>
+                        <th>状态</th>
+                        <th>实际付款时间</th>
+                    </tr>
+                    <tr ng-repeat="indx in rowsPlan">
+                        <td ng-bind="indx.commissionId">1</td>
+                        <td ng-bind="indx.name">2</td>
+                        <td ng-bind="indx.address">3</td>
+                        <td ng-bind="indx.paymentAmount">4</td>
+                        <td ng-bind="indx.recieveName">5</td>
+                        <td ng-bind="indx.recieveBank">6</td>
+                        <td ng-bind="indx.recieveAcct">7</td>
+                        <td>{{indx.paymentTime+'前'}}</td>
+                        <td>{{indx.payment}}</td>
+                        <td>{{indx.relasePaymentTime?(indx.relasePaymentTime|date:'yyyy-MM-dd'):'-'}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="l-page fs12 tr pt20 pb30 lh30">
+                <div ui-pagination conf="conf"></div>
+            </div>
+        </div>
+
+        <div class="mt15 mb20  clearfix">
+            <h6 class="fs18 c3  left">支付记录 共<span ng-bind="conf2.counts?conf2.counts:0"></span> 次</h6>
+        </div>
+        <div class="l-managetable  mt20">
+            <div class="l-managetable  bgf pb30 ">
+                <table class="l-tablebox l-ruletab " cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th>合同编号</th>
+                        <th>付款项目</th>
+                        <th>地址</th>
+                        <th>付款金额</th>
+                        <th>收款人姓名</th>
+                        <th>收款银行</th>
+                        <th>收款银行账号</th>
+                        <th>付款时间</th>
+                        <th>状态</th>
+                        <th>实际付款时间</th>
+                    </tr>
+                    <tr ng-repeat="indx in rowsRecorde">
+                        <td ng-bind="indx.commissionId">1</td>
+                        <td ng-bind="indx.name">2</td>
+                        <td ng-bind="indx.address">3</td>
+                        <td ng-bind="indx.paymentAmount">4</td>
+                        <td ng-bind="indx.recieveName">5</td>
+                        <td ng-bind="indx.recieveBank">6</td>
+                        <td ng-bind="indx.recieveAcct">7</td>
+                        <td>{{indx.paymentTime+'前'}}</td>
+                        <td>{{indx.payment}}</td>
+                        <td>{{indx.relasePaymentTime?(indx.relasePaymentTime|date:'yyyy-MM-dd'):'-'}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="l-page fs12 tr pt20 pb30 lh30">
+                <div ui-pagination-two conf2="conf2"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

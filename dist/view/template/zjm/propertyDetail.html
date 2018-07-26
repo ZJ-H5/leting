@@ -1,0 +1,115 @@
+<app-head></app-head>
+
+<div app-left></div>
+<div class="l-rightsider pb55">
+
+    <div class="pl15 pr18 pt15 pb15">
+
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <top-pact-information list="{{list}}"></top-pact-information>
+        </div>
+        <!--7个格子-->
+        <table class="table table-bordered bg3 mt15">
+            <tbody class="tc c0">
+            <tr class="h40  tc lh40 bgf c6" align="justify">
+                <td class=""><a href="#/propertyDetail?roomId={{roomId}}&projectid={{projectId}}" title="总览" class=" j-blur-a j-blur-as " style="color: #4ea4df;">&nbsp;&nbsp;&nbsp;总览&nbsp;&nbsp;&nbsp;</a></td>
+                <td class=""><a href="#/BasicInformationPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="基本信息" class=" j-blur-a j-blur-as">基本信息</a></td>
+                <td class=""><a href="#/surveyingInformation?roomId={{roomId}}&projectid={{projectId}}" title="测绘信息" class=" j-blur-a j-blur-as ">测绘信息</a></td>
+                <td class=""><a href="#/compensateProperty?roomId={{roomId}}&projectid={{projectId}}" title="补偿方案" class=" j-blur-a j-blur-as">补偿方案</a></td>
+                <td class=""><a href="#/PropertyManagementPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="业权人" class=" j-blur-a j-blur-as">业权人</a></td>
+                <td class=""><a href="#/checkingFalse?roomId={{roomId}}&projectid={{projectId}}" title="查违信息" class=" j-blur-a j-blur-as">查违信息</a></td>
+                <td class=""><a href="#/LostPropertyManagementPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="关联物业" class=" j-blur-a j-blur-as">关联物业</a></td>
+                <td class=""><a href="#/enclosure?roomId={{roomId}}&projectid={{projectId}}" title="附件" class=" j-blur-a j-blur-as">&nbsp;&nbsp;&nbsp;附件&nbsp;&nbsp;&nbsp;</a></td>
+                <td class=""><a href="#/amendantRecord?roomId={{roomId}}&projectid={{projectId}}" title="修改记录" class=" j-blur-a j-blur-as" >修改记录</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <!--下面主体-->
+        <div class="mt15 mb20  clearfix">
+            <div class="c-xmxql left clearfix">
+                <!--<add-follow listtop="{{listtop}}"></add-follow>-->
+                <follow-page action="action" listtop="{{listtop}}" my-follow="myajax()"></follow-page>
+                <div class="clearfix bgf mt15 delbox " ng-show="data?true:false" ng-repeat="i in data">
+                    <div class="c-xmxqlb c-wyxqlb pl35 pr35 clearfix">
+                        <div class="mt20 left">
+                            <img class="c-xmxqlbimg border50-" ng-src="{{i.photoUrl?(headImg+i.photoUrl):localhostimg}}" width="60" alt="用户头像">
+                        </div>
+                        <div class="mt30 ml15 left">
+                            <p class="mb15">
+                                <span>{{i.realname}}</span>
+                                <a class="ml20 maincolor" href="javascript:void(0)" ng-click="daletetrack(i.id)">删除</a>
+                            </p>
+                            <p class="fs12 c9 mb15">{{i.createTime|date:'yyyy-MM-dd hh:mm:ss'}}</p>
+                            <p class=" fs12 c9 mb15">建议：{{i.advice}}</p>
+                            <p class=" fs12 c9 mb15">问题类型：{{i.questionName||''}}</p>
+                            <p class=" fs12 c9 mb15">进展阶段：{{i.orderSignParendName}}{{i.orderSignName?'—'+i.orderSignName:''}}</p>
+                            <p class=" c3 mb15">描述：{{i.depict}}</p>
+                            <p class=" c3 mb15">解决办法：{{i.solution}}</p>
+                            <div class="clearfix">
+                                <a ng-repeat="j in i.attachments" href="{{imgHost+j.fileUrl}}" target="_blank">
+                                    <img  alt="" class="mb15 dis-inlBlo fl mr15 bor1c" width="60" height="60" ng-if="j.type=='1'?true:false"  ng-src="{{imgHost+j.fileUrl}}">
+                                    <div class=" pos-rel mb15 dis-inlBlo fl mr15 bor1c" ng-if="j.type=='2'?true:false">
+                                        <video class="c-xmxqlbimg disblock" ng-src="{{trustSrc(j.fileUrl)}}" width="60" height="60"></video>
+                                        <img src="./image/playstop.png" alt="" width="60" height="60" class=" pos-abs t0">
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="lh42 ml110" ng-repeat="r in i.replyContents">{{r.realname}}：{{r.content}}
+                        <a href="" ng-click="addReply()">回复</a></p>
+                </div>
+            </div>
+            <div class="c-xmxqr left clearfix">
+                <div class="c-xmxqrb mb15 bgf">
+                    <h3 class="c-xmxqlh pl20 fs16 c3 pr30 clearfix">
+                        <span class="left">基本信息</span>
+                        <a class="fs14 c6 right" href="#/BasicInformationPropertyManagement?roomId={{roomId}}&projectid={{projectId}}">查看</a>
+                    </h3>
+                    <room-information listtop="{{listtop}}"></room-information>
+                </div>
+                <div class="c-xmxqrb mb15 bgf">
+                    <h3 class="c-xmxqlh pl20 fs16 c3 pr30 clearfix">
+                        <span class="left">补偿方案</span>
+                        <a class="fs14 c6 right" href="#/compensateProperty?roomId={{roomId}}&projectid={{projectId}}">查看</a>
+                    </h3>
+                    <div class="pl20 pr30 pb35 pt5">
+
+                        <div ng-repeat="i in compensateItemList">
+                            <p class="lh36">{{i.programmeName}}:{{i.area}}㎡</p>
+
+                        </div>
+                        <div ng-repeat="builtInAreaList in builtInAreaList">
+                            <p class="lh36">{{builtInAreaList.builtType}}：{{builtInAreaList.builtInArea}}㎡</p>
+                        </div>
+                        <p class="lh36">每月过渡补偿合计：{{compensates.monthlyInterimCompensate?'￥'+compensates.monthlyInterimCompensate:'0'}}元</p>
+                        <p class="lh36">货币补偿合计：{{compensates.totalMoneyCompensate?'￥'+compensates.totalMoneyCompensate:'0'}}元</p>
+                    </div>
+                </div>
+                <div class="c-xmxqrb mb15 bgf">
+                    <h3 class="c-xmxqlh pl20 fs16 c3 pr30 clearfix">
+                        <span class="left">签约进度</span>
+                        <a class="fs14 c6 right" href="#/surveyingInformation?roomId={{roomId}}&projectid={{projectId}}">查看</a>
+                    </h3>
+                    <div class="pl20 pr30 pb35 pt15 ">
+                        <div class="c-jbxxrjd ml15">
+                            <div class="mb35" ng-repeat="list in signList">
+                                <p class="c-jbxxrjdp"><i
+                                        ng-class="list.isAccomplish==1?'c-jbxxriy mr10 c-iconfont':'c-jbxxrin mr15 c-iconfont'"></i>{{list.name}}
+                                </p>
+                                <div ng-repeat="sub in list.sublevel">
+                                    <p class="mb15"><i class="c-jbxxrih mr15 c-iconfont"></i><i
+                                            ng-class="sub.isAccomplish==1?'c-jbxxriy mr10 c-iconfont':'c-jbxxrin mr15 c-iconfont'"></i>{{sub.name}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+

@@ -1,0 +1,158 @@
+<app-head></app-head>
+
+<left-system></left-system>
+
+
+<div class="l-rightsider clearfix   pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">基础数据</a>
+        </div>
+        <ul class="c-chbul h-cwgispxx mt15 back-white clearfix">
+            <li class="left"><a class="tc disblock ahover c6 maincolor"  href="#/databasicSign">签约阶段</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/databasicprocess">审核流程</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/databasicCompensationProject">补偿项目</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/databasicCompensationType">补偿类型</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/singledatabasic">单一数据</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/databasiccompact">合同模板</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/databasicRebuild">还建基础数据</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/bankmessage">银行信息</a></li>
+        </ul>
+        <div class="clearfix mt20">
+        </div>
+        <div class="l-managetable mt20">
+            <div class="l-managetable c-bordere6">
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th style="width:15%">阶段名称</th>
+                        <th style="width:25%">子阶段</th>
+                        <th style="width:35%">备注</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="d in datalist">
+                        <td colspan="4">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width:15%">{{d.name}}</td>
+                                    <td style="width:25%">--</td>
+                                    <td style="width:35%">--</td>
+                                    <td class="l-tablelink">
+                                        <a href="javascript:void(0)" ng-click="edit(d.id,'h-eddit')">编辑</a>
+                                        <a href="javascript:void(0)" ng-click="add(d.id,d.name,'h-tianjiajieduanone')">添加子阶段</a>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="s in d.stage">
+                                    <td style="width:15%">--</td>
+                                    <td style="width:25%">{{s.name}}</td>
+                                    <td style="width:35%">--</td>
+                                    <td class="l-tablelink">
+                                        <a href="javascript:void(0)" ng-click="editson(d.id,d.name,s.id,'h-edditson')">编辑</a>
+                                        <a href="javascript:void(0)" ng-click="delete(s.id)">删除</a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+
+
+                        <!--<td ng-repeat="s in d.stage">{{s.name}}</td>-->
+
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!--main end-->
+
+<!--编辑父级阶段-->
+<div class="dialog h-eddit">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius  hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">阶段修改</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt10 pl30 pr30">
+                <p class="clearfix border pl20 mt20 pt10">
+                    <span class="fl w-100" >阶段名称：</span>
+                    <input type="text" placeholder="请输入名称..." class="fl mb5 border pt5 pb5 pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="parenteditsignname">
+                </p>
+                <p class="clearfix border mt20 pl20 pb10 pt10">
+                    <span class="fl w-100">功能：</span>
+                    <span class="left"><input name="time" type="checkbox"  ng-model="isFinishedTime">完成时间</span>
+                    <span class="left ml45"><input name="time" type="checkbox" ng-model="isReleaseTask">发布时间</span>
+                </p>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="signeditparent(editid)">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+				</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--编辑子阶段-->
+<div class="dialog h-edditson">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius  hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">修改子阶段</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt20 pl30 pr30">
+                <p class="clearfix border pl20 pb10 pt10">
+                    <span class="fl w-100" >阶段名称：</span>
+                    <span>{{parentname}}</span>
+                </p>
+                <p class="clearfix border pl20 mt20 pt10">
+                    <span class="fl w-100" >子阶段名称：</span>
+                    <input type="text" placeholder="请输入名称..." class="fl mb5 border pt5 pb5 pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="parenteditsignname">
+                </p>
+                <p class="clearfix border mt20 pl20 pb10 pt10">
+                    <span class="fl w-100">功能：</span>
+                    <span class="left"><input name="time" type="checkbox"  ng-model="isFinishedTime">完成时间</span>
+                    <span class="left ml45"><input name="time" type="checkbox" ng-model="isReleaseTask">发布时间</span>
+                </p>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="signeditsave(editid)">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+				</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--添加子阶段-->
+<div class="dialog h-tianjiajieduanone">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius  hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">添加阶段</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt20 pl30 pr30">
+                <p class="clearfix border pl20 pb10 pt10">
+                    <span class="fl w-100" >阶段名称：</span>
+                    <span>{{name}}</span>
+                </p>
+                <p class="clearfix border pl20 mt20 pt10">
+                    <span class="fl w-100" >子阶段名称：</span>
+                    <input type="text" placeholder="请输入名称..." class="fl mb5 border pt5 pb5 pl5 radius5" style="padding-right:150px; margin-top:-5px;" ng-model="sonsignname">
+                </p>
+                <p class="clearfix border mt20 pl20 pb10 pt10">
+                    <span class="fl w-100">功能：</span>
+                    <span class="left"><input name="time" type="checkbox"  ng-model="isFinishedTime">完成时间</span>
+                    <span class="left ml45"><input name="time" type="checkbox" ng-model="isReleaseTask">发布时间</span>
+                </p>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="signsave(sonsignname)">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+				</span>
+            </div>
+        </div>
+    </div>
+</div>

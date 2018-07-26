@@ -1,0 +1,59 @@
+<app-head></app-head>
+
+<app-left-column class="disnone"></app-left-column>
+
+<!--附件（项目详情）-->
+<div class="pb55 pt65">
+    <div class="pl15 pr18 pt15 pb15">
+        <!--顶部关注-->
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+
+            <div class="c-csrbdt pt25 col-md-7 col-lg-7 col-sm-7 ">
+                <top-information listtop="{{listtop}}"></top-information>
+                <div class="mt18 j-BtnDiv clearfix">
+                    <attention list="{{list}}"></attention>
+                    <delete-project list="{{list}}"></delete-project>
+                </div>
+            </div>
+            <right-information listtop="{{listtop}}"></right-information>
+        </div>
+        <!--7个格子-->
+        <table class="table table-bordered bg3 mt15">
+            <tbody class="tc c0">
+
+            <tr class="h40  tc lh40 bgf c6" align="justify">
+                <td class=""><a href="#/itemDetails?projectid={{projectId}}"  title="总览" class="j-blur-a j-blur-as maincolor">&nbsp;&nbsp;&nbsp;总览&nbsp;&nbsp;&nbsp;</a>
+                </td>
+                <td class=""><a href="#/itemInformation?projectid={{projectId}}" title="基本信息"
+                                class="j-blur-a j-blur-as ">基本信息</a></td>
+                <td class=""><a href="#/projectProcessInformation?projectid={{projectId}}" title="流程进度信息" class="j-blur-a j-blur-as">流程进度信息</a></td>
+                <td class=""><a href="#/propertyInformation?projectid={{projectId}}" title="物业信息" class="j-blur-a j-blur-as">物业信息</a></td>
+                <td class=""><a href="#/projectcompensationRules?projectid={{projectId}}" title="拆迁补偿规则" class="j-blur-a j-blur-as ">拆迁补偿规则</a>
+                </td>
+                <td class=""><a href="#/financialsettlement?projectid={{projectId}}" title="财务结算项目设置" class="j-blur-a j-blur-as ">财务结算项目设置</a>
+                </td>
+                <td class=""><a href="#/projectcommissionrelease?projectid={{projectId}}" title="佣金发放规则" class="j-blur-a j-blur-as ">佣金发放规则</a></td>
+                <td class=""><a href="#/annex?projectid={{projectId}}"  title="附件" class="j-blur-a j-blur-as">附件</a></td>
+                <td class=""><a href="#/projectupdaterecord?projectid={{projectId}}"  title="修改记录" class="j-blur-a j-blur-as" style="color: #337ab7;">修改记录</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="mt15 ml15 mr15  back-white  ">
+            <div class="clearfix border-bottom pl20 pr20">
+                <h3 class="l-managetlt  fs18 left">
+                    <i class="mr5"></i>
+                    <em>修改记录</em>
+                </h3>
+            </div>
+        </div>
+        <div class="bs-example mt40  ml35" data-example-id="list-inline">
+            <ul class="list-inline mt20" ng-repeat="data in datas">
+                <li class="ml30">{{data.createTime|date : 'yyyy-MM-dd HH:mm:ss'}}</li>
+                <li class="ml35"><span style="color:#23527c;">{{data.userName}}</span> 修改了 <span class="zjcoFF9900">{{data.typeName}}</span> 数据</li>
+                <!--<li class="ml45"><a href="#" class="h-inline h-inlineh">点击查看</a></li>-->
+            </ul>
+
+        </div>
+        <div class="l-page fs12 tr pt20 pb30 lh30">
+            <div ui-pagination conf="conf"></div>
+        </div>

@@ -1,0 +1,101 @@
+<app-head></app-head>
+<app-left></app-left>
+<div class="l-rightsider pb55">
+    <div class="pl15 pr18 pt15 ha pb15">
+        <!--顶部关注-->
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <top-pact-information list="{{list}}"></top-pact-information>
+
+        </div>
+        <!--10个格子-->
+        <table class="table table-bordered bg3 mt15">
+            <tbody class="tc c0">
+                <tr class="h40  tc lh40 bgf c6" align="justify">
+                    <td class="" ng-if="pnumber?true:false"><a ui-sref="surveyingMapping({projectid:projectId,roomId:roomId,approveId:approveId,number:pnumber,flag:pflag,status:pstatus,pactId:pactId,updateStatus:pupdateStatus})"
+                        title="审批信息"  class=" j-blur-a j-blur-as" >审批信息</a></td>
+                    <td class="" ng-if="pnumber?false:true"><a href="#/compactdetail?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}" 
+                        title="总览" class="j-blur-a j-blur-as " >&nbsp;&nbsp;&nbsp;总览&nbsp;&nbsp;&nbsp;</a></td>
+                    <td class=""><a  href="#/compactbasic?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}" title="基本信息" class="j-blur-a j-blur-as ">基本信息</a></td>
+                    <td class=""><a  href="#/comsurveyinginfo?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}" title="测绘信息" class="j-blur-a j-blur-as ">测绘信息</a></td>
+                    <td class=""><a style="color: #4ea4df;" href="#/comcompensate?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}"  title="补偿方案" class="j-blur-a j-blur-as ">补偿方案</a></td>
+                    <td class=""><a href="#/compactpageholder?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}"  title="业权人" class="j-blur-a j-blur-as  ">业权人</a></td>
+                    <td class=""><a href="#/comcheckfalse?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}"  title="查违信息" class="j-blur-a j-blur-as ">查违信息</a></td>
+                    <td class="" ng-if="pnumber?false:true"><a href="#/compactPay?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}" title="支付方案" class="j-blur-a j-blur-as  ">支付方案</a></td>
+                    <td class="" ng-if="pnumber?false:true"><a href="#/commissionScheme?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}"  title="佣金方案" class="j-blur-a j-blur-as ">佣金方案</a></td>
+                    <td class=""><a href="#/linkorder?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}"  title="关联物业" class="j-blur-a j-blur-as ">关联物业</a></td>
+                    <td class=""><a href="#/compactappendix?propertyId={{roomId}}&projectId={{projectId}}&pacteId={{pactId}}&approveId={{approveId}}&number={{pnumber}}&flag={{pflag}}&status={{pstatus}}&updateStatus={{pupdateStatus}}"  title="附件" class="j-blur-a j-blur-as ">&nbsp;&nbsp;&nbsp;附件&nbsp;&nbsp;&nbsp;</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <!--下面主体-->
+        <div class="clearfix">
+            <h6 class="fs16 c0 mt24 mb20 fl">拆赔方案</h6>
+
+        </div>
+
+
+        <table class="table table-bordered j-tablemar">
+            <tbody class="tc c0">
+            <tr class="h40 va bge3f5ff">
+                <td rowspan="{{topData.length+1}}" class="w170 bgcae9fa table-middle table-middles">
+                    主体建筑产权置换
+                </td>
+                <td class="" colspan="2"><b>置换类型</b></td>
+                <td class="" ><b>置换面积（㎡）</b></td>
+                <td class="" ><b>置换比例（%）</b></td>
+                <td class="" ><b>还建面积（㎡）</b> </td>
+                <td class="" ><b>还建类型</b></td>
+                <td class="" ><b>还建期数</b></td>
+            </tr>
+
+            <tr class="h40 c6 bgf" ng-repeat="i in topData">
+                <td ng-bind="i.programmeValue?i.programmeValue:no"></td>
+                <td ng-bind="i.subtypeName?i.subtypeName:no"></td>
+
+                <td ng-bind="i.area?i.area+'m²':no"></td>
+                <td ng-bind="i.replacementRatio?i.replacementRatio+'%':no"></td>
+                <td ng-bind="i.builtInArea?i.builtInArea+'m²':no"></td>
+
+                <td ng-bind="i.builtType?i.builtType:no"></td>
+                <td ng-bind="i.builtInPeriod?i.builtInPeriod:no">
+
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-bordered j-tablemartwo">
+            <tbody class="tc c0">
+            <tr class="h40 va">
+                <td rowspan="{{bottomData.length+3}}" class="w170 bgcae9fa h240 table-middle table-middles" scope="row">
+                    货币补偿
+                </td>
+                <td class="bge3f5ff" colspan="3"><b>补偿项目</b></td>
+                <td class="bge3f5ff"><b>补偿面积（㎡）</b></td>
+                <td class="bge3f5ff" ><b>补偿标准（元）</b> </td>
+                <td class="bge3f5ff" ><b>补偿金额（元）</b></td>
+            </tr>
+            <tr class="h40 c6 bgf" ng-repeat="i in bottomData">
+                <td ng-bind="i.programmeName?i.programmeName:no"></td>
+                <td ng-bind="i.programmeValue?i.programmeValue:no"></td>
+                <td ng-bind="i.subtypeName?i.subtypeName:no"></td>
+                <td ng-bind="i.area?i.area+'m²':no"></td>
+                <td ng-bind="i.compensatePrice?i.compensatePrice.toFixed(2):no"></td>
+                <td ng-bind="i.compensationAmount?i.compensationAmount.toFixed(2)+'元':no"></td>
+            </tr>
+
+
+            <tr class="h40 c6 bgf">
+                <td colspan="5">货币补偿合计</td>
+                <td ng-bind="totalMoneyCompensate?totalMoneyCompensate+'元':no"></td>
+            </tr>
+            <tr class="h40 c6 bgf">
+                <td colspan="5">每月过渡补偿合计</td>
+                <td ng-bind="monthlyInterimCompensate?monthlyInterimCompensate+'元':no"></td>
+            </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+</div>

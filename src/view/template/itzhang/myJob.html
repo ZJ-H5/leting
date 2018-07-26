@@ -1,0 +1,463 @@
+<app-head></app-head>
+<!-- <app-left-Column class="disnone"></app-left-Column> -->
+<div class=" pb55 pt55">
+    <div class="pl15 pr18 pt15 pb15 back-white">
+        <!--顶部关注-->
+        <div class="clearfix">
+            <div class=" clearfix ml35 mt20 ml30 ">
+                <div class="left clearfix container">
+                    <div class="left">
+                        <i class="h-wdgzimg radius50 left tc">
+                            <img ng-src="{{photoUrl?(headImg+photoUrl):'image/tou.png'}}" alt="" class="z-tou radius50">
+                        </i>
+                        <div class="left ml35">
+                            <p>{{nickname}},吃顿丰盛的午餐犒劳下自己吧~</p>
+                            <div class="clearfix">
+                                <a href="javascript:void (0)" class="h-wdgza fl " ng-click="dataFollowUp()">
+                                    <i class="h-wdgzi ml25 mt30"></i>
+                                    <p class="h-wdgza tc">添加跟进信息</p>
+                                </a>
+                                <a ui-sref="jobTaskList({projectid:projectId})" class="h-wdgza fl ml10">
+                                    <i class="h-wdgzi ml25 mt30"></i>
+                                    <p class="h-wdgza tc">创建任务</p>
+                                </a>
+                                <a ui-sref="jobEventList({projectid:projectId})" class="h-wdgza fl ml10">
+                                    <i class="h-wdgzi ml25 mt30"></i>
+                                    <p class="h-wdgza tc">发起事件</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--下面主体-->
+        <div class="mt15 mb20  clearfix ">
+            <div class="c-xmxql left clearfix ">
+                <h3 class="c-xmxqlh pl35 fs16 c3">今日工作提醒</h3>
+                <div class="h-gztx pb20">
+                    <span class="c3 pt10 disblock ml30" ng-bind="yearmonthdata"></span>
+
+                    <table class="c-bordernone w100- lh38 tc mt20">
+                        <tr>
+                            <th ng-repeat="i in bodyDataArr" class="tc bor1c pos-rel" ng-class="{'zjyeloow':i.flagClass}">
+                                <a ng-bind="i.name" ng-mouseenter="mouseenters($index)" ng-mouseleave="mouseleaves($index)"></a>
+                                <!--鼠标hover事件-->
+                                <div class="pos-abs bgf p5 fs12" ng-if="i.if" style="border: 1px solid #337ab7; left:70%;z-index:9998;border-radius:10px; box-shadow:2px 2px 2px #ccc;"
+                                    ng-style="stringleng">
+                                    <span class="pl0 mr20 ml10" ng-bind="i.msgs||''" style="display: inline-block;"></span>
+                                </div>
+                            </th>
+                        </tr>
+
+                    </table>
+                    <ul class="clearfix mt10  mr10 l-tabinjob">
+                        <li class="h-wdgzulone radius5  fl">
+                            <a ui-sref="jobEventList({projectid:projectId})">
+                                <span class="left pl10 lh40">事件提醒</span>
+                                <span class="right lh40 pr10">
+                                    <em ng-bind="taskquery.eventCount||0"></em>项</span>
+                            </a>
+                        </li>
+                        <li class="h-wdgzulone radius5  fl">
+                            <a ui-sref="examine({projectid:projectId})" ng-click="shenpi(6)">
+                                <span class="left pl10 lh40">审批提醒</span>
+                                <span class="right lh40 pr10">
+                                    <em ng-bind="taskquery.recordCount||0"></em>项</span>
+                            </a>
+                        </li>
+                        <li class="h-wdgzulone radius5  fl">
+                            <a ui-sref="jobTaskList({projectid:projectId})">
+                                <span class="left pl10 lh40">任务提醒</span>
+                                <span class="right lh40 pr10">
+                                    <em ng-bind="taskquery.taskCount||0"></em>项</span>
+                            </a>
+                        </li>
+                        <li class="h-wdgzulone radius5  fl">
+                            <a ui-sref="projectwarm({projectid:projectId})">
+                                <span class="left pl10 lh40">项目流程</span>
+                                <span class="right lh40 pr10">
+                                    <em ng-bind="taskquery.processCount||0"></em>项</span>
+                            </a>
+                        </li>
+                        <li class="h-wdgzulone radius5  fl">
+                            <a ui-sref="informationChange({projectid:projectId})">
+                                <span class="left pl10 lh40">信息变动提醒</span>
+                                <span class="right lh40 pr10">
+                                    <em ng-bind="taskquery.propertyCount||0"></em>项</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--main-zhongjian-->
+                <div class="pb20 mt20 h-wdgzul">
+                    <h3 class="c-xmxqlh pl35 fs16 c3">最新记录</h3>
+                    <div class="c-csrbdc mt20 ml10 mr10">
+                        <p class="c-csrbdcpa pl30 fs16 c3 clearfix">
+                            <span class="left">筛选</span>
+                            <a class="right maincolor mr30 c-spgltcl" href="javascript:void (0)" ng-click="pullUp()" ng-bind="PullUpText">收起</a>
+                        </p>
+                        <div class="c-spgltclshow" ng-if="PullUpShow">
+                            <p class="fs14 c6 pl30 clearfix">
+                                <span class="left c-spgltsp">类型：</span>
+                                <span class="left mr45 relative">
+                                    <input class=" c-csrbdcinp c-htcbox" type="radio" name="type" value="1" ng-model="type" ng-change="radios(type)">跟进信息
+                                </span>
+                                <span class="left mr45 relative">
+                                    <input class=" c-csrbdcinp c-htcbox" type="radio" name="type" value="2" ng-model="type" ng-change="radios(type)">物业信息
+                                </span>
+                            </p>
+                            <p class=" c6 pl30 pt5 pb5 clearfix">
+                                <span class="left c-spgltsp">时间：</span>
+                                <span class="left relative mt6 c-spgltspb pointer tc" style="width: 170px;">
+                                    <input type="text" class="childData1 h80-" placeholder="选择开始时间">
+                                    <i class="c-iconfont c-spgltspi parentData1" ng-click="alertData('childData1','parentData1',1)"></i>
+                                </span>
+                                <span class="left ml15 mr15">至</span>
+                                <span class="left relative mt6 c-spgltspb pointer tc" style="width: 170px;">
+                                    <input type="text" class="childData2 h80-" placeholder="选择结束时间">
+                                    <i class="c-iconfont c-spgltspi parentData2" ng-click="alertData('childData2','parentData2')"></i>
+                                </span>
+                                <a class="left mr15 mt6 c-spgltaa tc" ng-class="{zjdatachoose:isActive}" ng-click="monthData(7)" href="javascript:void (0)">近7天</a>
+                                <a class="left mt6 c-spgltaa tc" ng-class="{zjdatachoose:isActive2}" ng-click="monthData(30)" href="javascript:void (0)">近1个月</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="clearfix mt10">
+                        <a class="left mt3 ml30 h-spgltab radius5 tc cf" ng-href="{{link}}" ng-if="flag" ng-click="edit()">导出跟进信息</a>
+                        <a class="left mt3 ml30 h-spgltab radius5 tc cf" ng-href="{{link}}" ng-if="!flag" ng-click="edit()">导出物业信息</a>
+                    </div>
+                    <!--main-bottom-->
+                    <div class="h-wdgzul ml10 mr10 mt20 pb20" ng-show="flag">
+                        <div class="clearfix bgf ">
+                            <div class="c-xmxqlb pl35 pr35 clearfix  w100-" ng-repeat="i in rows1">
+                                <div class="mt20 left">
+                                    <img class="c-xmxqlbimg border50-" ng-src="{{i.photoUrl?(headImg+i.photoUrl):localhostImg}}" width="60" alt="用户头像">
+                                </div>
+
+                                <div class="mt30 ml10 left">
+                                    <p class="mb15">
+                                        <span>
+                                            <span ng-bind="i.realname||no"></span> - 项目（
+                                            <span ng-bind="i.splitJointName||no"></span>）</span>
+                                        <a class="ml20 maincolor ahover" ng-click="genjindel(i.id,$index)">删除</a>
+                                    </p>
+                                    <p class="fs12 c9 mb10" ng-bind="i.createTime|date:'yyyy-MM-dd hh:mm:ss' ||no"></p>
+                                    <p class=" fs12 c3 mb10" ng-bind="i.advice||no"></p>
+                                    <p class=" fs12 c3 mb10">
+                                        <span ng-bind="i.parentName||no"></span>——
+                                        <span ng-bind="i.childName||no"></span>
+                                    </p>
+                                    <p class=" fs12 c3 mb10">描述：
+                                        <span ng-bind="i.depict||no"></span>
+                                    </p>
+                                    <p ng-show="i.solution?true:false" class=" fs12 c3 mb10">解决办法：
+                                        <span ng-bind="i.solution"></span>
+                                    </p>
+                                    <a ng-show="i.solution?false:true" class=" maincolor ahover" href="javascript:void (0)" ng-click="addmethod(i.id,$index)">添加解决方法</a>
+                                </div>
+
+                            </div>
+                            <div class="tc lh55 ng-scope" ng-if="rows1.length>0?false:true">
+                                暂无数据
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="!flag">
+                        <div class="h-wdgzul ml10 mr10 mt20 pb20 disblo" ng-repeat="i in rows2">
+                            <div class="clearfix bgf ">
+                                <p class="mt10">
+                                    <span class="ml50">物业名称：
+                                        <span ng-bind="i.splitJointName||no"></span>
+                                    </span>
+                                    <span class="ml100">地址：
+                                        <span ng-bind="i.address||no"></span>
+                                    </span>
+                                </p>
+                                <p class="mt5 ">
+                                    <span class="ml50">业权人：
+                                        <span ng-bind="i.ownershipCount||no"></span>
+                                    </span>
+                                    <span class="ml50">还建面积:
+                                        <span ng-bind="i.ruildInArea+'m²'||no"></span>
+                                    </span>
+                                    <span class="ml50">货币补偿:
+                                        <span ng-bind="i.totalMoneyCompensate||no"></span>
+                                    </span>
+                                    <span class="ml50">阶段:
+                                        <span ng-bind="i.eventNode||no"></span>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="tc lh55 ng-scope" ng-if="rows2.length>0?false:true">
+                            暂无数据
+                        </div>
+                    </div>
+                </div>
+                <div class="l-page fs12 tr pt20 pb30 lh30">
+                    <div ui-pagination conf="conf"></div>
+                </div>
+            </div>
+            <div class="c-xmxqr left clearfix">
+                <div class="c-xmxqrb mb15 bgf">
+                    <h3 class="c-xmxqlh pl20 fs16 c3 pr30 clearfix">
+                        <span class="left">关键业务指标</span>
+                        <a class="fs14 c6 right maincolor ahover" href="javascript:void (0)" ng-click="goalSetting()">目标设置</a>
+                    </h3>
+                    <div class="pl20 pr30 pb35 h-gztx pt5">
+                        <a class="lh36 borderbottom clearfix" ng-click="goalSetting()">
+                            <span class="fl">本月测绘</span>
+                            <span class="fr">
+                                <span ng-bind="taskCount.surveyNumber||0"></span>栋</span>
+                        </a>
+                        <a class="lh36 borderbottom clearfix" ng-click="goalSetting()">
+                            <span class="fl">本月签约</span>
+                            <span class="fr">
+                                <span ng-bind="taskCount.signNumber||0"></span>栋</span>
+                        </a>
+                        <a class="lh36 borderbottom clearfix" ng-click="goalSetting()">
+                            <span class="fl">本月目标签约</span>
+                            <span class="fr">
+                                <span ng-bind="taskCount.signPercent.toFixed(2)||0"></span>%</span>
+                        </a>
+                        <a class="lh36 borderbottom clearfix" ng-click="goalSetting()">
+                            <span class="fl">本月目标完成率</span>
+                            <span class="fr">
+                                <span ng-bind="taskCount.schedulePercent.toFixed(2)||0"></span>%</span>
+                        </a>
+                        <a class="lh36 clearfix" ng-click="goalSetting()">
+                            <span class="fl">本月剩余天数</span>
+                            <span class="fr">
+                                <span ng-bind="taskCount.numberOfDays||0"></span>天</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="c-xmxqrb mb15 bgf">
+                    <h3 class="c-xmxqlh pl20 fs16 c3 pr30 clearfix">
+                        <span class="left">群公告列表</span>
+                        <a class="fs14 c6 right maincolor ahover" href="javascript:void (0)" ng-show="totalgrup>5" ui-sref="grupindex" >查看更多>></a>
+                    </h3>
+                    <div class="pl20 pr30 h-gztx pt5">
+                        <a class="lh36 borderbottom clearfix" ng-repeat="i in gruplist" ui-sref="lookthings({id:i.id})" >
+                            <span class="fl" style="width: 200px;display: inline-block;overflow: hidden;text-overflow:ellipsis;white-space: nowrap; ">{{i.title}}</span>
+                            <span class="fr">{{i.createTime|date:'yyyy-MM-dd'||no}}</span>
+                        </a>
+                        
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+    <!--添加跟进信息-->
+
+    <follow listtop="{{listtop}}" action="action" my-follow="myajax()" my-location="mylocation()"></follow>
+</div>
+
+
+<!--添加解决办法-->
+<div class="dialog myworkthree">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w754 radius  hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">添加解决办法</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="h-wdgzul ml10 mr10 mt20 pb20">
+                <div class="clearfix bgf ">
+                    <div class="c-xmxqlb pl35 pr35 clearfix">
+                        <div class="mt20 left">
+                            <img class="c-xmxqlbimg border50-" ng-src="{{i.photoUrl?(headImg+i.photoUrl):'image/图层9.png'}}" width="60" alt="用户头像">
+                        </div>
+                        <div class="mt30 ml10 left">
+                            <p class="mb15">
+                                <span>
+                                    <span ng-bind="addarr.realname||no"></span> - 项目（
+                                    <span ng-bind="addarr.splitJointName||no"></span>
+                                    <span ng-bind="addarr.code||no"></span>）</span>
+                            </p>
+                            <p class="fs12 c9 mb10" ng-bind="addarr.createTime|date:'yyyy-MM-dd hh:mm:ss' ||no"></p>
+                            <p class=" fs12 c3 mb10" ng-bind="addarr.advice||no"></p>
+                            <p class=" fs12 c3 mb10">
+                                <span ng-bind="addarr.parentName||no"></span>——
+                                <span ng-bind="addarr.childName||no"></span>
+                            </p>
+                            <p class=" fs12 c3 mb10">描述：
+                                <span ng-bind="addarr.depict||no"></span>
+                            </p>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="h-wdgzul ml10 mr10 mt20 pb10">
+                <p class="mt10">
+                    <span class="pl20">解决方法：</span>
+                    <input type="text" placeholder="请输入内容...." class="pl20" ng-model="solution" ng-blur="focuss(solution)">
+                    <span ng-show="solutionfalg" class="cred">*请输入内容</span>
+                </p>
+            </div>
+            <span class="hop-bntap disblock pt30 ml20 mr20 pb30">
+                <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius" ng-click="addsave(addId,solution,index)">保存</a>
+                <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+            </span>
+        </div>
+    </div>
+</div>
+
+<!--设置人员签约目标-->
+<div class="dialog myworktwo">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w875 radius hop-cont ">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">设置人员签约目标</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+
+            <div class="clearfix">
+                <div class="c-csrbdinp mt10 mb10 ml20 fl" style="width: auto;">
+
+                    <input class="ml10 left" type="text" ng-model="searchKeys" placeholder="搜索姓名">
+                    <i class="c-iconfont mt8 ml10 left mr10" ng-click="alertSearch(searchKeys)"></i>
+                </div>
+                <div class="c-csrbdinp mt10 mb10 ml20 fl pos-rel" style="width: auto;width: 180px;">
+                    <input class="ml10 left" type="text" placeholder="添加信息" ng-model="searchAddVal" ng-focus="addfocus(searchAddVal)" ng-blur="addblur(searchAddVal)"
+                        ng-change="addchange(searchAddVal)">
+                    <ul class="pos-abs top35 left4 border w155" ng-if="dimArrFlag">
+                        <li ng-repeat="i in dimArr">
+                            <a class="bge3f5ff lh24 pt2 pl2 pb2 dis-inlBlo w100-" ng-bind="i.realname" ng-click="alertliAdd(i.realname,$index)"></a>
+                        </li>
+                    </ul>
+                </div>
+                <!--<a class="mt18 ml10 dis-Blo fl" ng-click="alertSearchAdd(searchAddVal)">添加</a>-->
+                <span class="mt18 ml10 dis-Blo fl" ng-if="dimArr.length>0?true:false">共
+                    <span ng-bind="dimArr.length"></span>条</span>
+            </div>
+
+            <div class="l-managetable ml20 mr20 c-bordere6 " ng-if="alertUpdateArr.flag?true:false">
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th class="zjbgf1a842">组织机构</th>
+                        <th class="zjbgf1a842">姓名</th>
+                        <th class="zjbgf1a842">1月</th>
+                        <th class="zjbgf1a842">2月</th>
+                        <th class="zjbgf1a842">3月</th>
+                        <th class="zjbgf1a842">4月</th>
+                        <th class="zjbgf1a842">5月</th>
+                        <th class="zjbgf1a842">6月</th>
+                        <th class="zjbgf1a842">7月</th>
+                        <th class="zjbgf1a842">8月</th>
+                        <th class="zjbgf1a842">9月</th>
+                        <th class="zjbgf1a842">10月</th>
+                        <th class="zjbgf1a842">11月</th>
+                        <th class="zjbgf1a842">12月</th>
+                        <th class="zjbgf1a842">操作</th>
+                    </tr>
+                    <tr>
+                        <td ng-bind="alertUpdateArr.organizationName||no"></td>
+                        <td ng-bind="alertUpdateArr.userName||no"></td>
+                        <td>
+                            <input class="zjinput tc" ng-model="alertUpdateArr.january">
+                        </td>
+                        <td>
+                            <input class="zjinput tc" ng-model="alertUpdateArr.february">
+                        </td>
+                        <td>
+                            <input class="zjinput tc" ng-model="alertUpdateArr.march">
+                        </td>
+                        <td>
+                            <input class="zjinput tc" ng-model="alertUpdateArr.april">
+                        </td>
+                        <td>
+                            <input class="zjinput tc" ng-model="alertUpdateArr.may">
+                        </td>
+                        <td>
+                            <input class="zjinput tc" ng-model="alertUpdateArr.june">
+                        </td>
+                        <td>
+                            <input class="zjinput tc" ng-model="alertUpdateArr.july">
+                        </td>
+                        <td>
+                            <input class="zjinput tc" ng-model="alertUpdateArr.august">
+                        </td>
+                        <td>
+                            <input class="zjinput tc" ng-model="alertUpdateArr.september">
+                        </td>
+                        <td>
+                            <input class="zjinput tc" ng-model="alertUpdateArr.october">
+                        </td>
+                        <td>
+                            <input class="zjinput tc" ng-model="alertUpdateArr.november">
+                        </td>
+                        <td>
+                            <input class="zjinput tc" ng-model="alertUpdateArr.december">
+                        </td>
+                        <td>
+                            <a ng-click="alertsave($event,$index)" ng-bind="alertUpdateArr.flag===1?'修改':'保存'"></a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="l-managetable ml20 mr20 c-bordere6 mt20 oveaut h350">
+                <table class="l-tablebox l-ruletab c-bordernone mt20" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th>组织机构</th>
+                        <th>姓名</th>
+                        <th>1月</th>
+                        <th>2月</th>
+                        <th>3月</th>
+                        <th>4月</th>
+                        <th>5月</th>
+                        <th>6月</th>
+                        <th>7月</th>
+                        <th>8月</th>
+                        <th>9月</th>
+                        <th>10月</th>
+                        <th>11月</th>
+                        <th>12月</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="i in alertRows">
+                        <td ng-bind="i.organizationName||no"></td>
+                        <td ng-bind="i.userName||no"></td>
+                        <td ng-bind="i.january||no"></td>
+                        <td ng-bind="i.february||no"></td>
+                        <td ng-bind="i.march||no"></td>
+                        <td ng-bind="i.april||no"></td>
+                        <td ng-bind="i.may||no"></td>
+                        <td ng-bind="i.june||no"></td>
+                        <td ng-bind="i.july||no"></td>
+                        <td ng-bind="i.august||no"></td>
+                        <td ng-bind="i.september||no"></td>
+                        <td ng-bind="i.october||no"></td>
+                        <td ng-bind="i.november||no"></td>
+                        <td ng-bind="i.december||no"></td>
+                        <td>
+                            <a ng-click="alertUpdate(i.id,$index)">编缉</a>
+                        </td>
+                    </tr>
+                </table>
+                <div class="tc lh55 ng-scope" ng-if="alertRows.length>0?false:true">
+                    暂无数据
+                </div>
+            </div>
+            
+            <div class="l-page fs12 tr pt20 pb30 lh30 clearfix">
+                <span class="hop-bntap disblock ml20 mr20 pb30 fl">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="addtrue()">取消</a>
+                </span>
+                <div ui-pagination conf="conf"></div>
+            </div>
+        </div>
+    </div>
+</div>

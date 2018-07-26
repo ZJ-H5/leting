@@ -1,0 +1,155 @@
+<app-head></app-head>
+
+<div app-left></div>
+
+<!--main-->
+<div class="l-rightsider pb55">
+    <div class="pl15 pr18 pt15 pb15">
+        <!--顶部关注-->
+
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <div class="c-csrbdt pt25 col-md-7 col-lg-7 col-sm-7 ">
+                <a class="c-csrbdta fs18 c6 mr35 pl5" ng-bind="project2.projectName?project2.projectName:no"></a>
+                <p class="ml10 mt15"><span ng-bind="project2.address?project2.address:no"></span> </p>
+            </div>
+            <ul class="col-md-5 col-lg-5 col-sm-5 mt30 mb30 pl40">
+                <li class="lh30">创建人：<span ng-bind="project2.updateTime?(project2.updateTime|date:'yyyy-MM-dd'):'暂无数据'"></span></li>
+                <li class="lh30">创建时间：<span ng-bind="project2.createTime?project2.createTime:no"></span></li>
+                <li class="lh30">最后更新时间：<span ng-bind="project2.updateTime?(project2.updateTime|date:'yyyy-MM-dd'):no"></span></li>
+            </ul>
+
+        </div>
+
+        <ul class="c-chbul h-cwgispxx mt15 back-white clearfix">
+            <li class="left"><a class="tc disblock ahover zj-NavAColor"  ng-click="locationHerf('surveyingMapping')">审批信息</a></li>
+            <li class="left"><a class="tc disblock ahover " ng-click="locationHerf('surveyingMapInformation')" >测绘信息</a></li>
+            <li class="left"><a class="tc disblock ahover zj-NavAColor" ng-click="locationHerf('surveyingAffix')" >附件</a></li>
+        </ul>
+        <!--下面主体-->
+
+        <div class="bgf pl30 pt20 pb40 pos-rel clearfix">
+            <div class="b-r-f9f9f9 left m-chxxl">
+                <ul class="lh32">
+                    <li>基地面积 ：<span>{{surveyInfo.areaOfBase?surveyInfo.areaOfBase+'㎡':'无'}}</span></li>
+                    <li>房屋总面积 ：<span>{{surveyInfo.grossArea?surveyInfo.grossArea+'㎡':'无'}}</span></li>
+                    <li>层数 ：<span>{{surveyInfo.numberOfPlies?surveyInfo.numberOfPlies+'层':'无'}}</span></li>
+                    <li ng-repeat="singleList in singleList">
+                        {{singleList.name}} ：<span>{{singleList.val}}</span>
+                    </li>
+                </ul>
+
+                <h6 class="c0 mt25">{{arr[0].compensateName}}</h6>
+                <ul ng-repeat="surveyList in arr">
+                    <li class="mt25">
+                        <div class="row">
+                            <span class="col-md-3 col-lg-3 col-sm-4 w180">{{surveyList.typeName}} ：<span>{{surveyList.area}}</span></span>
+                            <span class="col-md-3 col-lg-3 col-sm-4">现状租金 ：<span>{{surveyList.rent}}</span></span>
+                            <span class="col-md-3 col-lg-3 col-sm-4">级别 ：<span>{{surveyList.rank}}级</span></span>
+                        </div>
+
+                        <a ng-href="{{hostname+surveyList.imgUrl}}" class="c4da3de j-top mt15 dis-inlBlo" ng-show="surveyList.imgUrl">查看图片</a>
+
+                    </li>
+                </ul>
+
+                <h6 class="c0 mt25">{{arr2[0].compensateName}}</h6>
+                <ul ng-repeat="surveyList in arr2">
+                    <li class="mt25">
+                        <div class="row">
+                            <span class="col-md-3 col-lg-3 col-sm-4 w180">{{surveyList.typeName}} ：<span>{{surveyList.area}}</span></span>
+                            <span class="col-md-3 col-lg-3 col-sm-4" ng-show="surveyList.rent">现状租金 ：<span>{{surveyList.rent}}</span></span>
+                            <span class="col-md-3 col-lg-3 col-sm-4" ng-show="surveyList.rank">级别 ：<span>{{surveyList.rank}}级</span></span>
+                        </div>
+
+                        <a ng-href="{{hostname+surveyList.imgUrl}}" class="c4da3de j-top mt15 dis-inlBlo" ng-show="surveyList.imgUrl">查看图片</a>
+                        <!--{{surveyList.imgUrl+'无法提出'}}-->
+                    </li>
+
+                </ul>
+
+                <h6 class="c0 mt25">{{arr3[0].compensateName}}</h6>
+                <ul ng-repeat="surveyList in arr3">
+                    <li class="mt25">
+                        <div class="row">
+                            <span class="col-md-3 col-lg-3 col-sm-4 w180">{{surveyList.typeName}} ：<span>{{surveyList.area}}</span></span>
+                            <span class="col-md-3 col-lg-3 col-sm-4" ng-show="surveyList.rent">现状租金 ：<span>{{surveyList.rent}}</span></span>
+                            <span class="col-md-3 col-lg-3 col-sm-4" ng-show="surveyList.rank">级别 ：<span>{{surveyList.rank}}级</span></span>
+                        </div>
+
+                        <a ng-href="{{hostname+surveyList.imgUrl}}" class="c4da3de j-top mt15 dis-inlBlo" ng-show="surveyList.imgUrl">查看图片</a>
+                    </li>
+                </ul>
+                <h6 class="c0 mt25">{{arr4[0].compensateName}}</h6>
+                <ul ng-repeat="surveyList in arr4">
+                    <li class="mt25">
+                        <div class="row">
+                            <span class="col-md-3 col-lg-3 col-sm-4 w180">{{surveyList.typeName}} ：<span>{{surveyList.area}}</span></span>
+                            <span class="col-md-3 col-lg-3 col-sm-4" ng-show="surveyList.rent">现状租金 ：<span>{{surveyList.rent}}</span></span>
+                            <span class="col-md-3 col-lg-3 col-sm-4" ng-show="surveyList.rank">级别 ：<span>{{surveyList.rank}}级</span></span>
+                        </div>
+
+                        <a ng-href="{{hostname+surveyList.imgUrl}}" class="c4da3de j-top mt15 dis-inlBlo" ng-show="surveyList.imgUrl">查看图片</a>
+                    </li>
+                </ul>
+                <h6 class="c0 mt25">{{arr5[0].compensateName}}</h6>
+                <ul ng-repeat="surveyList in arr5">
+                    <li class="mt25">
+                        <div class="row">
+                            <span class="col-md-3 col-lg-3 col-sm-4 w180">{{surveyList.typeName}} ：<span>{{surveyList.area}}</span></span>
+                            <span class="col-md-3 col-lg-3 col-sm-4" ng-show="surveyList.rent">现状租金 ：<span>{{surveyList.rent}}</span></span>
+                            <span class="col-md-3 col-lg-3 col-sm-4" ng-show="surveyList.rank">级别 ：<span>{{surveyList.rank}}级</span></span>
+                        </div>
+
+                        <a ng-href="{{hostname+surveyList.imgUrl}}" class="c4da3de j-top mt15 dis-inlBlo" ng-show="surveyList.imgUrl">查看图片</a>
+                    </li>
+                </ul>
+                <h6 class="c0 mt25">{{arr6[0].compensateName}}</h6>
+                <ul ng-repeat="surveyList in arr6">
+                    <li class="mt25">
+                        <div class="row">
+                            <span class="col-md-3 col-lg-3 col-sm-4 w180">{{surveyList.typeName}} ：<span>{{surveyList.area}}</span></span>
+                            <span class="col-md-3 col-lg-3 col-sm-4" ng-show="surveyList.rent">现状租金 ：<span>{{surveyList.rent}}</span></span>
+                            <span class="col-md-3 col-lg-3 col-sm-4" ng-show="surveyList.rank">级别 ：<span>{{surveyList.rank}}级</span></span>
+                        </div>
+
+                        <a ng-href="{{hostname+surveyList.imgUrl}}" class="c4da3de j-top mt15 dis-inlBlo" ng-show="surveyList.imgUrl">查看图片</a>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="right m-chxxr">
+                <!--右侧图片-->
+                <div class=" pos-abs r8- j-rigImg">
+                    <h6 class="c0 mb30">物业图片</h6>
+                    <img ng-src="{{housesImg?hostname+housesImg:''}}" alt="" class=" max-w370 w100-">
+                </div>
+                <!--右侧测绘进度-->
+                <div class=" pos-abs r9- j-rigImg">
+                    <h6 class="c0 mb30">测绘进度</h6>
+                    <div class="c-jbxxrjd ml15">
+                        <div class="mb35" ng-repeat="list in surveyingList">
+                            <p class="c-jbxxrjdp"><i
+                                    ng-class="list.isAccomplish==1?'c-jbxxriy mr10 c-iconfont':'c-jbxxrin mr15 c-iconfont'"></i>{{list.name}}
+                            </p>
+                            <div ng-repeat="sub in list.sublevel">
+                                <p class="mb15">
+                                    <i class="c-jbxxrih mr15 c-iconfont"></i>
+                                    <i class="c-jbxxrin mr15 c-iconfont"></i>{{sub.name}}
+                                    <br>
+                                    <span class="ml70" ng-bind="sub.accomplishTime?(sub.accomplishTime | date:'yyyy-mm-dd'):no"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>
+<!--main end-->
+
+

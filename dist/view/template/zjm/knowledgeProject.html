@@ -1,0 +1,285 @@
+<app-head></app-head>
+<app-left-Column></app-left-Column>
+<!--main-->
+<div class="l-rightsider clearfix   pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">项目信息管理</a>
+        </div>
+        <ul class="c-chbul mt15 ml15 mr15  back-white clearfix h-cwgispxx">
+            <li class="left"><a class="tc disblock  ahover  c6" href="#/knowledge">首页内容修改</a></li>
+            <li class="left"><a class="tc disblock   ahover maincolor" href="#/knowledgeProject">项目信息管理</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/lawsregulations">政策法规</a></li>
+            <li class="left"><a class="tc disblock ahover c6" href="#/newsList">新闻动态</a></li>
+        </ul>
+        <div class="clearfix mt20">
+            <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="javascript:void(0)" ng-click="add('addnewproject')">新增内容</a>
+            <div class="c-csrbdinp right  ">
+                <i class="c-iconfont mt8 ml10 left" ></i>
+                <input class="ml10 left" type="text" placeholder="请输入项目名称" ng-model="searchKeys">
+            </div>
+        </div>
+        <div class="l-managetable mt20">
+            <div class="l-managetable c-bordere6">
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th>项目名称</th>
+                        <th>创建人</th>
+                        <th>创建时间</th>
+                        <th>排序</th>
+                        <th width="15%">操作</th>
+                    </tr>
+                    <tr ng-repeat="p in projectlist">
+                        <td>{{p.projectName}}</td>
+                        <td>{{p.realname}}</td>
+                        <td>{{p.createTime|date:'yyyy-MM-dd'}}</td>
+                        <td>{{p.sort}}</td>
+                        <td class="l-tablelink" width="15%">
+                            <a href="javascript:void(0)" ng-click="watch('watchnewproject',p.projectName,p.projectIdName,p.content,p.basePath,p.imgUrl,p.homeExhibitionList,p.sort)">查看</a>
+                            <a href="javascript:void(0)" ng-click="edit(p.id,'editnewproject',p.projectName,p.projectIdName,p.content,p.basePath,p.imgUrl,p.fileName,p.homeExhibitionList,p.sort)">编辑</a>
+                            <a href="javascript:void(0)" ng-click="delete(p.id)">删除</a>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="l-page fs12 tr pt20 pb30 lh30">
+                <div ui-pagination conf="conf"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--main end-->
+
+<!--新增项目-->
+<div class="dialog addnewproject">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius  hop-cont">
+        <div class="back-white kn-height" >
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">添加信息</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancel()"></a>
+            </h3>
+            <div class="pt20 pl30 pr30">
+                <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th class="pl30 maincolor">项目名称：</th>
+                        <td colspan="2">
+                            <input type="text"  placeholder="请输入....." class="l-input w500" ng-model="newprojectname"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">关联项目：</th>
+                        <td colspan="2" class="fl relative">
+                            <input type="text"  placeholder="请输入....." class="l-input w500" ng-model="newcontactname" ng-click="ulshow(newcontactname)" ng-blur="ulcancel()" ng-keyup="serachsomthing(newcontactname)" name=""/>
+                            <div class="absolute zIndex ulshow">
+                                <ul >
+                                    <li ng-repeat="s in searchlist" ng-click="getname(s.id,s.projectName,'new')">{{s.projectName}}</li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="15%" class="pl30 maincolor">项目介绍：</th>
+                        <td colspan="2" class="pt10 pb10" style="line-height: 0;">
+                            <div class="maxheight">
+                                <div class="ueditor" ng-model="newprojectcontent" config="config"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">列表展示图片：</th>
+                        <td colspan="2">
+                             <span class="btn btn-info fileinput-button radius5 ">
+                                <span>添加附件</span>
+                                  <input ng-file-select="addannex($files)" type="file"/>
+                             </span>
+                            <span>{{filename}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">图片展示：</th>
+                        <td colspan="2">
+                            <img class="imgSize" src="{{hostname+filePath}}" alt="">
+                        </td>
+                    </tr>
+                    <!--<tr>-->
+                        <!--<th width="15%" class="pl30 maincolor">项目名称：</th>-->
+                        <!--<td colspan="2">-->
+                             <!--<span class="h-xtszse left   relative">-->
+                                   <!--<input class=" c-csrbdcinp c-htcbox relative " type="checkbox"  name="area" value=""><i class="c-htcboxin c-iconfont"></i>房屋补偿一住宅-->
+                             <!--</span>-->
+                            <!--<span class="h-xtszse left ml60  relative">-->
+                                   <!--<input class=" c-csrbdcinp c-htcbox relative " type="checkbox"  name="area" value=""><i class="c-htcboxin c-iconfont"></i>房屋补偿一擅改商业-->
+                            <!--</span>-->
+                            <!--<span class="h-xtszse left ml60  relative">-->
+                                   <!--<input class=" c-csrbdcinp c-htcbox relative " type="checkbox"  name="area" value=""><i class="c-htcboxin c-iconfont"></i>房屋补偿一临时建筑-->
+                            <!--</span>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <th class="pl30 maincolor">排序：</th>
+                        <td colspan="2" class="fl">
+                            <select class="select hop-select w265" ng-model="newsort" ng-options="s.sort as s.name for s in sortlist">
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb30">
+							<a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="addproject(selid,filePath,filename)">保存</a>
+							<a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="cancel()">取消</a>
+				</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--编辑项目-->
+<div class="dialog editnewproject">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius  hop-cont">
+        <div class="back-white kn-height" >
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">添加信息</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancel(editsort)"></a>
+            </h3>
+            <div class="pt20 pl30 pr30">
+                <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th class="pl30 maincolor">项目名称：</th>
+                        <td colspan="2">
+                            <input type="text"  placeholder="请输入....." class="l-input w500" ng-model="editprojectname"/>
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                        <th class="pl30 maincolor">关联项目：</th>
+                        <td colspan="2" class="fl">
+                            <input type="text"  placeholder="请输入....." class="l-input w500" ng-model="editcontactname" ng-click="ulshow(editcontactname)" ng-blur="ulcancel()" ng-keyup="serachsomthing(editcontactname)" name=""/>
+                            <div class="absolute zIndex ulshow">
+                                <ul >
+                                    <li ng-repeat="s in searchlist" ng-click="getname(s.id,s.projectName,'edit')">{{s.projectName}}</li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr> -->
+                    <tr>
+                        <th width="15%" class="pl30 maincolor">项目介绍：</th>
+                        <td colspan="2" class="pt10 pb10" style="line-height: 0;">
+                            <div class="maxheight">
+                                <div class="ueditor" ng-model="editprojectcontent" config="config"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">列表展示图片：</th>
+                        <td colspan="2">
+                             <span class="btn btn-info fileinput-button radius5 ">
+                                <span>添加附件</span>
+                                  <input ng-file-select="addannex($files)" type="file"/>
+                             </span>
+                            <span>{{filename}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">图片展示：</th>
+                        <td colspan="2">
+                            <img class="imgSize" src="{{filePath?basePath+filePath:basePath+editimgUrl}}" alt="">
+                        </td>
+                    </tr>
+                    <!--<tr>-->
+                        <!--<th width="15%" class="pl30 maincolor">项目名称：</th>-->
+                        <!--<td colspan="2">-->
+                             <!--<span class="h-xtszse left   relative">-->
+                                   <!--<input class=" c-csrbdcinp c-htcbox relative " type="checkbox"  name="area" value=""><i class="c-htcboxin c-iconfont"></i>房屋补偿一住宅-->
+                             <!--</span>-->
+                            <!--<span class="h-xtszse left ml60  relative">-->
+                                   <!--<input class=" c-csrbdcinp c-htcbox relative " type="checkbox"  name="area" value=""><i class="c-htcboxin c-iconfont"></i>房屋补偿一擅改商业-->
+                            <!--</span>-->
+                            <!--<span class="h-xtszse left ml60  relative">-->
+                                   <!--<input class=" c-csrbdcinp c-htcbox relative " type="checkbox"  name="area" value=""><i class="c-htcboxin c-iconfont"></i>房屋补偿一临时建筑-->
+                            <!--</span>-->
+                            <!--<span class="h-xtszse left ml60 relative">-->
+                                   <!--<input class=" c-csrbdcinp c-htcbox relative " type="checkbox"  name="area" value=""><i class="c-htcboxin c-iconfont"></i>房屋补偿一夹层-->
+                            <!--</span>-->
+                            <!--<span class="h-xtszse left  relative">-->
+                                   <!--<input class=" c-csrbdcinp c-htcbox relative " type="checkbox"  name="area" value=""><i class="c-htcboxin c-iconfont"></i>房屋补偿一住宅-->
+                             <!--</span>-->
+                            <!--<span class="h-xtszse left ml60  relative">-->
+                                   <!--<input class=" c-csrbdcinp c-htcbox relative " type="checkbox"  name="area" value=""><i class="c-htcboxin c-iconfont"></i>房屋补偿一擅改商业-->
+                            <!--</span>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <th class="pl30 maincolor">排序：</th>
+                        <td colspan="2" class="fl">
+                            <select class="select hop-select w265" ng-model="editsort" ng-options="s.sort as s.name for s in editlist">
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb30">
+							<a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="editsave(projectid,selid,filePath,filename,filePath?filePath:editimgUrl,editfilename)">保存</a>
+							<a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="cancel(editsort)">取消</a>
+				</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--查看项目-->
+<div class="dialog watchnewproject">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius  hop-cont">
+        <div class="back-white kn-height">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">查看信息</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt20 pl30 pr30">
+                <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th class="pl30 maincolor">项目名称：</th>
+                        <td colspan="2">
+                            {{projectname}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">关联项目：</th>
+                        <td colspan="2" class="fl">
+                            {{contactname}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="15%" class="pl30 maincolor">项目介绍：</th>
+                        <td colspan="2" class="pt10 pb10">
+                            <div class="maxheight">
+                                <div>{{projectcontent| parseHTML}}</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">图片展示：</th>
+                        <td colspan="2">
+                            <img class="imgSize" src="{{basePath+imgUrl}}" alt="">
+                        </td>
+                    </tr>
+                    <!--<tr>-->
+                        <!--<th width="15%" class="pl30 maincolor">展示数据：</th>-->
+                        <!--<td colspan="2">-->
+                             <!--<span class="h-xtszse left   relative">-->
+                                   <!--<input class=" c-csrbdcinp c-htcbox relative " type="checkbox"  name="area" value=""><i class="c-htcboxin c-iconfont"></i>房屋补偿一住宅-->
+                             <!--</span>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <tr>
+                        <th class="pl30 maincolor">排序：</th>
+                        <td colspan="2" class="fl">
+                           {{sort}}
+                        </td>
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb30">
+							<a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+				</span>
+            </div>
+        </div>
+    </div>
+</div>

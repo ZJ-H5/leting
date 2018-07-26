@@ -1,0 +1,98 @@
+<app-head></app-head>
+
+<div app-left></div>
+<div class="l-rightsider pb55">
+    <div class="pl15 pr18 pt15 pb15">
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <p class="c-csrbdta fs18 c6 mt25  pl5 ">财务统计</p>
+            <ul class="c-chbul mt15 c-datatjul clearfix">
+                    <li class="left">
+                        <a class="tc disblock ahover c6" href="#/dataSurvey?projectid={{projectId}}">测绘数据统计</a>
+                    </li>
+                    <li class="left">
+                        <a class="tc disblock ahover c6" href="#/datalist?projectid={{projectId}}">签约数据统计</a>
+                    </li>
+    
+                    <li class="left">
+                        <a class="tc disblock ahover c6" href="#/wuyeyijiao?projectid={{projectId}}">物业移交数据统计</a>
+                    </li>
+                    <li class="left">
+                        <a class="tc disblock ahover maincolor" href="#/dataFinance?projectid={{projectId}}">财务统计</a>
+                    </li>
+                    <li class="left">
+                        <a class="tc disblock ahover c6" href="#/dataFile?projectid={{projectId}}">物业信息统计</a>
+                    </li>
+                    <li class="left">
+                        <a class="tc disblock ahover c6" href="#/dataOther?projectid={{projectId}}">其他统计</a>
+                    </li>
+    
+                </ul>
+            <div class="mt25 clearfix">
+                <span class="left mr70 mt10">
+                    <em class=" mt10 left">时间：</em>
+                    <div class="relative left">
+                        <input type="text" class="test1 left relative mt6 c-spgltspb pointer" ng-model="starttime">
+                        <i style="top: 12px;" class="testbox1 c-iconfont c-spgltspi" ng-click="mychange('test1','testbox1',0)"></i>
+                    </div>
+                    <em class=" mt10 left ml4 m4">至</em>
+                    <div class="relative left">
+                        <input type="text" class="test2 left relative mt6 c-spgltspb pointer" ng-model="endtime">
+                        <i style="top: 12px;" class="testbox2 c-iconfont c-spgltspi" ng-click="mychange('test2','testbox2',0)"></i>
+                    </div>
+                    </span>
+
+                
+                <span class="left mt15">
+                    <em>物业范围：</em>
+                    <select class="c-datatjsel " ng-model="scheId" ng-options="p.id as p.category for p in propertyList"
+                            ng-change="changeData(p.id,1)">
+                       <option value="">--请选择--</option>
+                    </select>
+                </span>
+            </div>
+            <div class="c-datatjbd mt30 pb30 clearfix">
+                <div class="c-datatjbdl left clearfix">
+                    <h2 class="c-datatjbdlh fs16 pl20 cf fwb">财务统计图</h2>
+                    <div class="c-datatjbdlb">
+                        <p class="tc">
+                            <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+                            <div id="main" style="width: 400px;height: 350px;"></div>
+                        </p>
+                        <ul class="ml30 clearfix">
+                            <li class="c-xmxqrbli mb15 left" ng-repeat="(key,i) in salesControlArr">
+                                <i class="c-iconfont mr10"></i>
+                                <span ng-bind="i.name"></span>
+                                <span ng-bind="i.value+'%'"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="c-datatjbdr right">
+                    <div class="l-managetable c-bordere6">
+                        <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <th>日期</th>
+                                <th>物业补偿类</th>
+                                <th>延迟支付类</th>
+                                <th>安置补助类</th>
+                            </tr>
+                            <tr ng-repeat="i in rightarr">
+                                <td>{{i.dateFlag+'月份'}}</td>
+                                <td>{{i.type1}}</td>
+                                <td>{{i.type2}}</td>
+                                <td>{{i.type3}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <a class="tc cf radius disinblock c-datatjbdra mt20" href="{{exportLink}}">导出数据</a>
+                </div>
+            </div>
+
+         </div> 
+
+
+
+
+    </div>
+
+</div>

@@ -1,0 +1,96 @@
+<div class="c-ftop c-fdbxm">
+    <div class="container clearfix">
+        <div class="left mt15">
+            <a  href="#/main">
+                <img src="image/c-logoa.png">
+            </a>
+        </div>
+        <div class="right">
+                <ul class="clearfix">
+                    <li class="left">
+                        <a class="c-ftopa cf tc disinblock " href="#/main">首页</a>
+                    </li>
+                    <!-- <li class="left">
+                        <a class="c-ftopa  cf tc disinblock" href="#/showProject">代表项目</a>
+                    </li> -->
+                    <li class="left">
+                        <a class="c-ftopa cf tc disinblock " href="#/objective" ng-bind="brandintroduced"></a>
+                    </li>
+                    <!-- <li class="left">
+                        <a class="c-ftopa cf tc disinblock" href="#/positioning">战略定位</a>
+                    </li> -->
+                    <li class="left">
+                        <a class="c-ftopa  cf tc disinblock" href="#/laws">政策法规</a>
+                    </li>
+                    <li class="left">
+                        <a class="c-ftopa  cf tc disinblock c-ftopacur" href="#/news">新闻动态</a>
+                    </li>
+                    <li class="left">
+                        <a class="c-ftopa  cf tc disinblock" ng-click="login()" ng-bind="nickname||'登录'"></a>
+                    </li>
+                </ul>
+            </div>
+    </div>
+</div>
+<div class="c-fbody">
+    <div class="bgc-z c-fbodyb">
+        <div class="container c-fbodybig mb35">
+            <h2 class="tc fs30 c3 mt75">{{newsList.name}}</h2>
+            <span class="fs12 c9 lh30 disblock mt10" style="text-align: center;">发布时间：{{newsList.createTime | date:'yyyy-MM-dd'}}</span>
+            <div class="mt20 mb30 c-fbodycbig clearfix" ng-if="newsList.content" style="min-height:168px;" ng-bind-html="newsList.content | parseHTML" style="line-height:24px;">
+            </div>
+            <!-- <img ng-src="{{imgHost+newsList.imgUrl}}" alt="" width="1200" height="auto"> -->
+            <!-- <img src="image/c-indexa2.jpg" alt="" width="1200" height="auto"> -->
+        </div>
+    </div>
+</div>
+<div class="c-fbottom fs16" style="margin-top:154px;">
+    <div class="container c-fbodybig">
+        <div class="clearfix pt35 c-fbottoma">
+            <div class="left c-fbottomal mb50">
+                <p class="mb50">
+                    <a class="c-fbottomala mr40" href="#/main">首页</a>
+                    <a class="c-fbottomala mr40" href="#/objective" ng-bind="brandintroduced"></a>
+                    <a class="c-fbottomala mr40" href="#/laws">政策法规</a>
+                    <a class="c-fbottomala mr40" href="#/news">新闻动态</a>
+                </p>
+                <p class="mb15">
+                    <i class="mr10 disinblock c-fbottomalia"></i>service@wiseyq.com
+                </p>
+                <p class="mb15">
+                    <i class="mr10 disinblock c-fbottomalib"></i>深圳市龙岗区坂田街道雪岗路2018号天安云谷产业园一期1栋A座1F
+                </p>
+            </div>
+            <div class="left c-fbottomar clearfix">
+                <div class="ml55 left">
+                    <p class="lh28 ml25">咨询热线：</p>
+                    <h2 class="fs24 ml25">{{mobile}}</h2>
+                    <!--<a class="fs16 cf tc disinblock c-fbottomara mt20" href="">在线咨询</a>-->
+                </div>
+                <!--<div class="left ml90 c-fbottomarbd tc">-->
+                    <!--<div class="pt5 pb5 bgf radius5">-->
+                        <!--<img src="image/c-erwm.jpg" width="90">-->
+                    <!--</div>-->
+                    <!--<p class="mt8">App下载</p>-->
+                <!--</div>-->
+                <!--<div class="left ml40 c-fbottomarbd tc">-->
+                    <!--<div class="pt5 pb5 bgf radius5">-->
+                        <!--<img src="image/c-erwm.jpg" width="90">-->
+                    <!--</div>-->
+                    <!--<p class="mt8">微信服务号</p>-->
+                <!--</div>-->
+            </div>
+        </div>
+        <div class="c-fbottomb clearfix">
+            <div class="left lh65">
+                <span class="mr50">深圳智慧园区信息技术有限公司 版权所有 © 2011-2016</span>
+                <span>粤ICP备14058468号</span>
+            </div>
+            <!--<div class="right lh65">-->
+                <!--<a class="ml25 c-fbottomba" href="">隐私保护</a>-->
+                <!--<a class="ml25 c-fbottomba" href="">法律声明</a>-->
+                <!--<a class="ml25 c-fbottomba" href="">网站地图</a>-->
+            <!--</div>-->
+        </div>
+    </div>
+</div>

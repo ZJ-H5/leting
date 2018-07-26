@@ -1,0 +1,371 @@
+<div>
+    <div class="l-rightsider pb55">
+        <ul class="c-csrtop bgf clearfix">
+            <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl " href="">项目建设情况</a></li>
+            <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl " href="">项目流程设置</a></li>
+            <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl " href="">拆迁补偿规则</a></li>
+            <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl maincolor" href="">佣金发放规则</a></li>
+            <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl" href="">修改记录</a></li>
+        </ul>
+        <div class="mt15 ml15 mr15    ">
+            <div class="clearfix border-bottom pl20 pr20 back-white">
+                <h3 class="l-managetlt  fs18 left">
+                    <i class="mr5"></i>
+                    <em>佣金规则</em>
+                </h3>
+                <a href="javascript:void(0)" class="l-addbnt iconfont  right mt20" ></a>
+            </div>
+            <div class="back-white c-bordere6 clearfix">
+                <p class="ml40 mr40 pt15 pb25 clearfix">
+                    <span class="left fs16 c3">签约佣金规则</span>
+                    <a class="right fs16 maincolor addRules" onclick="hopruletab('addqyyjRules')">添加规则</a>
+                </p>
+                <div class="l-managetable ">
+                    <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <th>总体项目进度</th>
+                            <th>标准（元/m²）</th>
+
+                            <th>发放节点</th>
+                            <th>发放比例</th>
+
+                            <th>发放节点</th>
+                            <th>发放比例</th>
+
+                            <th>发放节点</th>
+                            <th>发放比例</th>
+
+                            <th>发放节点</th>
+                            <th>发放比例</th>
+
+                            <th>操作</th>
+                        </tr>
+                        <tr ng-repeat="qyrj in qyData" class="ddd">
+
+                            <td ng-bind="qyrj.allProcess2"></td>
+                            <td ng-bind="qyrj.standard" class="qypush"></td>
+                            <td class="l-tablelink">
+                                <a href="javascript:void(0)">查看</a>
+                                <a href="">编辑</a>
+                                <a href="">删除</a>
+                            </td>
+
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+            <div class="back-white c-bordere6 mt15 clearfix">
+                <p class="ml40 mr40 pt15 pb25 clearfix">
+                    <span class="left fs16 c3">查处违建佣金规则</span>
+                    <a class="right fs16 maincolor addRules" onclick="hopruletab('addccwzRules')" ng-click="addwjyjgz()">添加规则</a>
+                </p>
+                <div class="l-managetable ">
+                    <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <th>发放节点</th>
+                            <th>佣金</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                        <tr ng-repeat="item in weijian"  useid="{{item.id}}" projectid="{{item.projectId}}">
+                            <td ng-bind="item.issuingNode"></td>
+                            <td ng-bind="item.commission"></td>
+                            <td ng-bind="item.remarks"></td>
+                            <td class="l-tablelink">
+                                <a href="javascript:void(0)" ng-click="wjyjCheck(item)" onclick="hopruletab('checkCcwzRules')" >查看</a>
+                                <a href="" ng-click="wjyjEdit(item)"  onclick="hopruletab('editccwzRules')" >编辑</a>
+                                <a href="" ng-click="wjyjDel()">删除</a>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+            <div class="back-white c-bordere6 mt15 clearfix">
+                <p class="ml40 mr40 pt15 pb25 clearfix">
+                    <span class="left fs16 c3">综合业务佣金规则</span>
+                    <a class="right fs16 maincolor addRules" onclick="hopruletab('addzhywRules')">添加规则</a>
+                </p>
+                <div class="l-managetable ">
+                    <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <th>项目名称</th>
+                            <th>标准</th>
+                            <th>佣金</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                        <tr ng-repeat="item in yewu" ids="{{item.id}}">
+                            <td ng-bind="item.integratedName"></td>
+                            <td ng-bind="item.types"></td>
+                            <td ng-bind="item.commission"></td>
+                            <td ng-bind="item.remarks"></td>
+                            <td class="l-tablelink">
+                                <a href="javascript:void(0)">查看</a>
+                                <a href="">编辑</a>
+                                <a href="">删除</a>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--添加综合业务佣金规则-->
+    <div class="dialog  addzhywRules">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w1080 radius    hop-cont">
+            <div class="back-white">
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">添加综合业务佣金规则</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                </h3>
+                <div class="pt20 pl30 pr30">
+                    <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th width="15%" class="pl30 maincolor">项目名称：</th>
+                            <td colspan="5"><input type="text" ng-model="zhIntegratedName" class="c-yjgzinpa c-bordere6"></td>
+                        </tr>
+                    </table>
+                </div>
+                <h3 class="c3 mt20 pl30">发放标准</h3>
+                <div class="pt20 pl30 pr30">
+                    <table width="100%" class="back-f5 hop-table lh50 relative" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th  class="pl30 maincolor">补偿类型：</th>
+                            <td  colspan="5" class="c-zhywslect">
+                                <span class="left relative clearfix">
+                                    <input class=" c-csrbdcinp c-htcbox relative left " type="radio" ng-checked="true"  name="typea" ng-model="typeValue" ng-change="changeColor()" value="签约节点">
+                                    <i  class="checkbox iconfont c-typebox   " ng-class="{'check':isflag1}"></i>
+                                    <em class="mr75 left">签约节点</em>
+                                </span>
+                                <span class="left ml45 relative clearfix">
+                                    <input class=" c-csrbdcinp c-htcbox relative left " type="radio"   name="typea" ng-model="typeValue" ng-change="changeColor()" value="测绘数据">
+                                    <i class="checkbox iconfont c-typebox  " ng-class="{'check':isflag2}"></i>
+                                    <em class=" left">测绘数据</em>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th  class="pl30 maincolor">签约节点：</th>
+                            <td colspan="5">
+                                <select ng-model="zhqya" class="select hop-select w265 mr30">
+                                    <option>签约</option>
+                                </select>
+                                <select ng-model="zhqyb" class="select hop-select w265">
+                                    <option>公证</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr >
+                            <th   class="pl30 maincolor">测绘数据：</th>
+                            <td colspan="5">
+                                <select ng-model="zhcha" class="select hop-select w265 mr30">
+                                    <option>复核</option>
+                                </select>
+                                <select ng-model="zhchb" class="select hop-select w265">
+                                    <option>独立空地</option>
+                                </select>
+                            </td>
+                            <div class="c-shadowboxa" ng-class="{'c-shadowboxaa':isflag2}"></div>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="pt20 pl30 pr30">
+                    <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th width="15%"  class="pl30 maincolor">佣金：</th>
+                            <td colspan="5"><input type="text" ng-model="zhCommission" class="c-yjgzinpb c-bordere6 mr10"><em class="maincolor">平方米/元</em></td>
+                        </tr>
+                        <tr >
+                            <th width="15%"  class="pl30 maincolor">备注：</th>
+                            <td colspan="5"><input type="text" ng-model="zhRemarks"  placeholder="请输入" class="l-input w500"/></td>
+                        </tr>
+                    </table>
+                    <span class="hop-bntap disblock pt30 pb55">
+							<a href="javascript:void(0)" ng-click="saveZHYW()"  class="hop-save disinblock w133 hoptap radius dialog-close">保存</a>
+							<a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+						</span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--添加签约佣金规则-->
+    <div class="dialog addqyyjRules">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w1080 radius    hop-cont">
+            <div class="back-white">
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">添加签约佣金规则</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                </h3>
+                <div class="pt20 pl30 pr30">
+                    <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th width="15%" class="pl30 maincolor">总体项目进度：</th>
+                            <td >
+                                <input type="text" ng-model="process" class="c-yjgzinpc c-bordere6 mr5">%
+                                <em class="ml10 mr10">——</em>
+                                <input type="text" ng-model="process2" class="c-yjgzinpc c-bordere6 mr5">%
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="15%" class="pl30 maincolor">标准：</th>
+                            <td >
+                                <input type="text" ng-model="standard" class="c-yjgzinpc c-bordere6 mr5">元/m²
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%" class="back-f5 hop-table lh50 pushffjd" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th width="15%" class="pl30 maincolor">发放节点：</th>
+                            <td >
+                                <input type="text"  value="" class="c-yjgzinpc c-bordere6 mt10 left ffNodes">
+                                <span class="ml50 mr10 maincolor left">发放比例：</span>
+                                <input type="text"  class="c-yjgzinpc c-bordere6 mr5 mt10 left ffPercent">%
+                                <a href="javascript:void(0)" class="radius5 c-yjffjda cf ml10" ng-click="addffjd()">添加发放节点</a>
+                                <a href="javascript:void(0)" class="radius5 c-yjffjda cf ml10" ng-click="delffjd()">删除发放节点</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="15%" class="pl30 maincolor">发放节点：</th>
+                            <td >
+                                <input type="text"  value="" class="c-yjgzinpc c-bordere6 mt10 left ffNodes">
+                                <span class="ml50 mr10 maincolor left">发放比例：</span>
+                                <input type="text"   class="c-yjgzinpc c-bordere6 mr5 mt10 left ffPercent">
+                                <span class="left">%</span>
+                            </td>
+                        </tr>
+
+                    </table>
+                    <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th width="15%" class="pl30 maincolor">备注：</th>
+                            <td><input type="text"  placeholder="请输入" class="l-input w500"/></td>
+                        </tr>
+
+                    </table>
+                    <span class="hop-bntap disblock pt30  pb55">
+							<a href="javascript:void(0)" ng-click="saveYJGZ()" class="hop-save disinblock w133 hoptap radius dialog-close">保存</a>
+							<a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+						</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--添加查处违建佣金规则-->
+    <div class="dialog addccwzRules">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w1080 radius    hop-cont">
+            <div class="back-white">
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">添加查处违建佣金规则</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                </h3>
+                <div class="pt20 pl30 pr30">
+                    <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th width="15%" class="pl30 maincolor">发放节点：</th>
+                            <td >
+                                <input type="text" ng-model="wzIssuingNode" class="c-yjgzinpc c-bordere6 mr5">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="15%" class="pl30 maincolor">佣金：</th>
+                            <td >
+                                <input type="text" ng-model="wzCommission" class="c-yjgzinpc c-bordere6 mr5">元
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="15%" class="pl30 maincolor">备注：</th>
+                            <td><input type="text" ng-model="wzRemarks"  placeholder="请输入" class="l-input w500"/></td>
+                        </tr>
+
+                    </table>
+                    <span class="hop-bntap disblock pt30 pb55">
+							<a href="javascript:void(0)" ng-click="saveCCWZ()" class="hop-save disinblock w133 hoptap radius dialog-close">保存</a>
+							<a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+						</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--查看 查处违建佣金规则-->
+    <div class="dialog checkCcwzRules">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w1080 radius    hop-cont">
+            <div class="back-white">
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">查看查处违建佣金规则</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                </h3>
+                <div class="pt20 pl30 pr30">
+                    <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0" >
+                        <tr>
+                            <th width="15%" class="pl30 maincolor">发放节点：</th>
+                            <td >
+                                <span ng-bind="checkwjyj.issuingNode"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="15%" class="pl30 maincolor">佣金：</th>
+                            <td >
+                                <span ng-bind="checkwjyj.commission"></span>元
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="15%" class="pl30 maincolor">备注：</th>
+                            <td><span ng-bind="checkwjyj.remarks"></span></td>
+                        </tr>
+
+                    </table>
+                    <span class="hop-bntap disblock pt30 pb55">
+							<a href="javascript:void(0)" ng-click="wjyjEdit(checkwjyj)" class="hop-save disinblock w133 hoptap radius dialog-close">编辑</a>
+							<a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">关闭</a>
+						</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--编辑查处违建佣金规则-->
+    <div class="dialog editccwzRules">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w1080 radius    hop-cont">
+            <div class="back-white">
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">编辑查处违建佣金规则</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                </h3>
+                <div class="pt20 pl30 pr30">
+                    <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th width="15%" class="pl30 maincolor">发放节点：</th>
+                            <td >
+                                <input type="text" ng-model="wzIssuingNode" class="c-yjgzinpc c-bordere6 mr5">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="15%" class="pl30 maincolor">佣金：</th>
+                            <td >
+                                <input type="text" ng-model="wzCommission" class="c-yjgzinpc c-bordere6 mr5">元
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="15%" class="pl30 maincolor">备注：</th>
+                            <td><input type="text" ng-model="wzRemarks"  placeholder="请输入" class="l-input w500"/></td>
+                        </tr>
+
+                    </table>
+                    <span class="hop-bntap disblock pt30 pb55">
+							<a href="javascript:void(0)" ng-click="saveCCWZ()" class="hop-save disinblock w133 hoptap radius dialog-close">保存</a>
+							<a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+						</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

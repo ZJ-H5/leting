@@ -1,0 +1,46 @@
+<app-head></app-head>
+<app-left-Column class="disnone"></app-left-Column>
+<div class="pb55 pt55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">群公告列表</a>
+        </div>
+        <div class="c-csrbdinp right  mr20">
+            <i class="c-iconfont mt8 ml10 left" ng-click="sellists(searchProperty)"></i>
+            <input class="ml10 left" type="text" placeholder="请输入公告标题" ng-model="searchProperty" >
+        </div>
+
+
+
+
+        <div class="l-managetable mt40">
+            <div class="l-managetable">
+                <table class="l-tablebox l-ruletab c-bordernone" style="margin: auto;text-align: center"  cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th >公告标题</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+
+                    <tr ng-repeat="l in list">
+                        <td style="display: inline-block;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">{{l.title||no}}</td>
+                        <td>{{l.createTime|date:'yyyy-MM-dd'||no}}</td>
+                        <td style="text-align:center;"><a class="fs14 c6 maincolor ahover" href="javascript:void (0)" ui-sref="lookthings({id:l.id})" > 查看详情</a></td>
+                    </tr>
+
+                </table>
+                <div class="mt20 tc" ng-if="list.length>0?false:true">暂无数据</div>
+                <div class="l-page fs12 tr pt20 pb30 lh30">
+                    <div ui-pagination conf="conf"></div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+

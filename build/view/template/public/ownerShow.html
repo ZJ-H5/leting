@@ -1,0 +1,181 @@
+<div>
+    <div class="clearfix  mt20 mb20">
+        <h1 class="fs16 fl">业权人</h1>
+    </div>
+    <div class="h-yequan h-yequnren h-shoukuan" ng-show="data.length>0?true:false">
+        <div class="bs-example" data-example-id="simple-responsive-table" ng-repeat="i in data">
+            <div class="table-responsive  mt30 ml30">
+                <table class="table htable h-born h-fenpei hjiguan">
+                    <tbody>
+                        <tr>
+                            <td clospan="2">
+                                业权人：
+                                <span ng-bind="i.holderName?i.holderName:no" useid="{{i.id}}"></span>
+                            </td>
+                            <td clospan="2">
+                                身份证住址：
+                                <span ng-bind="i.permanentAddress?i.permanentAddress:no" useid="{{i.id}}"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <!-- <td>分配比例：
+                                <span ng-bind="i.allocationProportion?i.allocationProportion.toFixed(4)+'%':no"></span>
+                            </td> -->
+                            <td>住宅分配面积:
+                                <span ng-bind="i.houseArea?i.houseArea+'m²':no"></span>
+                            </td>
+                            <td>商业分配面积:
+                                <span ng-bind="i.commerceArea?i.commerceArea+'m²':no"></span>
+                            </td>
+                            <td>产业研发用房:
+                                <span ng-bind="i.industryArea?i.industryArea+'m²':no"></span>
+                            </td>
+                            <td>配套单身宿舍:
+                                <span ng-bind="i.dormArea?i.dormArea+'m²':no"></span>
+                            </td>
+                            <td>籍贯：
+                                <span ng-bind="i.placeOrigin?i.placeOrigin:no"></span>
+                            </td>
+                            <td>联系人：
+                                <span ng-bind="i.relationPerson?i.relationPerson:no"></span>
+                            </td>
+                            <td>联系电话：
+                                <span ng-bind="i.relationPhone?i.relationPhone:no"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>通讯地址：
+                                <span ng-bind="i.address?i.address:no"></span>
+                            </td>
+                            <td>身份证号码：
+                                <span ng-bind="i.ownerIdCard?i.ownerIdCard:no"></span>
+                            </td>
+                            <td>身份证有效期限：
+                                <span ng-bind="i.isEffective==1?'长期':i.cardPeriod"></span>
+                            </td>
+                            <td>身份证签发地：
+                                <span ng-bind="i.placeIdentity?i.placeIdentity:no"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td clospan="4" ng-if="i.recievePerson">
+                                收款人：
+                                <span ng-bind="i.recievePerson?i.recievePerson:no"></span>
+                            </td>
+                            <td clospan="4" ng-if="i.recieveType">
+                                收款方式：
+                                <span ng-bind="i.recieveType?i.recieveType:no"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td ng-if="i.recieveGuardian">监护人姓名：
+                                <span ng-bind="i.recieveGuardian?i.recieveGuardian:no"></span>
+                            </td>
+                            <td ng-if="i.recieveRelationShip">关系：
+                                <span ng-bind="i.recieveRelationShip?i.recieveRelationShip:no"></span>
+                            </td>
+                            <td ng-if="i.recievePhone">联系电话：
+                                <span ng-bind="i.recievePhone?i.recievePhone:no"></span>
+                            </td>
+                            <td ng-if="i.recieveAddress">通讯地址：
+                                <span ng-bind="i.recieveAddress?i.recieveAddress:no"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td ng-if="i.recieveIdCard">身份证号码：
+                                <span ng-bind="i.recieveIdCard?i.recieveIdCard:no"></span>
+                            </td>
+                            <td ng-if="i.recieveInformationBank">收款银行：
+                                <span ng-bind="i.recieveInformationBank?i.recieveInformationBank:no"></span>
+                            </td>
+                            <td ng-if="i.recieveBankNo">银行账号：
+                                <span ng-bind="i.recieveBankNo?i.recieveBankNo:no"></span>
+                            </td>
+                            <td ng-if="i.monetaryAmount">货币补偿金额(官龙)：
+                                <span ng-bind="i.monetaryAmount?i.monetaryAmount+'元':no"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td ng-if="i.transitionalAmount">过渡补偿金额(官龙)：
+                                <span ng-bind="i.transitionalAmount?i.transitionalAmount+'元':no"></span>
+                            </td>
+                            <td ng-if="i.relocateCompensateAmount">搬迁补偿金额：
+                                <span ng-bind="i.relocateCompensateAmount?i.relocateCompensateAmount+'元':no"></span>
+                            </td>
+                            <td ng-if="i.signAwardAmount">签约奖励金额：
+                                <span ng-bind="i.signAwardAmount?i.signAwardAmount+'元':no"></span>
+                            </td>
+                            <td ng-if="i.decorateCompensateAmount">装修补偿金额：
+                                <span ng-bind="i.decorateCompensateAmount?i.decorateCompensateAmount+'元':no"></span>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td ng-if="i.oneStageAmount">货币补偿金额一期：
+                            <span ng-bind="i.oneStageAmount?i.oneStageAmount:no"></span>
+                        </td>
+                        <td ng-if="i.towStageAmount">货币补偿金额二期：
+                            <span ng-bind="i.towStageAmount?i.towStageAmount:no"></span>
+                        </td>
+                        <td ng-if="i.threeStageAmount">货币补偿金额三期：
+                            <span ng-bind="i.threeStageAmount?i.threeStageAmount:no"></span>
+                        </td>
+                        <td ng-if="i.temporaryAmount">临时安置补偿金额(每季度)：
+                            <span ng-bind="i.temporaryAmount?i.temporaryAmount:no"></span>
+                        </td>
+                        <td ng-if="i.certificatesHandlingAmount">原《房产证》办证补偿
+                            <span ng-bind="i.certificatesHandlingAmount?i.certificatesHandlingAmount:no"></span>
+                        </td>
+                    </tr>
+                    <td class="l-tablelink">
+                        <a href="javascript:;" useid="{{i.id}}" onclick="hopruletab('supper')" ng-click="editInformation(i.id,$index)">关系图谱</a>
+                    </td>
+                    </tbody>
+                </table>
+            </div>
+            <div class="l-managetable">
+                <table class="l-tablebox h-tablebox fs13 " cellpadding="0" cellspacing="0" width="100%">
+                    <tr class="h50 born hbtntr hbtntrs l-tablebox h-tablebox w100- mr5">
+                        <th>联系人</th>
+                        <th>电话</th>
+                        <th>户籍</th>
+                        <th>亲属关系</th>
+                        <th>决策关系</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="j in i.makeCollectionsList">
+                        <td ng-bind="j.relationPersion?j.relationPersion:no"></td>
+                        <td ng-bind="j.relationPhone?j.relationPhone:no"></td>
+                        <td ng-bind="j.householdRegister?j.householdRegister:no"></td>
+                        <td ng-bind="j.relationShip?j.relationShip:no"></td>
+                        <td ng-bind="j.decisionRelation?j.decisionRelation:no"></td>
+                        <td class="l-tablelink">
+                            <a href="javascript:;" useid="{{j.id}}" onclick="hopruletab('supper')" ng-click="makecoll(j.id,$index)">关系图谱</a>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div ng-show="data.length>0?false:true" style="width: 100%;height: 100px;border: 1px solid #ccc; text-align: center;line-height: 100px;">暂无业权人，请
+        <a class="maincolor"  href="javascript:;"  ui-sref="PropertyManagementPropertyManagement({projectid:projectId,roomId:roomId})">添加</a>
+    </div>
+
+    <!--关系图谱-->
+    <div class="dialog supper">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w754 radius    hop-cont">
+            <div class="back-white">
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">关系图谱</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                </h3>
+                <!--!&#45;&#45; 为 ECharts 准备一个具备大小（宽高）的 DOM &ndash;&gt;-->
+                <div id="main" style="width: 600px;height:400px;margin: auto;padding-bottom: 20px;"></div>
+            </div>
+        </div>
+    </div>
+</div>

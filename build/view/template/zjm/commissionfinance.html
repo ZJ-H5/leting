@@ -1,0 +1,154 @@
+<app-head></app-head>
+
+<div app-left></div>
+<!--main-->
+<div class="l-rightsider   pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">财务管理</a>
+        </div>
+        <ul class="z-chbul h-cwgispxx mt15 back-white clearfix">
+            <li class="left">
+                <a class="tc disblock c6" href="#/finance?projectid={{projectId}}">物业补偿和临时安置补助</a>
+            </li>
+            <li class="left">
+                <a class="tc disblock c6" href="#/delayfinance?projectid={{projectId}}">延迟支付补偿</a>
+            </li>
+            <li class="left">
+                <a class="tc disblock maincolor c6" href="#/commissionfinance?projectid={{projectId}}">佣金</a>
+            </li>
+            <li class="left">
+                <a class="tc disblock ahover c6" href="#/payfinance?projectid={{projectId}}">财务支付</a>
+            </li>
+            <!--<li class="left"><a class="tc disblock ahover c6" href="#/paylist?projectid={{projectId}}">支付列表</a></li>-->
+        </ul>
+        <div class="c-csrbdc mt20">
+            <p class="c-csrbdcpa pl30 fs16 c3 clearfix">
+                <span class="left">筛选</span>
+                <a class="right maincolor mr30 c-spgltcl" href="javascript:void (0)" ng-click="scrolldiv()">收起</a>
+            </p>
+            <div class="c-spgltclshow" ng-show="myscrol">
+                <p class="fs14 c6 pl30 c-wygltp clearfix">
+                    <span class="left c-spgltsp">佣金类型：</span>
+                    <span class="left mr45 relative">
+                        <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox" name="" value="selectall" ng-model="selectall"
+                            ng-click="checktall(selectall,'selectall',payselected,starttime,endtime,type,exprottype)">
+                        <i class="c-htcboxin c-iconfont"></i>全部
+                    </span>
+                    <span class="left mr45 relative" ng-repeat="c in commissiontype">
+                        <input class=" c-csrbdcinp c-htcbox relative" type="checkbox" name="commission" value="" ng-model="c.state" ng-click="updateSelection($event,c.id,starttime,endtime,type,exprottype)">
+                        <i class="c-htcboxin c-iconfont"></i>{{c.name}}
+                    </span>
+
+                </p>
+
+                <p class=" fs14 c6 pl30 clearfix">
+                    <span class="left c-spgltsp">收/付款状态：</span>
+                    <span class="left mr45 relative">
+                        <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox" name="pay" value="payselectall" ng-model="payselectall"
+                            ng-click="checktall(payselectall,'payselectall',starttime,endtime,selected,type,exprottype)">
+                        <i class="c-htcboxin c-iconfont"></i>全部
+                    </span>
+                    <span class="left mr45 relative" ng-repeat="p in paylist">
+                        <input class=" c-csrbdcinp c-htcbox relative" id="p.id" type="checkbox" name="pay" value="" ng-model="p.state" ng-checked="isSelected(p.id)"
+                            ng-click="updateSelection($event,p.id,starttime,endtime,type,exprottype)">
+                        <i class="c-htcboxin c-iconfont"></i>{{p.name}}
+                    </span>
+
+                </p>
+                <div class=" c6 pl30 pt5 pb5 clearfix relative" style="display: flex;align-items: center;">
+                    <p>
+                    <span class="left c-spgltsp">时间：</span>
+                    <div class="relative left">
+                        <input type="text" id="text1" class="test1 left relative mt6 c-spgltspb pointer" ng-model="starttime">
+                        <i style="top: 12px;" class="test2 c-iconfont c-spgltspi" ng-click="mychange(mydata,selected,payselected,endtime,exporttype)"></i>
+                    </div>
+                    <span class="left ml15 mr15 mt10">至</span>
+                    <div class="relative left">
+
+                        <input type="text" class="test3 left relative mt6 mr15 c-spgltspb pointer" ng-model="endtime">
+                        <i style="top: 12px;right: 26px;" ng-click="mychange2(mydata,selected,payselected,starttime,exporttype)" class="test4 c-iconfont c-spgltspi"></i>
+                    </div>
+                    <a class="left mr15 mt6 c-spgltaa tc" href="javascript:void (0)" ng-class="{visited:flag==true}" ng-click="seven($event,selected,payselected,starttime,endtime,exporttype)">近7天</a>
+                    <a class="left mt6 c-spgltaa tc" ng-class="{visited:flag2==true}" href="javascript:void (0)" ng-click="month($event,selected,payselected,starttime,endtime,exporttype)">近1个月</a>
+                    </p>
+                </div>
+                <!--<p class=" c6 pl30 pt5 pb5 clearfix relative">-->
+                <!--<span class="left c-spgltsp">时间：</span>-->
+                <!--<input type="text" id="text1" class="test1 left relative mt6 mr15 c-spgltspb pointer" ng-model="starttime">-->
+                <!--<i class="test2 c-iconfont c-spgltspi" ng-click="mychange(mydata,selected,payselected,endtime,exporttype)"></i>-->
+                <!--<span class="left ml15 mr15">至</span>-->
+                <!--<input type="text" class="test3 left relative mt6 mr15 c-spgltspb pointer" ng-model="endtime">-->
+                <!--<i  ng-click="mychange2(mydata,selected,payselected,starttime,exporttype)" class="test4 c-iconfont c-spgltspi"></i>-->
+                <!--<a class="left mr15 mt6 c-spgltaa tc" href="javascript:void (0)" ng-class="{visited:flag==true}" ng-click="seven($event,selected,payselected,starttime,endtime,exporttype)">近7天</a>-->
+                <!--<a class="left mt6 c-spgltaa tc" ng-class="{visited:flag2==true}" href="javascript:void (0)" ng-click="month(selected,payselected,starttime,endtime,exporttype)">近1个月</a>-->
+                <!--</p>-->
+            </div>
+            <div class=" c6 pl30 pt5 lh40 pb5 clearfix" ng-show="myscrol">
+                <span class="left lh40 c-spgltsp">关键字搜索：</span>
+                <div class="c-csrbdinp back-white left  mt4">
+                    <i class="c-iconfont mt8  ml10 pt10 left"></i>
+                    <input class="ml10 left" type="text" placeholder="收款人姓名" ng-model="ppnameinput">
+                </div>
+            </div>
+
+        </div>
+        <div class="clearfix">
+            <!--<a class="left mt10 mb10 ml30  c-spgltabb radius5 tc cf" href="javascript:void (0)">查询</a>-->
+            <!--<a class="left mt10 mb10 ml80  c-spgltabb radius5 tc cf" href="javascript:void (0)">批量操作</a>-->
+            <a class="left mt10 mb10 ml10  c-spgltabb radius5 tc cf" href="javascript:void (0)" ng-click="commissionapply()">批量申请支付</a>
+            <a class="left mt10 mb10 ml10  c-spgltabbh radius5 tc cf" ng-href="{{exporttypeUrl}}" ng-click="export(selected,payselected,starttime,endtime,type)">导出所有</a>
+        </div>
+        <div class="l-managetable">
+            <div class="l-managetable c-bordere6">
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th>
+                            <input type="checkbox" ng-click="batchAll($event)" ng-model="batchChecked">
+                        </th>
+                        <th>房源地址</th>
+                        <th>付款项目</th>
+                        <th>付款金额</th>
+                        <th>收款人姓名</th>
+                        <th>付款银行</th>
+                        <th>收款银行账号</th>
+                        <th>付款状态</th>
+                        <th>实际付款时间</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="l in list">
+                        <td>
+                            <input type="checkbox" ng-click="batchselect($event,l.id)" ng-if="l.examineStatus==0||l.examineStatus==2"
+                                ng-model="l.checked">
+                        </td>
+                        <td>{{l.address}}</td>
+                        <td>{{l.name}}</td>
+                        <td>{{l.reAccount}}</td>
+                        <td>{{l.reUserName}}</td>
+                        <td>{{l.reBankName}}</td>
+                        <td>{{l.reBankNo}}</td>
+                        <!--<td>{{l.paymentTime|date:'yyyy-MM-dd'}}</td>-->
+                        <td>{{l.payment}}</td>
+                        <td>{{l.actualPaymentTime|date:'yyyy-MM-dd'}}</td>
+                        <td>
+                            <a ng-click="commissionapply(l.id)" ng-if="l.examineStatus==0||l.examineStatus==2">申请支付</a>
+                            <span ng-if="l.examineStatus==3">已提交申请</span>
+                            <span ng-if="l.examineStatus==1">审核通过</span>
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+            <div ng-show="list.length>0?false:true" class="mt10 tc">
+                暂无数据
+            </div>
+
+
+            <div class="l-page fs12 tr pt20 pb30 lh30">
+                <div ui-pagination conf="conf"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--main end-->

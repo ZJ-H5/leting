@@ -1,0 +1,98 @@
+<div>
+    <div class="clearfix  mt20 mb20">
+        <h1 class="fs16 fl">业权人</h1>
+    </div>
+    <div class="h-yequan h-yequnren h-shoukuan" ng-show="data.length>0?true:false">
+        <div class="bs-example" data-example-id="simple-responsive-table" ng-repeat="i in data">
+            <div class="table-responsive  mt30 ml30">
+                <table class="table htable h-born h-fenpei hjiguan">
+                    <tbody>
+                    <tr>
+                        <td clospan="4">
+                            业权人：<span ng-bind="i.holderName?i.holderName:no" useid="{{i.id}}"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>分配比例：<span ng-bind="i.allocationProportion?i.allocationProportion+'%':no"></span></td>
+                        <td>籍贯：<span ng-bind="i.placeOrigin?i.placeOrigin:no"></span></td>
+                        <td>联系人：<span ng-bind="i.relationPerson?i.relationPerson:no"></span></td>
+                        <td>联系电话：<span ng-bind="i.relationPhone?i.relationPhone:no"></span></td>
+                    </tr>
+                    <tr>
+                        <td>通讯地址：<span ng-bind="i.address?i.address:no"></span></td>
+                        <td>身份证号码：<span ng-bind="i.ownerIdCard?i.ownerIdCard:no"></span></td>
+                        <td>身份证有效期：<span ng-bind="i.cardPeriod?i.cardPeriod:no"></span></td>
+                        <td>身份证签发地：<span ng-bind="i.placeOrigin?i.placeOrigin:no"></span></td>
+                    </tr>
+                    <tr>
+                        <td clospan="4" >
+                            收款人：<span ng-bind="i.recievePerson?i.recievePerson:no"></span>
+                        </td>
+                        <td clospan="4">
+                            收款方式：<span ng-bind="i.recieveType?i.recieveType:no"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>监护人姓名：<span ng-bind="i.recieveGuardian?i.recieveGuardian:no"></span></td>
+                        <td>关系：<span ng-bind="i.recieveRelationShip?i.recieveRelationShip:no"></span></td>
+                        <td>联系电话：<span ng-bind="i.recievePhone?i.recievePhone:no"></span></td>
+                        <td>通讯地址：<span ng-bind="i.recieveAddress?i.recieveAddress:no"></span></td>
+                    </tr>
+                    <tr>
+                        <td>身份证号码：<span ng-bind="i.recieveIdCard?i.recieveIdCard:no"></span></td>
+                        <td>付款银行：<span ng-bind="i.recieveInformationBank?i.recieveInformationBank:no"></span></td>
+                        <td>银行账号：<span ng-bind="i.recieveBankNo?i.recieveBankNo:no"></span></td>
+                    </tr>
+                    <td class="l-tablelink">
+                        <a href="javascript:;" useid="{{i.id}}" onclick="hopruletab('supper')" ng-click="editInformation(i.id,$index)">关系图谱</a>
+                    </td>
+                    </tbody>
+                </table>
+            </div>
+            <div class="l-managetable">
+                <table class="l-tablebox h-tablebox fs13 " cellpadding="0" cellspacing="0" width="100%">
+                    <tr class="h50 born hbtntr hbtntrs l-tablebox h-tablebox w100- mr5">
+                        <th>联系人</th>
+                        <th>电话</th>
+                        <th>户籍</th>
+                        <th>亲属关系</th>
+                        <th>决策关系</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr ng-repeat="j in i.makeCollectionsList">
+                        <td ng-bind="j.relationPersion?j.relationPersion:no"></td>
+                        <td ng-bind="j.relationPhone?j.relationPhone:no"></td>
+                        <td ng-bind="j.householdRegister?j.householdRegister:no"></td>
+                        <td ng-bind="j.relationShip?j.relationShip:no"></td>
+                        <td ng-bind="j.decisionRelation?j.decisionRelation:no"></td>
+                        <td class="l-tablelink">
+                            <a href="javascript:;" useid="{{j.id}}" onclick="hopruletab('supper')" ng-click="makecoll(j.id,$index)">关系图谱</a>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div ng-show="data.length>0?false:true" style="width: 100%;height: 100px;border: 1px solid #ccc; text-align: center;line-height: 100px;">暂无业权人，请
+        <a class="maincolor"  href="javascript:;"  ui-sref="PropertyManagementPropertyManagement({projectid:projectId,roomId:roomId})">添加</a>
+    </div>
+
+    <!--关系图谱-->
+    <div class="dialog supper">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w754 radius    hop-cont">
+            <div class="back-white">
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">关系图谱</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                </h3>
+                <!--!&#45;&#45; 为 ECharts 准备一个具备大小（宽高）的 DOM &ndash;&gt;-->
+                <div id="main" style="width: 600px;height:400px;margin: auto;padding-bottom: 20px;"></div>
+            </div>
+        </div>
+    </div>
+</div>

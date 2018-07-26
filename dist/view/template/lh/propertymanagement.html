@@ -1,0 +1,98 @@
+<app-head></app-head>
+
+<app-left-Column></app-left-Column>
+<div class="l-rightsider   pb55">
+    <!--物业管理-->
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">风门坳项目物业</a>
+            <a class=" left fs18 c6 mr35 pl5">全部物业</a>
+            <span class="c-csrbdtasp left fs14 c6 ml20 mt5">共700个</span>
+        </div>
+        <div class="c-csrbdb mt20 clearfix">
+            <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="">全部物业列表</a>
+            <div class="c-csrbdinp right clearfix">
+                <i class="c-iconfont mt8 ml10 left" ></i>
+                <input class="ml10 left" type="text" placeholder="请输入产品名称">
+            </div>
+        </div>
+        <div class="c-csrbdc mt20">
+            <p class="c-csrbdcpa pl30 fs16 c3">筛选</p>
+            <p class="fs14 c6 pl30 clearfix">
+                <span class="left">测绘进度：</span>
+                <span class="left ml45 relative">
+                           <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox"  name="area" value=""><i class="c-htcboxin c-iconfont"></i>全部
+                        </span>
+                <span class="left ml45 relative">
+                            <input class=" c-csrbdcinp c-htcbox relative" type="checkbox" name="area" value=""><i class="c-htcboxin c-iconfont"></i>未测绘
+                        </span>
+                <span class="left ml45 relative">
+                            <input class=" c-csrbdcinp c-htcbox relative" type="checkbox" name="area" value=""><i class="c-htcboxin c-iconfont"></i>第三方测绘
+                        </span>
+                <span class="left ml45 relative">
+                            <input class=" c-csrbdcinp c-htcbox relative" type="checkbox" name="area" value=""><i class="c-htcboxin c-iconfont"></i>测绘符合
+                        </span>
+                <span class="left ml45 relative">
+                            <input class=" c-csrbdcinp c-htcbox relative" type="checkbox" name="area" value=""><i class="c-htcboxin c-iconfont"></i>生成报告
+                        </span>
+            </p>
+            <p class="c-wygltp fs14 c6 pl30 clearfix">
+                <span class="left">签约进度：</span>
+                <span class="left ml45 relative">
+                            <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox" name="area" value=""><i class="c-htcboxin c-iconfont"></i>全部
+                        </span>
+                <span class="left ml45 relative">
+                            <input class=" c-csrbdcinp c-htcbox relative" type="checkbox" name="area" value=""><i class="c-htcboxin c-iconfont"></i>未测绘
+                        </span>
+                <span class="left ml45 relative">
+                            <input class=" c-csrbdcinp c-htcbox relative" type="checkbox" name="area" value=""><i class="c-htcboxin c-iconfont"></i>第三方测绘
+                        </span>
+                <span class="left ml45 relative">
+                            <input class=" c-csrbdcinp c-htcbox relative" type="checkbox" name="area" value=""><i class="c-htcboxin c-iconfont"></i>测绘符合
+                        </span>
+                <span class="left ml45 relative">
+                            <input class=" c-csrbdcinp c-htcbox relative" type="checkbox" name="area" value=""><i class="c-htcboxin c-iconfont"></i>生成报告
+                        </span>
+            </p>
+
+        </div>
+
+        <div class="l-managetable mt18" >
+            <div class="c-wyglb c-bordere6 mb20 clearfix  " ng-repeat="indx in arr"  >
+                <div class="c-wyglbl left" >
+                    <p class="tc c3 fs18 ">城中村</p>
+                </div>
+                <div class="c-wyglbr left" >
+                    <ul >
+                        <li class="c-wyglbrli c-wyglbrlia c3 ml25" >
+                            <span>物业总数<em ng-bind="indx.count"></em><i>栋</i></span>
+                            <span>已测绘 <em ng-bind="indx.surveyCount"></em><i>栋</i></span>
+                            <span>已签约 <em ng-bind="indx.signCount"></em><i>栋</i></span>
+                            <span>已移交 <em ng-bind="indx.turnOverCount"></em><i>栋</i></span>
+                            <span>已拆除 <em ng-bind="indx.demolishCount"></em><i>栋</i></span>
+                            <span>已还建 <em ng-bind="indx.alsoCount"></em>栋</span>
+                        </li>
+                        <li class="c-wyglbrli c-wyglbrlib  pl25">
+                            <span>已签约面积：<em ng-bind="indx.signArea"></em><i>㎡</i>  </span>
+                            <span>已移交面积: <em ng-bind="indx.turnOverArea"></em><i> ㎡</i></span>
+                            <span>已拆除面积：<em ng-bind="indx.demolishCount"></em><i> ㎡</i></span>
+                            <span>已还建面积：<em ng-bind="indx.alsoCount"></em><i> ㎡</i></span>
+                        </li>
+                        <!-- <li class="c-wyglbrli c-wyglbrlin c3 pl25 pr100 clearfix">
+                            <a class="c-wyglbrliaa c-bordere6 ml25 mt10 tc radius5 c3 right" href="">生成未测绘进度表</a>
+                            <a class="c-wyglbrliab tc radius5 ml25 mt10 cf right" href="">生成未签约进度表</a>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+
+            <div class="l-page fs12 tr pt20 pb30 lh30">
+                {{conf.total}}
+                <div ui-pagination conf="conf"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

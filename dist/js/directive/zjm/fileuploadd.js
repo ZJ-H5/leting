@@ -1,0 +1,1 @@
+angular.module("app").directive("ngFileSelect",["$parse","$timeout",function(e,n){return function(t,i,l){var u=e(l.ngFileSelect);i.bind("change",function(e){var i,l,r=[];if(null!=(i=e.target.files))for(l=0;l<i.length;l++)r.push(i.item(l));n(function(){u(t,{$files:r,$event:e})})})}}]);

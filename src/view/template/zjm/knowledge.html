@@ -1,0 +1,752 @@
+<app-head></app-head>
+
+<app-left-column></app-left-column>
+<!--main-->
+<div class="l-rightsider clearfix   pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">项目信息管理</a>
+        </div>
+        <ul class="c-chbul mt15 ml15 mr15  back-white clearfix h-cwgispxx">
+            <li class="left">
+                <a class="tc disblock  ahover maincolor" href="#/knowledge">首页内容修改</a>
+            </li>
+            <!-- <li class="left">
+                <a class="tc disblock   ahover c6" href="#/knowledgeProject">项目信息管理</a>
+            </li> -->
+            <li class="left">
+                <a class="tc disblock ahover c6" href="#/lawsregulations">政策法规</a>
+            </li>
+            <li class="left">
+                <a class="tc disblock ahover c6" href="#/newsList">新闻动态</a>
+            </li>
+            <li class="left">
+                <a class="tc disblock ahover c6" href="#/columnadmin">栏目管理</a>
+            </li>
+            <li class="left">
+                <a class="tc disblock ahover c6" href="#/grup">群公告</a>
+            </li>
+        </ul>
+        <!--<div class="clearfix">-->
+        <!--<div class="c-csrbdinp right mt20 ">-->
+        <!--<i class="c-iconfont mt8 ml10 left" ></i>-->
+        <!--<input class="ml10 left" type="text" placeholder="请输入产品名称" ng-model="title">-->
+        <!--</div>-->
+        <!--</div>-->
+        <!-- 品牌简介 -->
+        <div class="l-managetable mt20">
+            <div class="l-managetable c-bordere6">
+                <div class="clearfix h-zskfcmc pt5 pb5">
+                    <p class=" c3 fs18  pl30 left pt5">{{brandintrodjian}}</p>
+                    <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf right" href="javascript:void(0)" ng-hide="thoughtlist.length>=1" onclick="hopruletab('hzhishikuone')">添加内容</a>
+                </div>
+                <table class="l-tablebox c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th>标题名称</th>
+                        <th width="10%">创建人</th>
+                        <th width="15%">创建时间</th>
+                        <!-- <th>排序</th> -->
+                        <th width="15%">操作</th>
+                    </tr>
+                    <tr ng-repeat="t in thoughtlist">
+                        <td>{{t.title}}</td>
+                        <td>{{t.realname}}</td>
+                        <td>{{t.createTime|date:'yyyy-MM-dd'}}</td>
+                        <!-- <td>{{t.sort}}</td> -->
+                        <td class="l-tablelink" width="15%">
+                            <a href="javascript:void(0)" ng-click="watchthought(t.id,'watchone')">查看</a>
+                            <a href="javascript:void(0)" ng-click="editthought(t.id,t.title,t.url,t.content,t.sort,'editone')">编辑</a>
+                            <a href="javascript:void(0)" ng-click="deletedata(1,t.id)">删除</a>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div> 
+        <!-- 品牌荣誉 -->
+        <div class="l-managetable mt20">
+            <div class="l-managetable c-bordere6">
+                <div class="clearfix h-zskfcmc pt5 pb5">
+                    <p class=" c3 fs18  pl30 left pt5">{{brandintrodyu}}</p>
+                    <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf right" href="javascript:void(0)" onclick="hopruletab('hzhishikutwo')" >添加内容</a>
+                </div>
+                <table class="l-tablebox c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th>标题名称</th>
+                        <th width="10%">创建人</th>
+                        <th width="15%">创建时间</th>
+                        <!-- <th>排序</th> -->
+                        <th width="15%">操作</th>
+                    </tr>
+                    <tr ng-repeat="g in goallist">
+                        <td>{{g.title}}</td>
+                        <td>{{g.realname}}</td>
+                        <td>{{g.createTime|date:'yyyy-MM-dd'}}</td>
+                        <!-- <td>{{g.sort}}</td> -->
+                        <td class="l-tablelink" width="15%">
+                            <a href="javascript:void(0)" ng-click="watchtarget(g.id,'watchtwo',g.basePath,g.imgUrl)">查看</a>
+                            <a href="javascript:void(0)" ng-click="edittarget(g.id,g.title,g.url,g.content,g.sort,g.fileName,g.imgUrl,'edittwo')">编辑</a>
+                            <a href="javascript:void(0)" ng-click="deletedata(2,g.id)">删除</a>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <!-- 代表项目 -->
+        <div class="l-managetable mt20">
+            <div class="l-managetable c-bordere6">
+                <div class="clearfix h-zskfcmc pt5 pb5">
+                    <p class=" c3 fs18  pl30 left pt5">{{brandintrodxiangmu}}</p>
+                    <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf right" href="javascript:void(0)" onclick="hopruletab('hzhishikuthree')" ng-click="hopruletab('hzhishikuthree')" ng-hide="positionlist>=4">添加内容</a>
+                </div>
+                <table class="l-tablebox c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th>标题名称</th>
+                        <th>创建人</th>
+                        <th width="15%">创建时间</th>
+                        <th>简介</th>
+                        <th width="15%">操作</th>
+                    </tr>
+                    <tr ng-repeat="p in positionlist">
+                        <td>{{p.title}}</td>
+                        <td>{{p.realname}}</td>
+                        <td>{{p.createTime|date:'yyyy-MM-dd'}}</td>
+                        <td><span style="display:inline-block;width:100px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">{{p.synopsis||'-'}}</span></td>
+                        <td class="l-tablelink" width="15%">
+                            <a href="javascript:void(0)" ng-click="watchposition(p.id,'watchthree')">查看</a>
+                            <a href="javascript:void(0)" ng-click="editposition(p.id,p.title,p.url,p.content,p.synopsis,p.fileName,p.imgUrl,'editthree')">编辑</a>
+                            <a href="javascript:void(0)" ng-click="deletedata(3,p.id)">删除</a>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <div class="l-managetable mt20">
+            <div class="l-managetable c-bordere6">
+                <div class="clearfix h-zskfcmc pt5 pb5">
+                    <p class=" c3 fs18  pl30 left pt5">客服热线</p>
+                    <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf right" href="javascript:void(0)" onclick="hopruletab('hzhishikufour')" ng-hide="tellist.length>=1">添加内容</a>
+                </div>
+                <table class="l-tablebox c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th>电话号码</th>
+                        <th>创建人</th>
+                        <th>创建时间</th>
+                        <!-- <th>排序</th> -->
+                        <th width="15%">操作</th>
+                    </tr>
+                    <tr ng-repeat="t in tellist">
+                        <td>{{t.mobile}}</td>
+                        <td>{{t.realname}}</td>
+                        <td>{{t.createTime|date:'yyyy-MM-dd'}}</td>
+                        <!-- <td>{{t.sort}}</td> -->
+                        <td class="l-tablelink" width="15%">
+                            <a href="javascript:void(0)" ng-click="watchtel(t.id,'watchfour')">查看</a>
+                            <a href="javascript:void(0)" ng-click="edittel(t.id,t.mobile,'editfour')">编辑</a>
+                            <a href="javascript:void(0)" ng-click="deletedata(4,t.id)">删除</a>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!--main end-->
+<!--添加内容(战略目标)-->
+<div class="dialog hzhishikutwo">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius  hop-cont">
+        <div class="back-white kn-height">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">添加信息</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="clearData()"></a>
+            </h3>
+            <div class="pt20 pl30 pr30">
+                <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th class="pl30 maincolor">标题名称：</th>
+                        <td colspan="2">
+                            <input type="text" placeholder="请输入....." class="l-input w500" ng-model="targetname" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">页面跳转链接：</th>
+                        <td colspan="2">
+                            <input type="text" placeholder="请输入....." class="l-input w500" ng-model="targetlink" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="15%" class="pl30 maincolor">项目介绍：</th>
+                        <td colspan="2" class="pt10 pb10" style="line-height: 0;">
+                            <div class="maxheight">
+                                <div class="ueditor" ng-model="targetcontent" config="config"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">图片上传：</th>
+                        <td colspan="2">
+                            <span class="btn btn-info fileinput-button radius5 ">
+                                <span>添加附件</span>
+                                <input ng-file-select="addannex($files)" type="file" />
+                            </span>
+                            <span>{{fileName}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">列表展示图片：</th>
+                        <td colspan="2">
+                            <img class="imgSize" src="{{hostname+filePath}}" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <!-- <th class="pl30 maincolor">排序23：</th> -->
+                        <!-- <td colspan="2 " class="fl ">
+                            <input type="text"
+                            onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');this.value=this.value.replace('.','');"
+                            ng-model="goalsort" 
+                            style="background:#fff;" class="l-input w180 ng-pristine ng-valid ng-not-empty ng-touched">
+                            <span style="color:#666;margin-left:20px;">数字越小排在越前面</span>
+                        </td> -->
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="targetsave(2,targetcontent,filePath,fileName)">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="clearData()">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--添加内容(战略定位)-->
+<div class="dialog hzhishikuthree">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius  hop-cont">
+        <div class="back-white kn-height">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">添加信息</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="clearData()"></a>
+            </h3>
+            <div class="pt20 pl30 pr30">
+                <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th class="pl30 maincolor">标题名称：</th>
+                        <td colspan="2">
+                            <input type="text" placeholder="请输入....." class="l-input w500" ng-model="positionname" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">页面跳转链接：</th>
+                        <td colspan="2">
+                            <input type="text" placeholder="请输入....." class="l-input w500" ng-model="positionlink" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="15%" class="pl30 maincolor">项目介绍：</th>
+                        <td colspan="2" class="pt10 pb10" style="line-height: 0;">
+                            <div class="maxheight">
+                                <div class="ueditor" ng-model="positioncontent" config="config"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">图片上传：</th>
+                        <td colspan="2">
+                            <span class="btn btn-info fileinput-button radius5 ">
+                                <span>添加附件</span>
+                                <input ng-file-select="addannex($files)" type="file" />
+                            </span>
+                            <span>{{fileName}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">列表展示图片：</th>
+                        <td colspan="2">
+                            <img class="imgSize" src="{{hostname+filePath}}" alt="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">简介：</th>
+                        <td colspan="2 " class="fl ">
+                            <input type="text"
+                            ng-model="synopsis" 
+                            style="background:#fff;" class="l-input w180 ng-pristine ng-valid ng-not-empty ng-touched">
+                            <span style="color:red;margin-left:20px;" ng-show="!synopsis">请输入简介</span>
+                        </td>
+                        
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius" ng-click="positionsave(3,positioncontent,filePath,fileName)">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="clearData()">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--添加内容(开发理念)-->
+<div class="dialog hzhishikuone ">
+    <div class="dialog-bg "></div>
+    <div class="dialog-cont w1080 radius hop-cont ">
+        <div class="back-white kn-height ">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix ">
+                <em class="left fs18 c3 ">添加信息</em>
+                <a href="javascript:void(0) " class="dialog-close iconfont hop-closebnt right mt15 " ng-click="clearData() "></a>
+            </h3>
+            <div class="pt20 pl30 pr30 ">
+                <table width="100% " class="back-f5 hop-table lh50 " cellpadding="0 " cellspacing="0 ">
+                    <tr>
+                        <th class="pl30 maincolor ">标题名称：</th>
+                        <td colspan="2 ">
+                            <input type="text " placeholder="请输入..... " class="l-input w500 " ng-model="thoughtname " />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor ">页面跳转链接：</th>
+                        <td colspan="2 ">
+                            <input type="text " placeholder="请输入..... " class="l-input w500 " ng-model="thoughtlink " />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="15% " class="pl30 maincolor ">项目介绍：</th>
+                        <td colspan="2 " class="pt10 pb10 " style="line-height: 0; ">
+                            <div class="maxheight ">
+                                <div class="ueditor " ng-model="thoughtcontent " config="config "></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!-- <th class="pl30 maincolor ">排序：</th> -->
+                        
+                        <!-- <td colspan="2 " class="fl ">
+                                <input type="text"
+                                onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');this.value=this.value.replace('.','');"
+                                ng-model="thoughtsort" 
+                                style="background:#fff;" class="l-input w180 ng-pristine ng-valid ng-not-empty ng-touched">
+                                <span style="color:#666;margin-left:20px;">数字越小排在越前面</span>
+                            </td> -->
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb55 ">
+                    <a href="javascript:void(0) " class="hop-save disinblock w133 hoptap radius dialog-close " ng-click="addthought(1,thoughtcontent) ">保存</a>
+                    <a href="javascript:void(0) " class="hop-canle disinblock w133 hoptap ml20 radius dialog-close " ng-click="clearData() ">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--添加内容(客户联系电话)-->
+<div class="dialog hzhishikufour ">
+    <div class="dialog-bg "></div>
+    <div class="dialog-cont w1080 radius hop-cont ">
+        <div class="back-white kn-height ">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix ">
+                <em class="left fs18 c3 ">添加信息</em>
+                <a href="javascript:void(0) " class="dialog-close iconfont hop-closebnt right mt15 " ng-click="clearData() "></a>
+            </h3>
+            <div class="pt20 pl30 pr30 ">
+                <table width="100% " class="back-f5 hop-table lh50 " cellpadding="0 " cellspacing="0 ">
+                    <tr>
+                        <th class="pl30 maincolor ">电话号码：</th>
+                        <td colspan="2 ">
+                            <input type="text " placeholder="请输入电话号码..如：0755-12345678... " class="l-input w500
+                        " ng-model="telephone " />
+                        </td>
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb55 ">
+                    <a href="javascript:void(0) " class="hop-save disinblock w133 hoptap radius dialog-close
+                        " ng-click="addtelsave(4) ">保存</a>
+                    <a href="javascript:void(0) " class="hop-canle disinblock w133 hoptap ml20 radius dialog-close
+                        " ng-click="clearData() ">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--查看内容（开发理念）-->
+<div class="dialog watchone ">
+    <div class="dialog-bg "></div>
+    <div class="dialog-cont w1080 radius hop-cont ">
+        <div class="back-white kn-height ">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix ">
+                <em class="left fs18 c3 ">查看</em>
+                <a href="javascript:void(0) " class="dialog-close iconfont hop-closebnt right mt15 "></a>
+            </h3>
+            <div class="pt20 pl30 pr30 ">
+                <table width="100% " class="back-f5 hop-table lh50 " cellpadding="0 " cellspacing="0 ">
+                    <tr>
+                        <th class="pl30 maincolor ">标题名称：</th>
+                        <td colspan="2 ">
+                            {{watchthoughtname}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor ">页面跳转链接：</th>
+                        <td colspan="2 ">
+                            {{watchthoughtlink}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="15% " class="pl30 maincolor ">项目介绍：</th>
+                        <td colspan="2 " class="pt10 pb10 ">
+                            <div class="maxheight " ng-bind-html="wahtchthoughtcontent | parseHTML ">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!-- <th class="pl30 maincolor ">排序：</th> -->
+                        <!-- <td colspan="2 " class="fl ">
+                            {{watchthoughtsort}}
+                        </td> -->
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb55 ">
+                    <a href="javascript:void(0) " class="hop-canle disinblock w133 hoptap ml20 radius dialog-close ">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--查看内容(战略定位)-->
+<div class="dialog watchthree ">
+    <div class="dialog-bg "></div>
+    <div class="dialog-cont w1080 radius hop-cont ">
+        <div class="back-white kn-height ">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix ">
+                <em class="left fs18 c3 ">添加信息</em>
+                <a href="javascript:void(0) " class="dialog-close iconfont hop-closebnt right mt15 "></a>
+            </h3>
+            <div class="pt20 pl30 pr30 ">
+                <table width="100% " class="back-f5 hop-table lh50 " cellpadding="0 " cellspacing="0 ">
+                    <tr>
+                        <th class="pl30 maincolor ">标题名称：</th>
+                        <td colspan="2 " ng-bind="watchpositionname ">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor ">页面跳转链接：</th>
+                        <td colspan="2 " ng-bind="watchpositionlink ">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="15% " class="pl30 maincolor ">项目介绍：</th>
+                        <td colspan="2 " class="pt10 pb10 ">
+                            <div class="maxheight " ng-bind-html="watchpositioncontent | parseHTML ">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor ">列表展示图片：</th>
+                        <td colspan="2 ">
+                            <img class="imgSize " src="{{watchpositionurl}} " alt=" ">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor ">简介：</th> -->
+                         <td colspan="2 " class="fl " ng-bind="synopsis||'' ">
+                        </td>
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb55 ">
+                    <a href="javascript:void(0) " class="hop-canle disinblock w133 hoptap ml20 radius dialog-close ">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--查看内容(战略目标)-->
+<div class="dialog watchtwo ">
+    <div class="dialog-bg "></div>
+    <div class="dialog-cont w1080 radius hop-cont ">
+        <div class="back-white kn-height ">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix ">
+                <em class="left fs18 c3 ">添加信息3</em>
+                <a href="javascript:void(0) " class="dialog-close iconfont hop-closebnt right mt15 "></a>
+            </h3>
+            <div class="pt20 pl30 pr30 ">
+                <table width="100% " class="back-f5 hop-table lh50 " cellpadding="0 " cellspacing="0 ">
+                    <tr>
+                        <th class="pl30 maincolor ">标题名称：</th>
+                        <td colspan="2 " ng-bind="watchtargetname ">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor ">页面跳转链接：</th>
+                        <td colspan="2 " ng-bind="watchtargetlink ">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="15% " class="pl30 maincolor ">项目介绍：</th>
+                        <td colspan="2 " class="pt10 pb10 ">
+                            <div class="maxheight " ng-bind-html="watchtargetcontent | parseHTML ">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor ">列表展示图片：</th>
+                        <td colspan="2 ">
+                            <img class="imgSize " src="{{watchtargeturl}} " alt=" ">
+                        </td>
+                    </tr>
+                    <tr>
+                        <!-- <th class="pl30 maincolor ">排序：</th> -->
+                        <!-- <td colspan="2 " class="fl " ng-bind="watchgoalsort ">
+                        </td> -->
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb55 ">
+                    <a href="javascript:void(0) " class="hop-canle disinblock w133 hoptap ml20 radius dialog-close ">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--查看内容(客户联系电话)-->
+<div class="dialog watchfour ">
+    <div class="dialog-bg "></div>
+    <div class="dialog-cont w1080 radius hop-cont ">
+        <div class="back-white ">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix ">
+                <em class="left fs18 c3 ">添加信息</em>
+                <a href="javascript:void(0) " class="dialog-close iconfont hop-closebnt right mt15 "></a>
+            </h3>
+            <div class="pt20 pl30 pr30 ">
+                <table width="100% " class="back-f5 hop-table lh50 " cellpadding="0 " cellspacing="0 ">
+                    <tr>
+                        <th class="pl30 maincolor zjm-w15 ">电话号码：</th>
+                        <td colspan="2 " ng-bind="watchtelephone ">
+                        </td>
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb55 ">
+                    <a href="javascript:void(0) " class="hop-canle disinblock w133 hoptap ml20 radius dialog-close ">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--编辑内容(战略目标)-->
+<div class="dialog edittwo ">
+    <div class="dialog-bg "></div>
+    <div class="dialog-cont w1080 radius hop-cont ">
+        <div class="back-white kn-height ">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix ">
+                <em class="left fs18 c3 ">添加信息2</em>
+                <a href="javascript:void(0) " class="dialog-close iconfont hop-closebnt right mt15 " ng-click="cancel(editgoalsort) "></a>
+            </h3>
+            <div class="pt20 pl30 pr30 ">
+                <table width="100% " class="back-f5 hop-table lh50 " cellpadding="0 " cellspacing="0 ">
+                    <tr>
+                        <th class="pl30 maincolor ">标题名称：</th>
+                        <td colspan="2 ">
+                            <input type="text " placeholder="请输入..... " class="l-input w500 " ng-model="edittargetname " />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor ">页面跳转链接：</th>
+                        <td colspan="2 ">
+                            <input type="text " placeholder="请输入..... " class="l-input w500 " ng-model="edittargetlink " />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="15% " class="pl30 maincolor ">项目介绍：</th>
+                        <td colspan="2 " class="pt10 pb10 " style="line-height: 0; ">
+                            <div class="maxheight ">
+                                <div class="ueditor " ng-model="edittargetcontent " config="config "></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor ">图片上传：</th>
+                        <td colspan="2 ">
+                            <!-- <span class="btn btn-info fileinput-button radius5 ">
+                                <span>添加附件</span>
+                                  <input ng-file-select="addannex($files)" type="file"/>
+                             </span> -->
+
+                             <span class="btn btn-info fileinput-button radius5 ">
+                                    <span>添加附件</span>
+                                      <input ng-file-select="addannex($files)" type="file"/>
+                                 </span>
+                            <span>{{filename}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor ">图片展示：</th>
+                        <td colspan="2 ">
+                            <img class="imgSize " ng-if="filePath?true:false" src="{{filePath?hostname+filePath:hostname+edittargeturl}} " alt=" ">
+                        </td>
+                    </tr>
+                    <tr>
+                        <!-- <th class="pl30 maincolor ">排序：</th> -->
+                        
+                        <!-- <td colspan="2 " class="fl ">
+                                <input type="text"
+                                onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');this.value=this.value.replace('.','');"
+                                ng-model="editgoalsort" 
+                                style="background:#fff;" class="l-input w180 ng-pristine ng-valid ng-not-empty ng-touched">
+                                <span style="color:#666;margin-left:20px;">数字越小排在越前面</span>
+                            </td> -->
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb55 ">
+                    <a href="javascript:void(0) " class="hop-save disinblock w133 hoptap radius dialog-close " ng-click="edittargetsave(filePath?filePath:edittargeturl,filename?filename:edittargetFileName) ">保存</a>
+                    <a href="javascript:void(0) " class="hop-canle disinblock w133 hoptap ml20 radius dialog-close " ng-click="cancel(editgoalsort) ">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--代表项目-->
+<div class="dialog editthree ">
+    <div class="dialog-bg "></div>
+    <div class="dialog-cont w1080 radius hop-cont ">
+        <div class="back-white kn-height ">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix ">
+                <em class="left fs18 c3 ">添加信息</em>
+                <a href="javascript:void(0) " class="dialog-close iconfont hop-closebnt right mt15 " ng-click="cancel(editpositionsort) "></a>
+            </h3>
+            <div class="pt20 pl30 pr30 ">
+                <table width="100% " class="back-f5 hop-table lh50 " cellpadding="0 " cellspacing="0 ">
+                    <tr>
+                        <th class="pl30 maincolor ">标题名称：</th>
+                        <td colspan="2 ">
+                            <input type="text " placeholder="请输入..... " class="l-input w500 " ng-model="editpositionname " />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor ">页面跳转链接：</th>
+                        <td colspan="2 ">
+                            <input type="text " placeholder="请输入..... " class="l-input w500 " ng-model="editpositionlink " />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="15% " class="pl30 maincolor ">项目介绍：</th>
+                        <td colspan="2 " class="pt10 pb10 " style="line-height: 0; ">
+                            <div class="maxheight ">
+                                <div class="ueditor " ng-model="editpositioncontent " config="config "></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor ">图片上传：</th>
+                        <td colspan="2 ">
+                            <span class="btn btn-info fileinput-button radius5 ">
+                                <span>添加附件</span>
+                                <input ng-file-select="addannex($files)" type="file" />
+                            </span>
+                            <span>{{filename}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor ">图片展示：</th>
+                        <td colspan="2 ">
+                            <img class="imgSize " ng-if="filePath?true:false" src="{{filePath?hostname+filePath:hostname+editpositionurl}} " alt=" ">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor ">简介：</th>
+                        <td colspan="2 " class="fl ">
+                            <input type="text"
+                            ng-model="synopsis" 
+                            style="background:#fff;" class="l-input w180 ng-pristine ng-valid ng-not-empty ng-touched">
+                            <span style="color:red;margin-left:20px;" ng-show="!synopsis">请输入简介</span>
+                        </td>
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb55 ">
+                    <a href="javascript:void(0) " class="hop-save disinblock w133 hoptap radius dialog-close " ng-click="editpositionsave(filePath?filePath:editpositionurl,filename?filename:editpositionFileName) ">保存</a>
+                    <a href="javascript:void(0) " class="hop-canle disinblock w133 hoptap ml20 radius dialog-close " ng-click="cancel(editpositionsort) ">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--编辑内容(开发理念)-->
+<div class="dialog editone ">
+    <div class="dialog-bg "></div>
+    <div class="dialog-cont w1080 radius hop-cont ">
+        <div class="back-white kn-height ">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix ">
+                <em class="left fs18 c3 ">添加信息</em>
+                <a href="javascript:void(0) " class="dialog-close iconfont hop-closebnt right mt15 " ng-click="cancel(editthoughtsort) "></a>
+            </h3>
+            <div class="pt20 pl30 pr30 ">
+                <table width="100% " class="back-f5 hop-table lh50 " cellpadding="0 " cellspacing="0 ">
+                    <tr>
+                        <th class="pl30 maincolor ">标题名称：</th>
+                        <td colspan="2 ">
+                            <input type="text " placeholder="请输入..... " class="l-input w500 " ng-model="editthoughtname " />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor ">页面跳转链接：</th>
+                        <td colspan="2 ">
+                            <input type="text " placeholder="请输入..... " class="l-input w500 " ng-model="editthoughtlink " />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="15% " class="pl30 maincolor ">项目介绍：</th>
+                        <td colspan="2 " class="pt10 pb10 " style="line-height: 0; ">
+                            <div class="maxheight ">
+                                <div class="ueditor " ng-model="editthoughtcontent " config="config "></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!-- <th class="pl30 maincolor ">排序：</th> -->
+                        <!-- <td colspan="2 " class="fl ">
+                                <input type="text"
+                                onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');this.value=this.value.replace('.','');"
+                                ng-model="editthoughtsort" 
+                                style="background:#fff;" class="l-input w180 ng-pristine ng-valid ng-not-empty ng-touched">
+                                <span style="color:#666;margin-left:20px;">数字越小排在越前面</span>
+                            </td> -->
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb55 ">
+                    <a href="javascript:void(0) " class="hop-save disinblock w133 hoptap radius dialog-close " ng-click="editthoughtsave() ">保存</a>
+                    <a href="javascript:void(0) " class="hop-canle disinblock w133 hoptap ml20 radius dialog-close " ng-click="cancel(editthoughtsort) ">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--编辑内容(客户联系电话)-->
+<div class="dialog editfour ">
+    <div class="dialog-bg "></div>
+    <div class="dialog-cont w1080 radius hop-cont ">
+        <div class="back-white ">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix ">
+                <em class="left fs18 c3 ">添加信息</em>
+                <a href="javascript:void(0) " class="dialog-close iconfont hop-closebnt right mt15 "></a>
+            </h3>
+            <div class="pt20 pl30 pr30 ">
+                <table width="100% " class="back-f5 hop-table lh50 " cellpadding="0 " cellspacing="0 ">
+                    <tr>
+                        <th class="pl30 maincolor ">电话号码：</th>
+                        <td colspan="2 ">
+                            <input type="text " placeholder="请输入电话号码..如：0755-12345678... " class="l-input w500
+                        " ng-model="edittelephone " />
+                        </td>
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb55 ">
+                    <a href="javascript:void(0) " class="hop-save disinblock w133 hoptap radius dialog-close
+                        " ng-click="edittelsave() ">保存</a>
+                    <a href="javascript:void(0) " class="hop-canle disinblock w133 hoptap ml20 radius dialog-close ">取消</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

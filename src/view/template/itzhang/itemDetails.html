@@ -1,0 +1,108 @@
+<app-head></app-head>
+
+<app-left-Column class="disnone"></app-left-Column>
+
+<div class="pb55 pt65">
+    <!--项目详情-->
+    <div class="pl15 pr18 pt15 pb15">
+        <!--顶部关注-->
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+
+            <div class="c-csrbdt pt25 col-md-7 col-lg-7 col-sm-7 ">
+                <top-information listtop="{{listtop}}"></top-information>
+                <div class="mt18 j-BtnDiv clearfix">
+                    <attention list="{{list}}"></attention>
+                    <delete-project list="{{list}}"></delete-project>
+                </div>
+            </div>
+            <right-information listtop="{{listtop}}"></right-information>
+        </div>
+        <!--7个格子-->
+        <table class="table table-bordered bg3 mt15">
+            <tbody class="tc c0">
+            <tr class="h40  tc lh40 bgf c6" align="justify">
+                <td class=""><a href="#/itemDetails?projectid={{projectId}}" style="color: #337ab7;"  title="总览" class="j-blur-a j-blur-as maincolor">&nbsp;&nbsp;&nbsp;总览&nbsp;&nbsp;&nbsp;</a>
+                </td>
+                <td class=""><a href="#/itemInformation?projectid={{projectId}}" title="基本信息"
+                                class="j-blur-a j-blur-as ">基本信息</a></td>
+                <td class=""><a href="#/projectProcessInformation?projectid={{projectId}}" title="流程进度信息" class="j-blur-a j-blur-as">流程进度信息</a></td>
+                <td class=""><a href="#/propertyInformation?projectid={{projectId}}" title="物业信息" class="j-blur-a j-blur-as">物业信息</a></td>
+                <td class=""><a href="#/projectcompensationRules?projectid={{projectId}}" title="拆迁补偿规则" class="j-blur-a j-blur-as ">拆迁补偿规则</a>
+                </td>
+                <td class=""><a href="#/financialsettlement?projectid={{projectId}}" title="财务结算项目设置" class="j-blur-a j-blur-as ">财务结算项目设置</a>
+                </td>
+                <td class=""><a href="#/projectcommissionrelease?projectid={{projectId}}" title="佣金发放规则" class="j-blur-a j-blur-as " >佣金发放规则</a></td>
+                <td class=""><a href="#/annex?projectid={{projectId}}"  title="附件" class="j-blur-a j-blur-as">附件</a></td>
+                <td class=""><a href="#/projectupdaterecord?projectid={{projectId}}"  title="修改记录" class="j-blur-a j-blur-as">修改记录</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <!--下面主体-->
+        <div class="mt15 mb20  clearfix">
+            <div class="c-xmxql left clearfix">
+                <add-follow listtop="{{listtop}}"></add-follow>
+            </div>
+            <div class="c-xmxqr left clearfix">
+                <div class="c-xmxqrb mb15 bgf">
+                    <h3 class="c-xmxqlh pl30 fs16 c3 pr30 clearfix">
+                        <span class="left">基本信息</span>
+                        <a class="fs14 c6 right" href="#/itemInformation?projectid={{projectId}}">查看</a>
+                    </h3>
+                    <div class="pl30 pr30 pb35 pt5">
+                        <p class="lh36">项目位置：<span ng-bind="project.address?project.address:no"></span></p>
+                        <p class="lh36">宗地编号：<span ng-bind="project.parcel_number?project.parcel_number:no"></span></p>
+                        <p class="lh36">土地面积：<span ng-bind="project.landArea?project.landArea+'m²':no"></span></p>
+                        <p class="lh36">登记面积：<span ng-bind="project.registerArea?project.registerArea+'m²':no"></span>
+                        </p>
+                        <p class="lh36">测绘面积：<span ng-bind="project.survey_area?project.survey_area+'m²':no"></span></p>
+                    </div>
+                </div>
+                <div class="c-xmxqrb mb15 bgf">
+                    <h3 class="c-xmxqlh pl30 fs16 c3 pr30 clearfix">
+                        项目信息图
+                    </h3>
+                    <div class="pl30 pr30 pb35 pt20">
+                        <p class="tc mb30">{{project2.projectName?project2.projectName:no}}：{{propertyCount?propertyCount:'0'}}栋房产</p>
+                        <p class="tc">
+                            <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+                        <div id="main" style="width: 450px;height: 400px;margin-left:-52px;"></div>
+                        </p>
+                        <ul class="ml30 mt50 clearfix">
+                            <li class="c-xmxqrbli mb15 left" ng-repeat="(key,i) in salesControlArr"><i
+                                    class="c-iconfont mr10"></i><span ng-bind="i.name"></span><span
+                                    ng-bind="i.value+'%'"></span></li>
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="c-xmxqrb mb15 bgf">
+                    <h3 class="c-xmxqlh pl30 fs16 c3 pr30 clearfix">
+                        <span class="left">项目资源</span>
+                        <a class="fs14 c6 right" href="#/itemInformation?projectid={{projectId}}">查看</a>
+                    </h3>
+                    <div class="pl30 pr30 pb35 pt5">
+                        <p class="lh36">栋数量：<span ng-bind="propertyCount?propertyCount+'栋':no"></span></p>
+                        <p class="lh36">基底面积：<span ng-bind="survey.grossArea?survey.grossArea+'m²':no"></span></p>
+                        <p class="lh36">建筑面积：<span ng-bind="survey.transgressArea?survey.transgressArea+'m²':no"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="c-xmxqrb mb15 bgf">
+                    <h3 class="c-xmxqlh pl30 fs16 c3 pr30 clearfix">
+                        <span class="left">附件<em class="fs12 c6">（共 <span ng-bind="count?count:0"></span> 个）</em></span>
+                        <a class="fs14 c6 right" href="#/annex?projectid={{projectId}}">查看</a>
+                    </h3>
+                    <div class="pl30 pr30 pb35 pt5 clearfix">
+                        <div ng-repeat="i in attachment" ng-if="$index<11">
+                            <a class="c-xmxqrba lh36 left" ng-href="{{hostName+i.fileUrl}}" target="_blank"><i class="c-xmxqrbfj mr15 c-iconfont"></i><span
+                                    ng-bind="i.fileName?i.fileName:i.fileUrl"></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+

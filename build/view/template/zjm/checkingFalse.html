@@ -1,0 +1,174 @@
+<app-head></app-head>
+
+<div app-left></div>
+<div class="l-rightsider pb55">
+    <div class="pl15 pr18 pt15 ha pb15">
+        <!--顶部关注-->
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <top-pact-information list="{{list}}"></top-pact-information>
+        </div>
+        <!--10个格子-->
+        <table class="table table-bordered bg3 mt15">
+            <tbody class="tc c0">
+                <tr class="h40  tc lh40 bgf c6" align="justify">
+                    <td class="">
+                        <a href="#/propertyDetail?roomId={{roomId}}&projectid={{projectId}}" title="总览" class=" j-blur-a j-blur-as ">&nbsp;&nbsp;&nbsp;总览&nbsp;&nbsp;&nbsp;</a>
+                    </td>
+                    <td class="">
+                        <a href="#/BasicInformationPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="基本信息"
+                            class=" j-blur-a j-blur-as">基本信息</a>
+                    </td>
+                    <td class="">
+                        <a href="#/surveyingInformation?roomId={{roomId}}&projectid={{projectId}}" title="测绘信息" class=" j-blur-a j-blur-as ">测绘信息</a>
+                    </td>
+                    <td class="">
+                        <a href="#/compensateProperty?roomId={{roomId}}&projectid={{projectId}}" title="补偿方案" class=" j-blur-a j-blur-as">补偿方案</a>
+                    </td>
+                    <td class="">
+                        <a href="#/PropertyManagementPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="业权人"
+                            class=" j-blur-a j-blur-as">业权人</a>
+                    </td>
+                    <td class="">
+                        <a href="#/checkingFalse?roomId={{roomId}}&projectid={{projectId}}" title="查违信息" class=" j-blur-a j-blur-as"
+                            style="color: #4ea4df;">查违信息</a>
+                    </td>
+                    <td class="">
+                        <a href="#/LostPropertyManagementPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="关联物业"
+                            class=" j-blur-a j-blur-as">关联物业</a>
+                    </td>
+                    <td class="">
+                        <a href="#/enclosure?roomId={{roomId}}&projectid={{projectId}}" title="附件" class=" j-blur-a j-blur-as">&nbsp;&nbsp;&nbsp;附件&nbsp;&nbsp;&nbsp;</a>
+                    </td>
+                    <td class="">
+                        <a href="#/amendantRecord?roomId={{roomId}}&projectid={{projectId}}" title="修改记录" class=" j-blur-a j-blur-as">修改记录</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--three-->
+        <!--添加物业跟踪信息-->
+        <div class="c-csrbdc mt20 mb20" ng-show="illegalRule.length==0&&illegalInfoList==0">
+            <p class="fs14 c6 tc pt45 pb45">暂无查伪规则，您可以添加
+                <a class="ml5 mr5 c-csrtoplicur" href="#/projectcommissionrelease?projectid={{projectId}}">查处违建佣金规则</a>
+            </p>
+        </div>
+        <div ng-show="illegalRule.length!=0&&illegalInfoList==0">
+            <h3 class=" h-tianjia" style="margin: 0;">
+                <b class="mt10 ml30">添加违建跟踪信息</b>
+            </h3>
+            <textarea class="form-control h-control lh-control " rows="3" style="resize:none" ng-model="falsetext"></textarea>
+            <div class="relative c-inputfiles pt30 ng-scope" >
+                <i class="c-wyxqlta c-iconfont pointer mr15 pos-abs t10 l0"></i>
+                <input ng-file-select="addannex($files)" type="file" multiple class="pos-abs t10 z-opacity">
+            </div>
+            <div class="mt10">
+                <span class="dis-inlBlo mr10" ng-repeat="a in attachments">
+                    <img ng-src="{{hostname+a.filePath}}" alt="" class="imgSize-b">
+                    <a ng-click="deleteImg($index)" width="100%" style="display:block" class="tc">删除</a>
+                </span>
+
+            </div>
+
+            <div class="bs-example clearfix mt25 mb25" data-example-id="list-inline">
+                <div class="list-inline fl ml20">
+                    <span class="fl" ng-repeat="r in illegalRule">查违阶段-{{r.IssuingNode}}</span>
+                    <!--<button class="h-prite h-pic_5 ml10 fl" ngf-select="true" ngf-accept="'.jpg'" ng-model="file"></button>-->
+                    <!--<button class="h-prite h-pic_6 ml10 fl"></button>-->
+                    <!--<button class="h-prite h-pic_7 ml10 fl"></button>-->
+                </div>
+                <span class="j-prite j-child-b fr curpoi" ng-click="addfalseinfo(illegalRule[0].sort)">
+                    <a href="javascript:void(0)" class="ml50 mt10 fs18 h-inline" >发布</a>
+                </span>
+            </div>
+        </div>
+        <!--one-->
+        <div class="h-back pt10 pl10 pr10 pb10 " ng-show="illegalInfoList.length!=0">
+            <div ng-repeat="i in illegalInfoList" class="bb">
+                <div class="h-back clearfix">
+                    <img ng-src="{{i.photo_url?(headImg+i.photo_url):localhostimg}}" alt="" class="fl mt30 ml30 viewer h-bradio">
+                    <ul class="fl mt30 ml30 nav_group">
+                        <li class="mb10">{{i.realname}}————{{i.IssuingNode}}</li>
+                        <li class="mb10">{{i.createTime|date:'yyyy-MM-dd HH:mm'}}</li>
+                        <li class="mb10">{{i.depict}}</li>
+                        <li ng-repeat="img in i.attachment" class="left mr5 mb10">
+                            <img ng-src="{{hostname+img.fileUrl}}" alt="" class="btnimg pointer imgSize-b" ng-click="showImg('preefe2',i.attachment)">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <span class="falseadd ml30 mt10 " ng-hide="illegalRule[0].sort==1||illegalRule.length==0">
+                <a href="javascript:void(0)" onclick="hopruletab('preefe')" class="c6">+ 查违阶段-{{illegalRule[0].IssuingNode}}</a>
+            </span>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="l-footer fs12 tc footer">
+    Copyright © 2011 - 2013 TianAn Success. All Rights Reserved
+</div>
+
+<!--发布-->
+<div class="dialog preefe">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius    hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">添加{{illegalRule[0].IssuingNode}}信息</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt20 pl30 pr30">
+                <textarea class="form-control h-control lh-control .h-row h-lhrow " style="resize:none" rows="3" ng-model="falsetext"></textarea>
+                <div class="relative c-inputfiles pt30 ng-scope">
+                    <i class="c-wyxqlta c-iconfont pointer mr15 pos-abs t10 l0"></i>
+                    <input ng-file-select="addannex($files)" type="file" multiple class="pos-abs t10 z-opacity">
+                </div>
+                <div class="mt10">
+                    <span class="dis-inlBlo mr10" ng-repeat="a in attachments">
+                        <img ng-src="{{hostname+a.filePath}}" alt="" class="imgSize-b">
+                        <a ng-click="deleteImg($index)" width="100%" style="display:block" class="tc">删除</a>
+                    </span>
+
+                </div>
+                <!--<ul class="list-inline fl ml20 mt5">-->
+                <!--<li>查违阶段-发现违建</li>-->
+                <!--<li class="h-prite h-pic_5 ml10"></li>-->
+                <!--<li class="h-prite h-pic_6 ml10"></li>-->
+                <!--<li class="h-prite h-pic_7 ml10"></li>-->
+                <!--</ul>-->
+                <span class="hop-bntap disblock pt5 pb55 mt5">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="addfalseinfo(illegalRule[0].sort)">发布</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">关闭</a>
+                    <!--<a class="h-chaei ml15">注：审核通过后,进行展示。并记录查违佣金</a>-->
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--轮播 -->
+<!--查违阶段-举报-->
+<div class="dialog preefe2">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont max-w500 radius hop-cont">
+        <div class="back-white pos-rel" style="width:700px">
+            <h3 class=" lh55 pl20 border-bottom pr20 pb20 clearfix">
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <span class="absolute fs45  h-hot h-swiper pointer" style="color:#4ea4df;top:50%;left:2%" ng-click="animate('prev',Imgattachment)">
+                </span>
+                    <div class=" mt20 tc ck-div">
+
+                        <ul class="ck-ul">
+                            <li ng-repeat="i in Imgattachment">
+                                <img ng-src="{{hostname+i.fileUrl}}" alt="" style="width:600px;height:100%">
+                            </li>
+                        </ul>
+
+                    </div>
+                    <span class="absolute fs45  h-hot h-hswiper pointer" style="color:#4ea4df;top:50%;right:2%" ng-click="animate('next',Imgattachment)">
+                </span>
+        </div>
+    </div>
+</div>

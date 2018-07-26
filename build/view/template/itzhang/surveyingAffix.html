@@ -1,0 +1,66 @@
+<app-head></app-head>
+<div app-left></div>
+
+<!--main-->
+<div class="l-rightsider pb55">
+    <div class="pl15 pr18 pt15 pb15">
+        <!--顶部关注-->
+
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <div class="c-csrbdt pt25 col-md-7 col-lg-7 col-sm-7 ">
+                <a class="c-csrbdta fs18 c6 mr35 pl5" ng-bind="project2.projectName?project2.projectName:no"></a>
+                <p class="ml10 mt15"><span ng-bind="project2.address?project2.address:no"></span> </p>
+            </div>
+            <ul class="col-md-5 col-lg-5 col-sm-5 mt30 mb30 pl40">
+                <li class="lh30">创建人：<span ng-bind="project2.updateTime?(project2.updateTime|date:'yyyy-MM-dd'):'暂无数据'"></span></li>
+                <li class="lh30">创建时间：<span ng-bind="project2.createTime?project2.createTime:no"></span></li>
+                <li class="lh30">最后更新时间：<span ng-bind="project2.updateTime?(project2.updateTime|date:'yyyy-MM-dd'):no"></span></li>
+            </ul>
+
+        </div>
+
+        <ul class="c-chbul h-cwgispxx mt15 back-white clearfix">
+            <li class="left"><a class="tc disblock ahover zj-NavAColor"  ng-click="locationHerf('surveyingMapping')">审批信息</a></li>
+            <li class="left"><a class="tc disblock ahover zj-NavAColor" ng-click="locationHerf('surveyingMapInformation')" >测绘信息</a></li>
+            <li class="left"><a class="tc disblock ahover " ng-click="locationHerf('surveyingAffix')" >附件</a></li>
+        </ul>
+        <!--下面主体-->
+
+        <h1 class="fs16 mt25">附件 <span class="ml5" ng-bind="total"></span>个</h1>
+
+        <div class="clearfix  back-white mt20" ng-repeat="i in list">
+            <div>
+                <h1 class="fs16 mt20 ml30 fl" ng-bind="i.name"></h1>
+                <div class="l-managetable mt40">
+                    <table class="l-tablebox h-tablebox fs13 " cellpadding="0" cellspacing="0" width="100%">
+                        <tr class="h50 born hbtntr hbtntrs l-tablebox h-tablebox w100-">
+                            <th><!--<span class="h-fathersprite h-childertwo "></span>--></th>
+                            <th>文件名称</th>
+                            <th>预计上传时间</th>
+                            <th>上传人</th>
+                            <th>操作</th>
+                        </tr>
+                        <tr class="h-white" ng-repeat="j in i.propertyAttachments">
+                            <td><span class="h-fathersprite h-childerone mt10"></span></td>
+                            <td><span class="h-fathersprite h-childerthree mr20  h-dsp"></span><span ng-bind="j.propertyAttachmentName"></span></td>
+                            <td><span ng-bind="j.createTime?(j.createTime | date:'yy/mm/dd'):no"></span></td>
+                            <td><span ng-bind="j.createUser?j.createUser:no"></span></td>
+                            <td class="l-tablelink">
+                                <a ng-href="{{link}}"  ng-click="DownSave(j.id,$index,$event)">下载</a>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+</div>
+<!--main end-->
+
+

@@ -1,0 +1,251 @@
+<app-head></app-head>
+<div app-left></div>
+
+<div class="l-rightsider pb55">
+    <ul class="c-csrtop bgf clearfix">
+        <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl c-csrtoplicur" onclick="javascript:history.back(-1)">层级数据管理</a></li>
+    </ul>
+    <div class="c-csrbd bgf mt15 mr15 mb15 ml15 pl30 pr30 pb40">
+        <div class="c-csrbdt pt25 mb15 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5"> 层级数据管理</a>
+            <i class="c-cjszti c-iconfont right pointer" onclick="hopruletab('addData')"></i>
+        </div>
+
+        <div ng-repeat="dataList in dataList">
+            <div class="c-cjszboxA mt20 clearfix">
+                <p class="c-cjszboxAp fs18 c3 pl20 tl c-cjszboxAbb pr45">类型名称：{{dataList.category}}
+                    <a href="" class="c-cjszboxBspcA right" ng-click="deleteSublevel(dataList.category,dataList.id)">删除</a>
+                    <a href="" class="c-cjszboxBspcA right mr10" ng-click="editData('editData',dataList.id)">修改</a>
+                </p>
+                <span class="c-cjszboxAp fs14 c3 pl20 tl">层级结构：</span>
+                <span class="c-cjszboxAp fs14 c3 tl" ng-repeat="sublevel in dataList.sublevel">{{sublevel.shemaName}}
+            <span ng-hide="$last">-</span>
+                </span>
+            </div>
+
+            <div class="c-cjszboxB mt15" ng-repeat="sublevel in dataList.sublevel">
+                <p class="c-cjszboxBp fs18 c3 pl30 pr45 clearfix">
+                    <span class="left" label="{{sublevel.id}}">{{sublevel.shemaName}}设置</span>
+                    <a class="c-cjszboxBspcA right " href="" ng-show="sublevel.shemaName?true:false"
+                       ng-click="add(sublevel.sort,$index,dataList,sublevel)">添加</a>
+                </p>
+
+                <ul class="">
+                    <li class="c-cjszboxBli pr48 pl30 fs14 c6 clearfix" ng-repeat="s in sublevel.topClass">
+
+                        <span class="w-18 left" ng-show="s.objName1?true:false" label="0">{{dataList.sublevel[0].shemaName}}名称：{{s.objName1}}</span>
+
+                        <span class="w-18 left" ng-show="s.objName2?true:false" label="1">{{dataList.sublevel[1].shemaName}}名称：{{s.objName2}}</span>
+
+                        <span class="w-18 left" ng-show="s.objName3?true:false" label="2">{{dataList.sublevel[2].shemaName}}名称：{{s.objName3}}</span>
+                        <span class="w-18 left" ng-show="s.objName4?true:false" label="3">{{dataList.sublevel[3].shemaName}}名称：{{s.objName4}}</span>
+                        <span class="w-18 left" ng-show="s.objName5?true:false" label="4">{{dataList.sublevel[4].shemaName}}名称：{{s.objName5}}</span>
+
+                        <a class="right c-cjszboxBspcB" href="" ng-click="delete(s.id)">删除</a>
+                    </li>
+                    <!--栋添加-->
+                    <li class="c-cjszboxBli pr48 pl30 fs14 c6 clearfix" ng-show="sublevel.sort=='0'&&flag">
+                        <span class="w-25 left">{{dataList.sublevel[0].shemaName}}名称：
+                            <input class="c-cjszboxBinp " type="text" placeholder="请输入栋名称..." ng-model="firsttext">
+                        </span>
+                        <button class="c-cjszboxBspcA right saveDisabled" ng-click="saveall('0',firsttext,sublevel.id)">保存</button>
+                    </li>
+                    <!--栋-座添加-->
+                    <li class="c-cjszboxBli pr48 pl30 fs14 c6 clearfix" ng-show="sublevel.sort=='1'&&flag2">
+                            <span class="w-25 left">{{dataList.sublevel[0].shemaName}}名称：
+                                 <select ng-model="mydata" ng-change="myselect(mydata)" value="{{d.id}}"
+                                         class="c-cjszboxBsl select mt5"
+                                         ng-options="d.id as d.objName for d in dataInit">
+                                <option value="">--请选择--</option>
+                                </select>
+                            </span>
+                        <span class="w-25 left">{{dataList.sublevel[1].shemaName}}名称：
+                                <input class="c-cjszboxBinp " type="text" placeholder="请输入栋名称..." ng-model="secondtext">
+                            </span>
+                        <button class="c-cjszboxBspcA right saveDisabled" ng-click="saveall(mydata,secondtext,sublevel.id)">保存</button>
+                    </li>
+                    <!--栋-座-层添加-->
+                    <li class="c-cjszboxBli pr48 pl30 fs14 c6 clearfix" ng-show="sublevel.sort=='2'&&flag3"
+                        label="{{sublevel.id}}">
+                            <span class="w-25 left">{{dataList.sublevel[0].shemaName}}名称：
+
+                                <select ng-model="mydata" ng-change="myselect(mydata)" value="{{d.id}}"
+                                        class="c-cjszboxBsl select mt5"
+                                        ng-options="d.id as d.objName for d in dataInit">
+                                  <option value="">--请选择--</option>
+                                </select>
+                            </span>
+                        <span class="w-25 left">{{dataList.sublevel[1].shemaName}}名称：
+                                <select class="c-cjszboxBsl select mt5" ng-model="mydata2">
+                                    <option value="">--请选择--</option>
+                                     <option value="{{t.id}}" ng-repeat="t in dataTwice">{{t.objName}}</option>
+                                </select>
+                            </span>
+                        <span class="w-25 left">{{dataList.sublevel[2].shemaName}}名称：
+                                <input class="c-cjszboxBinp " type="text" placeholder="请输入层名称..." ng-model="thirdtext">
+                            </span>
+                        <button class="c-cjszboxBspcA right saveDisabled" ng-click="saveall(mydata2,thirdtext,sublevel.id)">保存</button>
+                    </li>
+                    <!--第四层添加-->
+                    <li class="c-cjszboxBli pr48 pl30 fs14 c6 clearfix" ng-show="sublevel.sort=='3'&&flag4"
+                        label="{{sublevel.id}}">
+                            <span class="w-20 left">{{dataList.sublevel[0].shemaName}}名称：
+
+                                <select ng-model="mydata" ng-change="myselect(mydata)" value="{{d.id}}"
+                                        class="c-cjszboxBsl select mt5"
+                                        ng-options="d.id as d.objName for d in dataInit">
+                                  <option value="">--请选择--</option>
+                                </select>
+                            </span>
+                        <span class="w-20 left">{{dataList.sublevel[1].shemaName}}名称：
+                                <select class="c-cjszboxBsl select mt5" ng-model="mydata2" ng-change="myselect2(mydata2)"
+                                        ng-options="d.id as d.objName for d in dataTwice">
+                                    <option value="">--请选择--</option>
+                                     <!--<option value="{{t.id}}" ng-repeat="t in dataTwice">{{t.objName}}</option>-->
+                                </select>
+                            </span>
+                        <span class="w-20 left">{{dataList.sublevel[2].shemaName}}名称：
+                                <select class="c-cjszboxBsl select mt5" ng-model="mydata3">
+                                    <option value="">--请选择--</option>
+                                     <option value="{{t.id}}" ng-repeat="t in dataThird">{{t.objName}}</option>
+                                </select>
+                            </span>
+                        <span class="w-20 left">{{dataList.sublevel[3].shemaName}}名称：
+                                <input class="c-cjszboxBinp " type="text" placeholder="请输入层名称..." ng-model="thirdtext">
+                            </span>
+                        <button class="c-cjszboxBspcA right saveDisabled" ng-click="saveall(mydata3,thirdtext,sublevel.id)">保存</button>
+                    </li>
+                    <!--第五层添加-->
+                    <li class="c-cjszboxBli pr48 pl30 fs14 c6 clearfix" ng-show="sublevel.sort=='4'&&flag5"
+                        label="{{sublevel.id}}">
+                            <span class="w-18 left">{{dataList.sublevel[0].shemaName}}名称：
+
+                                <select ng-model="mydata" ng-change="myselect(mydata)" value="{{d.id}}"
+                                        class="c-cjszboxBsl select mt5"
+                                        ng-options="d.id as d.objName for d in dataInit">
+                                  <option value="">--请选择--</option>
+                                </select>
+                            </span>
+                        <span class="w-18 left">{{dataList.sublevel[1].shemaName}}名称：
+                                <select class="c-cjszboxBsl select mt5" ng-model="mydata2" ng-change="myselect2(mydata2)"
+                                        ng-options="d.id as d.objName for d in dataTwice">
+                                    <option value="">--请选择--</option>
+                                    <!--<option value="{{t.id}}" ng-repeat="t in dataTwice">{{t.objName}}</option>-->
+                                </select>
+                            </span>
+                        <span class="w-18 left">{{dataList.sublevel[2].shemaName}}名称：
+                               <select class="c-cjszboxBsl select mt5" ng-model="mydata3" ng-change="myselect3(mydata3)"
+                                       ng-options="d.id as d.objName for d in dataThird">
+                                    <option value="">--请选择--</option>
+                                     <!--<option value="{{t.id}}" ng-repeat="t in dataThird">{{t.objName}}</option>-->
+                                </select>
+                            </span>
+                        <span class="w-18 left">{{dataList.sublevel[3].shemaName}}名称：
+                                <select class="c-cjszboxBsl select mt5" ng-model="mydata4">
+                                    <option value="">--请选择--</option>
+                                     <option value="{{t.id}}" ng-repeat="t in dataForth">{{t.objName}}</option>
+                                </select>
+                            </span>
+                        <span class="w-18 left">{{dataList.sublevel[4].shemaName}}名称：
+                                <input class="c-cjszboxBinp " type="text" placeholder="请输入层名称..." ng-model="thirdtext">
+                            </span>
+                        <button class="c-cjszboxBspcA right saveDisabled" ng-click="saveall(mydata4,thirdtext,sublevel.id)">保存</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--数据层级设置—添加层级结构-->
+<div class="dialog addData">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">添加层级结构</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancel()"></a>
+            </h3>
+            <form action="" name="form">
+            <div class="pt20 pl30 pr30">
+                <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th class="pl30 maincolor w-160">类型名称：</th>
+                        <td><input type="text" ng-model="category" ng-blur="check(category,'category')" placeholder="请输入数据名称..." class="l-input zjm-w40" name="projectName" />
+                            <span ng-show="!category" style="color:red">*数据不能为空</span>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="t in nameJson track by $index">
+                        <th class="pl30 maincolor w-160">{{$index+1}}级结构名称：</th>
+                        <td>
+                            <input ng-change="nameJsonFlagFn($index,'nameJson')" type="text" name="projectName" ng-model="t.shemaName" placeholder="请输入数据名称..." class="l-input zjm-w40 " />
+                            <span ng-show="!t.shemaName" style="color:red" >*数据不能为空</span>
+                            <span ng-show="nameJsonFlag[$index]" style="color:red">*结构名称不能相同</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">房号：</th>
+                        <td><input type="checkbox" ng-model="isroom" name="isroom" ng-checked="getroom(isroom)"/><span class="ml100" style="color:red">*你选择的是{{isroom?'有房号':'无房号'}}</span></td>
+                    </tr>
+                </table>
+                <div class="c-cjszadd mt30 pb30" ng-show="nameJson.length<5">
+                    <a class="c-cjszadda radius5 w133 disinblock" ng-click="addlevel()"><i class="c-iconfont mr10"></i>添加层级</a>
+                </div>
+                <span class="hop-bntap disblock pt30 pb55 tc">
+                    <button class="hop-save disinblock w133 hoptap radius saveDisabled" validation-submit="form"
+                       ng-click="cjsave()">保存</button>
+                    <a href="javascript:void(0)"
+                       class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="cancel()">取消</a>
+						</span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--数据层级设置—修改层级结构-->
+<div class="dialog editData">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">修改层级结构</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancel()"></a>
+            </h3>
+            <form action="" name="form">
+                <div class="pt20 pl30 pr30">
+                    <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th class="pl30 maincolor w-160">类型名称：</th>
+                            <td><input type="text" ng-model="editcategory" ng-blur="check(category,'category')" placeholder="请输入数据名称..." class="l-input zjm-w40" name="projectName" />
+                                <span ng-show="!editcategory" style="color:red">*数据不能为空</span>
+                            </td>
+                        </tr>
+                        <tr ng-repeat="t in sublevelList track by $index">
+                            <th class="pl30 maincolor w-160">{{$index+1}}级结构名称：</th>
+                            <td>
+                                <input ng-change="nameJsonFlagFn($index,'sublevelList')" type="text" name="projectName" ng-model="t.shemaName" placeholder="请输入数据名称..." class="l-input zjm-w40 " />
+                                <span ng-show="!t.shemaName" style="color:red" >*数据不能为空</span>
+                                <span ng-show="nameJsonFlag[$index]" style="color:red">*结构名称不能相同</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor">房号：</th>
+                            <td><input type="checkbox" ng-model="isRoom" name="isRoom"/><span class="ml100" style="color:red">*你选择的是{{isroom?'有房号':'无房号'}}</span></td>
+                        </tr>
+                    </table>
+                    <!--<div class="c-cjszadd mt30 pb30" ng-show="sublevelList.length<5">-->
+                        <!--<a class="c-cjszadda radius5 w133 disinblock" ng-click="addlevel('sublevelList')"><i class="c-iconfont mr10"></i>添加层级</a>-->
+                    </div>
+                    <span class="hop-bntap disblock pt30 pb55 tc">
+                    <button class="hop-save disinblock w133 hoptap radius saveDisabled" validation-submit="form"
+                       ng-click="cjUpdate(dhId)">保存</button>
+                    <a href="javascript:void(0)"
+                       class="hop-canle disinblock w133 hoptap ml20 radius dialog-close" ng-click="cancel()">取消</a>
+						</span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

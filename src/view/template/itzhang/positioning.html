@@ -1,0 +1,85 @@
+<div class="c-ftop c-fdbxm">
+    <div class="container clearfix">
+        <div class="left mt15">
+            <a ui-self="main"><img src="image/c-logoa.png"></a>
+        </div>
+        <div class="right">
+            <ul class="clearfix">
+                <li class="left">
+                    <a class="c-ftopa cf tc disinblock" href="#/main">首页</a>
+                </li>
+                <!-- <li class="left">
+                    <a class="c-ftopa  cf tc disinblock" href="#/showProject">代表项目</a>
+                </li> -->
+                <li class="left">
+                    <a class="c-ftopa cf tc disinblock " href="#/objective">战略目标</a>
+                </li>
+                <li class="left">
+                    <a class="c-ftopa cf tc disinblock c-ftopacur" href="#/positioning">战略定位</a>
+                </li>
+                <li class="left">
+                    <a class="c-ftopa  cf tc disinblock" href="#/laws">政策法规</a>
+                </li>
+                <li class="left">
+                    <a class="c-ftopa  cf tc disinblock" href="#/news">新闻动态</a>
+                </li>
+                <li class="left">
+                    <a class="c-ftopa  cf tc disinblock" ng-click="login()" ng-bind="nickname||'登录'"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="">
+    <div class="bgc-z c-fbodyb">
+        <div class="container c-fbodybig ">
+            <h2 class="tc c-fbodybh fs30 mt55 pt100">战略定位</h2>
+            <p class="tc c9 fs16 mt10">STRATEGIC POSITIONING</p>
+            <div class="mt70 mb65 c-fbodycbig clearfix">
+                <div class="left ml20 mb20  c-fbodycb" ng-repeat="item in location" ng-if="$index<4">
+                    <img ng-src="{{imgHost+item.imgUrl}}" width="280">
+                    <h2 class="fs16 c-fbodycbh fwb c3 mt20 pl5">{{item.title}}</h2>
+                    <!--<p class="pl10 pr10 mt15 lh26 c6 "><div ng-if="item.content" ng-bind-html="item.content | parseHTML" class="ws-n pl5 pr5 lh25"></div></p>-->
+                    <div class="ws-n fs14" ng-bind-html="item.content | parseHTML"
+                         style="line-height:23px;width: 280px;height: 140px;padding: 5px 10px;word-wrap: break-word;text-overflow:ellipsis;overflow: hidden;">
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<div class="c-fbottom fs16">
+    <div class="container c-fbodybig">
+        <div class="clearfix pt35 c-fbottoma">
+            <div class="left c-fbottomal mb50">
+                <p class="mb50">
+                    <a class="c-fbottomala mr40" href="#/main">首页</a>
+                    <a class="c-fbottomala mr40" href="#/showProject">代表项目</a>
+                    <a class="c-fbottomala mr40" href="#/laws">政策法规</a>
+                    <a class="c-fbottomala mr40" href="#/news">新闻动态</a>
+                </p>
+                <p class="mb15">
+                    <i class="mr10 disinblock c-fbottomalia"></i>zhoujl@szyungu.com
+                </p>
+                <p class="mb15">
+                    <i class="mr10 disinblock c-fbottomalib"></i>深圳市龙岗区坂田街道风门坳一区27号
+                </p>
+            </div>
+            <div class="left c-fbottomar clearfix">
+                <div class="ml55 left">
+                    <p class="lh28 ml25">咨询热线：</p>
+                    <h2 class="fs24 ml25">{{mobile}}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="c-fbottomb clearfix">
+            <div class="left lh65">
+                <span class="mr50">深圳智慧园区信息技术有限公司 版权所有 © 2011-2016</span>
+                <span>粤ICP备14058468号</span>
+            </div>
+        </div>
+    </div>
+</div>

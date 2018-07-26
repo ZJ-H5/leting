@@ -1,0 +1,162 @@
+<app-head></app-head>
+
+<left-system></left-system>
+<!--main-->
+<div class="l-rightsider   pb55">
+    <div class="mt15 ml15 mr15  back-white pl30 pr30 ">
+        <div class="c-csrbdt pt25 clearfix ">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5">人员列表</a>
+            <span>{{total}}人</span>
+        </div>
+        <ul class="c-chbul h-cwgispxx mt15 back-white clearfix">
+            <li class="left"><a class="tc disblock ahover c6 " href="#/systemset">组织机构</a></li>
+            <!--<li class="left"><a class="tc disblock ahover c6 maincolor"  href="#/peoplelist">人员列表</a></li>-->
+            <li class="left"><a class="tc disblock ahover c6 " href="#/propertyPeople">物业授权</a></li>
+        </ul>
+        <div class="c-csrbdb mt20 clearfix">
+            <!--<a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="">新增</a>-->
+            <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="#/roleaccredit">角色设置</a>
+            <a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="#/propertyPeople">授权房源</a>
+            <!--<a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="">表格</a>-->
+            <!--<a class="c-csrbdba c-wyrbda c-wyrbdcur fs14 cf left" href="">图形</a>-->
+            <div class="c-csrbdinp right clearfix">
+                <i class="c-iconfont mt8 ml10 left" ></i>
+                <input class="ml10 left" type="text" placeholder="请输入用户名称或简称" ng-model="searchKeys">
+            </div>
+        </div>
+        <div class="c-csrbdc mt20">
+            <p class="c-csrbdcpa pl30 fs16 c3 clearfix">
+                <span class="left">筛选</span>
+                <!--<a class="right maincolor mr30 c-spgltcl" href="javascript:void (0)">收起</a>-->
+            </p>
+            <div class="c-spgltclshow">
+                <p class="fs14 c6 pl30 clearfix">
+                    <span class="left c-spgltsp">按首字母：</span>
+                    <span class="left mr45 relative" ng-repeat="l in letterData">
+                           <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox"  name="area" value="l.status" ng-model="l.status" ng-click="selet(l.letter,l.status)"><i class="c-htcboxin c-iconfont"></i>{{l.name}}
+                    </span>
+
+                </p>
+                <!--<p class="c-wygltp fs14 c6 pl30 clearfix">-->
+                    <!--<span class="left c-spgltsp">用户角色：</span>-->
+                    <!--<span class="left mr45 relative">-->
+                            <!--<input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox" name="area" value=""><i class="c-htcboxin c-iconfont"></i>全部-->
+                    <!--</span>-->
+                    <!--<span class="left mr45 relative">-->
+                            <!--<input class=" c-csrbdcinp c-htcbox relative" type="checkbox" name="area" value=""><i class="c-htcboxin c-iconfont"></i>Administration-->
+                    <!--</span>-->
+                    <!--<span class="left mr45 relative">-->
+                            <!--<input class=" c-csrbdcinp c-htcbox relative" type="checkbox" name="area" value=""><i class="c-htcboxin c-iconfont"></i>User-->
+                    <!--</span>-->
+                    <!--<span class="left mr45 relative">-->
+                            <!--<input class=" c-csrbdcinp c-htcbox relative" type="checkbox" name="area" value=""><i class="c-htcboxin c-iconfont"></i>Guest-->
+                    <!--</span>-->
+                <!--</p>-->
+            </div>
+        </div>
+
+        <div class="l-managetable mt20">
+            <div class="l-managetable c-bordere6">
+                <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th>
+                           <span>
+                               <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox"  name="area" value=""><i class="c-htcboxin  c-iconfont"></i>
+                           </span>
+                        </th>
+                        <th>用户名</th>
+                        <th>职务</th>
+                        <th>部门</th>
+                        <th>最后更新时间</th>
+                        <th class="zjm-w16">操作</th>
+                    </tr>
+                    <tr ng-repeat="p in peoplelist">
+                        <td>
+                            <span class="relative">
+                               <input class=" c-csrbdcinp c-htcbox relative c-allcheacked" type="checkbox"  name="area" value=""><i class="c-htcboxin c-iconfont"></i>
+                           </span>
+                        </td>
+                        <td>
+                            <span>{{p.realname}}</span>
+                            <!--<img src="images/h-peason.png" alt="" class="mt10">-->
+                        </td>
+                        <td>{{p.name}}</td>
+                        <td>{{p.postName}}</td>
+                        <td>{{p.updateTime|date:'yyyy-MM-dd'}}</td>
+                        <td class="l-tablelink" class="zjm-w15">
+                            <a href="javascript:void(0)" ng-click="addAppraise('h-eddit',p.id,p.realname)">添加用户评价</a>
+                            <a href="javascript:void(0)" ng-click="watchAppraise('watch',p.id,p.realname)">查看用户评价</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="l-page fs12 tr pt20 pb30 lh30">
+                <div ui-pagination conf="conf"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--main end-->
+<!--添加用户评价-->
+<div class="dialog h-eddit">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius  hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix radius5">
+                <em class="left fs18 c3">添加用户评价</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt10 pl30 pr30">
+                <p class="clearfix border pl20 mt20 pt10">
+                    <span class="fl w-100 pt5" >用户名：</span>
+                    <span class="fl mb10 pt5 pb5 pl5">{{addRealName}}</span>
+                </p>
+                <p class="clearfix border mt20 pl20 pb10 pt10 radius5">
+                    <span class="fl w-100">评价：</span>
+                    <textarea name="" id="" cols="30" rows="10" class="textarea border radius5" ng-model="newappraise"></textarea>
+                </p>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="addUserAppraiseData(id)">保存</a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">取消</a>
+				</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--查看用户评价-->
+<div class="dialog watch">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius  hop-cont">
+        <div class="back-white ">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix radius5">
+                <em class="left fs18 c3">查看用户评价</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancel()"></a>
+            </h3>
+            <div class="pt10 pl30 pr30 pb20 appraise-height">
+                <div class="clearfix border pl20 mt20 pt10  pb20" ng-repeat="w in appraiseList">
+                    <p class="mt10" >
+                        <span class="mr30 maincolor">用户名：</span>
+                        <span class="">{{addRealName}}</span>
+                    </p>
+                    <p class="mt10" >
+                        <span class="mr30 maincolor">评价人：</span>
+                        <span class="">{{w.realname}}</span>
+                    </p>
+                    <p class="mt10" >
+                        <span class="mr30 maincolor">时&nbsp;&nbsp;&nbsp;间：</span>
+                        <span class="">{{w.createTime|date:'yyyy-MM-dd'}}</span>
+                    </p>
+                    <div class="mt10">
+                        <span class="mr30 maincolor fl">评&nbsp;&nbsp;&nbsp;价：</span>
+                        <p name="" id="" class="fl" ng-bind="w.appraise" style="width: 90%;line-height: 22px;word-break: break-word;">
+                        </p>
+                    </div>
+                </div>
+                <span class="hop-bntap disblock pt30 pb55" ng-if="pageFlag">
+                    <a ng-click="addPage(id)" class="fs16 cf tc disinblock h-fbottomara ">查看更多</a>
+				</span>
+            </div>
+        </div>
+    </div>
+</div>

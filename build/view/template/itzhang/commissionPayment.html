@@ -1,0 +1,307 @@
+<app-head></app-head>
+
+<div app-left></div>
+
+<!--main-->
+<div class="l-rightsider pb55">
+    <div class="pl15 pr18 pt15 pb15">
+        <!--顶部关注-->
+
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <div class="c-csrbdt pt25 col-md-7 col-lg-7 col-sm-7 ">
+                <a class="c-csrbdta fs18 c6 mr35 pl5" ng-bind="project2.projectName?project2.projectName:''"></a>
+                <p class="ml10 mt15">
+                    <span ng-bind="project2.address?project2.address:''"></span>
+                </p>
+            </div>
+            <ul class="col-md-5 col-lg-5 col-sm-5 mt30 mb30 pl40">
+                <li class="lh30">创建人：
+                    <span ng-bind="project2.createName?project2.createName:no"></span>
+                </li>
+                <li class="lh30">创建时间：
+                    <span ng-bind="project2.createTime?(project2.createTime|date:'yyyy-MM-dd'):''"></span>
+                </li>
+                <li class="lh30">最后更新时间：
+                    <span ng-bind="project2.updateTime?(project2.updateTime|date:'yyyy-MM-dd'):''"></span>
+                </li>
+            </ul>
+
+        </div>
+
+        <!--下面主体-->
+        <h2 class="mt30 ml15 fs18 c3">审批信息</h2>
+        <div class="mt20 ml15 mr15  back-white pl30 pr35 clearfix">
+            <div class="c-chba pt25 clearfix">
+                <div class="c-chbal col-md-3 col-lg-3 col-sm-3 left">
+                    <p>申请人：
+                        <span ng-bind="roomMsg.approvalUser||no"></span>
+                    </p>
+                    <p>提交时间：
+                        <span ng-bind="(roomMsg.createTime |date:'yyyy-MM-dd HH:MM')||no"></span>
+                    </p>
+                </div>
+                <div class="c-chbar col-md-9 col-lg-9 col-sm-9 left">
+                    <p class="c-chbarp clearfix">
+                        <span class="left pl5">审批进度</span>
+                        <a class="right radius5" ng-click="exportWork()">查看审批进度</a>
+                    </p>
+                    <ul class="clearfix">
+                        <li class="c-chbarli pl5 left pos-rel" ng-repeat="i in nodeMsg">
+                            <p class="c-chbarlipa">
+                                <i class="c-iconfont " ng-class="{'c-chbarlipy':i.nodeStatus==1?true:false,'c-chbarlipn':i.nodeStatus==1?false:true}"></i>
+                            </p>
+                            <p class="c-chbarlipb mt10">
+                                <span class="mr20" ng-bind="i.examine_name"></span>
+                                <a class="mr20 maincolor" ng-show="i.nodeStatus===1?true:false" ng-mouseenter="shows=true;lookJindu($index)" ng-mouseleave="shows=false">查看</a>
+
+                            </p>
+                            <!--hover-->
+                            <ul class="pos-abs bgf p5 fs14" ng-show="shows" style="border: 1px solid #337ab7; left:0;z-index:9998;border-radius:10px; box-shadow:2px 2px 2px #ccc;max-width:500px;min-width: 300px;">
+                                <li ng-repeat="i in lookJinduArr">
+                                    <div class="pl0 mr20 ml20 mt10 mb10">
+                                        <span ng-bind="i.examine_user_name||no"></span>
+                                        <span class="mr50 ml30" ng-bind="i.dateTime|date:'yyyy-MM-dd HH:mm'||no"></span>
+                                    </div>
+                                    <div class="pl0 mr20 ml20 mt10 mb10" ng-show="i.examine_remarks">
+                                        <span>备注</span>:
+                                        <span ng-bind="i.examine_remarks||no"></span>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="c-chbb clearfix">
+                <div class="" ng-class="">
+                    <!-- <h3 class="fs16 c3 mt25">日期</h3> -->
+                    <!-- <p class="mt20"><span ng-bind="(roomMsg.createTime |date:'yyyy-MM-dd')||no"></span> <span ng-if="roomMsg.approvalTime?true:false">至 <span ng-bind="(roomMsg.approvalTime |date:'yyyy-MM-dd')||no"></span></span>    </p> -->
+                    <h3 class="fs16 c3 mt25">审批信息</h3>
+                    <p class="mt20">审批内容：
+                        <span ng-bind="approvalNodeName||no"></span>
+                    </p>
+
+                    <!--第三方测绘-->
+
+                    <!--支付-->
+                    <div ng-if="locationFrefFlag=='1'?true:false">
+                        <div class="l-managetable c-bordere6">
+                            <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <th>合同编号</th>
+                                    <th>付款项目</th>
+                                    <th>地址</th>
+                                    <th>付款依据</th>
+                                    <th>付款金额</th>
+                                    <th>收款人姓名</th>
+                                    <th>收款银行</th>
+                                    <th>收款银行账号</th>
+                                    <th>付款时间</th>
+                                </tr>
+                                <tr ng-repeat="i in payforListArr" class="pos-rel">
+                                    <td>
+                                        <span ng-bind="i.pactNo||no"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="i.name||no"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="i.property_address||no"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="i.paymentBasis||no"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="i.paymentAmount.toFixed(2)||no"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="i.recieveName||no"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="i.recieveBank||no"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="i.recieveAcct||no"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="(i.paymentTime |date:'yyyy-MM-dd')||no"></span>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                        <div class="l-managetable c-bordere6 tc lh55" ng-if="payforListArr.length>0?false:true">
+                            暂无数据
+                        </div>
+                    </div>
+                    <!--佣金-->
+                    <div ng-if="locationFrefFlag=='1'?false:true">
+                        <div class="l-managetable c-bordere6">
+                            <table class="l-tablebox l-ruletab c-bordernone" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <th>佣金类型</th>
+                                    <th>付款项目</th>
+                                    <th>付款金额</th>
+                                    <th>收款人姓名</th>
+                                    <th>收款银行</th>
+                                    <th>收款银行账号</th>
+                                    <th>付款时间</th>
+                                    <th>付款状态</th>
+                                    <th>实际付款时间</th>
+                                </tr>
+                                <tr ng-repeat="i in MoneryListArr" class="pos-rel">
+                                    <td>
+                                        <span ng-bind="(i.type=='1'?'签约佣金':no) ||(i.type=='2'?'违建佣金':no)||(i.type=='3'?'综合业务佣金':no)"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="i.name||no"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="i.reAccount||no"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="i.reUserName||no"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="i.reBankNo||no"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="i.reBankName||no"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="(i.paymentTime|date:'yyyy-MM-dd')||no"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="i.paymentStatus||no"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="(i.actualPaymentTime|date:'yyyy-MM-dd')||no"></span>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                        <div class="l-managetable c-bordere6 tc lh55" ng-if="MoneryListArr.length>0?false:true">
+                            暂无数据
+                        </div>
+                    </div>
+
+                    <!--<div class="l-page fs12 tr pt20 pb30 lh30">-->
+                    <!--<div ui-pagination conf="conf"></div>-->
+                    <!--</div>-->
+                </div>
+            </div>
+
+            <div class="c-chbc mt30 pb30 clearfix" ng-show="lookflag=='0'?true:false" ng-repeat="i in lookapproArr">
+                <p class="lh28">审核结果：
+                    <span ng-bind="i.adopt"></span>
+                </p>
+                <p class="lh28">审批人：
+                    <span ng-bind="i.username"></span>
+                </p>
+                <p class="lh28">审批时间：
+                    <span ng-bind="i.time|date:'yyyy-MM-dd HH:MM'"></span>
+                </p>
+                <p class="lh28">备注：
+                    <span ng-bind="i.remakers"></span>
+                </p>
+            </div>
+
+            <div ng-show="lookflag=='0'?false:true">
+                <div class="c-chbd mt55 mb20">
+                    <p class="mb15">备注：</p>
+                    <textarea class="radius5" ng-model="notetext" ng-disabled="{{!passOKflag}}"></textarea>
+                    <span class="c-red cred" ng-if="notetextFlag" ng-blur="blurs(notetext)">*请输入备注信息</span>
+                </div>
+                <div class="c-chbc mt30 clearfix" ng-if="passOKflag">
+                    <a class="c-chbca radius5 cf left mr20" ng-click="passOK()" ng-class="{'zjcursordisabled':clickdisabled===false}">审核通过</a>
+                    <a class="c-chbcb radius5 c6 left mr20" ng-click="passNO()" ng-class="{'zjcursordisabled':clickdisabled===false}">审核不通过</a>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+<!--main end-->
+<!--新增-->
+<div class="dialog export">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius    hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3">查看审批进度</em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt20 pl30 pr30">
+
+                <div class="c-chbbl clearfix">
+                    <!-- <h3 class="fs16 c3 mt25">物业</h3>
+                            <p class="mt20">物业：<span ng-bind="exportRomMap.roomName||no"></span></p>
+                            <p class="mt20">地址：<span ng-bind="exportRomMap.address||no"></span></p> -->
+                    <h3 class="fs16 c3 mt25">审批信息</h3>
+                    <p class="mt20">审批内容：
+                        <span ng-bind="content||no"></span>
+                    </p>
+
+                    <h6 class="c0 mb30 mt20">审批进度</h6>
+                    <div class="c-jbxxrjd ml15">
+                        <div class="mb35" ng-if="exportHasApply" ng-repeat="j in exportHasApply">
+                            <p class="c-jbxxrjdp">
+                                <i class="c-jbxxriy mr10 c-iconfont"></i>
+                                <span ng-bind="'节点'+j.rank||'-'"></span>
+                            </p>
+                            <div ng-repeat="i in j.users">
+                                <div>
+                                    <p class="mb15">
+                                        <i class="c-jbxxriy mr15 c-iconfont"></i>
+                                        <span>审批人</span>:
+                                        <span ng-bind="i.userName||No"></span>
+                                    </p>
+                                </div>
+                                <div>
+                                    <p class="mb15">
+                                        <i class="c-jbxxriy mr15 c-iconfont"></i>
+                                        <span>审批结果</span>:
+                                        <span>{{(i.status==1&&'通过')||(i.status==2&&'不通过'||i.status==3&&'未审核')}}</span>
+                                    </p>
+                                </div>
+                                <div>
+                                    <p class="mb15">
+                                        <i class="c-jbxxriy mr15 c-iconfont"></i>
+                                        <span>审批时间</span>:
+                                        <span ng-bind="i.time |date:'yyyy-MM-dd HH:MM:ss'||no"></span>
+                                    </p>
+                                </div>
+                                <div>
+                                    <p class="mb15">
+                                        <i class="c-jbxxriy mr15 c-iconfont"></i>
+                                        <span>备注</span>:
+                                        <span ng-bind="i.remaker||No"></span>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="mb35" ng-if="exportHasNotApply" ng-repeat="i in exportHasNotApply">
+                            <p class="c-jbxxrjdp">
+                                <i class="c-jbxxriy mr10 c-iconfont"></i>
+                                <span ng-repeat="j in i.andSign.andNodeName">
+                                    <span ng-bind="j||No"></span>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <!-- <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius dialog-close" ng-click="addsave()">保存</a> -->
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">关闭</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

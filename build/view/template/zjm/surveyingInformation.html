@@ -1,0 +1,843 @@
+<app-head></app-head>
+
+<div app-left></div>
+<div class="l-rightsider pb55" ng-app="app">
+    <div class="pl15 pr18 pt15 ha pb15">
+        <!--顶部关注-->
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <top-pact-information list="{{list}}" pacts="pacts"></top-pact-information>
+        </div>
+        <!--10个格子-->
+        <table class="table table-bordered bg3 mt15">
+            <tbody class="tc c0">
+                <tr class="h40  tc lh40 bgf c6" align="justify">
+                    <td class="">
+                        <a href="#/propertyDetail?roomId={{roomId}}&projectid={{projectId}}" title="总览" class=" j-blur-a j-blur-as ">&nbsp;&nbsp;&nbsp;总览&nbsp;&nbsp;&nbsp;</a>
+                    </td>
+                    <td class="">
+                        <a href="#/BasicInformationPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="基本信息"
+                            class=" j-blur-a j-blur-as">基本信息</a>
+                    </td>
+                    <td class="">
+                        <a href="#/surveyingInformationsurveyingInformation?roomId={{roomId}}&projectid={{projectId}}" title="测绘信息" class=" j-blur-a j-blur-as "
+                            style="color: #4ea4df;">测绘信息</a>
+                    </td>
+                    <td class="">
+                        <a href="#/compensateProperty?roomId={{roomId}}&projectid={{projectId}}" title="补偿方案" class=" j-blur-a j-blur-as">补偿方案</a>
+                    </td>
+                    <td class="">
+                        <a href="#/PropertyManagementPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="业权人"
+                            class=" j-blur-a j-blur-as">业权人</a>
+                    </td>
+                    <td class="">
+                        <a href="#/checkingFalse?roomId={{roomId}}&projectid={{projectId}}" title="查违信息" class=" j-blur-a j-blur-as">查违信息</a>
+                    </td>
+                    <td class="">
+                        <a href="#/LostPropertyManagementPropertyManagement?roomId={{roomId}}&projectid={{projectId}}" title="关联物业"
+                            class=" j-blur-a j-blur-as">关联物业</a>
+                    </td>
+                    <td class="">
+                        <a href="#/enclosure?roomId={{roomId}}&projectid={{projectId}}" title="附件" class=" j-blur-a j-blur-as">&nbsp;&nbsp;&nbsp;附件&nbsp;&nbsp;&nbsp;</a>
+                    </td>
+                    <td class="">
+                        <a href="#/amendantRecord?roomId={{roomId}}&projectid={{projectId}}" title="修改记录" class=" j-blur-a j-blur-as">修改记录</a>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+        <!--three-->
+        <div class="clearfix">
+            <h6 class="fs16 c0 mt24 mb20 fl">测绘信息</h6>
+            <ul class="fr" ng-show="(pacts=='2'||!pacts)?true:false">
+                <li class="fl ml15">
+                    <a href="javascript:;" class="dis-inlBlo w200 h30 mt18 bg4da3de brrad8 lh30 tc cf" ng-click="getupdateinit(surveyInfo.id)"
+                        ng-show="surveyInfo!=null">
+                        修改测绘信息
+                    </a>
+                </li>
+                <li class="fl ml15">
+                    <a href="javascript:;" class="dis-inlBlo w200 h30 mt18 bg4da3de brrad8 lh30 tc cf" ng-click="getsurveyinit()" ng-show="surveyInfo==null">
+                        添加测绘信息
+                    </a>
+                </li>
+            </ul>
+
+
+        </div>
+        <!--测绘信息-->
+        <div class="bgf pl30 pt20 pb40 pos-rel clearfix">
+            <!--左侧文字内容-->
+            <div class="b-r-f9f9f9 left m-chxxl">
+                <div>是否使用空地：{{surveyInfo.isBlank==1?'是':'否'}}</div>
+                <ul class="lh32">
+                    <li>
+                        <ul>
+                            <li>基底面积 ：
+                                <span>{{surveyInfo.areaOfBase?surveyInfo.areaOfBase+'㎡':'无'}}</span>
+                            </li>
+                            <li>房屋总面积 ：
+                                <span>{{surveyInfo.grossArea?surveyInfo.grossArea+'㎡':'无'}}</span>
+                            </li>
+                            <li>层数 ：
+                                <span>{{surveyInfo.numberOfPlies?surveyInfo.numberOfPlies+'层':'无'}}</span>
+                            </li>
+
+                            <li>测绘报告编号 ：
+                                <span>{{surveyInfo.surveyCode?surveyInfo.surveyCode:'无'}}</span>
+                            </li>
+                            <li>测绘报告栋号 ：
+                                <span>{{surveyInfo.surveyBuilding?surveyInfo.surveyBuilding:'无'}}</span>
+                            </li>
+                            <li>房屋结构 ：
+                                <span>{{surveyInfo.buildingStructure?surveyInfo.buildingStructure:'无'}}</span>
+                            </li>
+                            <li>用途 ：
+                                <span>{{surveyInfo.housingPurposes?surveyInfo.housingPurposes:'无'}}</span>
+                            </li>
+                        </ul>
+                        <br>
+                    </li>
+                    <li>
+                        <ul>
+                            <li ng-if="surveyInfo.areaOfBase1">基底面积 ：
+                                <span>{{surveyInfo.areaOfBase1?surveyInfo.areaOfBase1+'㎡':'无'}}</span>
+                            </li>
+                            <li ng-if="surveyInfo.grossArea1">房屋总面积 ：
+                                <span>{{surveyInfo.grossArea1?surveyInfo.grossArea1+'㎡':'无'}}</span>
+                            </li>
+                            <li ng-if="surveyInfo.numberOfPlies1">层数 ：
+                                <span>{{surveyInfo.numberOfPlies1?surveyInfo.numberOfPlies1+'层':'无'}}</span>
+                            </li>
+
+                            <li ng-if="surveyInfo.surveyCode1">测绘报告编号 ：
+                                <span>{{surveyInfo.surveyCode1?surveyInfo.surveyCode1:'无'}}</span>
+                            </li>
+                            <li ng-if="surveyInfo.surveyBuilding1">测绘报告栋号 ：
+                                <span>{{surveyInfo.surveyBuilding1?surveyInfo.surveyBuilding1:'无'}}</span>
+                            </li>
+                            <li ng-if="surveyInfo.buildingStructure1">房屋结构 ：
+                                <span>{{surveyInfo.buildingStructure1?surveyInfo.buildingStructure1:'无'}}</span>
+                            </li>
+                            <li ng-if="surveyInfo.housingPurposes1">用途 ：
+                                <span>{{surveyInfo.housingPurposes1?surveyInfo.housingPurposes1:'无'}}</span>
+                            </li>
+                        </ul>
+                        <br>
+                    </li>
+                    <li>
+                        <ul>
+                            <li ng-if="surveyInfo.areaOfBase2">基底面积 ：
+                                <span>{{surveyInfo.areaOfBase2?surveyInfo.areaOfBase2+'㎡':'无'}}</span>
+                            </li>
+                            <li ng-if="surveyInfo.grossArea2">房屋总面积 ：
+                                <span>{{surveyInfo.grossArea2?surveyInfo.grossArea2+'㎡':'无'}}</span>
+                            </li>
+                            <li ng-if="surveyInfo.numberOfPlies2">层数 ：
+                                <span>{{surveyInfo.numberOfPlies2?surveyInfo.numberOfPlies2+'层':'无'}}</span>
+                            </li>
+
+                            <li ng-if="surveyInfo.surveyCode2">测绘报告编号 ：
+                                <span>{{surveyInfo.surveyCode2?surveyInfo.surveyCode2:'无'}}</span>
+                            </li>
+                            <li ng-if="surveyInfo.surveyBuilding2">测绘报告栋号 ：
+                                <span>{{surveyInfo.surveyBuilding2?surveyInfo.surveyBuilding2:'无'}}</span>
+                            </li>
+                            <li ng-if="surveyInfo.buildingStructure2">房屋结构 ：
+                                <span>{{surveyInfo.buildingStructure2?surveyInfo.buildingStructure2:'无'}}</span>
+                            </li>
+                            <li ng-if="surveyInfo.housingPurposes2">用途 ：
+                                <span>{{surveyInfo.housingPurposes2?surveyInfo.housingPurposes2:'无'}}</span>
+                            </li>
+                        </ul>
+                        <br>
+                    </li>
+
+                    <li ng-repeat="singleList in singleList">
+                        {{singleList.name}} ：
+                        <span>{{singleList.val}}</span>
+                    </li>
+
+                </ul>
+                <div ng-repeat="s in surveyList">
+                    <h6 class="c0 mt25">{{s.compensateName}}</h6>
+                    <ul ng-repeat="b in s.subtype">
+                        <li class="mt25">
+                            <div class="row">
+                                <span class="col-md-3 col-lg-3 col-sm-4 w180">{{b.compensateName}} ：
+                                    <span>{{b.typeName}}</span>
+                                </span>
+                                <span class="col-md-3 col-lg-3 col-sm-4" ng-show="b.status==3">测绘栋号 ：
+                                    <span>{{b.surveyCode}}</span>
+                                </span>
+                                <span class="col-md-3 col-lg-3 col-sm-4" ng-show="b.status==3">结构 ：
+                                        <span>{{b.structure}}</span>
+                                    </span>
+                                    <span class="col-md-3 col-lg-3 col-sm-4" ng-show="b.status==3">用途 ：
+                                            <span>{{b.purpose}}</span>
+                                        </span>
+                                <span class="col-md-3 col-lg-3 col-sm-4" ng-show="b.rent">现状租金 ：
+                                    <span>{{b.rent}}</span>
+                                </span>
+                                <span class="col-md-3 col-lg-3 col-sm-4" ng-show="b.area">面积 ：
+                                    <span>{{b.area}}㎡</span>
+                                </span>
+                                <span class="col-md-3 col-lg-3 col-sm-4" ng-show="b.rank">级别 ：
+                                    <span>{{b.rank}}级</span>
+                                </span>
+                            </div>
+                            <a ng-href="{{hostname+b.imgUrl}}" class="c4da3de j-top mt15 dis-inlBlo" ng-show="b.imgUrl" target="_blank">查看图片</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="right m-chxxr">
+                <!--右侧图片-->
+                <div class=" pos-abs r8- j-rigImg">
+                    <h6 class="c0 mb30">物业图片</h6>
+                    <a href="{{hostname+housesImg}}" target="_blank">
+                        <img ng-src="{{hostname+housesImg}}" alt="" class=" max-w370 w100-">
+                    </a>
+
+                </div>
+                <!--右侧测绘进度-->
+                <div class=" pos-abs r9- j-rigImg">
+                    <h6 class="c0 mb30">测绘进度</h6>
+                    <div class="c-jbxxrjd ml15">
+                        <div class="mb35" ng-repeat="list in surveyingList">
+                            <p class="c-jbxxrjdp">
+                                <i ng-class="list.isAccomplish==1?'c-jbxxriy mr10 c-iconfont':'c-jbxxrin mr15 c-iconfont'"></i>{{list.name}}
+                                <a ng-if="!list.accomplishTime&&(list.name=='测绘'||list.name=='签约'||list.name=='初步沟通')" href="javascript:" class="fr" ng-click="showTime(list)">完成时间</a>
+                                <a ng-if="list.accomplishTime&&(list.name=='测绘'||list.name=='签约'||list.name=='初步沟通')" href="javascript:" class="fr" ng-click="showTime(list)">修改时间</a>
+                            </p>
+                            <p class="c-jbxxrjdp pl35">{{list.accomplishTime| date:'yyyy-MM-dd'}}</p>
+                            <div ng-repeat="sub in list.sublevel">
+                                <p class="clearfix">
+                                    <i class="c-jbxxrih mr15 c-iconfont"></i>
+                                    <i ng-class="sub.isAccomplish==1?'c-jbxxriy mr10 c-iconfont':'c-jbxxrin mr15 c-iconfont'"></i>{{sub.name}}
+                                    <a ng-if="list.name=='测绘'||list.name=='签约'" href="javascript:" class="fr ml10" ng-click="regCreatetaskist(sub,list)">创建任务</a>
+                                    <a ng-if="!sub.accomplishTime&&(list.name=='测绘'||list.name=='签约')" href="javascript:" class="fr" ng-click="showTime(sub,sub.flag)">完成时间</a>
+                                    <a ng-if="sub.accomplishTime&&(list.name=='测绘'||list.name=='签约')" href="javascript:" class="fr" ng-click="showTime(sub,sub.flag)">修改时间</a>
+                                </p>
+                                <p class="mb15 pl70">{{sub.accomplishTime | date:'yyyy-MM-dd'}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--添加测绘信息-->
+    <div class="dialog supperme">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w1080 radius hop-cont" style="max-width:1300px;width:1300px;overflow:scroll">
+            <form action="" name="form">
+                <div class="back-white">
+                    <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                        <em class="left fs18 c3">添加测绘信息</em>
+                        <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+                    </h3>
+                    <div class="pt20 pl30 pr30" style="height:600px;overflow:auto;">
+
+                        <table width="100%" class="back-f5 hop-table lh50 mb20" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <th class="pl30 maincolor w200">编码全称：</th>
+                                <td colspan="2">
+                                    {{(surveydata.splitJointName||'')+(surveydata.code||'')}}
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor w200">是否使用空地：</th>
+                                <td colspan="2">
+                                    <input class="" type="checkbox" ng-model="isBlankflag" ng-change="radios(isBlankflag)">
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- ke yi jia 3 ge wo cao -->
+                        <a href="javascript:void(0)" class="l-addbnt iconfont right mr5" ng-show="saveObjs.length>2?false:true" ng-click="addsaveObjs()"></a>
+                        <a href="javascript:void(0)" class="l-addbnt iconfont right mr5" ng-show="saveObjs.length>1?true:false" style="background-position: -102px -25px;"
+                            ng-click="jiansaveObjs()"></a>
+
+                        <table class="back-f5 hop-table lh50" ng-repeat="i in saveObjs" style="width:100%;">
+                            <tr>
+                                <th class="pl30 maincolor w200">*基底面积(m²)：</th>
+                                <td colspan="2">
+                                    <input type="text" ng-blur="blurs(i.basearea,'basearea')" ng-model="i.basearea" placeholder="请填写....."
+                                        class="l-input w200 w30- bor1c fl"
+                                    />
+                                    <!--<span class="ml15 cred lh34"  ng-if="saveflag.basearea">*请输入基底面积且必须为数字</span>-->
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor w200">*房屋总面积(m²)：</th>
+                                <td colspan="2">
+                                        <!-- onkeyup="if( ! /^-?\d+\.?\d{0,2}$/.test(this.value)){this.value='';}" -->
+                                    <input type="text" ng-blur="blurs(i.areacount,'areacount')" ng-model="i.areacount" placeholder="请填写....."
+                                        class="l-input w200 w30- bor1c fl" 
+                                    />
+                                    <!--<span class="ml15 cred lh34" ng-if="saveflag.areacount">*请输入房屋总面积且必须为数字</span>-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor w200">*层数 ：</th>
+                                <td colspan="2">
+                                    <input type="text" ng-blur="blurs(i.level,'level')"
+                                        ng-model="i.level" placeholder="请填写....." class="l-input w200 w30- bor1c fl" 
+                                    />
+                                    <!--<span class="ml15 cred lh34" ng-if="saveflag.level">*请输入层数且必须为数字</span>-->
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th class="pl30 maincolor w200">测绘报告编号 ：</th>
+                                <td colspan="2">
+                                    <input type="text" ng-blur="blurs(i.surveyCode,'surveyCode')" ng-model="i.surveyCode" placeholder="请填写....."
+                                        class="l-input w200 w30- bor1c fl" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th class="pl30 maincolor w200">测绘栋号 ：</th>
+                                <td colspan="2">
+                                    <input type="text" ng-blur="blurs(i.surveyBuilding,'surveyBuilding')" ng-model="i.surveyBuilding"
+                                        placeholder="请填写....." class="l-input w200 w30- bor1c fl" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th class="pl30 maincolor w200">房屋结构 ：</th>
+                                <td colspan="2">
+                                    <input type="text" ng-blur="blurs(i.buildingStructure,'buildingStructure')" ng-model="i.buildingStructure"
+                                        placeholder="请填写....." class="l-input w200 w30- bor1c fl" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th class="pl30 maincolor w200">用途 ：</th>
+                                <td colspan="2">
+                                    <input type="text" ng-blur="blurs(i.housingPurposes,'housingPurposes')" ng-model="i.housingPurposes"
+                                        placeholder="请填写....." class="l-input w200 w30- bor1c fl" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor w200 h30"></th>
+                            </tr>
+                        </table>
+
+                        <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+
+                            <tr>
+                                <th class="pl30 maincolor w200">房屋照片 ：</th>
+                                <td colspan="2">
+                                    <span class="btn btn-info  fileinput-button radius5 ">
+                                        <span class="c">添加图片</span>
+                                        <input ng-file-select="addannex($files,99)" type="file" />
+                                    </span>
+                                    <span>
+                                        <img class="imgSize" ng-show="housesImgAdd" src="{{hostname+housesImgAdd}}" alt="">
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="pl30 maincolor w200">附件 ：</th>
+                                <td colspan="2">
+                                    <span class="btn btn-info fileinput-button radius5 ">
+                                        <span>添加附件</span>
+                                        <input ng-file-select="addannex($files,98)" type="file" />
+                                    </span>
+                                    <span ng-repeat="a in attachments">
+                                        <span>{{a.fileName}}</span>
+                                        <img src="image/叉号.png" alt="" ng-click="deleteFile($index)">
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                        <!--单层数据 测绘未计内阳台-->
+                        <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0" ng-repeat="n in notmultilevelList">
+                            <tr>
+                                <th class="pl30 maincolor w200">{{n.compensateName+'(㎡)'}}：</th>
+                                <td colspan="2">
+                                    <input type="text" ng-blur="blurs(saveObj.n.nrent,'n.nrent')" ng-model="n.nrent" placeholder="请填写....."
+                                        class="l-input w200 w30- bor1c fl" onkeyup="if( ! /^-?\d+\.?\d{0,2}$/.test(this.value)){this.value='';}"
+                                    />
+                                    <!--<span class="ml15 cred lh34" ng-if="saveflag.n.nrent">*请输入面积且必须为数字</span>-->
+
+                                </td>
+
+                            </tr>
+                        </table>
+
+                        <!--擅改商业-->
+                        <table width="100%" class="back-f5 hop-table lh50 mt20" cellpadding="0" cellspacing="0" ng-repeat="m in multilevelList">
+                            <tr>
+                                <th class="pl30 maincolor w200">{{m.compensateName}} ：</th>
+                                <td>
+                                    <a href="javascript:void(0)" class="l-addbnt iconfont right mr5" ng-click="addLevel($index)"></a>
+                                </td>
+                            </tr>
+                            <tr ng-repeat="a in m.arr">
+                                <td colspan="2" test="{{a}}">
+                                    <span class=" left ml30">
+                                        类型：
+                                        <select name="{{d.isPicture}}" class="z-select select mt5" ng-model="a.myselecttype"
+                                            ng-options="d.id as d.compensateName for d in m.detailsList" ng-change="picOrNor(m.detailsList,a.myselecttype,m.id,$index)">
+                                            <option value="">--请选择--</option>
+                                        </select>
+                                    </span>
+                                    <span class=" left ml5" ng-show="m.status==1">
+                                        现状租金：￥
+                                        <input type="text" class="c-cjszboxBinp" ng-model="a.rentstatus" onkeyup="if( ! /^-?\d+\.?\d{0,2}$/.test(this.value)){this.value='';}"
+                                        />
+                                        <!--<span class="ml15 cred lh34" ng-if="saveflag.balcony">*请输入现状租金且必须为数字</span>-->
+                                    </span>
+                                    <span class="left ml5" ng-show="a.isAreaOr==2">
+                                        面积：
+                                        <input type="text" class="c-cjszboxBinp" ng-model="a.marea" onkeyup="if( ! /^-?\d+\.?\d{0,2}$/.test(this.value)){this.value='';}"
+                                        />㎡
+                                        <!--<span class="ml15 cred lh34" ng-if="saveflag.balcony">*请输入面积且必须为数字</span>-->
+                                    </span>
+                                    
+
+                                    
+                                    <span class="left ml5" ng-show="m.status==3">
+                                            测绘栋号：
+                                            <input type="text" class="c-cjszboxBinp" ng-model="a.surveyCode" />
+                                            <!--<span class="ml15 cred lh34" ng-if="saveflag.balcony">*请输入面积且必须为数字</span>-->
+                                        </span>
+
+                                        <!-- 新增的测绘栋号 -->
+                                    <span class="left ml5" ng-show="m.status==3">
+                                            结构：
+                                            <input type="text" class="c-cjszboxBinp" ng-model="a.structure" />
+                                            <!--<span class="ml15 cred lh34" ng-if="saveflag.balcony">*请输入面积且必须为数字</span>-->
+                                        </span>
+                                    <span class="left ml5" ng-show="m.status==3">
+                                        用途：
+                                        <input type="text" class="c-cjszboxBinp" ng-model="a.purpose" />
+                                        <!--<span class="ml15 cred lh34" ng-if="saveflag.balcony">*请输入面积且必须为数字</span>-->
+                                    </span>
+
+
+                                    <span class=" left ml5 test44 relative" ng-show="m.status==2">
+                                        查伪时间：
+                                        <input type="text" class="test1 c-cjszboxBinp test33 {{'tests'+m.dateclass}}"
+                                            ng-model="a.checkfalsetime" placeholder="1991-08-08" />
+                                        <button class="test2 test44 c-iconfont c-spgltspi t17 right-12 {{'testsParent'+m.dateclass}}" ng-click="addTime('tests'+m.dateclass,'testsParent'+m.dateclass,$index,idx)"></button>
+                                        <!--<span class="ml15 cred lh34" ng-if="saveflag.balcony">*请输入时间</span>-->
+                                    </span>
+                                    <span class="left ml5" ng-show="m.status==1">
+                                        级别：
+                                        <input type="text" class="c-cjszboxBinp" ng-model="a.mstatus" />
+
+                                    </span>
+                                    <span class="left ml5 relative c-inputfiles" ng-show="a.isPicOr==2">
+                                        <i class="c-wyxqlta c-iconfont pointer mr15 pos-abs t15 l0"></i>
+                                        <input ng-file-select="addannex($files,$index,m.id)" type="file" class="pos-abs t10 z-opacity" style="width:30px" />
+                                        <img class="imgSize ml30" ng-src="{{hostname+a.imgUrl}}" alt="">
+                                    </span>
+                                    <span class="left ml30" ng-show="a.myselecttype">
+                                        <a href="" ng-click="deleteArr(m.id,$index)">删除</a>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                        <span>注：A级，某某某街和某某街；B级，某某某街和某某街；C级，某某某街和某某街；</span>
+                        <span class="hop-bntap disblock tc pb55">
+                            <button type="button" class="hop-save disinblock w133 hoptap radius saveDisabled" ng-click="savesurveydata(thumb.imgSrc)">保存</button>
+                            <input type="reset" class="hop-canle dialog-close disinblock w133 hoptap ml20 radius " value="取消">
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--修改测绘信息-->
+    <div class="dialog update">
+        <div class="dialog-bg"></div>
+        <div class="dialog-cont w1080 radius hop-cont" style="max-width:1300px;width:1300px;overflow:scroll">
+            <div class="back-white">
+                <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                    <em class="left fs18 c3">修改测绘信息</em>
+                    <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15" ng-click="cancel()"></a>
+                </h3>
+                <div class="pt20 pl30 pr30" style="height:600px;overflow:auto;">
+
+                    <table width="100%" class="back-f5 hop-table lh50 mb20" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th class="pl30 maincolor w200">编码全称：</th>
+                            <td colspan="2">
+                                <input type="text" ng-model="address+(code?code:'')" readonly class="l-input w500 w30-" />{{surveydata.splitJointName}}{{surveydata.code}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w200">是否使用空地：</th>
+                            <td colspan="2">
+                                <input class="" type="checkbox" ng-model="isBlankflag" ng-change="radios(isBlankflag)">
+                            </td>
+                        </tr>
+                    </table>
+                    
+
+
+                    <!-- ke yi jia 3 ge wo cao -->
+                    <a href="javascript:void(0)" class="l-addbnt iconfont right mr5" ng-show="saveObjs.length>2?false:true" ng-click="addsaveObjs()"></a>
+                    <a href="javascript:void(0)" class="l-addbnt iconfont right mr5" ng-show="saveObjs.length>1?true:false" style="background-position: -102px -25px;"
+                        ng-click="jiansaveObjs()"></a>
+
+                    <table class="back-f5 hop-table lh50" ng-repeat="i in saveObjs" style="width:100%;">
+                        <tr>
+                            <th class="pl30 maincolor w200">*基底面积(m²)：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(i.basearea,'basearea')" ng-model="i.basearea" placeholder="请填写....."
+                                    class="l-input w200 w30- bor1c fl" 
+                                />
+                                <!--<span class="ml15 cred lh34"  ng-if="saveflag.basearea">*请输入基底面积且必须为数字</span>-->
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w200">*房屋总面积(m²)：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(i.areacount,'areacount')" ng-model="i.areacount" placeholder="请填写....."
+                                    class="l-input w200 w30- bor1c fl" 
+                                />
+                                <!--<span class="ml15 cred lh34" ng-if="saveflag.areacount">*请输入房屋总面积且必须为数字</span>-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w200">*层数 ：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(i.level,'level')"
+                                    ng-model="i.level" placeholder="请填写....." class="l-input w200 w30- bor1c fl" 
+                                />
+                                <!--<span class="ml15 cred lh34" ng-if="saveflag.level">*请输入层数且必须为数字</span>-->
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th class="pl30 maincolor w200">测绘报告编号 ：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(i.surveyCode,'surveyCode')" ng-model="i.surveyCode" placeholder="请填写....."
+                                    class="l-input w200 w30- bor1c fl" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th class="pl30 maincolor w200">测绘栋号 ：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(i.surveyBuilding,'surveyBuilding')" ng-model="i.surveyBuilding"
+                                    placeholder="请填写....." class="l-input w200 w30- bor1c fl" />
+                            </td>
+                        </tr>
+                        
+
+                        <tr>
+                            <th class="pl30 maincolor w200">房屋结构 ：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(i.buildingStructure,'buildingStructure')" ng-model="i.buildingStructure"
+                                    placeholder="请填写....." class="l-input w200 w30- bor1c fl" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th class="pl30 maincolor w200">用途 ：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(i.housingPurposes,'housingPurposes')" ng-model="i.housingPurposes"
+                                    placeholder="请填写....." class="l-input w200 w30- bor1c fl" />
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w200 h30"></th>
+                        </tr>
+                    </table>
+                    <!-- 3333333333333ECD -->
+
+
+
+                    <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0">
+
+
+                        <tr>
+                            <th class="pl30 maincolor w200">*房屋照片 ：</th>
+                            <td colspan="2">
+                                <span class="btn btn-info fileinput-button radius5 ">
+                                    <span>添加图片</span>
+                                    <input ng-file-select="addannex($files,99)" type="file" />
+                                </span>
+                                <span>
+                                    <img class="imgSize" src="{{hostname+housesImgAdd}}" alt="">
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl30 maincolor w200">*附件 ：</th>
+                            <td colspan="2">
+                                <span class="btn btn-info fileinput-button radius5 ">
+                                    <span>添加附件</span>
+                                    <input ng-file-select="addannex($files,98)" type="file" />
+                                </span>
+                                <span ng-repeat="a in attachments">
+                                    <span>{{a.fileName}}</span>
+                                    <img src="image/叉号.png" alt="" ng-click="deleteFile($index)">
+                                </span>
+                            </td>
+                        </tr>
+
+                    </table>
+                    <!--单层数据 测绘未计内阳台-->
+                    <table width="100%" class="back-f5 hop-table lh50" cellpadding="0" cellspacing="0" ng-repeat="n in notSublevelList">
+                        <tr>
+                            <th class="pl30 maincolor w200">{{n.compensateName}}：</th>
+                            <td colspan="2">
+                                <input type="text" ng-blur="blurs(saveObj.n.nrent,'n.nrent')" ng-model="n.nrent" placeholder="请填写....."
+                                    class="l-input w500 w30-" onkeyup="if( ! /^-?\d+\.?\d{0,2}$/.test(this.value)){this.value='';}"
+                                />㎡
+                                <span class="ml15 cred lh34" ng-if="saveflag.n.nrent">*请输入面积且必须为数字</span>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--擅改商业-->
+                    <table width="100%" class="back-f5 hop-table lh50 mt20" cellpadding="0" cellspacing="0" ng-repeat="m in multilevelList">
+                        <tr>
+                            <th class="pl30 maincolor w200">{{m.compensateName}} ：</th>
+                            <td>
+                                <a href="javascript:void(0)" class="l-addbnt iconfont right mr5" ng-click="addLevel($index)"></a>
+                            </td>
+                        </tr>
+                        <tr ng-repeat="a in m.arr">
+
+                            <td colspan="2">
+                                <span class="left ml30">
+                                    类型：
+                                    <select class="z-select select mt5" ng-model="a.myselecttype" ng-options="d.id as d.compensateName for d in m.detailsList"
+                                        ng-change="picOrNor(m.detailsList,a.myselecttype,m.id,$index)">
+                                        <option value="">--请选择--</option>
+                                    </select>
+                                </span>
+                                <span class="left ml5" ng-show="m.status=='1'">
+                                    现状租金：￥
+                                    <input type="number" class="c-cjszboxBinp" ng-model="a.rentstatus" onkeyup="if( ! /^-?\d+\.?\d{0,2}$/.test(this.value)){this.value='';}"
+                                    />
+                                </span>
+                                <span class="left ml5" ng-show="a.isAreaOr=='2'">
+                                    面积：
+                                    <input type="number" class="c-cjszboxBinp" ng-model="a.marea" onkeyup="if( ! /^-?\d+\.?\d{0,2}$/.test(this.value)){this.value='';}"
+                                    />㎡
+                                </span>
+                                <!-- 新增的测绘栋号 -->
+                                <span class="left ml5" ng-show="m.status==3">
+                                    测绘栋号：
+                                    <input type="text" class="c-cjszboxBinp" ng-model="a.surveyCode" />
+                                </span>
+
+                                    <!-- 新增的测绘栋号 -->
+                                    <span class="left ml5" ng-show="m.status==3">
+                                            结构：
+                                            <input type="text" class="c-cjszboxBinp" ng-model="a.structure" />
+                                            <!--<span class="ml15 cred lh34" ng-if="saveflag.balcony">*请输入面积且必须为数字</span>-->
+                                        </span>
+                                    <span class="left ml5" ng-show="m.status==3">
+                                        用途：
+                                        <input type="text" class="c-cjszboxBinp" ng-model="a.purpose" />
+                                        <!--<span class="ml15 cred lh34" ng-if="saveflag.balcony">*请输入面积且必须为数字</span>-->
+                                    </span>
+
+                                <span class=" left ml5 relative" ng-show="m.status==2">
+
+                                    查伪时间：
+                                    <input type="text" class="c-cjszboxBinp test33 {{'tests'+m.dateclass}}" ng-model="a.edittime?(a.edittime|date:'yyyy-MM-dd'):''"
+                                        placeholder="1991-08-08" />
+
+                                    <a class="test44 c-iconfont c-spgltspi t17 right-12 {{'testsParent'+m.dateclass}}" ng-click="addTime('tests'+m.dateclass,'testsParent'+m.dateclass,$index,m.id)"></a>
+                                </span>
+                                <span class="left ml5" ng-show="m.status==1">
+                                    级别：
+                                    <input type="text" class="c-cjszboxBinp" ng-model="a.mstatus" />
+                                </span>
+                                <span class="left ml5 relative c-inputfiles" ng-show="a.isPicOr==2">
+                                    <i class="c-wyxqlta c-iconfont pointer mr15 pos-abs t15 l0"></i>
+                                    <input ng-file-select="addannex($files,$index,m.id)" type="file" class="pos-abs t10 z-opacity" style="width:30px" />
+                                    <img class="imgSize ml30" ng-src="{{hostname+a.imgUrl}}" alt="">
+                                </span>
+                                <span class="left ml30" ng-show="a.myselecttype">
+                                    <a href="" ng-click="deleteArr(m.id,$index)">删除</a>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                    <span>注：A级，某某某街和某某街；B级，某某某街和某某街；C级，某某某街和某某街；</span>
+                    <span class="hop-bntap disblock tc pb55">
+                        <button type="button" class="hop-save disinblock w133 hoptap radius saveDisabled" onclick="hopruletab('editCause')">保存</button>
+                        <input type="reset" class="hop-canle dialog-close disinblock w133 hoptap ml20 radius " value="取消" ng-click="cancel()">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="dialog editCause">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w754 radius hop-cont">
+        <div class="back-white">
+            <h3 class="c-xmxqlh border-bottom pl35 fs16 c3">修改原因
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15 mr35" ng-click="causeCancel()"></a>
+            </h3>
+            <div class="c-xmxqlt c-wyxqlt pl35 pr35 pb20 bgf clearfixf pt30">
+                <div class="fs16 c333 lh30">请输入修改原因：
+                    <textarea name="" class="childData1 h80-" id="" cols="30" rows="10" ng-model="remarks"></textarea>
+                </div>
+                <div class="c-adfybtn mt25 ml50 clearfix pb30">
+                    <button class="hop-save disinblock w133 hoptap radius saveDisabled left mr20" ng-click="saveupdatesurvey()">保存</button>
+                    <a class="c-adfybtnb mr20 cf left dialog-close" ng-click="causeCancel()">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="dialog hopbntshare2">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w754 radius hop-cont">
+        <div class="back-white">
+            <h3 class="c-xmxqlh border-bottom pl35 fs16 c3">{{timeflag?'修改时间':'添加完成时间'}}
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15 mr35"></a>
+            </h3>
+            <div class="c-xmxqlt c-wyxqlt pl35 pr35 pb20 bgf clearfixf pt30">
+                <div class="fs16 c333 lh30">{{timeflag?'修改时间:':'完成时间:'}}
+                    <span class="relative mt6 c-spgltspb pointer tc" style="width: 170px;">
+                        <input type="text" class="childData11 h80-" placeholder="选择时间" ng-model="submitTime.accomplishTime">
+                        <i class="c-iconfont c-spgltspi parentData1" ng-click="showTimeSel()"></i>
+                    </span>
+                </div>
+                <div class="fs16 c333 lh30" ng-if="textareaTextflag">请输入原因：
+                    <span class="relative mt6 c-spgltspb pointer tc" style="width: 170px;">
+                        <textarea name="" class="childData1 h80-" id="" cols="30" rows="10" ng-model="submitTime.textareaText"></textarea>
+                    </span>
+                </div>
+                <div class="c-adfybtn mt25 ml50 clearfix pb30">
+                    <a class="c-adfybtna mr20 cf left dialog-close" ng-click="submitTime(timeflag)">保存</a>
+                    <a class="c-adfybtnb mr20 cf left dialog-close" ng-click="submitTime={}">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-foot></app-foot>
+<!--新增-->
+<div class="dialog h-liebiaoone">
+    <div class="dialog-bg"></div>
+    <div class="dialog-cont w1080 radius    hop-cont">
+        <div class="back-white">
+            <h3 class=" lh55 pl20 border-bottom pr20 clearfix">
+                <em class="left fs18 c3" ng-bind="registFlag===2?'重新指派任务':'添加任务'"></em>
+                <a href="javascript:void(0)" class="dialog-close iconfont hop-closebnt right mt15"></a>
+            </h3>
+            <div class="pt20 pl30 pr30">
+                <table width="100%" class="back-f5 lh50" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th class="pl30 maincolor">物业：</th>
+                        <td class="pos-rel">
+                            <input ng-disabled="registFlag===2?true:false" ng-model="add.peopel" ng-focus="addfocus(add.peopel)" ng-blur="addblur(add.peopel)"
+                                placeholder="输入名字" ng-change="addchange(add.peopel)" class="l-input h-inputone border addJoinName"
+                                style="width: 160px;height: 30px;" />
+
+                            <ul class="zj-moaddshijian" style="z-index:999;top: 40px;width: 170px;" ng-if="dimArrFlag">
+                                <li ng-repeat="i in dimArr">
+                                    <a class="bge3f5ff lh24 pt2 pl2 pb2 dis-inlBlo w100-" ng-bind="i.splitJointName" ng-click="alertliAdd($index)">
+
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <span class="cred " ng-if="addflag.peopel">*请选择联系人</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">事件节点：</th>
+                        <td colspan="2" class="fl">
+                            {{parentOption}}，{{childOption}}
+                            <!--<select class="select hop-select w265"-->
+                            <!--ng-disabled="registFlag===2?true:false"-->
+                            <!--ng-options="i.id as i.name for i in initOrder"-->
+                            <!--ng-model="add.parentOption"-->
+                            <!--ng-change="addoptions(add.parentOption)">-->
+                            <!--<option value="">请选择</option>-->
+                            <!--</select>-->
+                            <!--<select class="select hop-select w265"-->
+                            <!--ng-disabled="registFlag===2?true:false"-->
+                            <!--ng-options="i.id as i.name for i in childInitOrder"-->
+                            <!--ng-model="add.childOption"-->
+                            <!--ng-change="addoptionsChild(add.childOption)">-->
+                            <!--<option value="">请选择</option>-->
+                            <!--</select>-->
+                            <!--<span class="cred" ng-if="addflag.select">*请选择事件节点</span>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">指派给：</th>
+                        <td class="pos-rel">
+                            <input ng-model="add.person" ng-focus="addfocus(add.person,2)" ng-blur="addblur(add.person,2)" placeholder="输入名字(限一人)" ng-change="addchange(add.person,2)"
+                                class="l-input h-inputone border addJoinName" style="width: 160px;height: 30px;" />
+
+                            <ul class="zj-moaddshijian" style="z-index: 999; top: 40px;width: 170px;" ng-if="personarrFlag">
+                                <li ng-repeat="i in personarr">
+                                    <a class="bge3f5ff lh24 pt2 pl2 pb2 dis-inlBlo w100-" ng-bind="i.realname" ng-click="alertliAdd($index,2)">
+                                    </a>
+                                </li>
+                            </ul>
+                            <span class="cred " ng-if="addflag.person">*请输入事件说明</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">时间：</th>
+                        <td>
+                            <p class="clearfix">
+                                <span class="left relative mt6 h-spgltspb radius  pointer">
+                                    <input type="text" class="addchildData1 h80-" ng-model="add.date" placeholder="选择开始时间">
+                                    <i class="c-iconfont c-spgltspi addparentData1" ng-click="adddate('addchildData1','addparentData1')"></i>
+                                </span>
+                                <span class="left">
+                                    <em class="h-mywhite ml100"></em>
+                                    <i>空余时间</i>
+                                </span>
+                                <span class="left">
+                                    <em class="h-mywhiteone ml30"></em>
+                                    <i>已占用时间</i>
+                                </span>
+                                </span>
+                                <span class="left">
+                                    <em class="zj-bggreen ml30"></em>
+                                    <i>可用时间</i>
+                                </span>
+                            </p>
+
+                            <table class="h-wdgzulhlc mt10 mb20 mr10 w100- ">
+                                <tr class="lh1">
+                                    <th ng-repeat="i in bodyDataArr" class="tc bor1c co4da3de" ng-click="datachoose($index)" ng-class="{'zjyeloow':i.flagClass,'curpoi':!i.flagClass,'bgf':!i.flagClass,'bggreen':i.clickClass}"
+                                        ng-bind="i.name"></th>
+                                </tr>
+
+                            </table>
+                    </tr>
+                    <tr>
+                        <th class="pl30 maincolor">事件说明：</th>
+                        <td>
+                            <textarea type="text" ng-model="add.things" placeholder="请输入......" ng-blur="addsBlur(add.things)" class="l-input h-inputtwo radius mt10 mb10 border w800 "></textarea>
+                            <div class="cred " ng-if="addflag.things">*请输入事件说明</div>
+                        </td>
+
+                    </tr>
+                </table>
+                <span class="hop-bntap disblock pt30 pb55">
+                    <a href="javascript:void(0)" class="hop-save disinblock w133 hoptap radius" ng-click="addsave(registIndex,registFlag)" ng-bind="registFlag===2?'重新发布':'发布'"></a>
+                    <a href="javascript:void(0)" class="hop-canle disinblock w133 hoptap ml20 radius dialog-close">关闭</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

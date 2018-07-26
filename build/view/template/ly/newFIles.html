@@ -1,0 +1,127 @@
+<app-head></app-head>
+
+<app-left-Column></app-left-Column>
+
+<div class="l-rightsider   pb55">
+    <div class="pl15 pr18 pt15 pb15">
+        <div class="c-csrtop bgf">
+            <ul class="clearfix tc">
+                <li class="c-csrtopli mt10 left"><a class="c-csrtoplicur maincolor" ui-sref="newFiles">项目建设情况</a></li>
+            </ul>
+        </div>
+        <div class="mt15 ml15 mr15  back-white  ">
+            <div class="clearfix border-bottom pl20 pr20">
+                <h3 class="l-managetlt  fs18 left">
+                    <i class="mr5"></i>
+                    <em>项目建设情况</em>
+                </h3>
+            </div>
+            <div class="l-projectbox pt45 pl30 pr30 pb30">
+                    <table class="l-projectable" width="100%">
+                        <tr class="">
+                            <th  class="w200" valign="top"><i class="red">*</i>项目名称：</th>
+                            <td>
+
+                                <input type="text"  name="projectName" validator="required" ng-blur="tips(projectName,'projectName')"  placeholder="请输入......" ng-model="projectName" class="l-projectinput w48- fl" />
+                                <!--<span class="fl ml15 cred lh34" ng-if="flag.projectNameflag">*项目名称不能为空</span>-->
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th  class="w200" valign="top">宗地编号：</th>
+                            <td>
+                                <input type="text" name="projectnumber"  ng-blur="tips(projectnumber,'projectnumber')"  placeholder="请输入......" ng-model="projectnumber" class="l-projectinput w48- fl" />
+                                <!--<span class="fl ml15 cred lh34" ng-if="flag.projectnumberflag">*宗地编号不能为空</span>-->
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th valign="top">项目位置：</th>
+                            <td>
+                    <span class="l-citytap">
+                        <select required="" name="provinceId" class="select l-cityselect fs12  "   ng-model="provinceId"  ng-change="provincetab()" ng-options="value.id as value.name for value in signListP">
+                            <option value="">请选择省</option>
+
+                        </select>
+                        <select name="cityId" class="select l-cityselect fs12  " ng-model="cityId" ng-change="citytab()"  ng-options="value.id as value.name for value in city">
+                            <option value="">请选择市</option>
+
+                        </select>
+                        <select name="areaId" class="select l-cityselect fs12  " ng-model="areaId" ng-change="areatab()" ng-options="value.id as value.name for value in area">
+                            <option value="">请选择区</option>
+
+                        </select>
+                        <span class="relative disinblock w200 ml5" style="height:100%;">
+                            <input type="text" name="roadId" ng-blur="tips(roadId,'roadId')" placeholder="请输入......" ng-model="roadId" class="l-projectinput" style="width: 100%;" />
+
+                        </span>
+                        <!--<span class="ml15 cred lh34" ng-if="flag.provinceIdflag">*请选择省</span>-->
+                        <!--<span class="ml15 cred lh34" ng-if="flag.cityIdflag">*请选择市</span>-->
+                        <!--<span class="ml15 cred lh34" ng-if="flag.areaIdflag">*请选择区</span>-->
+                        <!--<span class="ml15 cred lh34" ng-if="flag.roadIdflag">*详细地址不能为空</span>-->
+                    </span>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th valign="top">拆除范围占地面积(m²)：</th>
+                            <td>
+                            <input type="text" name="areaDemolition" placeholder="请输入......" ng-model="areaDemolition" class="l-projectinput w48- fl"/>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th valign="top">现状建筑面积：</th>
+                            <td>
+                                <input ng-blur="tips(surveyArea,'surveyArea')" placeholder="请输入......"  ng-model="surveyArea" name="surveyArea" class="l-projectinput w48- fl" type="text" />
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th valign="top">规划容积率：</th>
+                            <td>
+                                <input placeholder="请输入......"  name="plannedVolumeRatio" ng-model="plannedVolumeRatio" class="l-projectinput w48- fl" type="number" onkeyup= "if( ! /^-?\d+\.?\d{0,2}$/.test(this.value)){this.value='';}"/>
+                                <!--<span class="fl ml15 cred lh34" ng-if="flag.plannedVolumeRatioflag">*规划容积率不能为空</span>-->
+                                <!--<span class="fl ml15 cred lh34" ng-if="flag.plannedVolumeRatioNumflag">*规划容积率不能负</span>-->
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th valign="top">规划建筑面积(㎡)：</th>
+                            <td>
+                                <input type="text" ng-blur="tips(planningFloorArea,'planningFloorArea')" placeholder="请输入......"  ng-model="planningFloorArea" name="planningFloorArea" class="l-projectinput w48- fl"/>
+                                <!--<span class="fl ml15 cred lh34" ng-if="flag.planningFloorAreaflag">*规划建筑面积不能为空</span>-->
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <th>
+                                <input type="text" placeholder="框架协议" class="l-projectinput mr5" ng-model="agreementName">签署时间：</th>
+                            <td>
+                        <span class="relative disblock l-timed w210 test2" ng-click="mychange()">
+                            <input  type="text" placeholder="请输入......"   class="l-projectinput test1" ng-model="startTime" />
+                        </span>
+                            </td>
+                            <td>
+
+                            </td>
+                        <tr>
+                            <th></th>
+                            <td>
+                        <span class="hop-bntap disblock pt40 pb55">
+                            <input type="submit" ng-click="saveSubMit()" class="hop-save disinblock w133 hoptap radius "value="保存"/>
+                            <input type="reset"  ng-click="freturn()" class="hop-canle disinblock w133 hoptap ml20 radius " value="取消">
+                        </span>
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                    </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

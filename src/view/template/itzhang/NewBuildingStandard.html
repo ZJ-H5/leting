@@ -1,0 +1,170 @@
+<app-head></app-head>
+<div app-left></div>
+
+<div class="l-rightsider pb55">
+    <!--/*&lt;!&ndash;新增物业（区栋标准）&ndash;&gt;*/-->
+    <div class="c-csrtop bgf">
+        <ul class="clearfix">
+            <li class="c-csrtopli mt10 left"><a class="fs14 ml28 tl c-csrtoplicur" ng-click="locationInformation()">物业信息</a></li>
+        </ul>
+    </div>
+    <div class="c-csrbd bgf mt15 mr15 mb15 ml15  pb40">
+        <div class="c-csrbdt c-adfyt pt25 pb15 clearfix pl30 pr30">
+            <a class="c-csrbdta left fs18 c6 mr35 pl5" >物业信息</a>
+        </div>
+        <ul class="mt40 ml50 mr30 clearfix ulParents">
+
+            <li class="c-adfyli pl25 clearfix" ng-show="flag[0].quflag">
+                <span class="c-adfylispA tl left">所属<span ng-bind="flag[0].titleName?flag[0].titleName:''"></span>：</span>
+                <span class="c-adfylispB left">
+                    <select class="c-adfylisl mt5 select select0"  ng-options="indx.id as indx.objName for indx in flag[0].selectval" ng-model="flag[0].topselect.id" ng-change="tips(flag[0].topselect.id,0)">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span class="fs12 ml17 cred spanflag" ng-show="flag[0].spanflag">* 请选择<span ng-bind="flag[0].titleName?flag[0].titleName:''"></span></span>
+            </li>
+
+            <li class="c-adfyli pl25 clearfix" ng-show="flag[1].quflag">
+                <span class="c-adfylispA tl left">所属<span ng-bind="flag[1].titleName?flag[1].titleName:''"></span>：</span>
+                <span class="c-adfylispB left">
+                    <select class="c-adfylisl mt5 select select1"  ng-options="indx.id as indx.objName for indx in flag[1].selectval" ng-model="flag[1].topselect.id" ng-change="tips(flag[1].topselect.id,1)">
+                        <option value="">请选择</option>
+                        <!--<option useid="{{flag[0].topselect.id}}" value="" ng-bind="flag[0].topselect.objName"></option>-->
+                    </select>
+                </span>
+                <span class="fs12 ml17 cred spanflag" ng-show="flag[1].spanflag">* 请选择<span ng-bind="flag[1].titleName?flag[1].titleName:''"></span></span>
+            </li>
+
+
+            <li class="c-adfyli pl25 clearfix" ng-show="flag[2].quflag">
+                <span class="c-adfylispA tl left">所属<span ng-bind="flag[2].titleName?flag[2].titleName:''"></span>：</span>
+                <span class="c-adfylispB left">
+                    <select class="c-adfylisl mt5 select select2" ng-options="indx.id as indx.objName for indx in flag[2].selectval" ng-model="flag[2].topselect.id" ng-change="tips(flag[2].topselect.id,2)">
+                        <!--<option useid="{{flag[1].topselect.id}}"  value=""  >-请选择-</option>-->
+                        <option value="">请选择</option>
+                        <!--<option useid="{{flag[1].topselect.id}}"  value=""  ng-bind="flag[1].topselect.objName"></option>-->
+                    </select>
+                </span>
+                <span class="fs12 ml17 cred spanflag" ng-show="flag[2].spanflag">* 请选择<span ng-bind="flag[2].titleName?flag[2].titleName:''"></span></span>
+            </li>
+            <li class="c-adfyli pl25 clearfix" ng-show="flag[3].quflag">
+                <span class="c-adfylispA tl left">所属<span ng-bind="flag[3].titleName?flag[3].titleName:''"></span>：</span>
+                <span class="c-adfylispB left">
+                    <select class="c-adfylisl mt5 select select3"  ng-options="indx.id as indx.objName for indx in flag[3].selectval" ng-model="flag[3].topselect.id" ng-change="tips(flag[3].topselect.id,3)">
+                        <option value="">请选择</option>
+                        <!--<option value="" useid="{{flag[2].topselect.id}}" ng-bind="flag[2].topselect.objName"></option>-->
+                    </select>
+                </span>
+                <span class="fs12 ml17 cred spanflag" ng-show="flag[3].spanflag">* 请选择<span ng-bind="flag[3].titleName?flag[3].titleName:''"></span></span>
+            </li>
+            <li class="c-adfyli pl25 clearfix" ng-show="flag[4].quflag">
+                <span class="c-adfylispA tl left">所属<span ng-bind="flag[4].titleName?flag[4].titleName:''"></span>：</span>
+                <span class="c-adfylispB left">
+                    <select class="c-adfylisl mt5 select select4"  ng-options="indx.id as indx.objName for indx in flag[4].selectval" ng-model="flag[4].topselect.id" ng-change="tips(flag[4].topselect.id,4)">
+                        <option value="">请选择</option>
+                        <!--<option value="" useid="{{flag[3].topselect.id}}" ng-bind="flag[3].topselect.objName"></option>-->
+                    </select>
+                </span>
+                <span class="fs12 ml17 cred spanflag" ng-show="flag[4].spanflag">* 请选择<span ng-bind="flag[4].titleName?flag[4].titleName:''"></span></span>
+            </li>
+
+
+            <li class="c-adfyli pl25 clearfix" ng-show="whether===1?true:false">
+                <span class="c-adfylispA tl left">房号：</span>
+                <span class="c-adfylispB left">
+                    <input class="c-adfyliinp code"  ng-blur="tips(interfaces.code,'code')" type="text" placeholder="请输入..." ng-model="interfaces.code">
+                </span>
+                <span class="fs12 ml17 cred spanflag" ng-show="tops.code">* 请输入房号</span>
+            </li>
+            <li class="c-adfyli pl25 clearfix">
+                <span class="c-adfylispA tl left">地址：</span>
+                <span class="c-adfylispB left">
+                    <input class="c-adfyliinp address"  ng-blur="tips(interfaces.address,'address')" type="text"  placeholder="请输入..." ng-model="interfaces.address">
+                </span>
+                <span class="fs12 ml17 cred spanflag" ng-show="tops.address">* 请输入地址</span>
+            </li>
+
+            <li class="c-adfyli pl25 clearfix">
+                <span class="c-adfylispA tl left">权利人：</span>
+                <span class="c-adfylispB left">
+                    <input class="c-adfyliinp houseUser"  ng-blur="tips(interfaces.houseUser,'houseUser')" type="text" placeholder="请输入..." ng-model="interfaces.houseUser">
+                </span>
+                <!--<span class="fs12 ml17 cred spanflag" ng-show="tops.houseUser">* 请输入权利人</span>-->
+            </li>
+
+
+            <li class="c-adfyli pl25 clearfix" ng-show="settingsList.length>0?true:false">
+                <span class="c-adfylispA tl left">用地性质：</span>
+                <span class="c-adfylispB left">
+                    <select class="c-adfylisl mt5 select"   ng-options="indx.name as indx.name for indx in settingsList" ng-model="setval" ng-change="tips(setval,'settabute')">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <!--<span class="fs12 ml17 cred spanflag" ng-show="tops.settabute">* 请设置用地性质</span>-->
+            </li>
+
+            <li class="c-adfyli pl25 clearfix">
+                    <span class="c-adfylispA tl left">基底面积：</span>
+                    <span class="c-adfylispB left">
+                        <input class="c-adfyliinp landArea"  ng-blur="tips(interfaces.landArea,'landArea')" onkeyup= "if( ! /^-?\d+\.?\d{0,2}$/.test(this.value)){this.value='';}" type="number" placeholder="请输入..." ng-model="interfaces.landArea">
+                    </span>
+                    <!--<span class="fs12 ml17 cred spanflag" ng-show="tops.landArea">* 请输入基底面积</span>-->
+                </li>
+                <li class="c-adfyli pl25 clearfix">
+                    <span class="c-adfylispA tl left">物业面积：</span>
+                    <span class="c-adfylispB left">
+                        <input class="c-adfyliinp registerArea"  ng-blur="tips(interfaces.registerArea,'registerArea')" onkeyup= "if( ! /^-?\d+\.?\d{0,2}$/.test(this.value)){this.value='';}" type="number" placeholder="请输入..." ng-model="interfaces.registerArea">
+                    </span>
+                    <!--<span class="fs12 ml17 cred spanflag" ng-show="tops.registerArea">* 请输入物业面积</span>-->
+                </li>
+
+            <li class="c-adfyli pl25 clearfix">
+                <span class="c-adfylispA tl left">产权资料名称：</span>
+                <span class="c-adfylispB left">
+                    <input class="c-adfyliinp landCircumstances"  ng-blur="tips(interfaces.propertyRightDatumName,'propertyRightDatumName')" type="text" placeholder="请输入..." ng-model="interfaces.propertyRightDatumName">
+                </span>
+                <!--<span class="fs12 ml17 cred spanflag" ng-show="tops.propertyRightDatumName">* 请输入产权资料名称</span>-->
+            </li>
+
+            <li class="c-adfyli pl25 clearfix">
+                <span class="c-adfylispA tl left">土地证号：</span>
+                <span class="c-adfylispB left">
+                    <input class="c-adfyliinp landCertificate"  ng-blur="tips(interfaces.landCertificate,'landCertificate')" type="text" placeholder="请输入..." ng-model="interfaces.landCertificate">
+                </span>
+                <!--<span class="fs12 ml17 cred spanflag" ng-show="tops.landCertificate">* 请输入土地证内容</span>-->
+            </li>
+
+            <li class="c-adfyli pl25 clearfix">
+                <span class="c-adfylispA tl left">房产证号：</span>
+                <span class="c-adfylispB left">
+                    <input class="c-adfyliinp houseCertificate"  ng-blur="tips(interfaces.houseCertificate,'houseCertificate')" type="text" placeholder="请输入..." ng-model="interfaces.houseCertificate">
+                </span>
+                <!--<span class="fs12 ml17 cred spanflag" ng-show="tops.houseCertificate">* 请输入房地产证号</span>-->
+            </li>
+            <li class="c-adfyli pl25 clearfix">
+                <span class="c-adfylispA tl left">报建信息：</span>
+                <span class="c-adfylispB left">
+                    <input class="c-adfyliinp reportForConstruction"  ng-blur="tips(interfaces.reportForConstruction,'reportForConstruction')" type="text" placeholder="请输入..." ng-model="interfaces.reportForConstruction">
+                </span>
+                <!--<span class="fs12 ml17 cred spanflag" ng-show="tops.reportForConstruction">* 请输入房地产证号</span>-->
+            </li>
+            <li class="c-adfyli pl25 clearfix">
+                <span class="c-adfylispA tl left">其它</span>
+                <span class="c-adfylispB left">
+                    <input class="c-adfyliinp other"  ng-blur="tips(interfaces.other,'other')" type="text" placeholder="请输入..." ng-model="interfaces.other">
+                </span>
+                <!--<span class="fs12 ml17 cred spanflag" ng-show="tops.other">* 请输入房地产证号</span>-->
+            </li>
+
+           
+
+        </ul>
+
+        <div class="c-adfybtn mt25 ml50 clearfix">
+            <a class="c-adfybtna mr20 cf left" href="" ng-click="save()">保存</a>
+            <a class="c-adfybtnb mr20 cf left" ui-sref="propertyInfo({projectid:projectlocation})">取消</a>
+        </div>
+
+    </div>
+</div>
+

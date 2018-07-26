@@ -1,0 +1,1 @@
+"use strict";angular.module("app").directive("appDemolitionRightBody",["cache",function(t){return{restrict:"A",replace:!0,templateUrl:"view/template/ct/demolitionRightBody.html"}}]);

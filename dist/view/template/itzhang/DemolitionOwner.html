@@ -1,0 +1,25 @@
+<app-head></app-head>
+
+<div app-left></div>
+
+<!--main-->
+<div class="l-rightsider pb55">
+
+    <div class="pl15 pr18 pt15 pb15">
+        <div class="  back-white pl30 pr30 pb30 clearfix">
+            <top-pact-information list="{{list}}"></top-pact-information>
+        </div>
+
+        <!--7个格子-->
+        <ul class="c-chbul h-cwgispxx mt15 back-white clearfix">
+            <li class="left"><a class="tc disblock ahover zj-NavAColor"  ui-sref="DemolitionDetails({projectid:projectId,roomId:roomId})">总览</a></li>
+            <li class="left"><a class="tc disblock ahover zj-NavAColor"  ui-sref="Demolitioninformation({projectid:projectId,roomId:roomId})">拆除信息</a></li>
+            <li class="left"><a class="tc disblock ahover zj-NavAColor" ui-sref="DemolitionMapingInfromation({projectid:projectId,roomId:roomId})">测绘信息</a></li>
+            <li class="left"><a class="tc disblock ahover " ui-sref="DemolitionOwner({projectid:projectId,roomId:roomId})">业权人</a></li>
+            <li class="left"><a class="tc disblock ahover zj-NavAColor" ui-sref="DemolitionAttachment({projectid:projectId,roomId:roomId})">物业附件</a></li>
+        </ul>
+        <owner-show listtop="{{listtop}}"></owner-show>
+    </div>
+
+
+</div>
